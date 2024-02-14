@@ -1,5 +1,7 @@
 package edu.esprit.entities;
 
+import edu.esprit.services.IService;
+
 import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.Objects;
@@ -120,4 +122,5 @@ public class Tache {
                 ", etat_T=" + etat_T +
                 '}';
     }
+
 }
