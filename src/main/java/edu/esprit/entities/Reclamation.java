@@ -1,14 +1,12 @@
 package edu.esprit.entities;
 
-import edu.esprit.services.IService;
-
 import java.util.Objects;
-
+import java.util.Date;
 public class Reclamation{
     private int id_reclamation;
     private int id_user;
     private int id_muni;
-    private String date_reclamation;
+    private Date date_reclamation;
     private String type_reclamation;
     private String description_reclamation;
     private String status_reclamation;
@@ -17,7 +15,7 @@ public class Reclamation{
     public Reclamation(){
 
     }
-    public Reclamation(int id_user, int id_muni, String date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
+    public Reclamation(int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
         this.id_user = id_user;
         this.id_muni = id_muni;
         this.date_reclamation = date_reclamation;
@@ -28,7 +26,7 @@ public class Reclamation{
         this.adresse_reclamation = adresse_reclamation;
     }
 
-    public Reclamation(int id_reclamation, int id_user, int id_muni, String date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
+    public Reclamation(int id_reclamation, int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
         this.id_user = id_user;
         this.id_muni = id_muni;
@@ -64,11 +62,11 @@ public class Reclamation{
         this.id_muni = id_muni;
     }
 
-    public String getDate_reclamation() {
-        return date_reclamation;
+    public java.sql.Date getDate_reclamation() {
+        return (java.sql.Date) date_reclamation;
     }
 
-    public void setDate_reclamation(String date_reclamation) {
+    public void setDate_reclamation(Date date_reclamation) {
         this.date_reclamation = date_reclamation;
     }
 

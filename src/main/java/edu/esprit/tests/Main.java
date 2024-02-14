@@ -1,12 +1,16 @@
 package edu.esprit.tests;
 
+import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceReclamation;
 import edu.esprit.utils.DataSource;
-
+import java.util.Date;
 import javax.xml.crypto.Data;
 
 public class Main {
     public static void main(String[] args) {
-        DataSource ds= new DataSource();
+        ServiceReclamation sr = new ServiceReclamation();
+        java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+        sr.ajouter(new Reclamation(12,5,sqlDate,"urgent","test","test","test","test"));
 
     }
 }
