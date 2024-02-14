@@ -3,10 +3,8 @@ package edu.esprit.services;
 import edu.esprit.entities.Publicite;
 import edu.esprit.utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -79,11 +77,51 @@ public class ServicePublicite implements IService<Publicite> {
 
     @Override
     public Set<Publicite> getAll() {
-        return null;
+        Set<Publicite> publicites = new HashSet<>();
+
+        String req = "Select * from publicite";
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                int id_pub = rs.getInt("id_pub");
+                String titre_pub = rs.getString("titre_pub");
+                String description_pub = rs.getString("description_pub");
+                int contact_pub = rs.getInt("contact_pub");
+                String localisation_pub = rs.getString("localisation_pub");
+                String image_pub = rs.getString("image_pub");
+                int id_user = rs.getInt("id_user");
+                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,id_user);
+                publicites.add(pub);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return publicites;
+
     }
 
     @Override
     public Publicite getOneByID(int id) {
+        String req = "SELECT * FROM `publicite` WHERE `id_pub`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String titre_pub = rs.getString("titre_pub");
+                String description_pub = rs.getString("description_pub");
+                int contact_pub = rs.getInt("contact_pub");
+                String localisation_pub = rs.getString("localisation_pub");
+                String image_pub = rs.getString("image_pub");
+                int id_user = rs.getInt("id_user");
+                return new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,id_user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
+
 }
