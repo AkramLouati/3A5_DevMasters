@@ -70,5 +70,5 @@ public class Vote {
     public int hashCode() {
         return Objects.hash(getId());
     }
-    
+
 }
