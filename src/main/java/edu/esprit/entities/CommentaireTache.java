@@ -22,6 +22,9 @@ public class CommentaireTache{
         this.date_FT = date_FT;
     }
 
+    public CommentaireTache(int id, int idUser, int idT, java.sql.Date dateC, String texteC) {
+    }
+
     public int getId_C() {
         return id_C;
     }
