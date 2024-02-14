@@ -11,6 +11,7 @@ public class Main {
         ServicePublicite sp = new ServicePublicite();
        // sp.ajouter(new Publicite("dd","aa",123,"aa","aaaaaaaaaaaa",10));
         //sp.modifier(new Publicite(, "amine", "yahyaoui", 987654, "la petite ariana","a",1));
+        sp.supprimer(451);
         System.out.println(sp.getAll());
     }
 }
