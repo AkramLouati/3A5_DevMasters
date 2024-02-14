@@ -3,9 +3,9 @@ package edu.esprit.services;
 import edu.esprit.entities.EndUser;
 import edu.esprit.utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import javax.swing.plaf.nimbus.State;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceUser implements IService<EndUser> {
@@ -44,6 +44,30 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public Set<EndUser> getAll() {
+        Set<EndUser> users = new HashSet<>();
+        String req = "Select * from endUser";
+
+        Statement st = null;
+        try {
+            st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while(rs.next()){
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String email = rs.getString("email_user");
+                String password = rs.getString("password");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                String id_muni = rs.getString("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,id_muni,location,image);
+                users.add(p);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return null;
     }
 
