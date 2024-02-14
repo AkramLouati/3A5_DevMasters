@@ -25,6 +25,7 @@ public class ServiceUser implements IService<EndUser> {
             ps.setString(6, endUser.getLocation());
             ps.setString(7, endUser.getImage());
             ps.executeUpdate();
+            System.out.printf("User added!!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

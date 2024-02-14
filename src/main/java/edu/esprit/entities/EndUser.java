@@ -17,8 +17,8 @@ public class EndUser {
         this.nom = nom;
     }
 
-    public EndUser(int id, String nom, String email, String password, String type, String phoneNumber, String id_muni, String location,String image) {
-        this.id = id;
+    public EndUser(String email, String nom, String password, String type, String phoneNumber, String id_muni, String location,String image) {
+        this.email = email;
         this.nom = nom;
         this.email = email;
         this.password = password;
