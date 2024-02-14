@@ -10,7 +10,6 @@ public class Main {
     public static void main(String[] args) {
         ServiceReclamation sr = new ServiceReclamation();
         java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-        sr.ajouter(new Reclamation(12,5,sqlDate,"urgent","test","test","test","test"));
-
+        System.out.println(sr.getAll());
     }
 }
