@@ -7,12 +7,15 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class serviceCommentaireTache implements IService<CommentaireTache> {
+public class serviceCommentaireTache implements IGTache<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public boolean ajouter(CommentaireTache commentaireTache) {
+        if (!isValid(commentaireTache)) {
+            return false;
+        }
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -22,14 +25,18 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
             ps.setString(4, commentaireTache.getText_C());
             ps.executeUpdate();
             System.out.println("Comment added successfully!");
+            return true;
         } catch (SQLException e) {
             System.out.println("Error adding comment: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     @Override
     public void modifier(CommentaireTache commentaireTache) {
+        if (!isValid(commentaireTache)) {
+            return;
+        }
         String req = "UPDATE commentairetache SET id_user=?, id_T=?, date_C=?, texte_C=? WHERE id_C=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -109,14 +116,22 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
         }
         return null;
     }
-    public boolean isValidCommentaireTache(CommentaireTache commentaireTache) {
+        @Override
+        public boolean isValid(CommentaireTache commentaireTache) {
         // Vérifier si l'utilisateur, le texte du commentaire et l'ID de la tâche sont valides
-        if (commentaireTache.getId_user() <= 0 ||
-                commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty() ||
-                commentaireTache.getId_T() <= 0||
-                commentaireTache.getDate_C() == null) {
+        if (commentaireTache.getId_user() <= 0) {
+            System.out.println("Error: User ID is required and must be greater than 0.");
+            return false;
+        }
+        if (commentaireTache.getId_T() <= 0) {
+            System.out.println("Error: Task ID is required and must be greater than 0.");
+            return false;
+        }
+        if (commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty()) {
+            System.out.println("Error: Comment text is required.");
             return false;
         }
         return true;
     }
+
 }

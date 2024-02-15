@@ -1,9 +1,13 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.CommentaireTache;
+
 import java.util.Set;
 
-public interface IService<T> {
+public interface IGTache<T> {
     public boolean ajouter(T t);
+
+    public boolean addComment(T t);
 
     public void modifier(T t);
 
@@ -12,4 +16,5 @@ public interface IService<T> {
     public Set<T> getAll();
 
     public T getOneByID(int id);
+    public  boolean isValid(T t);
 }
