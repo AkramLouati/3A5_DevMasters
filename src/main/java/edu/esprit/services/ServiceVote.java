@@ -1,30 +1,102 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.Vote;
+import edu.esprit.utils.DataSource;
+
 import java.util.Set;
 
-public class ServiceVote implements IService {
-    @Override
-    public void ajouter(Object o) {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
+public class ServiceVote implements IService<Vote> {
+    Connection cnx = DataSource.getInstance().getCnx();
+
+    @Override
+    public void ajouter(Vote vote) {
+        String req = "INSERT INTO vote (id_user, desc_E, date_SV) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, vote.getId_user());
+            ps.setString(2, vote.getDesc_E());
+            ps.setString(3, vote.getDate_SV());
+            ps.executeUpdate();
+            System.out.println("Vote added !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public void modifier(Object o) {
-
+    public void modifier(Vote vote) {
+        String req = "UPDATE vote SET id_user=?, desc_E=?, date_SV=? WHERE id_V=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, vote.getId_user());
+            ps.setString(2, vote.getDesc_E());
+            ps.setString(3, vote.getDate_SV());
+            ps.setInt(4, vote.getId_V());
+            ps.executeUpdate();
+            System.out.println("Vote updated !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void supprimer(int id) {
-
+        String req = "DELETE FROM vote WHERE id_V=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Vote deleted !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public Set getAll() {
-        return null;
+    public Set<Vote> getAll() {
+        Set<Vote> votes = new HashSet<>();
+        String req = "SELECT * FROM vote";
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                int id_V = rs.getInt("id_V");
+                int id_user = rs.getInt("id_user");
+                String desc_E = rs.getString("desc_E");
+                String date_SV = rs.getString("date_SV");
+                Vote vote = new Vote(id_V, id_user, desc_E, date_SV);
+                votes.add(vote);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return votes;
     }
 
     @Override
-    public Object getOneByID(int id) {
+    public Vote getOneByID(int id) {
+        String req = "SELECT * FROM vote WHERE id_V=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id_user = rs.getInt("id_user");
+                String desc_E = rs.getString("desc_E");
+                String date_SV = rs.getString("date_SV");
+                return new Vote(id, id_user, desc_E, date_SV);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 }

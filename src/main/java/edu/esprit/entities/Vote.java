@@ -6,28 +6,33 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Vote {
-    private int id;
-    private int id_user;
-    private String description;
-    private String dateSoummission;
+private int id_V;
+private int id_user;
+private String desc_E;
+private String date_SV;
 
-    public Vote(){
-
+    public Vote() {
     }
 
-    public Vote(int id, int id_user, String description, String dateSoummission) {
-        this.id = id;
+    public Vote(int id_V, int id_user, String desc_E, String date_SV) {
+        this.id_V = id_V;
         this.id_user = id_user;
-        this.description = description;
-        this.dateSoummission = dateSoummission;
+        this.desc_E = desc_E;
+        this.date_SV = date_SV;
     }
 
-    public int getId() {
-        return id;
+    public Vote(int id_user, String desc_E, String date_SV) {
+        this.id_user = id_user;
+        this.desc_E = desc_E;
+        this.date_SV = date_SV;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId_V() {
+        return id_V;
+    }
+
+    public void setId_V(int id_V) {
+        this.id_V = id_V;
     }
 
     public int getId_user() {
@@ -38,27 +43,29 @@ public class Vote {
         this.id_user = id_user;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc_E() {
+        return desc_E;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc_E(String desc_E) {
+        this.desc_E = desc_E;
     }
 
-    public String getDateSoummission() {
-        return dateSoummission;
+    public String getDate_SV() {
+        return date_SV;
     }
 
-    public void setDateSoummission(String dateSoummission) {
-        this.dateSoummission = dateSoummission;
+    public void setDate_SV(String date_SV) {
+        this.date_SV = date_SV;
     }
 
     @Override
     public String toString() {
         return "Vote{" +
-                "description='" + description + '\'' +
-                ", dateSoummission='" + dateSoummission + '\'' +
+                "id_V=" + id_V +
+                ", id_user=" + id_user +
+                ", desc_E='" + desc_E + '\'' +
+                ", date_SV='" + date_SV + '\'' +
                 '}';
     }
 
@@ -66,12 +73,11 @@ public class Vote {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vote vote)) return false;
-        return getId() == vote.getId();
+        return getId_V() == vote.getId_V();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getId_V());
     }
-
 }
