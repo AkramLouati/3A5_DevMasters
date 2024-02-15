@@ -35,6 +35,23 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public void modifier(EndUser endUser) {
+        String req = "UPDATE `enduser` SET `nom_user`=?, `email_user`=?, `type_user`=?, `phoneNumber_user`=?, `id_muni`=?, `location_user`=?, `image_user`=?, `password`=? WHERE `id_user`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, endUser.getNom());
+            ps.setString(2, endUser.getEmail());
+            ps.setString(3, endUser.getType());
+            ps.setString(4, endUser.getPhoneNumber());
+            ps.setString(5, endUser.getId_muni());
+            ps.setString(6, endUser.getLocation());
+            ps.setString(7, endUser.getImage());
+            ps.setString(8, endUser.getPassword());
+            ps.setInt(9, endUser.getId()); // Assuming `id_user` is the primary key
+            ps.executeUpdate();
+            System.out.println("User updated!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
