@@ -13,5 +13,6 @@ public class Main {
         //Reclamation reclamation = new Reclamation(2, 12, 5, sqlDate, "non urgent", "test0", "test0", "test0", "tes0");
         //sr.modifier(reclamation);
         //sr.supprimer(2);
+        //System.out.println(sr.getOneByID(3));
     }
 }
