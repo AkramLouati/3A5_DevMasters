@@ -31,11 +31,53 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
 
     }
+    private boolean reclamationExists(int id_reclamation) {
+        String req = "SELECT COUNT(*) FROM `reclamation` WHERE `id_reclamation`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id_reclamation);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0; // Returns true if the ID exists
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false; // Default to false in case of an exception
+    }
+
+
 
     @Override
     public void modifier(Reclamation reclamation) {
-
+        if (reclamationExists(reclamation.getId_reclamation())) {
+            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `status_reclamation`=?, `image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, reclamation.getId_user());
+                ps.setInt(2, reclamation.getId_muni());
+                ps.setDate(3, reclamation.getDate_reclamation());
+                ps.setString(4, reclamation.getType_reclamation());
+                ps.setString(5, reclamation.getDescription_reclamation());
+                ps.setString(6, reclamation.getStatus_reclamation());
+                ps.setString(7, reclamation.getImage_reclamation());
+                ps.setString(8, reclamation.getAdresse_reclamation());
+                ps.setInt(9, reclamation.getId_reclamation());
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Reclamation with ID " + reclamation.getId_reclamation() + " modified successfully!");
+                } else {
+                    System.out.println("Failed to modify reclamation with ID " + reclamation.getId_reclamation() + ". Reclamation not found.");
+                }
+            } catch (SQLException e) {
+                System.out.println("Failed to modify reclamation with ID " + reclamation.getId_reclamation() + ". Error: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Reclamation with ID " + reclamation.getId_reclamation() + " does not exist.");
+        }
     }
+
 
     @Override
     public void supprimer(int id) {

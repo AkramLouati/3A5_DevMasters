@@ -12,7 +12,7 @@ public class Reclamation{
     private String status_reclamation;
     private String image_reclamation;
     private String adresse_reclamation;
-    public Reclamation(){
+    public Reclamation(int idUser, int idMuni, int i, java.sql.Date sqlDate, String nonUrgent, String test0, String imageReclamation, String adresseReclamation){
 
     }
     public Reclamation(int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
@@ -26,7 +26,7 @@ public class Reclamation{
         this.adresse_reclamation = adresse_reclamation;
     }
 
-    public Reclamation(int id_reclamation, int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
+    public Reclamation(int id_reclamation, int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation,String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
         this.id_user = id_user;
         this.id_muni = id_muni;
