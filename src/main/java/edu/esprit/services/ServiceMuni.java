@@ -45,7 +45,19 @@ public class ServiceMuni implements IService<Muni>{
 
     @Override
     public void supprimer(int id) {
-
+        String req = "DELETE FROM `muni` WHERE `id_muni` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Muni with ID " + id + " deleted successfully.");
+            } else {
+                System.out.println("No Muni found with ID " + id + ". Nothing deleted.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
