@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Actualite;
+
 import edu.esprit.entities.Publicite;
 import edu.esprit.utils.DataSource;
 
@@ -31,7 +32,47 @@ public class ServiceActualite implements IService<Actualite>{
 
     @Override
     public void modifier(Actualite actualite) {
+        // Check if the specified ID exists before attempting to update
+        if (actualiteExists(actualite.getId_a())) {
+            // Check if the new id_a value exists in the actualite table
+            if (actualiteExists(actualite.getId_a())) {
+                String req = "UPDATE `actualite` SET `titre_a`=?, `description_a`=?, `date_a`=?, `image_a`=? , `id_muni`=? WHERE `id_a`=?";
+                try {
+                    PreparedStatement ps = cnx.prepareStatement(req);
+                    ps.setString(1, actualite.getTitre_a());
+                    ps.setString(2, actualite.getDescription_a());
+                    ps.setDate(3, new java.sql.Date(actualite.getDate_a().getTime())); // Use new Date object
+                    ps.setString(4, actualite.getImage_a());
+                    ps.setInt(5, actualite.getId_muni());
+                    ps.setInt(6, actualite.getId_a());
+                    ps.executeUpdate();
+                    System.out.println("Actualite with ID " + actualite.getId_a() + " modified!");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                System.out.println("Actualite with ID " + actualite.getId_a() + " does not exist.");
+            }
+        } else {
+            System.out.println("Actualite with ID " + actualite.getId_a() + " does not exist.");
+        }
+    }
 
+
+    // Check if the specified actualite ID exists
+    private boolean MuniExists(int id_muni) {
+        String req = "SELECT COUNT(*) FROM `muni` WHERE `id_muni` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id_muni);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    
     }
 
     @Override
