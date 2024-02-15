@@ -12,24 +12,40 @@ public class ServicePublicite implements IService<Publicite> {
 
     @Override
     public void ajouter(Publicite publicite) {
-
-
-        String req = "INSERT INTO `publicite`(`titre_pub`, `description_pub`, `contact_pub`, `localisation_pub`, `image_pub`,`id_user`,`id_a`) VALUES (?,?,?,?,?,?,?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, publicite.getTitre_pub());
-            ps.setString(2, publicite.getDescription_pub());
-            ps.setInt(3, publicite.getContact_pub());
-            ps.setString(4, publicite.getLocalisation_pub());
-            ps.setString(5, publicite.getImage_pub());
-            ps.setInt(6, publicite.getId_user());
-            ps.setInt(7, publicite.getId_a());
-            ps.executeUpdate();
-            System.out.println("publicite added !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        // Basic input validation to ensure all required fields are filled
+        if (isValidPublicite(publicite)) {
+            String req = "INSERT INTO `publicite`(`titre_pub`, `description_pub`, `contact_pub`, `localisation_pub`, `image_pub`,`id_user`,`id_a`) VALUES (?,?,?,?,?,?,?)";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setString(1, publicite.getTitre_pub());
+                ps.setString(2, publicite.getDescription_pub());
+                ps.setInt(3, publicite.getContact_pub());
+                ps.setString(4, publicite.getLocalisation_pub());
+                ps.setString(5, publicite.getImage_pub());
+                ps.setInt(6, publicite.getId_user());
+                ps.setInt(7, publicite.getId_a());
+                ps.executeUpdate();
+                System.out.println("Publicite added!");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("remplir tous les champs");
         }
     }
+
+    // Check if the Publicite object has all required fields filled
+    private boolean isValidPublicite(Publicite publicite) {
+        return publicite != null &&
+                publicite.getTitre_pub() != null && !publicite.getTitre_pub().isEmpty() &&
+                publicite.getDescription_pub() != null && !publicite.getDescription_pub().isEmpty() &&
+                publicite.getContact_pub() > 0 && // You may want to adjust this based on your requirements
+                publicite.getLocalisation_pub() != null && !publicite.getLocalisation_pub().isEmpty() &&
+                publicite.getImage_pub() != null && !publicite.getImage_pub().isEmpty() &&
+                publicite.getId_user() > 0 && // You may want to adjust this based on your requirements
+                publicite.getId_a() > 0; // You may want to adjust this based on your requirements
+    }
+
 
     @Override
     public void modifier(Publicite publicite) {
