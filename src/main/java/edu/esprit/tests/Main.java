@@ -17,6 +17,8 @@ public class Main {
         //sr.supprimer(2);
         //System.out.println(sr.getOneByID(3));
         ServiceMessagerie sm = new ServiceMessagerie();
-        sm.ajouter(new Messagerie(sqlDate,"aaaaaa",12,13,"test"));
+        //sm.ajouter(new Messagerie(sqlDate,"aaaaaa",12,13,"test"));
+        //Messagerie messagerie= new Messagerie(1,sqlDate,"bbbbbb",12,13,"test1");
+        //sm.modifier(messagerie);
     }
 }
