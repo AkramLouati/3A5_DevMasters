@@ -23,7 +23,7 @@ public class Main {
         sp2.ajouter(new Actualite("yahya", "aa", sqlDate, "daazza",1));
         //sp2.supprimer(1);
         java.sql.Date sqlDate1 = new java.sql.Date(new Date().getTime());
-        //sp2.modifier(new Actualite(26,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbb",sqlDate1,"asss",1));
+        sp2.modifier(new Actualite(26,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbb",sqlDate1,"asss",1));
         //System.out.println(sp2.getAll());
 
     }

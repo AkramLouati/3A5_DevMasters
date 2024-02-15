@@ -81,7 +81,7 @@ public class ServicePublicite implements IService<Publicite> {
             System.out.println("Invalid input. Please fill all required fields.");
         }
     }
-    
+
 
 
     // Check if the specified actualite ID exists
