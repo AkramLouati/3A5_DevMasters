@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class ServiceMessagerie implements IService<Messagerie> {
     Connection cnx = DataSource.getInstance().getCnx();
+
     public boolean validateMessagerie(Messagerie messagerie) {
         return messagerie.getDate_message() != null &&
                 !messagerie.getContenu_message().isEmpty() &&
@@ -16,6 +17,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
                 messagerie.getSenderId_message() != 0 &&
                 !messagerie.getType_message().isEmpty();
     }
+
     @Override
     public void ajouter(Messagerie messagerie) {
         if (!validateMessagerie(messagerie)) {
@@ -36,6 +38,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
             System.out.println("Erreur lors de l'ajout du message : " + e.getMessage());
         }
     }
+
     private boolean messageExists(int id_message) {
         String req = "SELECT COUNT(*) FROM `messagerie` WHERE `id_message`=?";
         try {
@@ -51,6 +54,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
         }
         return false;
     }
+
     @Override
     public void modifier(Messagerie messagerie) {
         if (!validateMessagerie(messagerie)) {

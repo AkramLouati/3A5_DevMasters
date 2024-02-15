@@ -83,7 +83,6 @@ public class ServicePublicite implements IService<Publicite> {
     }
 
 
-
     // Check if the specified actualite ID exists
     private boolean actualiteExists(int id_a) {
         String req = "SELECT COUNT(*) FROM `actualite` WHERE `id_a` = ?";
@@ -98,7 +97,6 @@ public class ServicePublicite implements IService<Publicite> {
             return false;
         }
     }
-
 
 
     @Override
@@ -118,7 +116,7 @@ public class ServicePublicite implements IService<Publicite> {
                 String image_pub = rs.getString("image_pub");
                 int id_user = rs.getInt("id_user");
                 int id_a = rs.getInt("id_a");
-                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,id_user,id_a);
+                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub, image_pub, id_user, id_a);
                 publicites.add(pub);
             }
         } catch (SQLException e) {
@@ -144,7 +142,7 @@ public class ServicePublicite implements IService<Publicite> {
                 String image_pub = rs.getString("image_pub");
                 int id_user = rs.getInt("id_user");
                 int id_a = rs.getInt("id_a");
-                return new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,id_user,id_a);
+                return new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub, image_pub, id_user, id_a);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -169,6 +167,7 @@ public class ServicePublicite implements IService<Publicite> {
         }
         return false; // Default to false in case of an exception
     }
+
     @Override
     public void supprimer(int id) {
         // Check if the specified ID exists before attempting to delete
