@@ -51,7 +51,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     @Override
     public void modifier(Reclamation reclamation) {
         if (reclamationExists(reclamation.getId_reclamation())) {
-            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `status_reclamation`=?, `image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
+            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setInt(1, reclamation.getId_user());
@@ -59,10 +59,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                 ps.setDate(3, reclamation.getDate_reclamation());
                 ps.setString(4, reclamation.getType_reclamation());
                 ps.setString(5, reclamation.getDescription_reclamation());
-                ps.setString(6, reclamation.getStatus_reclamation());
-                ps.setString(7, reclamation.getImage_reclamation());
-                ps.setString(8, reclamation.getAdresse_reclamation());
-                ps.setInt(9, reclamation.getId_reclamation());
+                ps.setString(6, reclamation.getImage_reclamation());
+                ps.setString(7, reclamation.getAdresse_reclamation());
+                ps.setInt(8, reclamation.getId_reclamation());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Reclamation with ID " + reclamation.getId_reclamation() + " modified successfully!");
