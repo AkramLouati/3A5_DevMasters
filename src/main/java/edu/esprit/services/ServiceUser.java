@@ -103,7 +103,31 @@ public class ServiceUser implements IService<EndUser> {
     }
 
     @Override
-    public EndUser getOneByID(int id) {
-        return null;
+    public EndUser getOneByID(int userId) {
+        String query = "SELECT * FROM `enduser` WHERE `id_user` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Créez un objet EndUser à partir des données du résultat
+                EndUser user = new EndUser();
+                user.setId(rs.getInt("id_user"));
+                user.setEmail(rs.getString("email_user"));
+                user.setNom(rs.getString("nom_user")); // Ajoutez d'autres attributs ici
+                user.setType(rs.getString("type_user"));
+                user.setPhoneNumber(rs.getString("phoneNumber_user"));
+                user.setId_muni(rs.getString("id_muni"));
+                user.setLocation(rs.getString("location_user"));
+                user.setImage(rs.getString("image_user"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            } else {
+                System.out.println("Utilisateur introuvable pour l'ID : " + userId);
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -13,8 +13,18 @@ public class EndUser {
     private String location;
     private String image;
 
-    public  EndUser(String nom){
+    public EndUser(){}
+
+    public  EndUser( String email, String nom, String password, String type, String phoneNumber, String id_muni, String location,String image){
+        this.email = email;
         this.nom = nom;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+        this.phoneNumber = phoneNumber;
+        this.id_muni = id_muni;
+        this.location = location;
+        this.image = image;
     }
 
     public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, String id_muni, String location,String image) {
@@ -32,6 +42,10 @@ public class EndUser {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
