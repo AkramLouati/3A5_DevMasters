@@ -7,6 +7,7 @@ import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class ServiceUser implements IService<EndUser> {
 
@@ -18,6 +19,9 @@ public class ServiceUser implements IService<EndUser> {
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, endUser.getEmail());
+            if (!isValidEmail(endUser.getEmail())) {
+                throw new IllegalArgumentException("Invalid email address");
+            }
             ps.setString(2, endUser.getNom());
             ps.setString(3, endUser.getType());
             ps.setString(4, endUser.getPhoneNumber());
@@ -40,6 +44,9 @@ public class ServiceUser implements IService<EndUser> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, endUser.getNom());
             ps.setString(2, endUser.getEmail());
+            if (!isValidEmail(endUser.getEmail())) {
+                throw new IllegalArgumentException("Invalid email address");
+            }
             ps.setString(3, endUser.getType());
             ps.setString(4, endUser.getPhoneNumber());
             ps.setString(5, endUser.getId_muni());
@@ -57,6 +64,10 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public void supprimer(int id) {
+        if (id <= 0) {
+            System.out.println("Invalid Muni ID. Please provide a positive integer.");
+            return;
+        }
         String deleteQuery = "DELETE FROM `enduser` WHERE `id_user` = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(deleteQuery);
@@ -129,5 +140,9 @@ public class ServiceUser implements IService<EndUser> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    private boolean isValidEmail(String email) {
+        String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        return Pattern.compile(regexPattern).matcher(email).matches();
     }
 }
