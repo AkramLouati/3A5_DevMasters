@@ -35,24 +35,44 @@ public class ServicePublicite implements IService<Publicite> {
     public void modifier(Publicite publicite) {
         // Check if the specified ID exists before attempting to update
         if (publiciteExists(publicite.getId_pub())) {
-            String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub`=? , `id_user`=? , `id_a`=? WHERE `id_pub`=?";
-            try {
-                PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setString(1, publicite.getTitre_pub());
-                ps.setString(2, publicite.getDescription_pub());
-                ps.setInt(3, publicite.getContact_pub());
-                ps.setString(4, publicite.getLocalisation_pub());
-                ps.setInt(5, publicite.getId_pub());
-                ps.setString(6, publicite.getImage_pub());
-                ps.setInt(7, publicite.getId_user());
-                ps.setInt(8, publicite.getId_a());
-                ps.executeUpdate();
-                System.out.println("Publicite with ID " + publicite.getId_pub() + " modified!");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            // Check if the new id_a value exists in the actualite table
+            if (actualiteExists(publicite.getId_a())) {
+                String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub`=?, `id_user`=?, `id_a`=? WHERE `id_pub`=?";
+                try {
+                    PreparedStatement ps = cnx.prepareStatement(req);
+                    ps.setString(1, publicite.getTitre_pub());
+                    ps.setString(2, publicite.getDescription_pub());
+                    ps.setInt(3, publicite.getContact_pub());
+                    ps.setString(4, publicite.getLocalisation_pub());
+                    ps.setString(5, publicite.getImage_pub());
+                    ps.setInt(6, publicite.getId_user());
+                    ps.setInt(7, publicite.getId_a());
+                    ps.setInt(8, publicite.getId_pub());
+                    ps.executeUpdate();
+                    System.out.println("Publicite with ID " + publicite.getId_pub() + " modified!");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                System.out.println("Actualite with ID " + publicite.getId_a() + " does not exist.");
             }
         } else {
             System.out.println("Publicite with ID " + publicite.getId_pub() + " does not exist.");
+        }
+    }
+
+    // Check if the specified actualite ID exists
+    private boolean actualiteExists(int id_a) {
+        String req = "SELECT COUNT(*) FROM `actualite` WHERE `id_a` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id_a);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 
