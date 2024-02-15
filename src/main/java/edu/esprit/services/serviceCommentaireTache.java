@@ -33,11 +33,6 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
     }
 
     @Override
-    public boolean addComment(CommentaireTache commentaireTache) {
-        return false;
-    }
-
-    @Override
     public void modifier(CommentaireTache commentaireTache) {
         if (!isValidC(commentaireTache)) {
             return;

@@ -13,93 +13,99 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Instantiate DataSource to establish a connection
+        // Instanciation de DataSource pour établir une connexion
         DataSource ds = new DataSource();
 
-        // Example usage with Tache entity
+        // Exemple d'utilisation avec l'entité Tache
         serviceTache serviceTache = new serviceTache();
 
         Scanner scanner = new Scanner(System.in);
 
-        // Prompt user for task details
-        System.out.println("Enter the category of the task:");
-        String category = scanner.nextLine();
+        // Demander les détails de la tâche à l'utilisateur
+        System.out.println("Entrez la catégorie de la tâche :");
+        String categorie = scanner.nextLine();
 
-        System.out.println("Enter the title of the task:");
-        String title = scanner.nextLine();
+        System.out.println("Entrez le titre de la tâche :");
+        String titre = scanner.nextLine();
 
-        System.out.println("Enter the attachment file name (if any):");
-        String attachment = scanner.nextLine();
+        System.out.println("Entrez le nom du fichier joint (s'il y en a) :");
+        String pieceJointe = scanner.nextLine();
 
-        System.out.println("Enter the description of the task:");
+        System.out.println("Entrez la description de la tâche :");
         String description = scanner.nextLine();
 
-        System.out.println("Enter the user ID:");
-        int userId = scanner.nextInt();
+        System.out.println("Entrez l'identifiant de l'utilisateur :");
+        int idUtilisateur = scanner.nextInt();
 
-        // Prompt user for the start date (date_d) of the task
-        System.out.println("Enter the start date of the task (format: yyyy-MM-dd):");
-        Date startDate = getDateInput(scanner);
-
-        // Prompt user for the finish date (date_f) of the task
-        System.out.println("Enter the finish date of the task (format: yyyy-MM-dd):");
-        Date finishDate = getDateInput(scanner);
-
-        // Prompt user for the state of the task
-        System.out.println("Enter the state of the task (TO_DO, DOING, DONE):");
-        String stateInput = scanner.next();
-        EtatTache state = EtatTache.valueOf(stateInput);
-
-        // Create a new task with user input
-        Tache newTache = new Tache();
-        newTache.setCategorie_T(category);
-        newTache.setTitre_T(title);
-        newTache.setPieceJointe_T(attachment);
-        newTache.setDesc_T(description);
-        newTache.setDate_DT(startDate);
-        newTache.setDate_FT(finishDate);
-        newTache.setEtat_T(state);
-        newTache.setId_user(userId);
-
-        // Add the new task
-        if (serviceTache.ajouter(newTache)) {
-            System.out.println("Task added successfully.");
-        } else {
-            System.out.println("Error adding task.");
-            return; // Exit the program if adding the task fails
+        // Demander à l'utilisateur la date de début (date_d) de la tâche
+        System.out.println("Entrez la date de début de la tâche (format : yyyy-MM-dd) :");
+        Date dateDebut = getDateInput(scanner);
+        if (dateDebut == null) {
+            return; // Sortie si la date de début est invalide
         }
 
-        // Retrieve all tasks and print them
-        System.out.println("All Tasks:");
+        // Demander à l'utilisateur la date de fin (date_f) de la tâche
+        System.out.println("Entrez la date de fin de la tâche (format : yyyy-MM-dd) :");
+        Date dateFin = getDateInput(scanner);
+        if (dateFin == null) {
+            return; // Sortie si la date de fin est invalide
+        }
+
+        // Demander à l'utilisateur l'état de la tâche
+        System.out.println("Entrez l'état de la tâche (TO_DO,DOING,DONE) :");
+        String etatInput = scanner.next();
+        EtatTache etat = EtatTache.valueOf(etatInput);
+
+        // Créer une nouvelle tâche avec les entrées de l'utilisateur
+        Tache nouvelleTache = new Tache();
+        nouvelleTache.setCategorie_T(categorie);
+        nouvelleTache.setTitre_T(titre);
+        nouvelleTache.setPieceJointe_T(pieceJointe);
+        nouvelleTache.setDesc_T(description);
+        nouvelleTache.setDate_DT(dateDebut);
+        nouvelleTache.setDate_FT(dateFin);
+        nouvelleTache.setEtat_T(etat);
+        nouvelleTache.setId_user(idUtilisateur);
+
+        // Ajouter la nouvelle tâche
+        if (serviceTache.ajouter(nouvelleTache)) {
+            System.out.println("Tâche ajoutée avec succès.");
+        } else {
+            System.out.println("Erreur lors de l'ajout de la tâche.");
+            return; // Sortir du programme si l'ajout de la tâche échoue
+        }
+
+        // Récupérer toutes les tâches et les afficher
+        System.out.println("Toutes les tâches :");
         serviceTache.getAll().forEach(System.out::println);
 
-        // Example usage with CommentaireTache entity
-        System.out.println("Enter the ID of the task to add a comment to:");
-        int taskId = scanner.nextInt();
+        // Exemple d'utilisation avec l'entité CommentaireTache
+        System.out.println("Entrez l'identifiant de la tâche pour ajouter un commentaire :");
+        int idTache = scanner.nextInt();
 
-        // Check if the task ID exists
-        Tache existingTask = serviceTache.getOneByID(taskId);
-        if (existingTask == null) {
-            System.out.println("Task with the given ID does not exist.");
-            return; // Exit the program if the task ID does not exist
+        // Vérifier si l'identifiant de la tâche existe
+        Tache tacheExistante = serviceTache.getOneByID(idTache);
+        if (tacheExistante == null) {
+            System.out.println("La tâche avec l'identifiant donné n'existe pas.");
+            return; // Sortir du programme si l'identifiant de la tâche n'existe pas
         }
 
-        System.out.println("Enter your comment:");
-        scanner.nextLine(); // Consume the newline character left by nextInt()
-        String commentText = scanner.nextLine();
+        System.out.println("Entrez votre commentaire :");
+        scanner.nextLine(); // Consommer le caractère de nouvelle ligne laissé par nextInt()
+        String texteCommentaire = scanner.nextLine();
 
-        // Create a new comment
-        CommentaireTache newComment = new CommentaireTache();
-        newComment.setId_user(existingTask.getId_user()); // Use the user ID associated with the task
-        newComment.setId_T(taskId); // Specify the task ID
-        newComment.setText_C(commentText);
-        newComment.setDate_C(new Date());
+        // Créer un nouveau commentaire
+        CommentaireTache nouveauCommentaire = new CommentaireTache();
+        nouveauCommentaire.setId_user(tacheExistante.getId_user()); // Utiliser l'identifiant de l'utilisateur associé à la tâche
+        nouveauCommentaire.setId_T(idTache); // Spécifier l'identifiant de la tâche
+        nouveauCommentaire.setText_C(texteCommentaire);
+        nouveauCommentaire.setDate_C(new Date());
 
-        // Add the comment to the task
-        if (serviceTache.addComment(newComment)) {
-            System.out.println("Comment added successfully.");
+        // Ajouter le commentaire à la tâche
+        if (serviceTache.addComment(nouveauCommentaire)) {
+            System.out.println("Commentaire ajouté avec succès.");
         } else {
-            System.out.println("Error adding comment.");
+            System.out.println("Erreur lors de l'ajout du commentaire.");
         }
     }
 
