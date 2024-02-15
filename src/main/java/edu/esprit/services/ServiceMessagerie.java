@@ -4,6 +4,7 @@ import edu.esprit.entities.Messagerie;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceMessagerie implements IService<Messagerie> {
@@ -88,7 +89,27 @@ public class ServiceMessagerie implements IService<Messagerie> {
 
     @Override
     public Set<Messagerie> getAll() {
-        return null;
+        Set<Messagerie> messages = new HashSet<>();
+
+        String req = "SELECT * FROM `messagerie`";
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                int id_message = rs.getInt("id_message");
+                Date date_message = rs.getDate("date_message");
+                String contenu_message = rs.getString("contenu_message");
+                int receiverId_message = rs.getInt("receiverId_message");
+                int senderId_message = rs.getInt("senderId_message");
+                String type_message = rs.getString("type_message");
+                Messagerie messagerie = new Messagerie(id_message, date_message, contenu_message, receiverId_message, senderId_message, type_message);
+                messages.add(messagerie);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des messages : " + e.getMessage());
+        }
+
+        return messages;
     }
 
     @Override

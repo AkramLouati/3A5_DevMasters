@@ -21,5 +21,6 @@ public class Main {
         //Messagerie messagerie= new Messagerie(1,sqlDate,"bbbbbb",12,13,"test1");
         //sm.modifier(messagerie);
         //sm.supprimer(1);
+        //System.out.println(sm.getAll());
     }
 }
