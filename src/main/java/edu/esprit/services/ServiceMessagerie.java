@@ -67,7 +67,23 @@ public class ServiceMessagerie implements IService<Messagerie> {
 
     @Override
     public void supprimer(int id) {
-
+        if (messageExists(id)) {
+            String req = "DELETE FROM `messagerie` WHERE `id_message`=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, id);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Message avec l'ID " + id + " supprimé avec succès !");
+                } else {
+                    System.out.println("Échec de la suppression du message avec l'ID " + id + ". Aucune ligne affectée.");
+                }
+            } catch (SQLException e) {
+                System.out.println("Échec de la suppression du message avec l'ID " + id + ". Erreur : " + e.getMessage());
+            }
+        } else {
+            System.out.println("Le message avec l'ID " + id + " n'existe pas.");
+        }
     }
 
     @Override

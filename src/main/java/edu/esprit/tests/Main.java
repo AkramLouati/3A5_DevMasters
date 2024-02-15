@@ -20,5 +20,6 @@ public class Main {
         //sm.ajouter(new Messagerie(sqlDate,"aaaaaa",12,13,"test"));
         //Messagerie messagerie= new Messagerie(1,sqlDate,"bbbbbb",12,13,"test1");
         //sm.modifier(messagerie);
+        //sm.supprimer(1);
     }
 }
