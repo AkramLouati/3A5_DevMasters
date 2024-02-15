@@ -15,20 +15,36 @@ public class ServiceActualite implements IService<Actualite>{
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
     public void ajouter(Actualite actualite) {
-        String req = "INSERT INTO `actualite`(`titre_a`, `description_a`, `date_a`, `image_a`, `id_muni`) VALUES (?,?,?,?,?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, actualite.getTitre_a());
-            ps.setString(2, actualite.getDescription_a());
-            ps.setDate(3, actualite.getDate_a());
-            ps.setString(4, actualite.getImage_a());
-            ps.setInt(5, actualite.getId_muni());
-            ps.executeUpdate();
-            System.out.println("actualite added !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        // Basic input validation to ensure all required fields are filled
+        if (isValidActualite(actualite)) {
+            String req = "INSERT INTO `actualite`(`titre_a`, `description_a`, `date_a`, `image_a`, `id_muni`) VALUES (?,?,?,?,?)";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setString(1, actualite.getTitre_a());
+                ps.setString(2, actualite.getDescription_a());
+                ps.setDate(3, actualite.getDate_a());
+                ps.setString(4, actualite.getImage_a());
+                ps.setInt(5, actualite.getId_muni());
+                ps.executeUpdate();
+                System.out.println("Actualite added!");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("remplir tous les champs");
         }
     }
+
+    // Check if the Actualite object has all required fields filled
+    private boolean isValidActualite(Actualite actualite) {
+        return actualite != null &&
+                actualite.getTitre_a() != null && !actualite.getTitre_a().isEmpty() &&
+                actualite.getDescription_a() != null && !actualite.getDescription_a().isEmpty() &&
+                actualite.getDate_a() != null && // You may want to adjust this based on your requirements
+                actualite.getImage_a() != null && !actualite.getImage_a().isEmpty() &&
+                actualite.getId_muni() > 0; // You may want to adjust this based on your requirements
+    }
+
 
     @Override
     public void modifier(Actualite actualite) {
