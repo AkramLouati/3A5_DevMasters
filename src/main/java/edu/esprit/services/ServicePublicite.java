@@ -35,7 +35,7 @@ public class ServicePublicite implements IService<Publicite> {
     public void modifier(Publicite publicite) {
         // Check if the specified ID exists before attempting to update
         if (publiciteExists(publicite.getId_pub())) {
-            String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub` , `id_user` , `id_a`=?WHERE `id_pub`=?";
+            String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub`=? , `id_user`=? , `id_a`=? WHERE `id_pub`=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setString(1, publicite.getTitre_pub());

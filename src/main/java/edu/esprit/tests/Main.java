@@ -14,11 +14,13 @@ public class Main {
     public static void main(String[] args) {
         ServicePublicite sp1 = new ServicePublicite();
         ServiceActualite sp2 = new ServiceActualite();
-       sp1.ajouter(new Publicite("dd","aa",1263863963,"aa","aaa",12,3));
-        //sp1.modifier(new Publicite(, "amine", "yahyaoui", 987654, "la petite ariana","a",1));
-        //sp1.supprimer(451);
-       // System.out.println(sp.getAll());
+       //sp1.ajouter(new Publicite(5,"si amineeeeee","bdann",1263863963,"aa","aaa",12,3));
+      //  sp1.modifier(new Publicite(463,"amine", "yahyaoui", 987654, "la petite ariana","afzgzeg",12,9));
+       //  sp1.modifier(new Publicite(462,"amine", "yah", 4, "","",12,9));
+      //  sp1.supprimer(461);
+       //System.out.println(sp1.getAll());
         java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-       // sp2.ajouter(new Actualite("ss", "a", sqlDate, "ee"));
+        sp2.ajouter(new Actualite("yahya", "yahya", sqlDate, "daazza",1));
+        System.out.println(sp2.getAll());
     }
 }

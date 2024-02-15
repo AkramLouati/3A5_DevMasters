@@ -13,10 +13,6 @@ public class Actualite {
     int id_muni;
 
 
-    public Actualite(String ss, String a, LocalDate now, String ee) {
-
-    }
-
 
     public Actualite(String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
         this.titre_a = titre_a;
