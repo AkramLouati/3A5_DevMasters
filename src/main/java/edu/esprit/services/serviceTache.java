@@ -8,13 +8,13 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class serviceTache implements IGTache<Tache> {
+public class serviceTache implements IService<Tache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public boolean ajouter(Tache tache) {
-        if (!isValid(tache)) {
+        if (!isValidT(tache)) {
             System.out.println("Error: Invalid task details.");
             return false;
         }
@@ -46,12 +46,12 @@ public class serviceTache implements IGTache<Tache> {
             return false;
         }
     }
-    @Override
+
     public boolean addComment(CommentaireTache commentaire) {
         serviceCommentaireTache cs = new serviceCommentaireTache();
 
         // Utilisez la méthode isValidCommentaireTache pour vérifier la validité du commentaire
-        if (!cs.isValid(commentaire)) {
+        if (!cs.isValidC(commentaire)) {
             System.out.println("Error: Invalid comment details.");
             return false;
         }
@@ -72,7 +72,7 @@ public class serviceTache implements IGTache<Tache> {
 
     @Override
     public void modifier(Tache tache) {
-        if (!isValid(tache)) {
+        if (!isValidT(tache)) {
             System.out.println("Error: Invalid task details.");
             return;
         }
@@ -157,8 +157,7 @@ public class serviceTache implements IGTache<Tache> {
         }
         return null; // Return null if no task found with the provided ID
     }
-    @Override
-    public boolean isValid(Tache tache) {
+    public boolean isValidT(Tache tache) {
         // Vérifier si la catégorie, le titre et l'utilisateur sont non nuls et non vides
         if (tache.getCategorie_T() == null || tache.getCategorie_T().isEmpty()) {
             System.out.println("Error: Category is required.");

@@ -7,13 +7,13 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class serviceCommentaireTache implements IGTache<CommentaireTache> {
+public class serviceCommentaireTache implements IService<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public boolean ajouter(CommentaireTache commentaireTache) {
-        if (!isValid(commentaireTache)) {
+        if (!isValidC(commentaireTache)) {
             return false;
         }
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
@@ -33,8 +33,13 @@ public class serviceCommentaireTache implements IGTache<CommentaireTache> {
     }
 
     @Override
+    public boolean addComment(CommentaireTache commentaireTache) {
+        return false;
+    }
+
+    @Override
     public void modifier(CommentaireTache commentaireTache) {
-        if (!isValid(commentaireTache)) {
+        if (!isValidC(commentaireTache)) {
             return;
         }
         String req = "UPDATE commentairetache SET id_user=?, id_T=?, date_C=?, texte_C=? WHERE id_C=?";
@@ -116,8 +121,7 @@ public class serviceCommentaireTache implements IGTache<CommentaireTache> {
         }
         return null;
     }
-        @Override
-        public boolean isValid(CommentaireTache commentaireTache) {
+        public boolean isValidC(CommentaireTache commentaireTache) {
         // Vérifier si l'utilisateur, le texte du commentaire et l'ID de la tâche sont valides
         if (commentaireTache.getId_user() <= 0) {
             System.out.println("Error: User ID is required and must be greater than 0.");
