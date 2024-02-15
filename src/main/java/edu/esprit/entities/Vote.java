@@ -1,6 +1,9 @@
 package edu.esprit.entities;
 
+import edu.esprit.services.IService;
+
 import java.util.Objects;
+import java.util.Set;
 
 public class Vote {
     private int id;

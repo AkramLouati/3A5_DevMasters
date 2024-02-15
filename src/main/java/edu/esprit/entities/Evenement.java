@@ -1,44 +1,56 @@
 package edu.esprit.entities;
 
-import java.util.Objects;
+import edu.esprit.services.IService;
 
-public class Evenement {
-    private int id;
-    private String nomEvent;
+import java.util.Objects;
+import java.util.Set;
+
+public class Evenement{
+    private int id_E;
+    private String nom_E;
     private int id_user;
-    private String dateEtHeureDeb;
-    private String dateEtHeureFin;
-    private int capaciteMax;
-    private String categorie;
+    private String date_DHE;
+    private String date_DHF;
+    private int capacite_E;
+    private String categorie_E;
 
     public Evenement(){
 
     }
 
-    public Evenement(int id, String nomEvent, int id_user, String dateEtHeureDeb, String dateEtHeureFin, int capaciteMax, String categorie) {
-        this.id = id;
-        this.nomEvent = nomEvent;
+    public Evenement(int id_E, String nom_E, int id_user, String date_DHE, String date_DHF, int capacite_E, String categorie_E) {
+        this.id_E = id_E;
+        this.nom_E = nom_E;
         this.id_user = id_user;
-        this.dateEtHeureDeb = dateEtHeureDeb;
-        this.dateEtHeureFin = dateEtHeureFin;
-        this.capaciteMax = capaciteMax;
-        this.categorie = categorie;
+        this.date_DHE = date_DHE;
+        this.date_DHF = date_DHF;
+        this.capacite_E = capacite_E;
+        this.categorie_E = categorie_E;
     }
 
-    public int getId() {
-        return id;
+    public Evenement(int id_user, String nom_E, String date_DHE, String date_DHF, int capacite_E, String categorie_E) {
+        this.id_user=id_user;
+        this.nom_E=nom_E;
+        this.date_DHE = date_DHE;
+        this.date_DHF = date_DHF;
+        this.capacite_E = capacite_E;
+        this.categorie_E = categorie_E;
+    }
+
+    public int getId_E() {
+        return id_E;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_E = id_E;
     }
 
     public String getNomEvent() {
-        return nomEvent;
+        return nom_E;
     }
 
-    public void setNomEvent(String nomEvent) {
-        this.nomEvent = nomEvent;
+    public void setNomEvent(String nom_E) {
+        this.nom_E = nom_E;
     }
 
     public int getId_user() {
@@ -50,45 +62,47 @@ public class Evenement {
     }
 
     public String getDateEtHeureDeb() {
-        return dateEtHeureDeb;
+        return date_DHE;
     }
 
-    public void setDateEtHeureDeb(String dateEtHeureDeb) {
-        this.dateEtHeureDeb = dateEtHeureDeb;
+    public void setDateEtHeureDeb(String date_DHE) {
+        this.date_DHE = date_DHE;
     }
 
     public String getDateEtHeureFin() {
-        return dateEtHeureFin;
+        return date_DHF;
     }
 
-    public void setDateEtHeureFin(String dateEtHeureFin) {
-        this.dateEtHeureFin = dateEtHeureFin;
+    public void setDateEtHeureFin(String date_DHF) {
+        this.date_DHF = date_DHF;
     }
 
     public int getCapaciteMax() {
-        return capaciteMax;
+        return capacite_E;
     }
 
-    public void setCapaciteMax(int capaciteMax) {
-        this.capaciteMax = capaciteMax;
+    public void setCapaciteMax(int capacite_E) {
+        this.capacite_E = capacite_E;
     }
 
     public String getCategorie() {
-        return categorie;
+        return categorie_E;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setCategorie(String categorie_E) {
+        this.categorie_E = categorie_E;
     }
 
     @Override
     public String toString() {
         return "Evenement{" +
-                ", nomEvent='" + nomEvent + '\'' +
-                ", dateEtHeureDeb='" + dateEtHeureDeb + '\'' +
-                ", dateEtHeureFin='" + dateEtHeureFin + '\'' +
-                ", capaciteMax=" + capaciteMax +
-                ", categorie='" + categorie + '\'' +
+                "id_E=" + id_E +
+                ", nom_E='" + nom_E + '\'' +
+                ", id_user=" + id_user +
+                ", date_DHE='" + date_DHE + '\'' +
+                ", date_DHF='" + date_DHF + '\'' +
+                ", capacite_E=" + capacite_E +
+                ", categorie_E='" + categorie_E + '\'' +
                 '}';
     }
 
@@ -96,11 +110,12 @@ public class Evenement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Evenement evenement)) return false;
-        return getId() == evenement.getId() && Objects.equals(getNomEvent(), evenement.getNomEvent());
+        return getId_E() == evenement.getId_E() && Objects.equals(getNomEvent(), evenement.getNomEvent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNomEvent());
+        return Objects.hash(getId_E(), getNomEvent());
     }
+
 }
