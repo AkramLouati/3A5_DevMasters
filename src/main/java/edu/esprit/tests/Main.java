@@ -1,6 +1,8 @@
 package edu.esprit.tests;
 
+import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 
 import java.util.Date;
@@ -14,5 +16,7 @@ public class Main {
         //sr.modifier(reclamation);
         //sr.supprimer(2);
         //System.out.println(sr.getOneByID(3));
+        ServiceMessagerie sm = new ServiceMessagerie();
+        sm.ajouter(new Messagerie(sqlDate,"aaaaaa",12,13,"test"));
     }
 }

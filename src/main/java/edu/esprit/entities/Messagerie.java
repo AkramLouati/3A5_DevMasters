@@ -39,8 +39,8 @@ public class Messagerie {
         this.id_message = id_message;
     }
 
-    public Date getDate_message() {
-        return date_message;
+    public java.sql.Date getDate_message() {
+        return (java.sql.Date) date_message;
     }
 
     public void setDate_message(Date date_message) {
