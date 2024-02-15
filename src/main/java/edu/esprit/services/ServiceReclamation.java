@@ -20,16 +20,15 @@ public class ServiceReclamation implements IService<Reclamation> {
             ps.setInt(2, reclamation.getId_muni());
             ps.setDate(3, reclamation.getDate_reclamation());
             ps.setString(4, reclamation.getType_reclamation());
-            ps.setString(5,reclamation.getDescription_reclamation());
-            ps.setString(6,reclamation.getStatus_reclamation());
-            ps.setString(7,reclamation.getImage_reclamation());
-            ps.setString(8,reclamation.getAdresse_reclamation());
+            ps.setString(5, reclamation.getDescription_reclamation());
+            ps.setString(6, "non traité");
+            ps.setString(7, reclamation.getImage_reclamation());
+            ps.setString(8, reclamation.getAdresse_reclamation());
             ps.executeUpdate();
-            System.out.println("reclamation added !");
+            System.out.println("Reclamation ajoutee !");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur lors de lajout de la reclamation : " + e.getMessage());
         }
-
     }
     private boolean reclamationExists(int id_reclamation) {
         String req = "SELECT COUNT(*) FROM `reclamation` WHERE `id_reclamation`=?";
