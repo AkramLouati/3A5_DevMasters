@@ -24,6 +24,10 @@ public class Muni {
         this.image = image;
     }
 
+    public int getId_muni() {
+        return id_muni;
+    }
+
     public String getNom_muni() {
         return nom_muni;
     }

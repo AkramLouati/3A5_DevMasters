@@ -28,7 +28,19 @@ public class ServiceMuni implements IService<Muni>{
 
     @Override
     public void modifier(Muni muni) {
-
+        String req = "UPDATE `muni` SET `nom_muni`=?, `email_muni`=?, `password_muni`=?, `imagee_user`=? WHERE `id_muni`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, muni.getNom_muni());
+            ps.setString(2, muni.getEmail_muni());
+            ps.setString(3, muni.getPassword_muni());
+            ps.setString(4, muni.getImage());
+            ps.setInt(5, muni.getId_muni()); // Assuming `id_muni` is the primary key
+            ps.executeUpdate();
+            System.out.println("Muni updated!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
