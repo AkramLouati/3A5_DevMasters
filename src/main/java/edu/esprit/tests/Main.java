@@ -88,27 +88,35 @@ public class Main {
                 return;
             }
 
-            // Asking user for comment details
-            System.out.println("Entrez l'identifiant de l'utilisateur pour le commentaire :");
-            int idUtilisateurCommentaire = scanner.nextInt();
+            // Retrieve all tasks and print them
+            System.out.println("All Tasks:");
+            serviceTache.getAll().forEach(System.out::println);
 
-            System.out.println("Entrez l'identifiant de la tâche pour le commentaire :");
-            int idTacheCommentaire = scanner.nextInt();
+            // Example usage with CommentaireTache entity
+            System.out.println("Entrer ID Tache a commenter");
+            int taskId = scanner.nextInt();
 
-            System.out.println("Entrez le texte du commentaire :");
-            String texteCommentaire = scanner.nextLine(); // clear buffer
-            texteCommentaire = scanner.nextLine(); // take input
+            // Check if the task ID exists
+            Tache existingTask = serviceTache.getOneByID(taskId);
+            if (existingTask == null) {
+                System.out.println("Tache Existe.");
+                return; // Exit the program if the task ID does not exist
+            }
 
-            // Creating a new comment
-            CommentaireTache nouveauCommentaire = new CommentaireTache();
-            nouveauCommentaire.setId_user(idUtilisateurCommentaire);
-            nouveauCommentaire.setId_T(idTacheCommentaire);
-            nouveauCommentaire.setDate_C(new Date());
-            nouveauCommentaire.setText_C(texteCommentaire);
+            System.out.println("Commentaire :");
+            scanner.nextLine(); // Consume the newline character left by nextInt()
+            String commentText = scanner.nextLine();
+
+            // Create a new comment
+            CommentaireTache newComment = new CommentaireTache();
+            newComment.setId_user(existingTask.getId_user()); // Use the user ID associated with the task
+            newComment.setId_T(taskId); // Specify the task ID
+            newComment.setText_C(commentText);
+            newComment.setDate_C(new Date());
 
             // Validating the comment
             try {
-                if (!serviceCommentaireTache.isValidC(nouveauCommentaire)) {
+                if (!serviceCommentaireTache.isValidC(newComment)) {
                     System.out.println("Le commentaire n'a pas pu être validé. Veuillez corriger les erreurs.");
                     return;
                 }
@@ -118,7 +126,7 @@ public class Main {
             }
 
             // Adding the new comment
-            if (serviceTache.addComment(nouveauCommentaire)) {
+            if (serviceTache.addComment(newComment)) {
                 System.out.println("Commentaire ajouté avec succès.");
             } else {
                 System.out.println("Erreur lors de l'ajout du commentaire.");
