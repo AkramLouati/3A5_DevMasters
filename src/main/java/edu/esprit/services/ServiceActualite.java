@@ -50,7 +50,7 @@ public class ServiceActualite implements IService<Actualite>{
             System.out.println("Actualite with ID " + id + " does not exist.");
         }
     }
-    }
+
 
     @Override
     public Set<Actualite> getAll() {
@@ -81,8 +81,40 @@ public class ServiceActualite implements IService<Actualite>{
 
     @Override
     public Actualite getOneByID(int id) {
+        String req = "SELECT * FROM `actualite` WHERE `id_a`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id_a = rs.getInt("id_a");
+                String titre_a = rs.getString("titre_a");
+                String description_a = rs.getString("description_a");
+
+                Date date_a = rs.getDate("date_a");
+                String image_a = rs.getString("image_a");
+                int id_muni = rs.getInt("id_muni");
+                return new Actualite(id_a, titre_a, description_a, date_a,image_a,id_muni);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
-
+    private boolean actualiteExists(int id_a) {
+        String req = "SELECT COUNT(*) FROM `actualite` WHERE `id_a`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id_a);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0; // Returns true if the ID exists
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false; // Default to false in case of an exception
+    }
 
 }
