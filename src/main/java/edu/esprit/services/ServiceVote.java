@@ -16,38 +16,58 @@ import java.util.Set;
 public class ServiceVote implements IService<Vote> {
     Connection cnx = DataSource.getInstance().getCnx();
 
-    @Override
-    public void ajouter(Vote vote) {
-        String req = "INSERT INTO vote (id_user, desc_E, date_SV) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, vote.getId_user());
-            ps.setString(2, vote.getDesc_E());
-            ps.setString(3, vote.getDate_SV());
-            ps.executeUpdate();
-            System.out.println("Vote added !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+        @Override
+        public void ajouter(Vote vote) {
+            // Vérification des champs requis
+            if (!validateVote(vote)) {
+                System.out.println("Tous les champs doivent être remplis !");
+                return;
+            }
 
-    @Override
-    public void modifier(Vote vote) {
-        String req = "UPDATE vote SET id_user=?, desc_E=?, date_SV=? WHERE id_V=?";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, vote.getId_user());
-            ps.setString(2, vote.getDesc_E());
-            ps.setString(3, vote.getDate_SV());
-            ps.setInt(4, vote.getId_V());
-            ps.executeUpdate();
-            System.out.println("Vote updated !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            String req = "INSERT INTO vote (id_user, desc_E, date_SV) VALUES (?, ?, ?)";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, vote.getId_user());
+                ps.setString(2, vote.getDesc_E());
+                ps.setString(3, vote.getDate_SV());
+                ps.executeUpdate();
+                System.out.println("Vote added !");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-    }
 
-    @Override
+        @Override
+        public void modifier(Vote vote) {
+            // Vérification des champs requis
+            if (!validateVote(vote)) {
+                System.out.println("Tous les champs doivent être remplis !");
+                return;
+            }
+
+            String req = "UPDATE vote SET id_user=?, desc_E=?, date_SV=? WHERE id_V=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, vote.getId_user());
+                ps.setString(2, vote.getDesc_E());
+                ps.setString(3, vote.getDate_SV());
+                ps.setInt(4, vote.getId_V());
+                ps.executeUpdate();
+                System.out.println("Vote updated !");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        // Méthode pour valider que tous les champs requis sont remplis
+        private boolean validateVote(Vote vote) {
+            return vote.getId_user() > 0 &&
+                    !vote.getDesc_E().isEmpty() &&
+                    !vote.getDate_SV().isEmpty();
+        }
+
+
+        @Override
     public void supprimer(int id) {
         String req = "DELETE FROM vote WHERE id_V=?";
         try {
