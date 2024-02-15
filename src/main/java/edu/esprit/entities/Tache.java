@@ -1,9 +1,7 @@
 package edu.esprit.entities;
 
 import edu.esprit.services.EtatTache;
-import edu.esprit.services.IService;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,6 +13,7 @@ public class Tache {
 
     public Tache() {
     }
+
     public Tache(int id_T, int id_user, String categorie_T, String titre_T, String pieceJointe_T, String desc_T, Date date_DT, Date date_FT, EtatTache etat_T) {
         this.id_T = id_T;
         this.id_user = id_user;

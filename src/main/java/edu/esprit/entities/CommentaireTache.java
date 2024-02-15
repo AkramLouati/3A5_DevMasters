@@ -1,11 +1,9 @@
 package edu.esprit.entities;
 
-import edu.esprit.services.IService;
-
 import java.util.Date;
 import java.util.Objects;
 
-public class CommentaireTache{
+public class CommentaireTache {
     int id_C, id_user, id_T;
     String text_C;
     Date date_C;

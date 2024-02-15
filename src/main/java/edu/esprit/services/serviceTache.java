@@ -61,12 +61,34 @@ public class serviceTache implements IService<Tache> {
 
     @Override
     public void modifier(Tache tache) {
-        // Implement modification logic here
+        String req = "UPDATE tache SET categorie_T=?, titre_T=?, pieceJointe_T=?, date_DT=?, date_FT=?, desc_T=?, etat_T=?, id_user=? WHERE id_T=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, tache.getCategorie_T());
+            ps.setString(2, tache.getTitre_T());
+            ps.setString(3, tache.getPieceJointe_T());
+            ps.setDate(4, new java.sql.Date(tache.getDate_DT().getTime()));
+            ps.setDate(5, new java.sql.Date(tache.getDate_FT().getTime()));
+            ps.setString(6, tache.getDesc_T());
+            ps.setString(7, tache.getEtat_T().toString());
+            ps.setInt(8, tache.getId_user());
+            ps.setInt(9, tache.getId_T());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void supprimer(int id) {
-        // Implement deletion logic here
+        String req = "DELETE FROM tache WHERE id_T=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
