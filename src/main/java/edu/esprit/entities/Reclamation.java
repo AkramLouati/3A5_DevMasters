@@ -36,6 +36,16 @@ public class Reclamation{
         this.image_reclamation = image_reclamation;
         this.adresse_reclamation = adresse_reclamation;
     }
+    public Reclamation(int id_reclamation, int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation,String adresse_reclamation) {
+        this.id_reclamation = id_reclamation;
+        this.id_user = id_user;
+        this.id_muni = id_muni;
+        this.date_reclamation = date_reclamation;
+        this.type_reclamation = type_reclamation;
+        this.description_reclamation = description_reclamation;
+        this.image_reclamation = image_reclamation;
+        this.adresse_reclamation = adresse_reclamation;
+    }
 
     public int getId_reclamation() {
         return id_reclamation;

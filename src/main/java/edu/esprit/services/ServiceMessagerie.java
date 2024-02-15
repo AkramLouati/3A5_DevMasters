@@ -9,8 +9,19 @@ import java.util.Set;
 
 public class ServiceMessagerie implements IService<Messagerie> {
     Connection cnx = DataSource.getInstance().getCnx();
+    public boolean validateMessagerie(Messagerie messagerie) {
+        return messagerie.getDate_message() != null &&
+                !messagerie.getContenu_message().isEmpty() &&
+                messagerie.getReceiverId_message() != 0 &&
+                messagerie.getSenderId_message() != 0 &&
+                !messagerie.getType_message().isEmpty();
+    }
     @Override
     public void ajouter(Messagerie messagerie) {
+        if (!validateMessagerie(messagerie)) {
+            System.out.println("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
         String req = "INSERT INTO `messagerie`(`date_message`, `contenu_message`, `receiverId_message`, `senderId_message`, `type_message`) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -42,6 +53,10 @@ public class ServiceMessagerie implements IService<Messagerie> {
     }
     @Override
     public void modifier(Messagerie messagerie) {
+        if (!validateMessagerie(messagerie)) {
+            System.out.println("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
         if (messageExists(messagerie.getId_message())) {
             String req = "UPDATE `messagerie` SET `date_message`=?, `contenu_message`=?, `receiverId_message`=?, `senderId_message`=?, `type_message`=? WHERE `id_message`=?";
             try {

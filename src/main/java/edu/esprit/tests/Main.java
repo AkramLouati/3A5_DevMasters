@@ -11,13 +11,13 @@ public class Main {
     public static void main(String[] args) {
         ServiceReclamation sr = new ServiceReclamation();
         java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-        //sr.ajouter(new Reclamation(12, 5, sqlDate, "non urgent", "test2", "test2", "tes2"));
-        Reclamation reclamation = new Reclamation(4, 12, 5, sqlDate, "urgent", "test0", "traité", "test0", "tes0");
-        sr.modifier(reclamation);
+        //sr.ajouter(new Reclamation(12, 5, sqlDate, "non urgent", "aaaaaa", "", "tes2"));
+        //Reclamation reclamation = new Reclamation(4, 12, 5, sqlDate, "non urgent", "test1", "test0", "tes0");
+        //sr.modifier(reclamation);
         //sr.supprimer(3);
         //System.out.println(sr.getOneByID(4));
         ServiceMessagerie sm = new ServiceMessagerie();
-        //sm.ajouter(new Messagerie(sqlDate,"aaaaaa",12,13,"test"));
+        sm.ajouter(new Messagerie(sqlDate,"hhhhhhh",12,13,"test"));
         //Messagerie messagerie= new Messagerie(1,sqlDate,"bbbbbb",12,13,"test1");
         //sm.modifier(messagerie);
         //sm.supprimer(1);

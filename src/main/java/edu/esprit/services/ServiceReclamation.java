@@ -11,8 +11,21 @@ import java.util.Set;
 public class ServiceReclamation implements IService<Reclamation> {
 
     Connection cnx = DataSource.getInstance().getCnx();
+
+    public boolean validateReclamation(Reclamation reclamation) {
+        return reclamation.getId_user() != 0 &&
+                reclamation.getId_muni() != 0 &&
+                reclamation.getDate_reclamation() != null &&
+                !reclamation.getType_reclamation().isEmpty() &&
+                !reclamation.getDescription_reclamation().isEmpty() &&
+                !reclamation.getAdresse_reclamation().isEmpty();
+    }
     @Override
     public void ajouter(Reclamation reclamation) {
+        if (!validateReclamation(reclamation)) {
+            System.out.println("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
         String req = "INSERT INTO `reclamation`(`id_user`, `id_muni`, `date_reclamation`, `type_reclamation`, `description_reclamation`, `status_reclamation`, `image_reclamation`, `adresse_reclamation`) VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -50,8 +63,12 @@ public class ServiceReclamation implements IService<Reclamation> {
 
     @Override
     public void modifier(Reclamation reclamation) {
+        if (!validateReclamation(reclamation)) {
+            System.out.println("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
         if (reclamationExists(reclamation.getId_reclamation())) {
-            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
+            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `status_reclamation`=?,`image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setInt(1, reclamation.getId_user());
@@ -59,9 +76,10 @@ public class ServiceReclamation implements IService<Reclamation> {
                 ps.setDate(3, reclamation.getDate_reclamation());
                 ps.setString(4, reclamation.getType_reclamation());
                 ps.setString(5, reclamation.getDescription_reclamation());
-                ps.setString(6, reclamation.getImage_reclamation());
-                ps.setString(7, reclamation.getAdresse_reclamation());
-                ps.setInt(8, reclamation.getId_reclamation());
+                ps.setString(6, "non traité");
+                ps.setString(7, reclamation.getImage_reclamation());
+                ps.setString(8, reclamation.getAdresse_reclamation());
+                ps.setInt(9, reclamation.getId_reclamation());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Reclamation with ID " + reclamation.getId_reclamation() + " modified successfully!");
