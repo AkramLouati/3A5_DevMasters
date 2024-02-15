@@ -20,7 +20,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
     @Override
     public void ajouter(Equipement equipement) {
-        String req = "INSERT INTO equipements (ref_eq, nom_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO equipement (ref_eq, nom_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, equipement.getRef_eq());
@@ -39,7 +39,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
     @Override
     public void modifier(Equipement equipement) {
-        String req = "UPDATE equipements SET ref_eq=?, nom_eq=?, typeMateriel_eq=?, quantite_eq=?, etat_eq=?, description_eq=?, id_user=? WHERE id_eq=?";
+        String req = "UPDATE equipement SET ref_eq=?, nom_eq=?, typeMateriel_eq=?, quantite_eq=?, etat_eq=?, description_eq=?, id_user=? WHERE id_eq=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, equipement.getRef_eq());
@@ -60,7 +60,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
     @Override
     public void supprimer(int id) {
-        String req = "DELETE FROM equipements WHERE id_eq=?";
+        String req = "DELETE FROM equipement WHERE id_eq=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
@@ -76,7 +76,7 @@ public class ServiceEquipement implements IService<Equipement> {
     public Set<Equipement> getAll() {
         Set<Equipement> equipements = new HashSet<>();
 
-        String req = "SELECT * FROM equipements";
+        String req = "SELECT * FROM equipement";
         try {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
@@ -103,7 +103,7 @@ public class ServiceEquipement implements IService<Equipement> {
     @Override
     public Equipement getOneByID(int id) {
         Equipement equipement = null;
-        String req = "SELECT * FROM equipements WHERE id_eq=?";
+        String req = "SELECT * FROM equipement WHERE id_eq=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
