@@ -142,4 +142,14 @@ public class serviceTache implements IService<Tache> {
         }
         return null; // Return null if no task found with the provided ID
     }
+    public boolean isValidTache(Tache tache) {
+        // Vérifier si la catégorie, le titre et l'utilisateur sont non nuls et non vides
+        if (tache.getCategorie_T() == null || tache.getCategorie_T().isEmpty() ||
+                tache.getTitre_T() == null || tache.getTitre_T().isEmpty() ||
+                tache.getId_user() <= 0 ||
+                tache.getDate_DT() == null || tache.getDate_FT() == null || tache.getDate_FT().before(tache.getDate_DT())) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -109,4 +109,14 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
         }
         return null;
     }
+    public boolean isValidCommentaireTache(CommentaireTache commentaireTache) {
+        // Vérifier si l'utilisateur, le texte du commentaire et l'ID de la tâche sont valides
+        if (commentaireTache.getId_user() <= 0 ||
+                commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty() ||
+                commentaireTache.getId_T() <= 0||
+                commentaireTache.getDate_C() == null) {
+            return false;
+        }
+        return true;
+    }
 }
