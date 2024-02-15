@@ -10,25 +10,29 @@ public class Actualite {
     String Description_a;
     Date date_a;
     String image_a ;
+    int id_muni;
 
 
     public Actualite(String ss, String a, LocalDate now, String ee) {
+
     }
 
 
-    public Actualite(String titre_a, String description_a, Date date_a, String image_a) {
+    public Actualite(String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
         this.titre_a = titre_a;
         this.Description_a = description_a;
         this.date_a = date_a;
 this.image_a=image_a;
+this.id_muni=id_muni;
     }
 
-    public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a) {
+    public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
         this.id_a = id_a;
         this.titre_a = titre_a;
         this.Description_a = description_a;
         this.date_a = date_a;
         this.image_a=image_a;
+        this.id_muni=id_muni;
 
     }
 
@@ -73,13 +77,22 @@ this.image_a=image_a;
         this.date_a = date_a;
     }
 
+    public int getId_muni() {
+        return id_muni;
+    }
+
+    public void setId_muni(int id_muni) {
+        this.id_muni = id_muni;
+    }
+
     @Override
     public String toString() {
         return "Actualite{" +
                 "titre_a='" + titre_a + '\'' +
                 ", Description_a='" + Description_a + '\'' +
-                ", date_a='" + date_a + '\'' +
+                ", date_a=" + date_a +
                 ", image_a='" + image_a + '\'' +
+                ", id_muni=" + id_muni +
                 '}';
     }
 

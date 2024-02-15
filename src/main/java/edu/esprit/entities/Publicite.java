@@ -12,22 +12,24 @@ public class Publicite {
 
     int id_user;
 
-    //int id_a ;
+    int id_a;
+
     public Publicite() {
     }
 
     ;
 
-    public Publicite(String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, int id_user) {
+    public Publicite(String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, int id_user, int id_a) {
         this.titre_pub = titre_pub;
         this.Description_pub = description_pub;
         this.contact_pub = contact_pub;
         this.localisation_pub = localisation_pub;
         this.image_pub = image_pub;
         this.id_user = id_user;
+        this.id_a = id_a;
     }
 
-    public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, int id_user) {
+    public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, int id_user, int id_a) {
         this.id_pub = id_pub;
         this.titre_pub = titre_pub;
         Description_pub = description_pub;
@@ -35,6 +37,7 @@ public class Publicite {
         this.localisation_pub = localisation_pub;
         this.image_pub = image_pub;
         this.id_user = id_user;
+        this.id_a = id_a;
     }
 
     public int getId_pub() {
@@ -93,6 +96,14 @@ public class Publicite {
         this.id_user = id_user;
     }
 
+    public int getId_a() {
+        return id_a;
+    }
+
+    public void setId_a(int id_a) {
+        this.id_a = id_a;
+    }
+
     @Override
     public String toString() {
         return "Publicite{" +
@@ -102,6 +113,7 @@ public class Publicite {
                 ", localisation_pub='" + localisation_pub + '\'' +
                 ", image_pub='" + image_pub + '\'' +
                 ", id_user=" + id_user +
+                ", id_a=" + id_a +
                 '}';
     }
 
