@@ -1,5 +1,6 @@
 package edu.esprit.entities;
 
+import edu.esprit.services.EtatTache;
 import edu.esprit.services.IService;
 
 import javax.xml.crypto.Data;
@@ -10,11 +11,11 @@ public class Tache {
     int id_T, id_user;
     String categorie_T, titre_T, pieceJointe_T, desc_T;
     Date date_DT, date_FT;
-    boolean etat_T;
+    EtatTache etat_T;
 
     public Tache() {
     }
-    public Tache(int id_T, int id_user, String categorie_T, String titre_T, String pieceJointe_T, String desc_T, Date date_DT, Date date_FT, boolean etat_T) {
+    public Tache(int id_T, int id_user, String categorie_T, String titre_T, String pieceJointe_T, String desc_T, Date date_DT, Date date_FT, EtatTache etat_T) {
         this.id_T = id_T;
         this.id_user = id_user;
         this.categorie_T = categorie_T;
@@ -90,11 +91,11 @@ public class Tache {
         this.date_FT = date_FT;
     }
 
-    public boolean isEtat_T() {
+    public EtatTache getEtat_T() {
         return etat_T;
     }
 
-    public void setEtat_T(boolean etat_T) {
+    public void setEtat_T(EtatTache etat_T) {
         this.etat_T = etat_T;
     }
 

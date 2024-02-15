@@ -8,7 +8,7 @@ import java.util.Objects;
 public class CommentaireTache{
     int id_C, id_user, id_T;
     String text_C;
-    Date date_C, date_FT;
+    Date date_C;
 
     public CommentaireTache() {
     }
@@ -19,7 +19,6 @@ public class CommentaireTache{
         this.id_T = id_T;
         this.text_C = text_C;
         this.date_C = date_C;
-        this.date_FT = date_FT;
     }
 
     public CommentaireTache(int id, int idUser, int idT, java.sql.Date dateC, String texteC) {
@@ -65,14 +64,6 @@ public class CommentaireTache{
         this.date_C = date_C;
     }
 
-    public Date getDate_FT() {
-        return date_FT;
-    }
-
-    public void setDate_FT(Date date_FT) {
-        this.date_FT = date_FT;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,7 +81,7 @@ public class CommentaireTache{
         return "CommentaireTache{" +
                 "text_C='" + text_C + '\'' +
                 ", date_C=" + date_C +
-                ", date_FT=" + date_FT +
+                ", date_FT=" +
                 '}';
     }
 }
