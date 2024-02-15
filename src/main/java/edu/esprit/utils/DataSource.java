@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataSource {
+public class DataSource implements AutoCloseable {
     private static DataSource instance;
     private final String URL = "jdbc:mysql://127.0.0.1:3306/baladia";
     private final String USER = "root";
@@ -28,5 +28,17 @@ public class DataSource {
 
     public Connection getCnx() {
         return cnx;
+    }
+
+    @Override
+    public void close() {
+        try {
+            if (cnx != null && !cnx.isClosed()) {
+                cnx.close();
+                System.out.println("Connection ferme !");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

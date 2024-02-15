@@ -9,15 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class serviceTache implements IService<Tache> {
-
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public boolean ajouter(Tache tache) {
-        if (!isValidT(tache)) {
-            System.out.println("Error: Invalid task details.");
-            return false;
-        }
         String req = "INSERT INTO tache (categorie_T, titre_T, pieceJointe_T, date_DT, date_FT, desc_T, etat_T, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
@@ -49,12 +44,6 @@ public class serviceTache implements IService<Tache> {
 
     public boolean addComment(CommentaireTache commentaire) {
         serviceCommentaireTache cs = new serviceCommentaireTache();
-
-        // Utilisez la méthode isValidCommentaireTache pour vérifier la validité du commentaire
-        if (!cs.isValidC(commentaire)) {
-            System.out.println("Error: Invalid comment details.");
-            return false;
-        }
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -72,10 +61,6 @@ public class serviceTache implements IService<Tache> {
 
     @Override
     public void modifier(Tache tache) {
-        if (!isValidT(tache)) {
-            System.out.println("Error: Invalid task details.");
-            return;
-        }
         String req = "UPDATE tache SET categorie_T=?, titre_T=?, pieceJointe_T=?, date_DT=?, date_FT=?, desc_T=?, etat_T=?, id_user=? WHERE id_T=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -157,33 +142,31 @@ public class serviceTache implements IService<Tache> {
         }
         return null; // Return null if no task found with the provided ID
     }
-    public boolean isValidT(Tache tache) {
+
+    public boolean isValidT(Tache tache) throws IllegalArgumentException {
         // Vérifier si la catégorie, le titre et l'utilisateur sont non nuls et non vides
         if (tache.getCategorie_T() == null || tache.getCategorie_T().isEmpty()) {
-            System.out.println("Error: Category is required.");
-            return false;
+            throw new IllegalArgumentException("Categorie Obligatoire");
         }
         if (tache.getTitre_T() == null || tache.getTitre_T().isEmpty()) {
-            System.out.println("Error: Title is required.");
-            return false;
+            throw new IllegalArgumentException("Titre Obligatoire");
         }
         if (tache.getId_user() <= 0) {
-            System.out.println("Error: User ID is required and must be greater than 0.");
-            return false;
+            throw new IllegalArgumentException("ID User Obligatoire");
         }
         if (tache.getDate_DT() == null) {
-            System.out.println("Error: Start date is required.");
-            return false;
+            throw new IllegalArgumentException("Date Debut Obligatoire");
         }
         if (tache.getDate_FT() == null) {
-            System.out.println("Error: End date is required.");
-            return false;
+            throw new IllegalArgumentException("Date fin Obligatoire");
         }
         if (tache.getDate_FT().before(tache.getDate_DT())) {
-            System.out.println("Error: End date cannot be before start date.");
-            return false;
+            throw new IllegalArgumentException("Date fin est avant Date Debut");
+        }
+        EtatTache etatT = tache.getEtat_T();
+        if (etatT != EtatTache.TO_DO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
+            throw new IllegalArgumentException("Etat de la tâche doit etre (TO_DO | DOING | DONE)");
         }
         return true;
     }
-
 }

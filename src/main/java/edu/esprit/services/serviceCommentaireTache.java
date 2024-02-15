@@ -11,11 +11,22 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
+    public static boolean isValidC(CommentaireTache commentaireTache) throws IllegalArgumentException {
+        // Vérifier si l'utilisateur, le texte du commentaire et l'ID de la tâche sont valides
+        if (commentaireTache.getId_user() <= 0) {
+            throw new IllegalArgumentException("User ID is required and must be greater than 0.");
+        }
+        if (commentaireTache.getId_T() <= 0) {
+            throw new IllegalArgumentException("Task ID is required and must be greater than 0.");
+        }
+        if (commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty()) {
+            throw new IllegalArgumentException("Comment text is required.");
+        }
+        return true;
+    }
+
     @Override
     public boolean ajouter(CommentaireTache commentaireTache) {
-        if (!isValidC(commentaireTache)) {
-            return false;
-        }
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -34,9 +45,6 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
 
     @Override
     public void modifier(CommentaireTache commentaireTache) {
-        if (!isValidC(commentaireTache)) {
-            return;
-        }
         String req = "UPDATE commentairetache SET id_user=?, id_T=?, date_C=?, texte_C=? WHERE id_C=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -115,22 +123,6 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
             System.out.println("Error retrieving comment: " + e.getMessage());
         }
         return null;
-    }
-        public boolean isValidC(CommentaireTache commentaireTache) {
-        // Vérifier si l'utilisateur, le texte du commentaire et l'ID de la tâche sont valides
-        if (commentaireTache.getId_user() <= 0) {
-            System.out.println("Error: User ID is required and must be greater than 0.");
-            return false;
-        }
-        if (commentaireTache.getId_T() <= 0) {
-            System.out.println("Error: Task ID is required and must be greater than 0.");
-            return false;
-        }
-        if (commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty()) {
-            System.out.println("Error: Comment text is required.");
-            return false;
-        }
-        return true;
     }
 
 }
