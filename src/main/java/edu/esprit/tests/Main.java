@@ -34,17 +34,29 @@ public class Main {
             System.out.println("Entrez l'identifiant de l'utilisateur :");
             int idUtilisateur = scanner.nextInt();
 
+            // Clear the scanner buffer
+            scanner.nextLine();
+
             // Asking user for task start date
-            System.out.println("Entrez la date de début de la tâche (format : yyyy-MM-dd) :");
+            System.out.println("Entrez la date de début de la tâche (format : yyyy-MM-dd HH:mm) :");
             Date dateDebut = getDateInput(scanner);
 
             // Asking user for task end date
-            System.out.println("Entrez la date de fin de la tâche (format : yyyy-MM-dd) :");
+            System.out.println("Entrez la date de fin de la tâche (format : yyyy-MM-dd HH:mm) :");
             Date dateFin = getDateInput(scanner);
 
             // Asking user for task state
-            System.out.println("Entrez l'état de la tâche (TO_DO | DOING | DONE) :");
-            EtatTache etatInput = EtatTache.valueOf(scanner.next());
+            EtatTache etatInput = null;
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    System.out.println("Entrez l'état de la tâche (TO_DO | DOING | DONE) :");
+                    etatInput = EtatTache.valueOf(scanner.next());
+                    validInput = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Format Invalide. Veuillez saisir l'état correctement.");
+                }
+            }
 
             // Creating a new task
             Tache nouvelleTache = new Tache();
@@ -113,22 +125,19 @@ public class Main {
                 return;
             }
 
-            // Rest of the code remains the same
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private static Date getDateInput(Scanner scanner) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String input = scanner.next();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String input = scanner.nextLine();
         try {
             return dateFormat.parse(input);
         } catch (ParseException e) {
-            System.out.println("Format de date invalide. Veuillez utiliser le format : yyyy-MM-dd");
-            System.out.println("Entrez à nouveau la date (format : yyyy-MM-dd) :");
-            return getDateInput(scanner); // Recursively call the method until a valid date is entered
+            System.out.println("Entrez à nouveau la date (format : yyyy-MM-dd HH:mm) :");
+            return getDateInput(scanner);
         }
     }
 }
