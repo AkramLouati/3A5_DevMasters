@@ -12,6 +12,6 @@ public class Main {
         //sr.ajouter(new Reclamation(2, 12, 5, sqlDate, "non urgent", "test0", "test0", "test0", "tes0"));
         //Reclamation reclamation = new Reclamation(2, 12, 5, sqlDate, "non urgent", "test0", "test0", "test0", "tes0");
         //sr.modifier(reclamation);
-
+        //sr.supprimer(2);
     }
 }

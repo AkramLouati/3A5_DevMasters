@@ -81,7 +81,23 @@ public class ServiceReclamation implements IService<Reclamation> {
 
     @Override
     public void supprimer(int id) {
-
+        if (reclamationExists(id)) {
+            String req = "DELETE FROM `reclamation` WHERE `id_reclamation`=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, id);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Reclamation with ID " + id + " deleted successfully!");
+                } else {
+                    System.out.println("Failed to delete reclamation with ID " + id + ". No rows affected.");
+                }
+            } catch (SQLException e) {
+                System.out.println("Failed to delete reclamation with ID " + id + ". Error: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Reclamation with ID " + id + " does not exist.");
+        }
     }
 
     @Override
