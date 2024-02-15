@@ -22,5 +22,6 @@ public class Main {
         //sm.modifier(messagerie);
         //sm.supprimer(1);
         //System.out.println(sm.getAll());
+        //System.out.println(sm.getOneByID(2));
     }
 }
