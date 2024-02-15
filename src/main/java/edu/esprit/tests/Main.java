@@ -21,7 +21,7 @@ public class Main {
        //System.out.println(sp1.getAll());
         java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
         sp2.ajouter(new Actualite("yahya", "yahya", sqlDate, "daazza",1));
-       // sp2.supprimer(1);
+       // sp2.supprimer(2);
         System.out.println(sp2.getAll());
     }
 }
