@@ -57,6 +57,19 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public void supprimer(int id) {
+        String deleteQuery = "DELETE FROM `enduser` WHERE `id_user` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(deleteQuery);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("User deleted successfully!");
+            } else {
+                System.out.println("User not found or already deleted.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
