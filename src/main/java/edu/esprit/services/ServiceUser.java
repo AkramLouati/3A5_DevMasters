@@ -3,7 +3,6 @@ package edu.esprit.services;
 import edu.esprit.entities.EndUser;
 import edu.esprit.utils.DataSource;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -93,7 +92,7 @@ public class ServiceUser implements IService<EndUser> {
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -103,7 +102,7 @@ public class ServiceUser implements IService<EndUser> {
                 String id_muni = rs.getString("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,id_muni,location,image);
+                EndUser p = new EndUser(id, email, nom, password, type, phoneNumber, id_muni, location, image);
                 users.add(p);
             }
         } catch (SQLException e) {
@@ -141,6 +140,7 @@ public class ServiceUser implements IService<EndUser> {
             throw new RuntimeException(e);
         }
     }
+
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.compile(regexPattern).matcher(email).matches();

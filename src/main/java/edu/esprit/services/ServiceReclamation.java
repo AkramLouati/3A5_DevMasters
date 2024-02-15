@@ -20,6 +20,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 !reclamation.getDescription_reclamation().isEmpty() &&
                 !reclamation.getAdresse_reclamation().isEmpty();
     }
+
     @Override
     public void ajouter(Reclamation reclamation) {
         if (!validateReclamation(reclamation)) {
@@ -43,6 +44,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             System.out.println("Erreur lors de lajout de la reclamation : " + e.getMessage());
         }
     }
+
     private boolean reclamationExists(int id_reclamation) {
         String req = "SELECT COUNT(*) FROM `reclamation` WHERE `id_reclamation`=?";
         try {
@@ -58,7 +60,6 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return false; // Default to false in case of an exception
     }
-
 
 
     @Override
@@ -124,7 +125,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         try {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while(rs.next()){
+            while (rs.next()) {
                 int id_reclamation = rs.getInt(1);
                 int id_muni = rs.getInt(2);
                 int id_user = rs.getInt(3);
@@ -134,7 +135,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String status_reclamation = rs.getString(7);
                 String image_reclamation = rs.getString(8);
                 String adresse_reclamation = rs.getString(9);
-                Reclamation r = new Reclamation(id_reclamation,id_muni,id_user,date_reclamation,type_reclamation,description_reclamation,status_reclamation,image_reclamation,adresse_reclamation);
+                Reclamation r = new Reclamation(id_reclamation, id_muni, id_user, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamations.add(r);
             }
         } catch (SQLException e) {

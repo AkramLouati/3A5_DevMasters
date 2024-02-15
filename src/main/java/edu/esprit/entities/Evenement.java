@@ -1,11 +1,8 @@
 package edu.esprit.entities;
 
-import edu.esprit.services.IService;
-
 import java.util.Objects;
-import java.util.Set;
 
-public class Evenement{
+public class Evenement {
     private int id_E;
     private String nom_E;
     private int id_user;
@@ -14,7 +11,7 @@ public class Evenement{
     private int capacite_E;
     private String categorie_E;
 
-    public Evenement(){
+    public Evenement() {
 
     }
 
@@ -29,8 +26,8 @@ public class Evenement{
     }
 
     public Evenement(int id_user, String nom_E, String date_DHE, String date_DHF, int capacite_E, String categorie_E) {
-        this.id_user=id_user;
-        this.nom_E=nom_E;
+        this.id_user = id_user;
+        this.nom_E = nom_E;
         this.date_DHE = date_DHE;
         this.date_DHF = date_DHF;
         this.capacite_E = capacite_E;

@@ -1,6 +1,5 @@
 package edu.esprit.entities;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,17 +8,16 @@ public class Actualite {
     String titre_a;
     String Description_a;
     Date date_a;
-    String image_a ;
+    String image_a;
     int id_muni;
-
 
 
     public Actualite(String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
         this.titre_a = titre_a;
         this.Description_a = description_a;
         this.date_a = date_a;
-this.image_a=image_a;
-this.id_muni=id_muni;
+        this.image_a = image_a;
+        this.id_muni = id_muni;
     }
 
     public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
@@ -27,8 +25,8 @@ this.id_muni=id_muni;
         this.titre_a = titre_a;
         this.Description_a = description_a;
         this.date_a = date_a;
-        this.image_a=image_a;
-        this.id_muni=id_muni;
+        this.image_a = image_a;
+        this.id_muni = id_muni;
 
     }
 
@@ -61,16 +59,16 @@ this.id_muni=id_muni;
         return (java.sql.Date) date_a;
     }
 
+    public void setDate_a(Date date_a) {
+        this.date_a = date_a;
+    }
+
     public String getImage_a() {
         return image_a;
     }
 
     public void setImage_a(String image_a) {
         this.image_a = image_a;
-    }
-
-    public void setDate_a(Date date_a) {
-        this.date_a = date_a;
     }
 
     public int getId_muni() {

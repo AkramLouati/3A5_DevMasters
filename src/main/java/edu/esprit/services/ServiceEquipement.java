@@ -6,13 +6,6 @@ import edu.esprit.utils.DataSource;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ServiceEquipement implements IService<Equipement> {
 

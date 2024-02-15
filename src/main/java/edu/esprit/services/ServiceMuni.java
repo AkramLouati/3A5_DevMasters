@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class ServiceMuni implements IService<Muni>{
+public class ServiceMuni implements IService<Muni> {
 
     Connection cnx = DataSource.getInstance().getCnx();
+
     @Override
     public void ajouter(Muni muni) {
         String req = "INSERT INTO `muni`(`nom_muni`, `email_muni`, `password_muni`, `imagee_user`) VALUES (?,?,?,?)";
@@ -80,13 +81,13 @@ public class ServiceMuni implements IService<Muni>{
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while(rs.next()){
+            while (rs.next()) {
                 int id_muni = rs.getInt("id_muni");
                 String nom_muni = rs.getString("nom_muni");
                 String email_muni = rs.getString("email_muni");
                 String password_muni = rs.getString("password_muni");
                 String image = rs.getString("imagee_user");
-                Muni p = new Muni(id_muni,nom_muni,email_muni,password_muni,image);
+                Muni p = new Muni(id_muni, nom_muni, email_muni, password_muni, image);
                 munis.add(p);
             }
         } catch (SQLException e) {
@@ -119,6 +120,7 @@ public class ServiceMuni implements IService<Muni>{
             throw new RuntimeException(e);
         }
     }
+
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.compile(regexPattern).matcher(email).matches();

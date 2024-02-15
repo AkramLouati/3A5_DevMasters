@@ -1,4 +1,5 @@
 package edu.esprit.entities;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class Avis {
 
     public Avis() {
     }
+
     public Avis(int id_eq, int note_avis, String commentaire_avis, Date date_avis) {
         this.id_avis = id_avis;
         this.equipement = equipement;
@@ -18,6 +20,7 @@ public class Avis {
         this.commentaire_avis = commentaire_avis;
         this.date_avis = date_avis;
     }
+
     public Avis(int id_avis, int id_eq, int note_avis, String commentaire_avis, Date date_avis) {
         this.id_avis = id_avis;
         this.equipement = equipement;

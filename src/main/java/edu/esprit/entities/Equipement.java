@@ -9,8 +9,10 @@ public class Equipement {
     private String etat_eq;
     private String description_eq;
     private int id_user; // Clé étrangère de la table User
-    public Equipement(){
+
+    public Equipement() {
     }
+
     public Equipement(String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, int id_user) {
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
@@ -20,6 +22,7 @@ public class Equipement {
         this.description_eq = description_eq;
         this.id_user = id_user;
     }
+
     public Equipement(int id_eq, String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, int id_user) {
         this.id_eq = id_eq;
         this.ref_eq = ref_eq;

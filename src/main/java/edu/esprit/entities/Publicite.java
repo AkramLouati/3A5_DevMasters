@@ -3,16 +3,14 @@ package edu.esprit.entities;
 import java.util.Objects;
 
 public class Publicite {
+    int id_user;
+    int id_a;
     private int id_pub;
     private String titre_pub;
     private String Description_pub;
     private int contact_pub;
     private String localisation_pub;
     private String image_pub;
-
-    int id_user;
-
-    int id_a;
 
     public Publicite() {
     }

@@ -3,75 +3,72 @@ package edu.esprit.services;
 import edu.esprit.entities.Evenement;
 import edu.esprit.utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceEvenement implements IService<Evenement> {
     Connection cnx = DataSource.getInstance().getCnx();
-        @Override
-        public void ajouter(Evenement evenement) {
-            // Vérification des champs requis
-            if (!validateEvenement(evenement)) {
-                System.out.println("Tous les champs doivent être remplis !");
-                return;
-            }
 
-            String req = "INSERT INTO evenement (id_user, nom_E, date_DHE, date_DHF, capacite_E, categorie_E) VALUES (?, ?, ?, ?, ?, ?)";
-            try {
-                PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, evenement.getId_user());
-                ps.setString(2, evenement.getNomEvent());
-                ps.setString(3, evenement.getDateEtHeureDeb());
-                ps.setString(4, evenement.getDateEtHeureFin());
-                ps.setInt(5, evenement.getCapaciteMax());
-                ps.setString(6, evenement.getCategorie());
-                ps.executeUpdate();
-                System.out.println("Evenement ajouté !");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+    @Override
+    public void ajouter(Evenement evenement) {
+        // Vérification des champs requis
+        if (!validateEvenement(evenement)) {
+            System.out.println("Tous les champs doivent être remplis !");
+            return;
         }
 
-        @Override
-        public void modifier(Evenement evenement) {
-            if (!validateEvenement(evenement)) {
-                System.out.println("Tous les champs doivent être remplis !");
-                return;
-            }
+        String req = "INSERT INTO evenement (id_user, nom_E, date_DHE, date_DHF, capacite_E, categorie_E) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, evenement.getId_user());
+            ps.setString(2, evenement.getNomEvent());
+            ps.setString(3, evenement.getDateEtHeureDeb());
+            ps.setString(4, evenement.getDateEtHeureFin());
+            ps.setInt(5, evenement.getCapaciteMax());
+            ps.setString(6, evenement.getCategorie());
+            ps.executeUpdate();
+            System.out.println("Evenement ajouté !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-            String req = "UPDATE evenement SET id_user=?, nom_E=?, date_DHE=?, date_DHF=?, capacite_E=?, categorie_E=? WHERE id_E=?";
-            try {
-                PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, evenement.getId_user());
-                ps.setString(2, evenement.getNomEvent());
-                ps.setString(3, evenement.getDateEtHeureDeb());
-                ps.setString(4, evenement.getDateEtHeureFin());
-                ps.setInt(5, evenement.getCapaciteMax());
-                ps.setString(6, evenement.getCategorie());
-                ps.setInt(7, evenement.getId_E());
-                ps.executeUpdate();
-                System.out.println("Evenement modifié !");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+    @Override
+    public void modifier(Evenement evenement) {
+        if (!validateEvenement(evenement)) {
+            System.out.println("Tous les champs doivent être remplis !");
+            return;
         }
 
-        private boolean validateEvenement(Evenement evenement) {
-            return evenement.getId_user() > 0 &&
-                    !evenement.getNomEvent().isEmpty() &&
-                    !evenement.getDateEtHeureDeb().isEmpty() &&
-                    !evenement.getDateEtHeureFin().isEmpty() &&
-                    evenement.getCapaciteMax() > 0 &&
-                    !evenement.getCategorie().isEmpty();
+        String req = "UPDATE evenement SET id_user=?, nom_E=?, date_DHE=?, date_DHF=?, capacite_E=?, categorie_E=? WHERE id_E=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, evenement.getId_user());
+            ps.setString(2, evenement.getNomEvent());
+            ps.setString(3, evenement.getDateEtHeureDeb());
+            ps.setString(4, evenement.getDateEtHeureFin());
+            ps.setInt(5, evenement.getCapaciteMax());
+            ps.setString(6, evenement.getCategorie());
+            ps.setInt(7, evenement.getId_E());
+            ps.executeUpdate();
+            System.out.println("Evenement modifié !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    private boolean validateEvenement(Evenement evenement) {
+        return evenement.getId_user() > 0 &&
+                !evenement.getNomEvent().isEmpty() &&
+                !evenement.getDateEtHeureDeb().isEmpty() &&
+                !evenement.getDateEtHeureFin().isEmpty() &&
+                evenement.getCapaciteMax() > 0 &&
+                !evenement.getCategorie().isEmpty();
+    }
 
 
-        @Override
+    @Override
     public void supprimer(int id) {
         String req = "DELETE FROM evenement WHERE id_E=?";
         try {
