@@ -81,12 +81,7 @@ public class Main {
             }
 
             // Adding the new task
-            if (serviceTache.ajouter(nouvelleTache)) {
-                System.out.println("Tâche ajoutée avec succès.");
-            } else {
-                System.out.println("Erreur lors de l'ajout de la tâche.");
-                return;
-            }
+            serviceTache.ajouter(nouvelleTache);
 
             // Retrieve all tasks and print them
             System.out.println("All Tasks:");

@@ -31,6 +31,7 @@ public class serviceTache implements IService<Tache> {
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     tache.setId_T(generatedKeys.getInt(1));
+                    System.out.println("Tâche ajoutée avec succès.");
                 } else {
                     throw new SQLException("Creating task failed, no ID obtained.");
                 }
