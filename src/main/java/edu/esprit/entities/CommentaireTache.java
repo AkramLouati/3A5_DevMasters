@@ -78,8 +78,6 @@ public class CommentaireTache {
     public String toString() {
         return "CommentaireTache{" +
                 "text_C='" + text_C + '\'' +
-                ", date_C=" + date_C +
-                ", date_FT=" +
                 '}';
     }
 }
