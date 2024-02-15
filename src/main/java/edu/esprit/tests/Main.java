@@ -41,7 +41,7 @@ public class Main {
 
         // 3. Update an event
         // Assuming there's an event with ID 1, update its name
-        Evenement eventToUpdate = serviceEvenement.getOneByID(1);
+        Evenement eventToUpdate = serviceEvenement.getOneByID(10);
         if (eventToUpdate != null) {
             eventToUpdate.setNomEvent("Updated Test Event");
             serviceEvenement.modifier(eventToUpdate);
