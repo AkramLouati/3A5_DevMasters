@@ -12,7 +12,7 @@ public class serviceTache implements IService<Tache> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public boolean ajouter(Tache tache) {
+    public void ajouter(Tache tache) {
         String req = "INSERT INTO tache (categorie_T, titre_T, pieceJointe_T, date_DT, date_FT, desc_T, etat_T, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
@@ -35,10 +35,8 @@ public class serviceTache implements IService<Tache> {
                     throw new SQLException("Creating task failed, no ID obtained.");
                 }
             }
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 

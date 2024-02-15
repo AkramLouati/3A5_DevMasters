@@ -26,7 +26,7 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
     }
 
     @Override
-    public boolean ajouter(CommentaireTache commentaireTache) {
+    public void ajouter(CommentaireTache commentaireTache) {
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -36,10 +36,8 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
             ps.setString(4, commentaireTache.getText_C());
             ps.executeUpdate();
             System.out.println("Comment added successfully!");
-            return true;
         } catch (SQLException e) {
             System.out.println("Error adding comment: " + e.getMessage());
-            return false;
         }
     }
 

@@ -3,7 +3,7 @@ package edu.esprit.services;
 import java.util.Set;
 
 public interface IService<T> {
-    public boolean ajouter(T t);
+    public void ajouter(T t);
 
     public void modifier(T t);
 
