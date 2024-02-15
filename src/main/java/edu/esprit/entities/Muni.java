@@ -16,7 +16,7 @@ public class Muni {
         this.image = image;
     }
 
-    public Muni(int id_muni, String nom_muni, String email_muni, String password_muni, String id_user, String image) {
+    public Muni(int id_muni, String nom_muni, String email_muni, String password_muni, String image) {
         this.id_muni = id_muni;
         this.nom_muni = nom_muni;
         this.email_muni = email_muni;

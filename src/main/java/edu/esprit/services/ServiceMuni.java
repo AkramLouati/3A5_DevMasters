@@ -3,9 +3,8 @@ package edu.esprit.services;
 import edu.esprit.entities.Muni;
 import edu.esprit.utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceMuni implements IService<Muni>{
@@ -39,7 +38,27 @@ public class ServiceMuni implements IService<Muni>{
 
     @Override
     public Set<Muni> getAll() {
-        return null;
+        Set<Muni> munis = new HashSet<>();
+        String req = "Select * from muni";
+
+        Statement st = null;
+        try {
+            st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while(rs.next()){
+                int id_muni = rs.getInt("id_muni");
+                String nom_muni = rs.getString("nom_muni");
+                String email_muni = rs.getString("email_muni");
+                String password_muni = rs.getString("password_muni");
+                String image = rs.getString("imagee_user");
+                Muni p = new Muni(id_muni,nom_muni,email_muni,password_muni,image);
+                munis.add(p);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return munis;
     }
 
     @Override
