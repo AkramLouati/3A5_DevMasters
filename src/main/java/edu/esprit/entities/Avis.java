@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Avis {
     private int id_avis;
-    private Equipement equipement;
+    private int id_eq;
     private int note_avis;
     private String commentaire_avis;
     private Date date_avis;
@@ -13,14 +13,14 @@ public class Avis {
     }
     public Avis(int id_eq, int note_avis, String commentaire_avis, Date date_avis) {
         this.id_avis = id_avis;
-        this.equipement = equipement;
+        this.id_eq = id_eq;
         this.note_avis = note_avis;
         this.commentaire_avis = commentaire_avis;
         this.date_avis = date_avis;
     }
     public Avis(int id_avis, int id_eq, int note_avis, String commentaire_avis, Date date_avis) {
         this.id_avis = id_avis;
-        this.equipement = equipement;
+        this.id_eq = id_eq;
         this.note_avis = note_avis;
         this.commentaire_avis = commentaire_avis;
         this.date_avis = date_avis;
@@ -34,12 +34,12 @@ public class Avis {
         this.id_avis = id_avis;
     }
 
-    public Equipement getEquipement() {
-        return equipement;
+    public int getId_eq() {
+        return id_eq;
     }
 
-    public void setEquipement(Equipement equipement) {
-        this.equipement = equipement;
+    public void setId_eq(int id_eq) {
+        this.id_eq = id_eq;
     }
 
     public int getNote_avis() {
@@ -83,7 +83,7 @@ public class Avis {
     public String toString() {
         return "Avis{" +
                 "id_avis=" + id_avis +
-                ", equipement=" + equipement +
+                ", id_eq=" + id_eq +
                 ", note_avis=" + note_avis +
                 ", commentaire_avis='" + commentaire_avis + '\'' +
                 ", date_avis=" + date_avis +

@@ -10,18 +10,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceAvis implements IService<Avis> {
-    private Connection cnx;
 
-    public ServiceAvis(Connection cnx) {
-        this.cnx = cnx;
-    }
+
+    Connection cnx = DataSource.getInstance().getCnx();
+
 
     @Override
     public void ajouter(Avis avis) {
         String req = "INSERT INTO avis (id_eq, note_avis, commentaire_avis, date_avis) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, avis.getEquipement().getId_eq());
+            ps.setInt(1, avis.getId_eq());
             ps.setInt(2, avis.getNote_avis());
             ps.setString(3, avis.getCommentaire_avis());
             ps.setDate(4, new java.sql.Date(avis.getDate_avis().getTime()));
