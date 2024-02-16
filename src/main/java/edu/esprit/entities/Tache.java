@@ -14,17 +14,29 @@ public class Tache {
     public Tache() {
     }
 
-    public Tache(int id_T, int id_user, String categorie_T, String titre_T, String pieceJointe_T, String desc_T, Date date_DT, Date date_FT, EtatTache etat_T) {
+    public Tache(int id_T, String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, int id_user) {
         this.id_T = id_T;
-        this.id_user = id_user;
         this.categorie_T = categorie_T;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
-        this.desc_T = desc_T;
         this.date_DT = date_DT;
         this.date_FT = date_FT;
+        this.desc_T = desc_T;
         this.etat_T = etat_T;
+        this.id_user = id_user;
     }
+
+    public Tache(String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, int id_user) {
+        this.categorie_T = categorie_T;
+        this.titre_T = titre_T;
+        this.pieceJointe_T = pieceJointe_T;
+        this.date_DT = date_DT;
+        this.date_FT = date_FT;
+        this.desc_T = desc_T;
+        this.etat_T = etat_T;
+        this.id_user = id_user;
+    }
+
 
     public int getId_T() {
         return id_T;

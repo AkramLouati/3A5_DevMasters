@@ -11,6 +11,23 @@ import java.util.Set;
 public class serviceTache implements IService<Tache> {
     Connection cnx = DataSource.getInstance().getCnx();
 
+    public boolean addComment(CommentaireTache commentaire) {
+        serviceCommentaireTache cs = new serviceCommentaireTache();
+        String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, commentaire.getId_user());
+            ps.setInt(2, commentaire.getId_T());
+            ps.setDate(3, new java.sql.Date(commentaire.getDate_C().getTime()));
+            ps.setString(4, commentaire.getText_C());
+            int rowsInserted = ps.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @Override
     public void ajouter(Tache tache) {
         String req = "INSERT INTO tache (categorie_T, titre_T, pieceJointe_T, date_DT, date_FT, desc_T, etat_T, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -38,23 +55,6 @@ public class serviceTache implements IService<Tache> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public boolean addComment(CommentaireTache commentaire) {
-        serviceCommentaireTache cs = new serviceCommentaireTache();
-        String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, commentaire.getId_user());
-            ps.setInt(2, commentaire.getId_T());
-            ps.setDate(3, new java.sql.Date(commentaire.getDate_C().getTime()));
-            ps.setString(4, commentaire.getText_C());
-            int rowsInserted = ps.executeUpdate();
-            return rowsInserted > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
@@ -100,7 +100,6 @@ public class serviceTache implements IService<Tache> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 int id = rs.getInt("id_T");
-                int id_user = rs.getInt("id_user");
                 String categorie = rs.getString("categorie_T");
                 String titre = rs.getString("titre_T");
                 String pieceJointe = rs.getString("pieceJointe_T");
@@ -108,7 +107,8 @@ public class serviceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                Tache tache = new Tache(id, id_user, categorie, titre, pieceJointe, desc, dateDT, dateFT, etat);
+                int id_user = rs.getInt("id_user");
+                Tache tache = new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, id_user);
                 taches.add(tache);
             }
         } catch (SQLException e) {
@@ -126,7 +126,6 @@ public class serviceTache implements IService<Tache> {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int id_user = rs.getInt("id_user");
                 String categorie = rs.getString("categorie_T");
                 String titre = rs.getString("titre_T");
                 String pieceJointe = rs.getString("pieceJointe_T");
@@ -134,7 +133,8 @@ public class serviceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                return new Tache(id, id_user, categorie, titre, pieceJointe, desc, dateDT, dateFT, etat);
+                int id_user = rs.getInt("id_user");
+                return new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, id_user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -150,9 +150,6 @@ public class serviceTache implements IService<Tache> {
         if (tache.getTitre_T() == null || tache.getTitre_T().isEmpty()) {
             throw new IllegalArgumentException("Titre Obligatoire");
         }
-        if (tache.getId_user() <= 0) {
-            throw new IllegalArgumentException("ID User Obligatoire");
-        }
         if (tache.getDate_DT() == null) {
             throw new IllegalArgumentException("Date Debut Obligatoire");
         }
@@ -165,6 +162,9 @@ public class serviceTache implements IService<Tache> {
         EtatTache etatT = tache.getEtat_T();
         if (etatT != EtatTache.TO_DO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
             throw new IllegalArgumentException("Etat de la tâche doit etre (TO_DO | DOING | DONE)");
+        }
+        if (tache.getId_user() <= 0) {
+            throw new IllegalArgumentException("ID User Obligatoire");
         }
         return true;
     }
