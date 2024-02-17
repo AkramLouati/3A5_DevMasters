@@ -27,8 +27,6 @@ public class CommentaireTache {
         this.text_C = text_C;
     }
 
-    public CommentaireTache(int id, int idUser, int idT, java.sql.Date dateC, String texteC) {
-    }
 
     public int getId_C() {
         return id_C;
@@ -85,9 +83,10 @@ public class CommentaireTache {
     @Override
     public String toString() {
         return "CommentaireTache{" +
-                "date_C=" + date_C +
-                ", text_C='" + text_C + '\'' +
-                '}';
+                "date_C=" + date_C + "|" +
+                "text_C='" + text_C + "|" +
+                '}' +
+                System.lineSeparator();
     }
 }
 
