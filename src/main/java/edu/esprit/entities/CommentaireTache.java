@@ -27,6 +27,11 @@ public class CommentaireTache {
         this.text_C = text_C;
     }
 
+    public CommentaireTache(int id_C, String text_C) {
+        this.id_C = id_C;
+        this.text_C = text_C;
+    }
+
 
     public int getId_C() {
         return id_C;

@@ -1,7 +1,6 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.CommentaireTache;
-import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;

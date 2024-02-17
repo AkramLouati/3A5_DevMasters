@@ -12,16 +12,18 @@ import java.util.Date;
 
 public class MainT {
     public static void main(String[] args) {
+        serviceTache st = new serviceTache();
+        serviceCommentaireTache sct = new serviceCommentaireTache();
         try {
             DataSource ds = new DataSource();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 /*
-        serviceTache st = new serviceTache();
+
         try {
             st.ajouter(new Tache("2029", "Task Title", "file.txt", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 12:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "desc",EtatTache.TO_DO, 14));
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "desc", EtatTache.TO_DO, 14));
 
             System.out.println(st.getAll());
 
@@ -35,20 +37,19 @@ public class MainT {
             System.out.println("Error: " + e.getMessage());
         }
 */
-        //COMMENTAIRE:
-        serviceCommentaireTache sct = new serviceCommentaireTache();
-
+        //  COMMENTAIRE:
         try {
 
             System.out.println(sct.getAll());
-            /*
+
             sct.ajouter(new CommentaireTache(14, 18, new Date(), "555"));
             System.out.println(sct.getAll());
-            sct.modifier(new CommentaireTache(8, "9999999"));
+            sct.modifier(new CommentaireTache(11, "9999999"));
+
             System.out.println(sct.getAll());
-            sct.supprimer(10);
+            sct.supprimer(14);
             System.out.println(sct.getAll());
-            */
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
