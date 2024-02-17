@@ -5,25 +5,26 @@ import java.util.Objects;
 
 public class CommentaireTache {
     int id_C, id_user, id_T;
-    String text_C;
     Date date_C;
+    String text_C;
+
 
     public CommentaireTache() {
     }
 
-    public CommentaireTache(int id_C, int id_user, int id_T, String text_C, Date date_C) {
+    public CommentaireTache(int id_C, int id_user, int id_T, Date date_C, String text_C) {
         this.id_C = id_C;
         this.id_user = id_user;
         this.id_T = id_T;
-        this.text_C = text_C;
         this.date_C = date_C;
+        this.text_C = text_C;
     }
 
-    public CommentaireTache(int id_user, int id_T, String text_C, Date date_C) {
+    public CommentaireTache(int id_user, int id_T, Date date_C, String text_C) {
         this.id_user = id_user;
         this.id_T = id_T;
-        this.text_C = text_C;
         this.date_C = date_C;
+        this.text_C = text_C;
     }
 
     public CommentaireTache(int id, int idUser, int idT, java.sql.Date dateC, String texteC) {
@@ -84,7 +85,8 @@ public class CommentaireTache {
     @Override
     public String toString() {
         return "CommentaireTache{" +
-                "text_C='" + text_C + '\'' +
+                "date_C=" + date_C +
+                ", text_C='" + text_C + '\'' +
                 '}';
     }
 }

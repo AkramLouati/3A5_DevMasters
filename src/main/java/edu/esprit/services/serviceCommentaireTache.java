@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.CommentaireTache;
+import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -34,30 +35,41 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
             ps.setDate(3, new java.sql.Date(commentaireTache.getDate_C().getTime()));
             ps.setString(4, commentaireTache.getText_C());
             ps.executeUpdate();
-            System.out.println("Comment added successfully!");
+            System.out.println("Commentaire ajouter");
         } catch (SQLException e) {
-            System.out.println("Error adding comment: " + e.getMessage());
+            System.out.println("Erreur ajout commentaire: " + e.getMessage());
         }
     }
 
+    /*
+        @Override
+        public void modifier(CommentaireTache commentaireTache) {
+            String req = "UPDATE commentairetache SET id_user=?, id_T=?, date_C=?, texte_C=? WHERE id_C=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, commentaireTache.getId_user());
+                ps.setInt(2, commentaireTache.getId_T());
+                ps.setDate(3, new java.sql.Date(commentaireTache.getDate_C().getTime()));
+                ps.setString(4, commentaireTache.getText_C());
+                ps.setInt(5, commentaireTache.getId_C());
+                int rowsAffected = ps.executeUpdate();
+                ps.executeUpdate();
+            System.out.println("Commentaire ajouter");
+            } catch (SQLException e) {
+            System.out.println("Erreur ajout commentaire: " + e.getMessage());
+        }
+        }
+    */
     @Override
     public void modifier(CommentaireTache commentaireTache) {
-        String req = "UPDATE commentairetache SET id_user=?, id_T=?, date_C=?, texte_C=? WHERE id_C=?";
+        String req = "UPDATE commentairetache SET texte_C=? WHERE id_C=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, commentaireTache.getId_user());
-            ps.setInt(2, commentaireTache.getId_T());
-            ps.setDate(3, new java.sql.Date(commentaireTache.getDate_C().getTime()));
-            ps.setString(4, commentaireTache.getText_C());
-            ps.setInt(5, commentaireTache.getId_C());
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Comment updated successfully!");
-            } else {
-                System.out.println("No comment found for updating.");
-            }
+            ps.setString(1, commentaireTache.getText_C());
+            ps.setInt(2, commentaireTache.getId_C());
+            ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error updating comment: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -67,14 +79,9 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Comment deleted successfully!");
-            } else {
-                System.out.println("No comment found for deletion.");
-            }
+            ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error deleting comment: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -94,8 +101,6 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
                 CommentaireTache commentaireTache = new CommentaireTache(id_C, id_user, id_T, date_C, texte_C);
                 commentaires.add(commentaireTache);
             }
-            rs.close();
-            st.close();
         } catch (SQLException e) {
             System.out.println("Error retrieving comments: " + e.getMessage());
         }
