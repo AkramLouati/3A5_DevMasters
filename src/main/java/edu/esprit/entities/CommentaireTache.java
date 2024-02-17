@@ -11,8 +11,15 @@ public class CommentaireTache {
     public CommentaireTache() {
     }
 
-    public CommentaireTache(int id_C, int id_user, int id_T, String text_C, Date date_C, Date date_FT) {
+    public CommentaireTache(int id_C, int id_user, int id_T, String text_C, Date date_C) {
         this.id_C = id_C;
+        this.id_user = id_user;
+        this.id_T = id_T;
+        this.text_C = text_C;
+        this.date_C = date_C;
+    }
+
+    public CommentaireTache(int id_user, int id_T, String text_C, Date date_C) {
         this.id_user = id_user;
         this.id_T = id_T;
         this.text_C = text_C;

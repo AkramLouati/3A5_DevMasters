@@ -12,7 +12,6 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     public static boolean isValidC(CommentaireTache commentaireTache) throws IllegalArgumentException {
-        // Vérifier si l'utilisateur, le texte du commentaire et l'ID de la tâche sont valides
         if (commentaireTache.getId_user() <= 0) {
             throw new IllegalArgumentException("User ID is required and must be greater than 0.");
         }

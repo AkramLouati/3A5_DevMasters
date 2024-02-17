@@ -1,6 +1,5 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
 
@@ -10,23 +9,6 @@ import java.util.Set;
 
 public class serviceTache implements IService<Tache> {
     Connection cnx = DataSource.getInstance().getCnx();
-
-    public boolean addComment(CommentaireTache commentaire) {
-        serviceCommentaireTache cs = new serviceCommentaireTache();
-        String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, commentaire.getId_user());
-            ps.setInt(2, commentaire.getId_T());
-            ps.setDate(3, new java.sql.Date(commentaire.getDate_C().getTime()));
-            ps.setString(4, commentaire.getText_C());
-            int rowsInserted = ps.executeUpdate();
-            return rowsInserted > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     @Override
     public void ajouter(Tache tache) {
@@ -43,12 +25,12 @@ public class serviceTache implements IService<Tache> {
             ps.setInt(8, tache.getId_user());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating task failed, no rows affected.");
+                throw new SQLException("Creating task failed");
             }
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     tache.setId_T(generatedKeys.getInt(1));
-                    System.out.println("Tâche ajoutée avec succès.");
+                    System.out.println("Tache ajoutee avec succes.");
                 } else {
                     throw new SQLException("Creating task failed, no ID obtained.");
                 }
@@ -114,7 +96,6 @@ public class serviceTache implements IService<Tache> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return taches;
     }
 
@@ -139,7 +120,7 @@ public class serviceTache implements IService<Tache> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Return null if no task found with the provided ID
+        return null;
     }
 
     public boolean isValidT(Tache tache) throws IllegalArgumentException {

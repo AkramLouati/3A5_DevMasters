@@ -125,14 +125,16 @@ public class Tache {
     @Override
     public String toString() {
         return "Tache{" +
-                "categorie_T='" + categorie_T + '\'' +
-                ", titre_T='" + titre_T + '\'' +
-                ", pieceJointe_T='" + pieceJointe_T + '\'' +
-                ", desc_T='" + desc_T + '\'' +
-                ", date_DT=" + date_DT +
-                ", date_FT=" + date_FT +
-                ", etat_T=" + etat_T +
-                '}';
+                "Categorie=" + categorie_T + "|" +
+                "Titre=" + titre_T + "|" +
+                "Piece Jointe=" + pieceJointe_T + "|" +
+                "Description=" + desc_T + "|" +
+                "Date Debut=" + date_DT + "|" +
+                "Date Fin=" + date_FT + "|" +
+                "Etat=" + etat_T + "|" +
+                '}' +
+                // Add this instead of the closing curly brace
+                System.lineSeparator();
     }
 
 }
