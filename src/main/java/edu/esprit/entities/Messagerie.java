@@ -7,27 +7,27 @@ public class Messagerie {
     private int id_message;
     private Date date_message;
     private String contenu_message;
-    private int receiverId_message;
-    private int senderId_message;
+    private EndUser receiver_message;
+    private EndUser sender_message;
     private String type_message;
 
     public Messagerie() {
     }
 
-    public Messagerie(Date date_message, String contenu_message, int receiverId_message, int senderId_message, String type_message) {
+    public Messagerie(Date date_message, String contenu_message, EndUser receiver_message, EndUser sender_message, String type_message) {
         this.date_message = date_message;
         this.contenu_message = contenu_message;
-        this.receiverId_message = receiverId_message;
-        this.senderId_message = senderId_message;
+        this.receiver_message = receiver_message;
+        this.sender_message = sender_message;
         this.type_message = type_message;
     }
 
-    public Messagerie(int id_message, Date date_message, String contenu_message, int receiverId_message, int senderId_message, String type_message) {
+    public Messagerie(int id_message, Date date_message, String contenu_message, EndUser receiver_message, EndUser sender_message, String type_message) {
         this.id_message = id_message;
         this.date_message = date_message;
         this.contenu_message = contenu_message;
-        this.receiverId_message = receiverId_message;
-        this.senderId_message = senderId_message;
+        this.receiver_message = receiver_message;
+        this.sender_message = sender_message;
         this.type_message = type_message;
     }
 
@@ -55,20 +55,20 @@ public class Messagerie {
         this.contenu_message = contenu_message;
     }
 
-    public int getReceiverId_message() {
-        return receiverId_message;
+    public EndUser getReceiver_message() {
+        return receiver_message;
     }
 
-    public void setReceiverId_message(int receiverId_message) {
-        this.receiverId_message = receiverId_message;
+    public void setReceiver_message(EndUser receiver_message) {
+        this.receiver_message = receiver_message;
     }
 
-    public int getSenderId_message() {
-        return senderId_message;
+    public EndUser getSender_message() {
+        return sender_message;
     }
 
-    public void setSenderId_message(int senderId_message) {
-        this.senderId_message = senderId_message;
+    public void setSender_message(EndUser sender_message) {
+        this.sender_message = sender_message;
     }
 
     public String getType_message() {
@@ -97,8 +97,8 @@ public class Messagerie {
         return "Messagerie{" +
                 "date_message=" + date_message +
                 ", contenu_message='" + contenu_message + '\'' +
-                ", receiverId_message=" + receiverId_message +
-                ", senderId_message=" + senderId_message +
+                ", receiverId_message=" + receiver_message +
+                ", senderId_message=" + sender_message +
                 ", type_message='" + type_message + '\'' +
                 '}';
     }

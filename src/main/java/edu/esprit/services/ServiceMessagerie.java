@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
 import edu.esprit.utils.DataSource;
 
@@ -9,11 +10,13 @@ import java.util.Set;
 
 public class ServiceMessagerie implements IService<Messagerie> {
     Connection cnx = DataSource.getInstance().getCnx();
+    ServiceUser serviceUser = new ServiceUser();
+    ServiceMuni serviceMuni = new ServiceMuni();
     public boolean validateMessagerie(Messagerie messagerie) {
         return messagerie.getDate_message() != null &&
                 !messagerie.getContenu_message().isEmpty() &&
-                messagerie.getReceiverId_message() != 0 &&
-                messagerie.getSenderId_message() != 0 &&
+                messagerie.getReceiver_message() != null &&
+                messagerie.getSender_message() != null &&
                 !messagerie.getType_message().isEmpty();
     }
     @Override
@@ -27,8 +30,8 @@ public class ServiceMessagerie implements IService<Messagerie> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setDate(1, messagerie.getDate_message());
             ps.setString(2, messagerie.getContenu_message());
-            ps.setInt(3, messagerie.getReceiverId_message());
-            ps.setInt(4, messagerie.getSenderId_message());
+            ps.setInt(3, messagerie.getReceiver_message().getId());
+            ps.setInt(4, messagerie.getSender_message().getId());
             ps.setString(5, messagerie.getType_message());
             ps.executeUpdate();
             System.out.println("Message ajouté avec succès !");
@@ -63,8 +66,8 @@ public class ServiceMessagerie implements IService<Messagerie> {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setDate(1, messagerie.getDate_message());
                 ps.setString(2, messagerie.getContenu_message());
-                ps.setInt(3, messagerie.getReceiverId_message());
-                ps.setInt(4, messagerie.getSenderId_message());
+                ps.setInt(3, messagerie.getReceiver_message().getId());
+                ps.setInt(4, messagerie.getSender_message().getId());
                 ps.setString(5, messagerie.getType_message());
                 ps.setInt(6, messagerie.getId_message());
                 int rowsAffected = ps.executeUpdate();
@@ -83,6 +86,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
 
     @Override
     public void supprimer(int id) {
+
         if (messageExists(id)) {
             String req = "DELETE FROM `messagerie` WHERE `id_message`=?";
             try {
@@ -104,12 +108,13 @@ public class ServiceMessagerie implements IService<Messagerie> {
 
     @Override
     public Set<Messagerie> getAll() {
+
         Set<Messagerie> messages = new HashSet<>();
 
         String req = "SELECT * FROM `messagerie`";
         try {
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(req);
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id_message = rs.getInt("id_message");
                 Date date_message = rs.getDate("date_message");
@@ -117,7 +122,11 @@ public class ServiceMessagerie implements IService<Messagerie> {
                 int receiverId_message = rs.getInt("receiverId_message");
                 int senderId_message = rs.getInt("senderId_message");
                 String type_message = rs.getString("type_message");
-                Messagerie messagerie = new Messagerie(id_message, date_message, contenu_message, receiverId_message, senderId_message, type_message);
+
+                EndUser receiver = serviceUser.getOneByID(receiverId_message);
+                EndUser sender = serviceUser.getOneByID(senderId_message);
+
+                Messagerie messagerie = new Messagerie(id_message, date_message, contenu_message, receiver, sender, type_message);
                 messages.add(messagerie);
             }
         } catch (SQLException e) {
@@ -141,11 +150,18 @@ public class ServiceMessagerie implements IService<Messagerie> {
                 int receiverId_message = rs.getInt("receiverId_message");
                 int senderId_message = rs.getInt("senderId_message");
                 String type_message = rs.getString("type_message");
-                messagerie = new Messagerie(id, date_message, contenu_message, receiverId_message, senderId_message, type_message);
+
+                EndUser receiver = serviceUser.getOneByID(receiverId_message);
+                EndUser sender = serviceUser.getOneByID(senderId_message);
+
+                messagerie = new Messagerie(id, date_message, contenu_message, receiver, sender, type_message);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération du message avec l'ID " + id + " : " + e.getMessage());
         }
         return messagerie;
     }
+
+
+
 }
