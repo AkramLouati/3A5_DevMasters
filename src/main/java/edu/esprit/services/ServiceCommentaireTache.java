@@ -80,7 +80,8 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 int id_C = rs.getInt("id_C");
-                EndUser user = serviceUser.getOneByID(id);
+                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id_user);
                 int id_T = rs.getInt("id_T");
                 Date date_C = rs.getDate("date_C");
                 String texte_C = rs.getString("texte_C");

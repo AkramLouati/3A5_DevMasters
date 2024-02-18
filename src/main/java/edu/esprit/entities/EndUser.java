@@ -8,7 +8,9 @@ public class EndUser {
 
     public EndUser() {
     }
-
+    public EndUser(int id) {
+        this.id = id;
+    }
     public EndUser(int id, Muni muni) {
         this.id = id;
         this.muni = muni;

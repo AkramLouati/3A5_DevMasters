@@ -91,7 +91,8 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                EndUser user = serviceUser.getOneByID(id);
+                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id_user);
                 Tache tache = new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
                 t.add(tache);
             }
@@ -116,7 +117,8 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                EndUser user = serviceUser.getOneByID(id);
+                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id_user);
                 return new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
             }
         } catch (SQLException e) {
