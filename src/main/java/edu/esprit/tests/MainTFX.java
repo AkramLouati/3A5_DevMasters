@@ -18,8 +18,8 @@ public class MainTFX extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stg = primaryStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/esprit/gui/AjoutTache.fxml"));
-        InputStream fxmlStream = getClass().getResourceAsStream("/edu/esprit/gui/AjoutTache.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        InputStream fxmlStream = getClass().getResourceAsStream("/edu/esprit/gui/AjouterTache.fxml");
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }

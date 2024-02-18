@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AjoutTacheController {
+public class AjouterTacheController {
 
     @FXML
     private ResourceBundle resources;
