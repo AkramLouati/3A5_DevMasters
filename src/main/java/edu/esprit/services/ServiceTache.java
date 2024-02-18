@@ -115,7 +115,7 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                EndUser user = new EndUser();
+                EndUser user = ServiceUser.getOneByID("id_user");
                 return new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
             }
         } catch (SQLException e) {
