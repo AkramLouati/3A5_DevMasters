@@ -104,6 +104,12 @@ public class AjouterTacheController {
             etat = EtatTache.DONE;
         }
 
+        // Check if required fields are empty
+        if (category.isEmpty() || title.isEmpty() || attachment.isEmpty() || startDate == null || endDate == null || etat == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez remplir tous les champs obligatoires.");
+            return; // Stop further execution
+        }
+
         try {
             // Set the selected user to user with ID 14
             ServiceUser serviceUser = new ServiceUser();
@@ -126,6 +132,7 @@ public class AjouterTacheController {
             showAlert(Alert.AlertType.ERROR, "Error", "Erreur lors de l'ajout de la tache : " + e.getMessage());
         }
     }
+
 
 
 
