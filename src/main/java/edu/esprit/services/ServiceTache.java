@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
 
@@ -11,25 +12,25 @@ public class ServiceTache implements IService<Tache> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(Tache tache) {
+    public void ajouter(Tache t) {
         String req = "INSERT INTO tache (categorie_T, titre_T, pieceJointe_T, date_DT, date_FT, desc_T, etat_T, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, tache.getCategorie_T());
-            ps.setString(2, tache.getTitre_T());
-            ps.setString(3, tache.getPieceJointe_T());
-            ps.setDate(4, new java.sql.Date(tache.getDate_DT().getTime()));
-            ps.setDate(5, new java.sql.Date(tache.getDate_FT().getTime()));
-            ps.setString(6, tache.getDesc_T());
-            ps.setString(7, tache.getEtat_T().toString());
-            ps.setInt(8, tache.getId_user());
+            ps.setString(1, t.getCategorie_T());
+            ps.setString(2, t.getTitre_T());
+            ps.setString(3, t.getPieceJointe_T());
+            ps.setDate(4, new java.sql.Date(t.getDate_DT().getTime()));
+            ps.setDate(5, new java.sql.Date(t.getDate_FT().getTime()));
+            ps.setString(6, t.getDesc_T());
+            ps.setString(7, t.getEtat_T().toString());
+            ps.setInt(8, t.getUser().getId());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating task failed");
             }
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    tache.setId_T(generatedKeys.getInt(1));
+                    t.setId_T(generatedKeys.getInt(1));
                     System.out.println("Tache ajoutee avec succes.");
                 } else {
                     throw new SQLException("Creating task failed, no ID obtained.");
@@ -52,7 +53,7 @@ public class ServiceTache implements IService<Tache> {
             ps.setDate(5, new java.sql.Date(tache.getDate_FT().getTime()));
             ps.setString(6, tache.getDesc_T());
             ps.setString(7, tache.getEtat_T().toString());
-            ps.setInt(8, tache.getId_user());
+            ps.setInt(8, tache.getUser().getId());
             ps.setInt(9, tache.getId_T());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class ServiceTache implements IService<Tache> {
 
     @Override
     public Set<Tache> getAll() {
-        Set<Tache> taches = new HashSet<>();
+        Set<Tache> t = new HashSet<>();
 
         String req = "SELECT * FROM tache";
         try {
@@ -89,14 +90,14 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                int id_user = rs.getInt("id_user");
-                Tache tache = new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, id_user);
-                taches.add(tache);
+                EndUser user = new EndUser();
+                Tache tache = new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
+                t.add(tache);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return taches;
+        return t;
     }
 
     @Override
@@ -114,8 +115,8 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                int id_user = rs.getInt("id_user");
-                return new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, id_user);
+                EndUser user = new EndUser();
+                return new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,7 +145,7 @@ public class ServiceTache implements IService<Tache> {
         if (etatT != EtatTache.TO_DO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
             throw new IllegalArgumentException("Etat de la tâche doit etre (TO_DO | DOING | DONE)");
         }
-        if (tache.getId_user() <= 0) {
+        if (tache.getUser().getId() <= 0) {
             throw new IllegalArgumentException("ID User Obligatoire");
         }
         return true;

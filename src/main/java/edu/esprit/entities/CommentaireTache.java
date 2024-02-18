@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.Objects;
 
 public class CommentaireTache {
-    int id_C, id_T;
+    private int id_C, id_T;
     private EndUser user;
-    Date date_C;
-    String text_C;
+    private Date date_C;
+    private String text_C;
 
 
     public CommentaireTache() {

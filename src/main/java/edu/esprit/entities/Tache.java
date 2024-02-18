@@ -8,9 +8,9 @@ import java.util.Objects;
 public class Tache {
     int id_T;
     private EndUser user;
-    String categorie_T, titre_T, pieceJointe_T, desc_T;
-    Date date_DT, date_FT;
-    EtatTache etat_T;
+    private String categorie_T, titre_T, pieceJointe_T, desc_T;
+    private Date date_DT, date_FT;
+    private EtatTache etat_T;
 
     public Tache() {
     }

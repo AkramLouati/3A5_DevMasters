@@ -12,47 +12,46 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(CommentaireTache commentaireTache) {
+    public void ajouter(CommentaireTache ct) {
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, commentaireTache.getId_user());
-            ps.setInt(2, commentaireTache.getId_T());
-            ps.setDate(3, new java.sql.Date(commentaireTache.getDate_C().getTime()));
-            ps.setString(4, commentaireTache.getText_C());
+            ps.setInt(1, ct.getUser().getId());
+            ps.setInt(2, ct.getId_T());
+            ps.setDate(3, new java.sql.Date(ct.getDate_C().getTime()));
+            ps.setString(4, ct.getText_C());
             ps.executeUpdate();
             System.out.println("Commentaire ajouter");
         } catch (SQLException e) {
             System.out.println("Erreur ajout commentaire: " + e.getMessage());
         }
     }
-
     /*
         @Override
-        public void modifier(CommentaireTache commentaireTache) {
+        public void modifier(CommentaireTache ct) {
             String req = "UPDATE commentairetache SET id_user=?, id_T=?, date_C=?, texte_C=? WHERE id_C=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, commentaireTache.getId_user());
-                ps.setInt(2, commentaireTache.getId_T());
-                ps.setDate(3, new java.sql.Date(commentaireTache.getDate_C().getTime()));
-                ps.setString(4, commentaireTache.getText_C());
-                ps.setInt(5, commentaireTache.getId_C());
+                ps.setInt(1, ct.getUser().getId());
+                ps.setInt(2, ct.getId_T());
+                ps.setDate(3, new java.sql.Date(ct.getDate_C().getTime()));
+                ps.setString(4, ct.getText_C());
+                ps.setInt(5, ct.getId_C());
                 int rowsAffected = ps.executeUpdate();
                 ps.executeUpdate();
             System.out.println("Commentaire ajouter");
             } catch (SQLException e) {
             System.out.println("Erreur ajout commentaire: " + e.getMessage());
         }
-        }
+    }
     */
     @Override
-    public void modifier(CommentaireTache commentaireTache) {
+    public void modifier(CommentaireTache ct) {
         String req = "UPDATE commentairetache SET texte_C=? WHERE id_C=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, commentaireTache.getText_C());
-            ps.setInt(2, commentaireTache.getId_C());
+            ps.setString(1, ct.getText_C());
+            ps.setInt(2, ct.getId_C());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +72,7 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
 
     @Override
     public Set<CommentaireTache> getAll() {
-        Set<CommentaireTache> commentaires = new HashSet<>();
+        Set<CommentaireTache> ct = new HashSet<>();
         String req = "SELECT * FROM commentairetache";
         try {
             Statement st = cnx.createStatement();
@@ -85,12 +84,12 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
                 Date date_C = rs.getDate("date_C");
                 String texte_C = rs.getString("texte_C");
                 CommentaireTache commentaireTache = new CommentaireTache(id_C, id_user, id_T, date_C, texte_C);
-                commentaires.add(commentaireTache);
+                ct.add(commentaireTache);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving comments: " + e.getMessage());
         }
-        return commentaires;
+        return ct;
     }
 
     @Override
@@ -112,9 +111,9 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
         }
         return null;
     }
-    public boolean isValidC(CommentaireTache commentaireTache) throws IllegalArgumentException {
+    public boolean isValidC(CommentaireTache ct) throws IllegalArgumentException {
 
-        if (commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty()) {
+        if (ct.getText_C() == null || ct.getText_C().isEmpty()) {
             throw new IllegalArgumentException("Commentaire Obligatoire");
         }
         return true;
