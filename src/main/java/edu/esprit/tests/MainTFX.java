@@ -6,25 +6,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class MainTFX extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static Stage stg;
+    @Override
+    public void start(Stage primaryStage) throws IOException
+    {
+        stg = primaryStage;
+        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/esprit/gui/AjoutTache.fxml")));
 
-    public void start(Stage primaryStage) throws Exception {
-        // Load the FXML file
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/AjoutTache.fxml")));
+        //Scene scene= new Scene(root);
 
-        // Create the scene
-        Scene scene = new Scene(root);
-
-        // Set the scene on the stage
-        primaryStage.setScene(scene);
-
-        // Show the stage
+        primaryStage.setTitle("Baladity");
+        //primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
 }
