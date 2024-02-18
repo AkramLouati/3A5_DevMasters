@@ -61,7 +61,8 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>edu.esprit.tests.MainTFX</mainClass>
+                        <mainClass>edu.esprit.tests.MainTFX</mainClass>
+                            <mainClass>edu.esprit.tests.MainBS</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
