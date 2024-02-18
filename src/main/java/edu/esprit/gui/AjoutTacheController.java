@@ -1,8 +1,10 @@
 package edu.esprit.gui;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 
 public class AjoutTacheController {
 
@@ -11,6 +13,11 @@ public class AjoutTacheController {
 
     @FXML
     private URL location;
+
+    @FXML
+    void btnAjouterTache(ActionEvent event) {
+
+    }
 
     @FXML
     void initialize() {

@@ -1,10 +1,13 @@
 package edu.esprit.tests;
 
 import edu.esprit.entities.CommentaireTache;
+import edu.esprit.entities.Tache;
+import edu.esprit.services.EtatTache;
 import edu.esprit.services.serviceCommentaireTache;
 import edu.esprit.services.serviceTache;
 import edu.esprit.utils.DataSource;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainT {
@@ -16,40 +19,49 @@ public class MainT {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-/*
 
         try {
-            st.ajouter(new Tache("2029", "Task Title", "file.txt", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 12:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "desc", EtatTache.TO_DO, 14));
+            // Ajout d'une tâche
+            Tache nouvelleTache = new Tache("2029", "Titre de la tâche", "fichier.txt", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-12 12:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, 14);
+            if (st.isValidT(nouvelleTache)) {
+                st.ajouter(nouvelleTache);
+                System.out.println(st.getAll());
+            }
 
-            System.out.println(st.getAll());
-
-            st.modifier(new Tache(24, "100000000", "Task Title 02", "file", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 12:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "desc", EtatTache.TO_DO, 14));
+            // Modification d'une tâche
+            Tache tacheModifiee = new Tache(24, "100000000", "Titre de la tâche 02", "fichier", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 20:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, 14);
+            if (st.isValidT(tacheModifiee)) {
+                st.modifier(tacheModifiee);
+                System.out.println(st.getAll());
+            }
 
             st.supprimer(21);
-
             System.out.println(st.getAll());
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Erreur : " + e.getMessage());
         }
-*/
-        //  COMMENTAIRE:
+        // COMMENTAIRE :
         try {
+            // Ajout d'un commentaire
+            CommentaireTache nouveauCommentaire = new CommentaireTache(14, 18, new Date(), "555");
+            if (sct.isValidC(nouveauCommentaire)) {
+                sct.ajouter(nouveauCommentaire);
+                System.out.println(sct.getAll());
+            }
 
-            System.out.println(sct.getAll());
+            // Modification d'un commentaire
+            CommentaireTache commentaireModifie = new CommentaireTache(25, "9999999");
+            if (sct.isValidC(commentaireModifie)) {
+                sct.modifier(commentaireModifie);
+                System.out.println(sct.getAll());
+            }
 
-            sct.ajouter(new CommentaireTache(14, 18, new Date(), "555"));
-            System.out.println(sct.getAll());
-            sct.modifier(new CommentaireTache(11, "9999999"));
-
-            System.out.println(sct.getAll());
             sct.supprimer(14);
             System.out.println(sct.getAll());
-
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Erreur : " + e.getMessage());
         }
-
-    }
+}
 }

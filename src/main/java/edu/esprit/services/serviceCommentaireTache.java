@@ -11,19 +11,6 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
-    public static boolean isValidC(CommentaireTache commentaireTache) throws IllegalArgumentException {
-        if (commentaireTache.getId_user() <= 0) {
-            throw new IllegalArgumentException("User ID is required and must be greater than 0.");
-        }
-        if (commentaireTache.getId_T() <= 0) {
-            throw new IllegalArgumentException("Task ID is required and must be greater than 0.");
-        }
-        if (commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty()) {
-            throw new IllegalArgumentException("Comment text is required.");
-        }
-        return true;
-    }
-
     @Override
     public void ajouter(CommentaireTache commentaireTache) {
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
@@ -124,6 +111,13 @@ public class serviceCommentaireTache implements IService<CommentaireTache> {
             System.out.println("Error retrieving comment: " + e.getMessage());
         }
         return null;
+    }
+    public boolean isValidC(CommentaireTache commentaireTache) throws IllegalArgumentException {
+
+        if (commentaireTache.getText_C() == null || commentaireTache.getText_C().isEmpty()) {
+            throw new IllegalArgumentException("Commentaire Obligatoire");
+        }
+        return true;
     }
 
 }
