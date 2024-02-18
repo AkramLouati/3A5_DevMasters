@@ -10,26 +10,24 @@ public class Actualite {
     String Description_a;
     Date date_a;
     String image_a ;
-    int id_muni;
+   Muni muni ;
 
 
-
-    public Actualite(String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
+    public Actualite(String titre_a, String description_a, Date date_a, String image_a, Muni muni) {
         this.titre_a = titre_a;
-        this.Description_a = description_a;
+        Description_a = description_a;
         this.date_a = date_a;
-this.image_a=image_a;
-this.id_muni=id_muni;
+        this.image_a = image_a;
+        this.muni = muni;
     }
 
-    public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, int id_muni) {
+    public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, Muni muni) {
         this.id_a = id_a;
         this.titre_a = titre_a;
-        this.Description_a = description_a;
+        Description_a = description_a;
         this.date_a = date_a;
-        this.image_a=image_a;
-        this.id_muni=id_muni;
-
+        this.image_a = image_a;
+        this.muni = muni;
     }
 
     public int getId_a() {
@@ -73,24 +71,14 @@ this.id_muni=id_muni;
         this.date_a = date_a;
     }
 
-    public int getId_muni() {
-        return id_muni;
+    public Muni getMuni() {
+        return muni;
     }
 
-    public void setId_muni(int id_muni) {
-        this.id_muni = id_muni;
+    public void setMuni(Muni muni) {
+        this.muni = muni;
     }
 
-    @Override
-    public String toString() {
-        return "Actualite{" +
-                "titre_a='" + titre_a + '\'' +
-                ", Description_a='" + Description_a + '\'' +
-                ", date_a=" + date_a +
-                ", image_a='" + image_a + '\'' +
-                ", id_muni=" + id_muni +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -104,4 +92,17 @@ this.id_muni=id_muni;
     public int hashCode() {
         return Objects.hash(id_a);
     }
-}
+
+    @Override
+    public String toString() {
+        return "Actualite{" +
+                "titre_a='" + titre_a + '\'' +
+                ", Description_a='" + Description_a + '\'' +
+                ", date_a=" + date_a +
+                ", image_a='" + image_a + '\'' +
+                ", muni=" + muni +
+                '}';
+
+    }
+    }
+
