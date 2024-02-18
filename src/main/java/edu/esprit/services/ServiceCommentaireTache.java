@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.CommentaireTache;
+import edu.esprit.entities.EndUser;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.Set;
 public class ServiceCommentaireTache implements IService<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
-
+    ServiceUser serviceUser = new ServiceUser();
     @Override
     public void ajouter(CommentaireTache ct) {
         String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
@@ -79,11 +80,11 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 int id_C = rs.getInt("id_C");
-                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id);
                 int id_T = rs.getInt("id_T");
                 Date date_C = rs.getDate("date_C");
                 String texte_C = rs.getString("texte_C");
-                CommentaireTache commentaireTache = new CommentaireTache(id_C, id_user, id_T, date_C, texte_C);
+                CommentaireTache commentaireTache = new CommentaireTache(id_C, user, id_T, date_C, texte_C);
                 ct.add(commentaireTache);
             }
         } catch (SQLException e) {
@@ -100,11 +101,11 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id);
                 int id_T = rs.getInt("id_T");
                 Date date_C = rs.getDate("date_C");
                 String texte_C = rs.getString("texte_C");
-                return new CommentaireTache(id, id_user, id_T, date_C, texte_C);
+                return new CommentaireTache(id, user, id_T, date_C, texte_C);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving comment: " + e.getMessage());

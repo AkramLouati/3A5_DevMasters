@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class ServiceTache implements IService<Tache> {
     Connection cnx = DataSource.getInstance().getCnx();
+    ServiceUser serviceUser = new ServiceUser();
 
     @Override
     public void ajouter(Tache t) {
@@ -90,7 +91,7 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                EndUser user = ServiceUser.getOneByID("id_user");
+                EndUser user = serviceUser.getOneByID(id);
                 Tache tache = new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
                 t.add(tache);
             }
@@ -115,7 +116,7 @@ public class ServiceTache implements IService<Tache> {
                 Date dateFT = rs.getDate("date_FT");
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
-                EndUser user = ServiceUser.getOneByID("id_user");
+                EndUser user = serviceUser.getOneByID(id);
                 return new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
             }
         } catch (SQLException e) {
