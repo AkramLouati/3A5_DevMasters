@@ -3,8 +3,8 @@ package edu.esprit.tests;
 import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
-import edu.esprit.services.serviceCommentaireTache;
-import edu.esprit.services.serviceTache;
+import edu.esprit.services.ServiceCommentaireTache;
+import edu.esprit.services.ServiceTache;
 import edu.esprit.utils.DataSource;
 
 import java.text.SimpleDateFormat;
@@ -12,8 +12,8 @@ import java.util.Date;
 
 public class MainT {
     public static void main(String[] args) {
-        serviceTache st = new serviceTache();
-        serviceCommentaireTache sct = new serviceCommentaireTache();
+        ServiceTache st = new ServiceTache();
+        ServiceCommentaireTache sct = new ServiceCommentaireTache();
         try {
             DataSource ds = new DataSource();
         } catch (Exception e) {

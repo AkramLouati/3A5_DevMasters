@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class serviceCommentaireTache implements IService<CommentaireTache> {
+public class ServiceCommentaireTache implements IService<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
