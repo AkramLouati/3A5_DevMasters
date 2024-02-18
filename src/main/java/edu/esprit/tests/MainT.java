@@ -1,13 +1,10 @@
 package edu.esprit.tests;
 
 import edu.esprit.entities.CommentaireTache;
-import edu.esprit.entities.Tache;
-import edu.esprit.services.EtatTache;
 import edu.esprit.services.serviceCommentaireTache;
 import edu.esprit.services.serviceTache;
 import edu.esprit.utils.DataSource;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainT {
