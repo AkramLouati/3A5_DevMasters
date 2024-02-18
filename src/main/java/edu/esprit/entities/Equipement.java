@@ -4,43 +4,49 @@ public class Equipement {
     private int id_eq;
     private String ref_eq;
     private String nom_eq;
+    private String image_eq;
     private String typeMateriel_eq;
     private int quantite_eq;
     private String etat_eq;
     private String description_eq;
-    private int id_user; // Clé étrangère de la table User
+    private EndUser user;
     public Equipement(){
     }
-    public Equipement(String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, int id_user) {
+
+    public Equipement(String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user) {
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
+        this.image_eq = image_eq;
         this.typeMateriel_eq = typeMateriel_eq;
         this.quantite_eq = quantite_eq;
         this.etat_eq = etat_eq;
         this.description_eq = description_eq;
-        this.id_user = id_user;
+        this.user = user;
     }
-    public Equipement(int id_eq, String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, int id_user) {
+
+    public Equipement(int id_eq, String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user) {
         this.id_eq = id_eq;
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
+        this.image_eq = image_eq;
         this.typeMateriel_eq = typeMateriel_eq;
         this.quantite_eq = quantite_eq;
         this.etat_eq = etat_eq;
         this.description_eq = description_eq;
-        this.id_user = id_user;
+        this.user = user;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+    @Override
+    public String toString() {
         return "Equipement{" +
-                " ref_eq=" + ref_eq +
-                ", nom_eq=" + nom_eq +
-                ", typeMateriel_eq=" + typeMateriel_eq +
+                "ref_eq='" + ref_eq + '\'' +
+                ", nom_eq='" + nom_eq + '\'' +
+                ", image_eq='" + image_eq + '\'' +
+                ", typeMateriel_eq='" + typeMateriel_eq + '\'' +
                 ", quantite_eq=" + quantite_eq +
-                ", etat_eq=" + etat_eq +
-                ", description_eq=" + description_eq +
-                ", id_user=" + id_user +
+                ", etat_eq='" + etat_eq + '\'' +
+                ", description_eq='" + description_eq + '\'' +
+                ", user=" + user +
                 '}';
     }
 
@@ -112,11 +118,19 @@ public class Equipement {
         this.description_eq = description_eq;
     }
 
-    public int getId_user() {
-        return id_user;
+    public String getImage_eq() {
+        return image_eq;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setImage_eq(String image_eq) {
+        this.image_eq = image_eq;
+    }
+
+    public EndUser getUser() {
+        return user;
+    }
+
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 }

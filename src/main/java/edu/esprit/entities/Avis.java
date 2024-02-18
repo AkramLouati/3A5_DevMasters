@@ -4,23 +4,27 @@ import java.util.Objects;
 
 public class Avis {
     private int id_avis;
-    private int id_eq;
+    private EndUser user;
+    private Equipement equipement;
     private int note_avis;
     private String commentaire_avis;
     private Date date_avis;
 
     public Avis() {
     }
-    public Avis(int id_eq, int note_avis, String commentaire_avis, Date date_avis) {
+
+    public Avis(int id_avis, EndUser user, Equipement equipement, int note_avis, String commentaire_avis, Date date_avis) {
         this.id_avis = id_avis;
-        this.id_eq = id_eq;
+        this.user = user;
+        this.equipement = equipement;
         this.note_avis = note_avis;
         this.commentaire_avis = commentaire_avis;
         this.date_avis = date_avis;
     }
-    public Avis(int id_avis, int id_eq, int note_avis, String commentaire_avis, Date date_avis) {
-        this.id_avis = id_avis;
-        this.id_eq = id_eq;
+
+    public Avis(EndUser user, Equipement equipement, int note_avis, String commentaire_avis, Date date_avis) {
+        this.user = user;
+        this.equipement = equipement;
         this.note_avis = note_avis;
         this.commentaire_avis = commentaire_avis;
         this.date_avis = date_avis;
@@ -34,12 +38,20 @@ public class Avis {
         this.id_avis = id_avis;
     }
 
-    public int getId_eq() {
-        return id_eq;
+    public EndUser getUser() {
+        return user;
     }
 
-    public void setId_eq(int id_eq) {
-        this.id_eq = id_eq;
+    public void setUser(EndUser user) {
+        this.user = user;
+    }
+
+    public Equipement getEquipement() {
+        return equipement;
+    }
+
+    public void setEquipement(Equipement equipement) {
+        this.equipement = equipement;
     }
 
     public int getNote_avis() {
@@ -83,12 +95,11 @@ public class Avis {
     public String toString() {
         return "Avis{" +
                 "id_avis=" + id_avis +
-                ", id_eq=" + id_eq +
+                ", eq=" + equipement +
                 ", note_avis=" + note_avis +
                 ", commentaire_avis='" + commentaire_avis + '\'' +
                 ", date_avis=" + date_avis +
                 '}';
-
     }
 
 }

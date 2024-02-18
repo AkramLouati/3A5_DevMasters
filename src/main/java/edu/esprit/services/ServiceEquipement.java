@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.utils.DataSource;
 
@@ -17,19 +18,22 @@ import java.util.Set;
 public class ServiceEquipement implements IService<Equipement> {
 
     Connection cnx = DataSource.getInstance().getCnx();
+    ServiceUser serviceUser = new ServiceUser();
+
 
     @Override
     public void ajouter(Equipement equipement) {
-        String req = "INSERT INTO equipement (ref_eq, nom_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO equipement (ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, equipement.getRef_eq());
             ps.setString(2, equipement.getNom_eq());
-            ps.setString(3, equipement.getTypeMateriel_eq());
-            ps.setInt(4, equipement.getQuantite_eq());
-            ps.setString(5, equipement.getEtat_eq());
-            ps.setString(6, equipement.getDescription_eq());
-            ps.setInt(7, equipement.getId_user());
+            ps.setString(3, equipement.getImage_eq());
+            ps.setString(4, equipement.getTypeMateriel_eq());
+            ps.setInt(5, equipement.getQuantite_eq());
+            ps.setString(6, equipement.getEtat_eq());
+            ps.setString(7, equipement.getDescription_eq());
+            ps.setInt(8, equipement.getUser().getId());
             ps.executeUpdate();
             System.out.println("Equipement ajouté avec succès !");
         } catch (SQLException e) {
@@ -48,7 +52,7 @@ public class ServiceEquipement implements IService<Equipement> {
             ps.setInt(4, equipement.getQuantite_eq());
             ps.setString(5, equipement.getEtat_eq());
             ps.setString(6, equipement.getDescription_eq());
-            ps.setInt(7, equipement.getId_user());
+            ps.setInt(7, equipement.getUser().getId());
             ps.setInt(8, equipement.getId_eq());
             ps.executeUpdate();
             System.out.println("Equipement modifié avec succès !");
@@ -84,13 +88,18 @@ public class ServiceEquipement implements IService<Equipement> {
                 int id_eq = rs.getInt("id_eq");
                 String ref_eq = rs.getString("ref_eq");
                 String nom_eq = rs.getString("nom_eq");
+                String image_eq = rs.getString("image_eq");
                 String typeMateriel_eq = rs.getString("typeMateriel_eq");
                 int quantite_eq = rs.getInt("quantite_eq");
                 String etat_eq = rs.getString("etat_eq");
                 String description_eq = rs.getString("description_eq");
                 int id_user = rs.getInt("id_user");
 
-                Equipement equipement = new Equipement(id_eq, ref_eq, nom_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user);
+                // Récupération de l'utilisateur associé à l'équipement
+                EndUser user = serviceUser.getOneByID(id_user);
+
+                // Création de l'équipement et ajout à la liste
+                Equipement equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user);
                 equipements.add(equipement);
             }
         } catch (SQLException e) {
@@ -112,13 +121,18 @@ public class ServiceEquipement implements IService<Equipement> {
                 int id_eq = rs.getInt("id_eq");
                 String ref_eq = rs.getString("ref_eq");
                 String nom_eq = rs.getString("nom_eq");
+                String image_eq = rs.getString("image_eq");
                 String typeMateriel_eq = rs.getString("typeMateriel_eq");
                 int quantite_eq = rs.getInt("quantite_eq");
                 String etat_eq = rs.getString("etat_eq");
                 String description_eq = rs.getString("description_eq");
                 int id_user = rs.getInt("id_user");
 
-                equipement = new Equipement(id_eq, ref_eq, nom_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user);
+                // Récupération de l'utilisateur associé à l'équipement
+                EndUser user = serviceUser.getOneByID(id_user);
+
+                // Création de l'équipement
+                equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'équipement : " + e.getMessage());

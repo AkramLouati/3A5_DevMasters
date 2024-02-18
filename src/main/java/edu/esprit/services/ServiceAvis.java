@@ -1,4 +1,5 @@
 package edu.esprit.services;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Avis;
 import edu.esprit.utils.DataSource;
@@ -13,17 +14,20 @@ public class ServiceAvis implements IService<Avis> {
 
 
     Connection cnx = DataSource.getInstance().getCnx();
+    ServiceEquipement serviceEquipement = new ServiceEquipement();
+    ServiceUser serviceEndUser = new ServiceUser();
 
 
     @Override
     public void ajouter(Avis avis) {
-        String req = "INSERT INTO avis (id_eq, note_avis, commentaire_avis, date_avis) VALUES (?, ?, ?, ?)";
+        String req = "INSERT INTO avis (id_eq, id_user, note_avis, commentaire_avis, date_avis) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, avis.getId_eq());
-            ps.setInt(2, avis.getNote_avis());
-            ps.setString(3, avis.getCommentaire_avis());
-            ps.setDate(4, new java.sql.Date(avis.getDate_avis().getTime()));
+            ps.setInt(1, avis.getEquipement().getId_eq());
+            ps.setInt(2, avis.getUser().getId());
+            ps.setInt(3, avis.getNote_avis());
+            ps.setString(4, avis.getCommentaire_avis());
+            ps.setDate(5, new java.sql.Date(avis.getDate_avis().getTime()));
             ps.executeUpdate();
             System.out.println("Avis ajouté avec succès !");
         } catch (SQLException e) {
@@ -33,13 +37,15 @@ public class ServiceAvis implements IService<Avis> {
 
     @Override
     public void modifier(Avis avis) {
-        String req = "UPDATE avis SET note_avis=?, commentaire_avis=?, date_avis=? WHERE id_avis=?";
+        String req = "UPDATE avis SET id_user=?, id_eq=?, note_avis=?, commentaire_avis=?, date_avis=? WHERE id_avis=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, avis.getNote_avis());
-            ps.setString(2, avis.getCommentaire_avis());
-            ps.setDate(3, new java.sql.Date(avis.getDate_avis().getTime()));
-            ps.setInt(4, avis.getId_avis());
+            ps.setInt(1, avis.getUser().getId());
+            ps.setInt(2, avis.getEquipement().getId_eq());
+            ps.setInt(3, avis.getNote_avis());
+            ps.setString(4, avis.getCommentaire_avis());
+            ps.setDate(5, new java.sql.Date(avis.getDate_avis().getTime()));
+            ps.setInt(6, avis.getId_avis());
             ps.executeUpdate();
             System.out.println("Avis modifié avec succès !");
         } catch (SQLException e) {
@@ -75,13 +81,20 @@ public class ServiceAvis implements IService<Avis> {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id_avis = rs.getInt("id_avis");
+                int id_user = rs.getInt("id_user");
                 int id_eq = rs.getInt("id_eq");
                 int note_avis = rs.getInt("note_avis");
                 String commentaire_avis = rs.getString("commentaire_avis");
                 java.util.Date date_avis = rs.getDate("date_avis");
 
+                // Récupération de l'utilisateur associé à l'avis
+                EndUser user = serviceEndUser.getOneByID(id_user);
+
+                // Récupération de l'équipement associé à l'avis
+                Equipement equipement = serviceEquipement.getOneByID(id_eq);
+
                 // Création d'un nouvel objet Avis
-                Avis avis = new Avis(id_avis, id_eq, note_avis, commentaire_avis, date_avis);
+                Avis avis = new Avis(id_avis, user, equipement, note_avis, commentaire_avis, date_avis);
                 avisList.add(avis);
             }
         } catch (SQLException e) {
@@ -100,20 +113,25 @@ public class ServiceAvis implements IService<Avis> {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int id_avis = rs.getInt("id_avis");
+                int id_user = rs.getInt("id_user");
                 int id_eq = rs.getInt("id_eq");
                 int note_avis = rs.getInt("note_avis");
                 String commentaire_avis = rs.getString("commentaire_avis");
                 java.util.Date date_avis = rs.getDate("date_avis");
 
+                // Récupération de l'utilisateur associé à l'avis
+                EndUser user = serviceEndUser.getOneByID(id_user);
+
+                // Récupération de l'équipement associé à l'avis
+                Equipement equipement = serviceEquipement.getOneByID(id_eq);
+
                 // Création d'un nouvel objet Avis
-                avis = new Avis(id_avis, id_eq, note_avis, commentaire_avis, date_avis);
+                avis = new Avis(id_avis, user, equipement, note_avis, commentaire_avis, date_avis);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'avis : " + e.getMessage());
         }
         return avis;
     }
-
-
 }
 

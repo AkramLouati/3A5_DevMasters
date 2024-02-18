@@ -1,7 +1,9 @@
 package edu.esprit.tests;
 
 import edu.esprit.entities.Avis;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
+import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceAvis;
 import edu.esprit.services.ServiceEquipement;
 import edu.esprit.utils.DataSource;
@@ -14,10 +16,23 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        //ServiceAvis sr = new ServiceAvis();
-        //sr.ajouter(new Avis(1,12,"hhhhhhhhh",new Date()));
+
+        Muni muni = new Muni(5);
+        EndUser user = new EndUser(12,muni);
         ServiceEquipement se = new ServiceEquipement();
-        se.ajouter(new Equipement("aaaaa","bala","bbbb",15,"ccccc","dddddd",1));
+        //se.ajouter(new Equipement("aaaaa","bala","bbbb","aaaaa",15,"ccccc","dddddd",user));
+        Equipement equipement = new Equipement(2,"bbbbb","bbbbb","bbbb","bbbbb",15,"bbbbb","bbbbb",user);
+        //se.modifier(equipement);
+        //se.supprimer(1);
+        //System.out.println(se.getAll());
+        //System.out.println(se.getOneByID(2));
+        ServiceAvis sr = new ServiceAvis();
+        //sr.ajouter(new Avis(user,equipement,20,"hhhhhhhhh",new Date()));
+        //System.out.println(sr.getAll());
+        //System.out.println(sr.getOneByID(3));
+        //Avis avis= new Avis(3,user,equipement,20,"hihihii",new Date());
+        //sr.modifier(avis);
+        //sr.supprimer(3);
     }
     }
 
