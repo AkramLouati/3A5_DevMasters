@@ -1,4 +1,4 @@
-package edu.esprit.gui;
+package edu.esprit.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
