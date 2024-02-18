@@ -24,7 +24,7 @@ public class MainTFX extends Application {
             throw new IOException("FXML file not found");
         }
         // Set the location of the FXML file in the loader
-        Scene scene = new Scene(loader.load(fxmlStream), 1280, 720);
+        Scene scene = new Scene(loader.load(fxmlStream));
 
         primaryStage.setTitle("Baladity");
         primaryStage.setScene(scene);

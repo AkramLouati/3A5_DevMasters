@@ -1,14 +1,19 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import edu.esprit.entities.Tache;
@@ -58,7 +63,6 @@ public class AjouterTacheController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherTache.fxml"));
             Parent root = loader.load();
 
-            // Afficher la scène avec les données des fournisseurs
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -72,8 +76,15 @@ public class AjouterTacheController {
 
     @FXML
     void browseForImage(ActionEvent event) {
-        // Add functionality for browsing attachment here if needed
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Attachment File");
+        // Set extension filters if needed
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            attachmentField.setText(selectedFile.getAbsolutePath());
+        }
     }
+
 
     @FXML
     void ajouterTache(ActionEvent event) {
@@ -81,8 +92,8 @@ public class AjouterTacheController {
         String title = titleField.getText();
         String attachment = attachmentField.getText();
         String description = descriptionField.getText();
-        Date startDate = java.sql.Date.valueOf(startDatePicker.getValue());
-        Date endDate = java.sql.Date.valueOf(endDatePicker.getValue());
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
         EtatTache etat;
 
         if (toDoRadioButton.isSelected()) {
@@ -93,15 +104,30 @@ public class AjouterTacheController {
             etat = EtatTache.DONE;
         }
 
-        Tache tache = new Tache(category, title, attachment, startDate, endDate, description, etat, null); // Assuming user is not set here
         try {
-            serviceTache.ajouter(tache);
-            clearFields();
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutee avec succes.");
-        } catch (Exception e) {
+            // Set the selected user to user with ID 14
+            ServiceUser serviceUser = new ServiceUser();
+            EndUser selectedUser = serviceUser.getOneByID(14);
+
+            // Check if selectedUser is not null
+            if (selectedUser != null) {
+                Date startDateSql = java.sql.Date.valueOf(startDate);
+                Date endDateSql = java.sql.Date.valueOf(endDate);
+
+                Tache tache = new Tache(category, title, attachment, startDateSql, endDateSql, description, etat, selectedUser);
+
+                serviceTache.ajouter(tache);
+                clearFields();
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutee avec succes.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Utilisateur non trouvé avec l'ID 14.");
+            }
+        } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Erreur lors de l'ajout de la tache : " + e.getMessage());
         }
     }
+
+
 
     private void clearFields() {
         categoryField.clear();
@@ -111,7 +137,11 @@ public class AjouterTacheController {
         startDatePicker.setValue(null);
         endDatePicker.setValue(null);
         toDoRadioButton.setSelected(true);
+        // Clear radio button selection
+        doingRadioButton.setSelected(false);
+        doneRadioButton.setSelected(false);
     }
+
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
