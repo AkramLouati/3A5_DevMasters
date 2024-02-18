@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
-            fx:controller="edu.esprit.controllers.AjouterTacheController">
-    <children>
-        <Button layoutX="273.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnAjouterTache" text="Ajouter"/>
-    </children>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterTacheController">
+    <Label layoutX="64.0" layoutY="70.0" text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField fx:id="categoryField" layoutX="138.0" layoutY="66.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+    <Label layoutX="64.0" layoutY="109.0" text="Title:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="titleField" layoutX="138.0" layoutY="105.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label layoutX="46.0" layoutY="152.0" text="Attachment:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <TextField fx:id="attachmentField" layoutX="139.0" layoutY="148.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Button layoutX="281.0" layoutY="148.0" onAction="#browseForImage" text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+    <Label layoutX="50.0" layoutY="186.0" text="Start Date:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <DatePicker fx:id="startDatePicker" layoutX="139.0" layoutY="182.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+    <Label layoutX="53.0" layoutY="210.0" text="End Date:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+    <DatePicker fx:id="endDatePicker" layoutX="139.0" layoutY="206.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+    <Label layoutX="39.0" layoutY="246.0" text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+    <TextField fx:id="descriptionField" layoutX="139.0" layoutY="242.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+    <Label layoutX="171.0" layoutY="297.0" text="State:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+    <RadioButton fx:id="toDoRadioButton" layoutX="99.0" layoutY="322.0" text="To Do" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <RadioButton fx:id="doingRadioButton" layoutX="171.0" layoutY="322.0" text="Doing" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+    <RadioButton fx:id="doneRadioButton" layoutX="250.0" layoutY="322.0" text="Done" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+    <Button fx:id="ajouterButton" layoutX="422.0" layoutY="285.0" onAction="#ajouterTache" text="Ajouter" />
+    <Button layoutX="424.0" layoutY="318.0" mnemonicParsing="false" onAction="#afficherListeAction" prefHeight="23.0" prefWidth="54.0" text="Liste" />
 </AnchorPane>
