@@ -10,34 +10,34 @@ public class Publicite {
     private String localisation_pub;
     private String image_pub;
 
-    int id_user;
+    EndUser endUser;
+    Actualite actualite;
 
-    int id_a;
 
     public Publicite() {
     }
 
     ;
 
-    public Publicite(String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, int id_user, int id_a) {
-        this.titre_pub = titre_pub;
-        this.Description_pub = description_pub;
-        this.contact_pub = contact_pub;
-        this.localisation_pub = localisation_pub;
-        this.image_pub = image_pub;
-        this.id_user = id_user;
-        this.id_a = id_a;
-    }
-
-    public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, int id_user, int id_a) {
+    public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, EndUser endUser, Actualite actualite) {
         this.id_pub = id_pub;
         this.titre_pub = titre_pub;
         Description_pub = description_pub;
         this.contact_pub = contact_pub;
         this.localisation_pub = localisation_pub;
         this.image_pub = image_pub;
-        this.id_user = id_user;
-        this.id_a = id_a;
+        this.endUser = endUser;
+        this.actualite = actualite;
+    }
+
+    public Publicite(String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, EndUser endUser, Actualite actualite) {
+        this.titre_pub = titre_pub;
+        Description_pub = description_pub;
+        this.contact_pub = contact_pub;
+        this.localisation_pub = localisation_pub;
+        this.image_pub = image_pub;
+        this.endUser = endUser;
+        this.actualite = actualite;
     }
 
     public int getId_pub() {
@@ -88,20 +88,20 @@ public class Publicite {
         this.image_pub = image_pub;
     }
 
-    public int getId_user() {
-        return id_user;
+    public EndUser getEndUser() {
+        return endUser;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setEndUser(EndUser endUser) {
+        this.endUser = endUser;
     }
 
-    public int getId_a() {
-        return id_a;
+    public Actualite getActualite() {
+        return actualite;
     }
 
-    public void setId_a(int id_a) {
-        this.id_a = id_a;
+    public void setActualite(Actualite actualite) {
+        this.actualite = actualite;
     }
 
     @Override
@@ -112,8 +112,8 @@ public class Publicite {
                 ", contact_pub=" + contact_pub +
                 ", localisation_pub='" + localisation_pub + '\'' +
                 ", image_pub='" + image_pub + '\'' +
-                ", id_user=" + id_user +
-                ", id_a=" + id_a +
+                ", endUser=" + endUser +
+                ", actualite=" + actualite +
                 '}';
     }
 

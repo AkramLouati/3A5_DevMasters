@@ -2,6 +2,7 @@ package edu.esprit.tests;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.Muni;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
@@ -15,14 +16,18 @@ public class Main {
     public static void main(String[] args) {
         ServicePublicite sp1 = new ServicePublicite();
         ServiceActualite sp2 = new ServiceActualite();
-       //sp1.ajouter(new Publicite(5,"aaaaaa","bdann",1263863963,"aa","aaa",12,3));
+        Muni muni = new Muni(1);
+        EndUser user = new EndUser(12,muni);
+        java.sql.Date sqlDate2 = new java.sql.Date(new Date().getTime());
+        Actualite actualite = new Actualite(27,muni);
+       sp1.ajouter(new Publicite(405,"pub1","about the vehicules",94007815,"tunis","img1",user,actualite));
        //sp1.modifier(new Publicite(464,"aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbb", 00000, "la petite ariana","afzgzeg",1,24));
         // sp1.modifier(new Publicite(453,"amine", "yah", 4, "","",12,24));
         // sp1.supprimer(461);
        //System.out.println(sp1.getAll());
         java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-        Muni muni = new Muni(19);
-        sp2.ajouter(new Actualite("siamine", "yahyaouii", sqlDate, "image",muni));
+
+      //  sp2.ajouter(new Actualite("siamine", "yahyaouii", sqlDate, "image",muni));
         //sp2.supprimer(1);
 
 
