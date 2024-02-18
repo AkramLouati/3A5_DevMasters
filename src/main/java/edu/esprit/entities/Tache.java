@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Tache {
-    int id_T, id_user;
+    int id_T;
+    private EndUser user;
     String categorie_T, titre_T, pieceJointe_T, desc_T;
     Date date_DT, date_FT;
     EtatTache etat_T;
@@ -14,7 +15,7 @@ public class Tache {
     public Tache() {
     }
 
-    public Tache(int id_T, String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, int id_user) {
+    public Tache(int id_T, String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
         this.id_T = id_T;
         this.categorie_T = categorie_T;
         this.titre_T = titre_T;
@@ -23,10 +24,10 @@ public class Tache {
         this.date_FT = date_FT;
         this.desc_T = desc_T;
         this.etat_T = etat_T;
-        this.id_user = id_user;
+        this.user = user;
     }
 
-    public Tache(String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, int id_user) {
+    public Tache(String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
         this.categorie_T = categorie_T;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
@@ -34,7 +35,7 @@ public class Tache {
         this.date_FT = date_FT;
         this.desc_T = desc_T;
         this.etat_T = etat_T;
-        this.id_user = id_user;
+        this.user = user;
     }
 
 
@@ -46,12 +47,11 @@ public class Tache {
         this.id_T = id_T;
     }
 
-    public int getId_user() {
-        return id_user;
+    public EndUser getUser() {
+        return user;
     }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 
     public String getCategorie_T() {

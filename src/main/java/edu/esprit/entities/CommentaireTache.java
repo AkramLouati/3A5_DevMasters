@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public class CommentaireTache {
-    int id_C, id_user, id_T;
+    int id_C, id_T;
+    private EndUser user;
     Date date_C;
     String text_C;
 
@@ -12,16 +13,16 @@ public class CommentaireTache {
     public CommentaireTache() {
     }
 
-    public CommentaireTache(int id_C, int id_user, int id_T, Date date_C, String text_C) {
+    public CommentaireTache(int id_C, EndUser user, int id_T, Date date_C, String text_C) {
         this.id_C = id_C;
-        this.id_user = id_user;
+        this.user = user;
         this.id_T = id_T;
         this.date_C = date_C;
         this.text_C = text_C;
     }
 
-    public CommentaireTache(int id_user, int id_T, Date date_C, String text_C) {
-        this.id_user = id_user;
+    public CommentaireTache(EndUser user, int id_T, Date date_C, String text_C) {
+        this.user = user;
         this.id_T = id_T;
         this.date_C = date_C;
         this.text_C = text_C;
@@ -41,12 +42,12 @@ public class CommentaireTache {
         this.id_C = id_C;
     }
 
-    public int getId_user() {
-        return id_user;
+    public EndUser getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 
     public int getId_T() {
