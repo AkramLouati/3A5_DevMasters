@@ -33,7 +33,7 @@ public class ServiceUser implements IService<EndUser>{
     }
 
     @Override
-    public static EndUser getOneByID(int id) {
+    public EndUser getOneByID(int id) {
         String req = "SELECT * FROM `enduser` WHERE `id_user` = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
