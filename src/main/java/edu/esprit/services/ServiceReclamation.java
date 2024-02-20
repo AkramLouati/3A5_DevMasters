@@ -19,6 +19,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     public boolean validateReclamation(Reclamation reclamation) {
         return reclamation.getUser() != null &&
                 reclamation.getMuni() != null &&
+                !reclamation.getSujet_reclamation().isEmpty() &&
                 reclamation.getDate_reclamation() != null &&
                 !reclamation.getType_reclamation().isEmpty() &&
                 !reclamation.getDescription_reclamation().isEmpty() &&
@@ -30,17 +31,18 @@ public class ServiceReclamation implements IService<Reclamation> {
             System.out.println("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
             return;
         }
-        String req = "INSERT INTO `reclamation`(`id_user`, `id_muni`, `date_reclamation`, `type_reclamation`, `description_reclamation`, `status_reclamation`, `image_reclamation`, `adresse_reclamation`) VALUES (?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `reclamation`(`id_user`, `id_muni`, `sujet_reclamation`,`date_reclamation`, `type_reclamation`, `description_reclamation`, `status_reclamation`, `image_reclamation`, `adresse_reclamation`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, reclamation.getUser().getId());
             ps.setInt(2, reclamation.getMuni().getId());
-            ps.setDate(3, (java.sql.Date) reclamation.getDate_reclamation());
-            ps.setString(4, reclamation.getType_reclamation());
-            ps.setString(5, reclamation.getDescription_reclamation());
-            ps.setString(6, "non traité");
-            ps.setString(7, reclamation.getImage_reclamation());
-            ps.setString(8, reclamation.getAdresse_reclamation());
+            ps.setString(3, reclamation.getSujet_reclamation());
+            ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
+            ps.setString(5, reclamation.getType_reclamation());
+            ps.setString(6, reclamation.getDescription_reclamation());
+            ps.setString(7, "non traité");
+            ps.setString(8, reclamation.getImage_reclamation());
+            ps.setString(9, reclamation.getAdresse_reclamation());
             ps.executeUpdate();
             System.out.println("Réclamation ajoutée !");
         } catch (SQLException e) {
@@ -70,18 +72,19 @@ public class ServiceReclamation implements IService<Reclamation> {
             return;
         }
         if (reclamationExists(reclamation.getId_reclamation())) {
-            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `status_reclamation`=?,`image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
+            String req = "UPDATE `reclamation` SET `id_user`=?, `id_muni`=?, `sujet_reclamation`=?,`date_reclamation`=?, `type_reclamation`=?, `description_reclamation`=?, `status_reclamation`=?,`image_reclamation`=?, `adresse_reclamation`=? WHERE `id_reclamation`=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setInt(1, reclamation.getUser().getId());
                 ps.setInt(2, reclamation.getMuni().getId());
-                ps.setDate(3, (java.sql.Date) reclamation.getDate_reclamation());
-                ps.setString(4, reclamation.getType_reclamation());
-                ps.setString(5, reclamation.getDescription_reclamation());
-                ps.setString(6, "non traité");
-                ps.setString(7, reclamation.getImage_reclamation());
-                ps.setString(8, reclamation.getAdresse_reclamation());
-                ps.setInt(9, reclamation.getId_reclamation());
+                ps.setString(3, reclamation.getSujet_reclamation());
+                ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
+                ps.setString(5, reclamation.getType_reclamation());
+                ps.setString(6, reclamation.getDescription_reclamation());
+                ps.setString(7, "non traité");
+                ps.setString(8, reclamation.getImage_reclamation());
+                ps.setString(9, reclamation.getAdresse_reclamation());
+                ps.setInt(10, reclamation.getId_reclamation());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Réclamation avec ID " + reclamation.getId_reclamation() + " modifiée avec succès !");
@@ -130,6 +133,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 int id_reclamation = rs.getInt("id_reclamation");
                 int id_muni = rs.getInt("id_muni");
                 int id_user = rs.getInt("id_user");
+                String sujet_reclamation = rs.getString("sujet_reclamation");
                 Date date_reclamation = rs.getDate("date_reclamation");
                 String type_reclamation = rs.getString("type_reclamation");
                 String description_reclamation = rs.getString("description_reclamation");
@@ -140,7 +144,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 EndUser user = serviceUser.getOneByID(id_user);
                 Muni muni = serviceMuni.getOneByID(id_muni);
 
-                Reclamation r = new Reclamation(id_reclamation, user, muni, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
+                Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation,date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamations.add(r);
             }
         } catch (SQLException e) {
@@ -161,6 +165,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 int id_reclamation = rs.getInt("id_reclamation");
                 int id_muni = rs.getInt("id_muni");
                 int id_user = rs.getInt("id_user");
+                String sujet_reclamation = rs.getString("sujet_reclamation");
                 Date date_reclamation = rs.getDate("date_reclamation");
                 String type_reclamation = rs.getString("type_reclamation");
                 String description_reclamation = rs.getString("description_reclamation");
@@ -171,7 +176,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 EndUser user = serviceUser.getOneByID(id_user);
                 Muni muni = serviceMuni.getOneByID(id_muni);
 
-                reclamation = new Reclamation(id_reclamation, user, muni, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
+                reclamation = new Reclamation(id_reclamation, user, muni, sujet_reclamation,date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

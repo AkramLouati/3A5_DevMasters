@@ -16,12 +16,12 @@ public class Main {
         Muni muni = new Muni(5);
         EndUser user = new EndUser(12,muni);
         EndUser user1 = new EndUser(13,muni);
-        //sr.ajouter(new Reclamation(user,muni,sqlDate,"urgent","bababba","","test0"));
-        //Reclamation reclamation = new Reclamation(8, user, muni, sqlDate, "non urgent", "test1", "image.png", "tes0");
+        //sr.ajouter(new Reclamation(user,muni,"aaaa",sqlDate,"urgent","bababba","","test0"));
+        //Reclamation reclamation = new Reclamation(21, user, muni,"bbbbb", sqlDate, "non urgent", "test1", "image.png", "tes0");
         //sr.modifier(reclamation);
-        //sr.supprimer(8);
+        //sr.supprimer(21);
         //System.out.println(sr.getAll());
-        //System.out.println(sr.getOneByID(10));
+        //System.out.println(sr.getOneByID(23));
         ServiceMessagerie sm = new ServiceMessagerie();
         //sm.ajouter(new Messagerie(sqlDate,"hihihihi",user,user1,"test"));
         //Messagerie messagerie= new Messagerie(5,sqlDate,"mrigl",user1,user,"test1");
