@@ -26,6 +26,12 @@ public class Actualite {
         this.muni = muni;
     }
 
+    public Actualite(String titre_a, String description_a, Muni muni) {
+        this.titre_a = titre_a;
+        Description_a = description_a;
+        this.muni = muni;
+    }
+
     public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, Muni muni) {
         this.id_a = id_a;
         this.titre_a = titre_a;
