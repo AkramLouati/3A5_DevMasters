@@ -2,7 +2,8 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
-import edu.esprit.services.ServicePersonne;
+import edu.esprit.services.ServiceUser;
+import edu.esprit.entities.EndUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,7 +58,7 @@ public class AjouterEquipement{
         } else {
             // Ajoutez votre logique pour ajouter l'équipement à la base de données ici
             // Par exemple :
-            Equipement nouvelEquipement = new Equipement(reference, nom, typeMateriel, quantite, etatEquipement, description, idUser);
+            Equipement nouvelEquipement = new Equipement(reference, nom, typeMateriel, quantite, etatEquipement, description, EndUser);
             ServiceEquipement.ajouter(nouvelEquipement);
             showAlert("Equipement ajouté avec succès !");
         }
