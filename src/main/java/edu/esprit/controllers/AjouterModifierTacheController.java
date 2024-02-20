@@ -1,21 +1,23 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
+import edu.esprit.services.ServiceCategorieT;
 import edu.esprit.services.ServiceUser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
@@ -31,7 +33,7 @@ public class AjouterModifierTacheController {
     private TextField attachmentField;
 
     @FXML
-    private TextField categoryField;
+    private ComboBox<CategorieT> categoryField;
 
     @FXML
     private TextField descriptionField;
@@ -54,34 +56,28 @@ public class AjouterModifierTacheController {
     @FXML
     private RadioButton toDoRadioButton;
 
+    private ServiceCategorieT serviceCategorie;
     private ServiceTache serviceTache;
     private int selectedTaskId; // Holds the ID of the task being modified
     private Stage stage; // Reference to the stage
 
     public AjouterModifierTacheController() {
         this.serviceTache = new ServiceTache();
+        this.serviceCategorie = new ServiceCategorieT();
+        initializeCategoryComboBox();
     }
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-/*
-    @FXML
-    void afficherListeAction(ActionEvent event) {
+    private void initializeCategoryComboBox() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherTache.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Erreur lors de l'affichage de la liste des Taches : " + e.getMessage());
-            alert.showAndWait();
+            ObservableList<CategorieT> categoriesList = FXCollections.observableArrayList(serviceCategorie.getAll());
+            categoryField.setItems(categoriesList);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error initializing categories: " + e.getMessage());
         }
     }
-*/
+
     @FXML
     void browseForImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -96,14 +92,14 @@ public class AjouterModifierTacheController {
     public void initModifier(Tache tache) {
         this.selectedTaskId = tache.getId_T(); // Set the ID of the task being modified
         ajouterButton.setText("Modifier");
-        categoryField.setText(tache.getCategorie_T());
+        categoryField.setValue(tache.getCategorie()); // Set the selected category in the ComboBox
         titleField.setText(tache.getTitre_T());
         attachmentField.setText(tache.getPieceJointe_T());
         descriptionField.setText(tache.getDesc_T());
 
         // Convert java.sql.Date to java.util.Date
-        java.util.Date startDateUtil = new java.util.Date(tache.getDate_DT().getTime());
-        java.util.Date endDateUtil = new java.util.Date(tache.getDate_FT().getTime());
+        Date startDateUtil = new Date(tache.getDate_DT().getTime());
+        Date endDateUtil = new Date(tache.getDate_FT().getTime());
 
         // Convert java.util.Date to LocalDate
         LocalDate startDate = startDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -128,7 +124,7 @@ public class AjouterModifierTacheController {
     @FXML
     void ajouterTache(ActionEvent event) {
         try {
-            String category = categoryField.getText();
+            CategorieT category = categoryField.getValue(); // Get the selected category from the ComboBox
             String title = titleField.getText();
             String attachment = attachmentField.getText();
             String description = descriptionField.getText();
@@ -145,7 +141,7 @@ public class AjouterModifierTacheController {
             }
 
             // Validate input fields
-            if (category.isEmpty() || title.isEmpty() || startDate == null || endDate == null) {
+            if (category== null|| title.isEmpty() || startDate == null || endDate == null) {
                 throw new IllegalArgumentException("Veuillez remplir tous les champs obligatoires.");
             }
 
@@ -153,10 +149,9 @@ public class AjouterModifierTacheController {
             Tache newTask = new Tache(category, title, attachment, null, null, description, etat, null);
 
             // Set start and end dates if not null
-            if (endDate != null) {
-                newTask.setDate_DT(java.sql.Date.valueOf(startDate));
-                newTask.setDate_FT(java.sql.Date.valueOf(endDate));
-            }
+            newTask.setDate_DT(java.sql.Date.valueOf(startDate));
+            newTask.setDate_FT(java.sql.Date.valueOf(endDate));
+
             if (stage != null) {
                 stage.close(); // Check if stage is not null before calling close()
             } else {
@@ -167,7 +162,7 @@ public class AjouterModifierTacheController {
                 // Retrieve the existing task by ID for modification
                 Tache existingTache = serviceTache.getOneByID(selectedTaskId);
                 if (existingTache != null) {
-                    existingTache.setCategorie_T(category);
+                    existingTache.setCategorie(category);
                     existingTache.setTitre_T(title);
                     existingTache.setPieceJointe_T(attachment);
                     existingTache.setDesc_T(description);
@@ -186,7 +181,6 @@ public class AjouterModifierTacheController {
             if (ajouterButton.getText().equals("Ajouter")) {
 
                 try {
-                    this.stage= this.stage;
                     // Set the selected user to user with ID 14
                     ServiceUser serviceUser = new ServiceUser();
                     EndUser selectedUser = serviceUser.getOneByID(14);
@@ -216,7 +210,7 @@ public class AjouterModifierTacheController {
     }
 
     private void clearFields() {
-        categoryField.clear();
+        categoryField.getSelectionModel().clearSelection(); // Clear ComboBox selection
         titleField.clear();
         attachmentField.clear();
         descriptionField.clear();
@@ -240,5 +234,6 @@ public class AjouterModifierTacheController {
         // Get the reference to the scene
         stage.close();
     }
+
 
 }

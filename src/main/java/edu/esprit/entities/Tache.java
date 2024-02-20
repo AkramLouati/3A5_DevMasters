@@ -8,16 +8,17 @@ import java.util.Objects;
 public class Tache {
     int id_T;
     private EndUser user;
-    private String categorie_T, titre_T, pieceJointe_T, desc_T;
+    private String titre_T, pieceJointe_T, desc_T;
     private Date date_DT, date_FT;
     private EtatTache etat_T;
+    private CategorieT categorie;
 
     public Tache() {
     }
 
-    public Tache(int id_T, String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
+    public Tache(int id_T, CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
         this.id_T = id_T;
-        this.categorie_T = categorie_T;
+        this.categorie = categorie;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
         this.date_DT = date_DT;
@@ -27,8 +28,8 @@ public class Tache {
         this.user = user;
     }
 
-    public Tache(String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
-        this.categorie_T = categorie_T;
+    public Tache(CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
+        this.categorie = categorie;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
         this.date_DT = date_DT;
@@ -55,12 +56,13 @@ public class Tache {
         this.user = user;
     }
 
-    public String getCategorie_T() {
-        return categorie_T;
+
+    public CategorieT getCategorie() {
+        return categorie;
     }
 
-    public void setCategorie_T(String categorie_T) {
-        this.categorie_T = categorie_T;
+    public void setCategorie(CategorieT categorie) {
+        this.categorie = categorie;
     }
 
     public String getTitre_T() {
@@ -126,7 +128,7 @@ public class Tache {
     @Override
     public String toString() {
         return "Tache{" +
-                "Categorie=" + categorie_T + "|" +
+                "Categorie=" + categorie + "|" +
                 "Titre=" + titre_T + "|" +
                 "Piece Jointe=" + pieceJointe_T + "|" +
                 "Description=" + desc_T + "|" +
