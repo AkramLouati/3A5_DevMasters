@@ -20,13 +20,13 @@ public class ServicePublicite implements IService<Publicite> {
             String req = "INSERT INTO `publicite`(`titre_pub`, `description_pub`, `contact_pub`, `localisation_pub`, `image_pub`,`id_user`,`id_a`) VALUES (?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setString(1, publicite.getTitre_pub());
-                ps.setString(2, publicite.getDescription_pub());
-                ps.setInt(3, publicite.getContact_pub());
-                ps.setString(4, publicite.getLocalisation_pub());
-                ps.setString(5, publicite.getImage_pub());
-                ps.setInt(6, publicite.getEndUser().getId());
-                ps.setInt(7, publicite.getActualite().getId_a());
+                ps.setString(1,publicite.getTitre_pub());
+                ps.setString(2,publicite.getDescription_pub());
+                ps.setInt(3,publicite.getContact_pub());
+                ps.setString(4,publicite.getLocalisation_pub());
+                ps.setString(5,publicite.getImage_pub());
+                ps.setInt(6,publicite.getEndUser().getId());
+                ps.setInt(7,publicite.getActualite().getId_a());
                 ps.executeUpdate();
                 System.out.println("Publicite added!");
             } catch (SQLException e) {
@@ -37,7 +37,7 @@ public class ServicePublicite implements IService<Publicite> {
         }
     }
 
-    // Check if the Publicite object has all required fields filled
+
     private boolean isValidPublicite(Publicite publicite) {
         return publicite != null &&
                 publicite.getTitre_pub() != null && !publicite.getTitre_pub().isEmpty() &&

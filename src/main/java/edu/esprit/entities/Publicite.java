@@ -14,7 +14,7 @@ public class Publicite {
     Actualite actualite;
 
 
-    public Publicite() {
+    public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, EndUser user, Muni muni) {
     }
 
     ;

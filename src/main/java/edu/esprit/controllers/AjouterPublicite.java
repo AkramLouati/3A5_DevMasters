@@ -1,8 +1,11 @@
 package edu.esprit.controllers;
 import com.sun.javafx.charts.Legend;
 import edu.esprit.entities.Actualite;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
+import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServiceActualite;
+import edu.esprit.services.ServicePublicite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,26 +19,27 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.io.IOException;
 import java.sql.SQLException;
-public class AjouterActualite {
+public class AjouterPublicite {
     @FXML
-    private TextField TFtitre;
+    private TextField TFtitrepub;
     @FXML
-    private TextField TFdescription;
-
-    private final ServiceActualite sp = new ServiceActualite();
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-
+    private TextField TFdescriptionpub;
+    @FXML
+    private TextField TFlocalisationpub;
+    @FXML
+    private TextField TFcontactpub;
+    private final ServicePublicite sp = new ServicePublicite();
     @FXML
     void ajouterActualiteAction(ActionEvent event) {
-
         Muni muni = new Muni(1);
-        java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-        sp.ajouter(new Actualite(TFtitre.getText(),TFdescription.getText(),sqlDate,"dvd",muni));
+        EndUser user = new EndUser(12,muni);
+        Actualite actualite = new Actualite(27,muni);
+
+        sp.ajouter(new Publicite(TFtitrepub.getText(),TFdescriptionpub.getText(), Integer.parseInt(TFcontactpub.getText()),TFlocalisationpub.getText(),"dvd",user,actualite));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setContentText("GG");
         alert.show();
 
     }
-
 }
