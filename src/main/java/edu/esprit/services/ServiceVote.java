@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Vote;
 import edu.esprit.utils.DataSource;
 
@@ -27,7 +28,7 @@ public class ServiceVote implements IService<Vote> {
             String req = "INSERT INTO vote (id_user, desc_E, date_SV) VALUES (?, ?, ?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, vote.getId_user());
+                ps.setInt(1, vote.getUser().getId());
                 ps.setString(2, vote.getDesc_E());
                 ps.setString(3, vote.getDate_SV());
                 ps.executeUpdate();
@@ -48,7 +49,7 @@ public class ServiceVote implements IService<Vote> {
             String req = "UPDATE vote SET id_user=?, desc_E=?, date_SV=? WHERE id_V=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, vote.getId_user());
+                ps.setInt(1, vote.getUser().getId());
                 ps.setString(2, vote.getDesc_E());
                 ps.setString(3, vote.getDate_SV());
                 ps.setInt(4, vote.getId_V());
@@ -61,7 +62,7 @@ public class ServiceVote implements IService<Vote> {
 
         // Méthode pour valider que tous les champs requis sont remplis
         private boolean validateVote(Vote vote) {
-            return vote.getId_user() > 0 &&
+            return vote.getUser().getId() > 0 &&
                     !vote.getDesc_E().isEmpty() &&
                     !vote.getDate_SV().isEmpty();
         }
@@ -92,7 +93,9 @@ public class ServiceVote implements IService<Vote> {
                 int id_user = rs.getInt("id_user");
                 String desc_E = rs.getString("desc_E");
                 String date_SV = rs.getString("date_SV");
-                Vote vote = new Vote(id_V, id_user, desc_E, date_SV);
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
+                Vote vote = new Vote(id_V, endUser, desc_E, date_SV);
                 votes.add(vote);
             }
         } catch (SQLException e) {
@@ -112,7 +115,9 @@ public class ServiceVote implements IService<Vote> {
                 int id_user = rs.getInt("id_user");
                 String desc_E = rs.getString("desc_E");
                 String date_SV = rs.getString("date_SV");
-                return new Vote(id, id_user, desc_E, date_SV);
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
+                return new Vote(id, endUser, desc_E, date_SV);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -7,22 +7,22 @@ import java.util.Set;
 
 public class Vote {
 private int id_V;
-private int id_user;
+private EndUser user;
 private String desc_E;
 private String date_SV;
 
     public Vote() {
     }
 
-    public Vote(int id_V, int id_user, String desc_E, String date_SV) {
+    public Vote(int id_V, EndUser user, String desc_E, String date_SV) {
         this.id_V = id_V;
-        this.id_user = id_user;
+        this.user = user;
         this.desc_E = desc_E;
         this.date_SV = date_SV;
     }
 
-    public Vote(int id_user, String desc_E, String date_SV) {
-        this.id_user = id_user;
+    public Vote(EndUser user, String desc_E, String date_SV) {
+        this.user = user;
         this.desc_E = desc_E;
         this.date_SV = date_SV;
     }
@@ -35,12 +35,12 @@ private String date_SV;
         this.id_V = id_V;
     }
 
-    public int getId_user() {
-        return id_user;
+    public EndUser getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 
     public String getDesc_E() {
@@ -63,7 +63,7 @@ private String date_SV;
     public String toString() {
         return "Vote{" +
                 "id_V=" + id_V +
-                ", id_user=" + id_user +
+                ", user=" + user +
                 ", desc_E='" + desc_E + '\'' +
                 ", date_SV='" + date_SV + '\'' +
                 '}';

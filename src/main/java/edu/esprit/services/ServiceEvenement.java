@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.utils.DataSource;
 
@@ -24,7 +25,7 @@ public class ServiceEvenement implements IService<Evenement> {
             String req = "INSERT INTO evenement (id_user, nom_E, date_DHE, date_DHF, capacite_E, categorie_E) VALUES (?, ?, ?, ?, ?, ?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, evenement.getId_user());
+                ps.setInt(1, evenement.getUser().getId());
                 ps.setString(2, evenement.getNomEvent());
                 ps.setString(3, evenement.getDateEtHeureDeb());
                 ps.setString(4, evenement.getDateEtHeureFin());
@@ -47,7 +48,7 @@ public class ServiceEvenement implements IService<Evenement> {
             String req = "UPDATE evenement SET id_user=?, nom_E=?, date_DHE=?, date_DHF=?, capacite_E=?, categorie_E=? WHERE id_E=?";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setInt(1, evenement.getId_user());
+                ps.setInt(1, evenement.getUser().getId());
                 ps.setString(2, evenement.getNomEvent());
                 ps.setString(3, evenement.getDateEtHeureDeb());
                 ps.setString(4, evenement.getDateEtHeureFin());
@@ -62,7 +63,7 @@ public class ServiceEvenement implements IService<Evenement> {
         }
 
         private boolean validateEvenement(Evenement evenement) {
-            return evenement.getId_user() > 0 &&
+            return evenement.getUser().getId() > 0 &&
                     !evenement.getNomEvent().isEmpty() &&
                     !evenement.getDateEtHeureDeb().isEmpty() &&
                     !evenement.getDateEtHeureFin().isEmpty() &&
@@ -99,7 +100,9 @@ public class ServiceEvenement implements IService<Evenement> {
                 String date_DHF = rs.getString("date_DHF");
                 int capacite_E = rs.getInt("capacite_E");
                 String categorie_E = rs.getString("categorie_E");
-                Evenement evenement = new Evenement(id, nom_E, id_user, date_DHE, date_DHF, capacite_E, categorie_E);
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
+                Evenement evenement = new Evenement(id, nom_E, endUser, date_DHE, date_DHF, capacite_E, categorie_E);
                 evenements.add(evenement);
             }
         } catch (SQLException e) {
@@ -122,7 +125,9 @@ public class ServiceEvenement implements IService<Evenement> {
                 String date_DHF = rs.getString("date_DHF");
                 int capacite_E = rs.getInt("capacite_E");
                 String categorie_E = rs.getString("categorie_E");
-                return new Evenement(id, nom_E, id_user, date_DHE, date_DHF, capacite_E, categorie_E);
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
+                return new Evenement(id, nom_E, endUser, date_DHE, date_DHF, capacite_E, categorie_E);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
