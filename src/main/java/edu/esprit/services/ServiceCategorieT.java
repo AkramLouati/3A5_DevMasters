@@ -99,7 +99,7 @@ public class ServiceCategorieT implements IService<CategorieT> {
 
         public List<String> getAllCategoryNames() throws SQLException {
             List<String> categoryNames = new ArrayList<>();
-            String query = "SELECT nom_Cat FROM CategorieT"; // Adjust the query according to your database schema
+            String query = "SELECT nom_Cat FROM categorietache"; // Adjust the query according to your database schema
 
             try (PreparedStatement statement = cnx.prepareStatement(query);
                  ResultSet resultSet = statement.executeQuery()) {
@@ -113,7 +113,7 @@ public class ServiceCategorieT implements IService<CategorieT> {
 
     public List<Integer> getAllCategoryIds() throws SQLException {
         List<Integer> categoryIds = new ArrayList<>();
-        String query = "SELECT id_Cat FROM CategorieT"; // Adjust the query according to your database schema
+        String query = "SELECT id_Cat FROM categorietache"; // Adjust the query according to your database schema
 
         try (PreparedStatement statement = cnx.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
@@ -124,4 +124,21 @@ public class ServiceCategorieT implements IService<CategorieT> {
         }
         return categoryIds;
     }
+
+    public CategorieT getCategoryByName(String categoryName) {
+        String query = "SELECT * FROM categorietache WHERE nom_Cat = ?";
+        try {
+            PreparedStatement statement = cnx.prepareStatement(query);
+            statement.setString(1, categoryName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id_Cat");
+                return new CategorieT(id, categoryName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
