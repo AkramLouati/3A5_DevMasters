@@ -21,9 +21,12 @@ import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
 import edu.esprit.services.EtatTache;
 
-public class AjouterTacheController {
+public class AjouterModifierTacheController {
 
-    public Button ajouterButton;
+    @FXML
+    private Button Exit;
+    @FXML
+    private Button ajouterButton;
     @FXML
     private TextField attachmentField;
 
@@ -55,13 +58,13 @@ public class AjouterTacheController {
     private int selectedTaskId; // Holds the ID of the task being modified
     private Stage stage; // Reference to the stage
 
-    public AjouterTacheController() {
+    public AjouterModifierTacheController() {
         this.serviceTache = new ServiceTache();
     }
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
+/*
     @FXML
     void afficherListeAction(ActionEvent event) {
         try {
@@ -78,7 +81,7 @@ public class AjouterTacheController {
             alert.showAndWait();
         }
     }
-
+*/
     @FXML
     void browseForImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -150,7 +153,7 @@ public class AjouterTacheController {
             Tache newTask = new Tache(category, title, attachment, null, null, description, etat, null);
 
             // Set start and end dates if not null
-            if (startDate != null && endDate != null) {
+            if (endDate != null) {
                 newTask.setDate_DT(java.sql.Date.valueOf(startDate));
                 newTask.setDate_FT(java.sql.Date.valueOf(endDate));
             }
@@ -232,4 +235,10 @@ public class AjouterTacheController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    public void Exit(ActionEvent actionEvent) {
+        // Get the reference to the scene
+        stage.close();
+    }
+
 }

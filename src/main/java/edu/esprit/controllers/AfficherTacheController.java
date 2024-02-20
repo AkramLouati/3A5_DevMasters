@@ -71,9 +71,9 @@ public class AfficherTacheController {
 
     public void ajouterTacheAction(javafx.event.ActionEvent event) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterModifierTache.fxml"));
                 Parent root = loader.load();
-                AjouterTacheController controller = loader.getController();
+                AjouterModifierTacheController controller = loader.getController();
 
                 // Set the stage if it's not null
 
@@ -93,9 +93,9 @@ public class AfficherTacheController {
         if (selectedTache != null) {
             try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterModifierTache.fxml"));
                 Parent root = loader.load();
-                AjouterTacheController controller = loader.getController();
+                AjouterModifierTacheController controller = loader.getController();
                 controller.initModifier(selectedTache);
 
                 // Set the stage if it's not null

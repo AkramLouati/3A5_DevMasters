@@ -28,6 +28,7 @@ public class MainTFX extends Application {
 
         primaryStage.setTitle("Baladity");
         primaryStage.setScene(scene);
+        primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.show();
     }
 }
