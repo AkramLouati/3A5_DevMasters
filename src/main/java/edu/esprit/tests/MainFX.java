@@ -9,14 +9,14 @@ import javafx.stage.Stage;
 public class MainFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherVote.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvent.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Afficher les votes");
+        stage.setTitle("Afficher les événements");
         stage.show();
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }
