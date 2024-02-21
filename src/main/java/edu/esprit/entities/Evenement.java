@@ -1,10 +1,6 @@
 package edu.esprit.entities;
 
-import edu.esprit.services.IService;
-import edu.esprit.services.ServiceUser;
-
 import java.util.Objects;
-import java.util.Set;
 
 public class Evenement{
     private int id_E;

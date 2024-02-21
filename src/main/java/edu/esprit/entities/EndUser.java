@@ -1,7 +1,6 @@
 package edu.esprit.entities;
 import java.util.Objects;
 
-import java.util.Objects;
 
 public class EndUser {
     private int id;

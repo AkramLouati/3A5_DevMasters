@@ -16,7 +16,7 @@ public class MainFX extends Application {
         stage.setTitle("Afficher les événements");
         stage.show();
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }
