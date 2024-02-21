@@ -6,10 +6,10 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Vote {
-private int id_V;
-private EndUser user;
-private String desc_E;
-private String date_SV;
+    private int id_V;
+    private EndUser user;
+    private String desc_E;
+    private String date_SV;
 
     public Vote() {
     }
