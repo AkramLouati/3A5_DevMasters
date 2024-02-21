@@ -37,5 +37,30 @@ public class AjouterActualite {
         alert.show();
 
     }
+    @FXML
+    void modifierActualiteAction(ActionEvent event) {
+        try {
+            // Assuming you have a separate FXML file for the modification interface named "ModifierActualite.fxml"
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterActualite.fxml"));
+            TFtitre.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+    public void navigatetoAfficherActualiteAction(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualite.fxml"));
+            TFtitre.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }}
+
+
 
 }
