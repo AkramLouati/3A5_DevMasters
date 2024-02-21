@@ -36,6 +36,15 @@ public class Equipement {
         this.user = user;
     }
 
+    public Equipement(String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq) {
+        this.ref_eq = ref_eq;
+        this.nom_eq = nom_eq;
+        this.typeMateriel_eq = typeMateriel_eq;
+        this.quantite_eq = quantite_eq;
+        this.etat_eq = etat_eq;
+    }
+
+
     @Override
     public String toString() {
         return "Equipement{" +
