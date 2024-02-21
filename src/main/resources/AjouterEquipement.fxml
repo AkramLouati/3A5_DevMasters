@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEquipement">
    <children>
@@ -20,12 +17,11 @@
       <Label layoutX="304.0" layoutY="296.0" text="Image:" />
       <TextField fx:id="nomeq" layoutX="388.0" layoutY="103.0" />
       <TextField fx:id="desc" layoutX="395.0" layoutY="260.0" />
-      <ComboBox fx:id="etat" layoutX="395.0" layoutY="224.0" prefWidth="150.0" />
-      <RadioButton fx:id="materielfix" layoutX="395.0" layoutY="154.0" mnemonicParsing="false" text="Fixe" />
-      <RadioButton fx:id="materielmobile" layoutX="493.0" layoutY="154.0" mnemonicParsing="false" text="Mobile" />
-      <ComboBox fx:id="qunatite" layoutX="395.0" layoutY="187.0" prefHeight="25.0" prefWidth="36.0" />
       <Button fx:id="ajouteq" layoutX="435.0" layoutY="357.0" mnemonicParsing="false" onAction="#ajouterEquipementAction" text="Ajouter" />
       <Button fx:id="uploadimg" layoutX="394.0" layoutY="292.0" mnemonicParsing="false" onAction="#ajouterImageAction" text="upload image" />
       <Button fx:id="retourajout" layoutX="518.0" layoutY="357.0" mnemonicParsing="false" onAction="#retourAjoutEqAction" text="Retour" />
+      <TextField fx:id="typeeq" layoutX="395.0" layoutY="150.0" />
+      <TextField fx:id="etateq" layoutX="395.0" layoutY="224.0" />
+      <TextField fx:id="quantiteq" layoutX="395.0" layoutY="187.0" />
    </children>
 </AnchorPane>
