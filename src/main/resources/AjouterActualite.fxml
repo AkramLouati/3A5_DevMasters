@@ -9,11 +9,10 @@
    <children>
       <TextField fx:id="TFtitre" layoutX="422.0" layoutY="67.0" promptText="titre" />
       <TextField fx:id="TFdescription" layoutX="422.0" layoutY="124.0" promptText="description" />
-      <Button fx:id="ajouterActualiteAction" layoutX="376.0" layoutY="210.0" mnemonicParsing="false" onAction="#ajouterActualiteAction" prefHeight="26.0" prefWidth="71.0" text="ajouter" />
+      <Button fx:id="ajouterActualiteAction" layoutX="422.0" layoutY="210.0" mnemonicParsing="false" onAction="#ajouterActualiteAction" prefHeight="26.0" prefWidth="71.0" text="ajouter" />
       <Label layoutX="350.0" layoutY="67.0" prefHeight="26.0" prefWidth="62.0" text="Titre" />
       <Label layoutX="349.0" layoutY="124.0" prefHeight="26.0" prefWidth="64.0" text="Description" />
       <Button layoutX="33.0" layoutY="41.0" mnemonicParsing="false" onAction="#navigatetoAfficherActualiteAction" text="afficher" />
-      <Button fx:id="modifierActualiteAction" layoutX="481.0" layoutY="211.0" mnemonicParsing="false" onAction="#modifierActualiteAction" text="modifier" />
      
    </children>
 </AnchorPane>

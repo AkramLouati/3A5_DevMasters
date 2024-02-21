@@ -8,10 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -36,7 +41,7 @@ public class AfficherActualite {
         serviceActualite = new ServiceActualite();
         updateDataFromDatabase();
 
-        // Schedule periodic update
+
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(this::updateDataFromDatabase, 0, 1, TimeUnit.SECONDS);
     }
@@ -80,5 +85,31 @@ public class AfficherActualite {
     }
 
     public void EmployeeDuMoiAction(ActionEvent actionEvent) {
+    }
+
+    public void modifierActualiteAction(ActionEvent actionEvent) {
+        Actualite selectedActualite = listView.getSelectionModel().getSelectedItem();
+        if (selectedActualite != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierActualite.fxml"));
+                Parent root = loader.load();
+
+                // Access the controller and set the actualite ID
+                ModifierActualite modifierController = loader.getController();
+                modifierController.setActualiteId(selectedActualite.getId_a());
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Veuillez sélectionner une actualite à modifier.");
+        }
+    }
+
+
+    public void AjouterActualiteAction(ActionEvent actionEvent) {
     }
 }

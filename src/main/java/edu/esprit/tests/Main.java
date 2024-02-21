@@ -21,7 +21,7 @@ public class Main {
         Actualite actualite = new Actualite(27,muni);
         java.sql.Date sqlDate2 = new java.sql.Date(new Date().getTime());
 
-       sp1.ajouter(new Publicite("pub1","about the vehicules",94007815,"tunis","img1",user,actualite));
+       //sp1.ajouter(new Publicite("pub1","about the vehicules",94007815,"tunis","img1",user,actualite));
        //sp1.modifier(new Publicite(464,"aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbb", 00000, "la petite ariana","afzgzeg",1,24));
         // sp1.modifier(new Publicite(453,"amine", "yah", 4, "","",12,24));
         // sp1.supprimer(461);
@@ -33,7 +33,7 @@ public class Main {
 
 
         java.sql.Date sqlDate1 = new java.sql.Date(new Date().getTime());
-        //sp2.modifier(new Actualite(26,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbb",sqlDate1,"asss",1));
+     // sp2.modifier(new Actualite(27,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbb",sqlDate1,"asss",muni));
         //System.out.println(sp2.getAll());
 
     }
