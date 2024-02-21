@@ -4,26 +4,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
    <children>
-      <VBox layoutX="113.0" layoutY="73.0" prefHeight="254.0" prefWidth="373.0">
-         <children>
-            <Label text="Nom evenement" />
-            <TextField fx:id="TFNom" />
-            <Label text="Date debut" />
-            <TextField fx:id="TFDeb" />
-            <Label text="Date fin" />
-            <TextField fx:id="TFFin" />
-            <Label text="Cpacite max" />
-            <TextField fx:id="TFCap" />
-            <Label text="Categorie" />
-            <TextField fx:id="TFcat" />
-         </children>
-      </VBox>
-      <Text layoutX="246.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Evenement" />
-      <Button layoutX="252.0" layoutY="327.0" mnemonicParsing="false" onAction="#AjouterEventAction" prefHeight="27.0" prefWidth="94.0" text="Ajouter" />
+      <TextField fx:id="TFcapacite" layoutX="220.0" layoutY="223.0" promptText="Capacite Max" />
+      <TextField fx:id="TFnom" layoutX="220.0" layoutY="90.0" promptText="Nom Event" />
+      <TextField fx:id="TFdateDeb" layoutX="220.0" layoutY="137.0" promptText="Date Debut" />
+      <TextField fx:id="TFdateFin" layoutX="220.0" layoutY="180.0" promptText="Date Fin" />
+      <TextField fx:id="TFcategorie" layoutX="220.0" layoutY="265.0" promptText="Categorie" />
+      <Label layoutX="105.0" layoutY="94.0" text="Nom evenement" />
+      <Label layoutX="119.0" layoutY="141.0" text="Date Debut" />
+      <Label layoutX="129.0" layoutY="184.0" text="Date fin" />
+      <Label layoutX="99.0" layoutY="227.0" text="Capacite Maximale" />
+      <Label layoutX="123.0" layoutY="269.0" text="Categorie" />
+      <Button layoutX="254.0" layoutY="312.0" mnemonicParsing="false" onAction="#AjoutEventClick" text="Ajouter" />
    </children>
 </AnchorPane>

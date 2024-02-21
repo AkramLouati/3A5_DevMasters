@@ -4,17 +4,19 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceUser;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
 import java.sql.SQLException;
 
 public class AjouterEvent {
     @FXML
-    private TextField TFnomEvent;
+    private TextField TFnom;
 
     @FXML
-    private TextField TFdateDebut;
+    private TextField TFdateDeb;
 
     @FXML
     private TextField TFdateFin;
@@ -26,43 +28,38 @@ public class AjouterEvent {
     private TextField TFcategorie;
 
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
-    private final ServiceUser serviceUser = new ServiceUser(); // Assuming this service exists to retrieve users
 
     @FXML
-    public void AjouterEventAction(javafx.event.ActionEvent actionEvent) {
-
+    void AjoutEventClick(ActionEvent event) {
         try {
-            // Retrieve the current user (you may need to implement this logic based on your application)
-            // For now, let's assume user ID is 1
-            EndUser currentUser = serviceUser.getOneByID(1);
+            // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
+            ServiceUser serviceUser = new ServiceUser();
+            EndUser user = serviceUser.getOneByID(12); // Exemple : suppose que l'utilisateur actuel a l'ID 1
 
-            // Create the event object
+            // Création de l'événement
             Evenement evenement = new Evenement(
-                    currentUser, // Pass the current user
-                    TFnomEvent.getText(),
-                    TFdateDebut.getText(),
+                    user,
+                    TFnom.getText(),
+                    TFdateDeb.getText(),
                     TFdateFin.getText(),
-                    Integer.parseInt(TFcapacite.getText()), // Parse capacity to integer
+                    Integer.parseInt(TFcapacite.getText()),
                     TFcategorie.getText()
             );
 
-            // Add the event
+            // Ajout de l'événement via le service
             serviceEvenement.ajouter(evenement);
 
-            // Show success message
+            // Affichage d'une notification de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setContentText("Evenement ajouté avec succès !");
+            alert.setContentText("Événement ajouté avec succès !");
             alert.show();
         } catch (SQLException | NumberFormatException e) {
-            // Show error message if something goes wrong
+            // En cas d'erreur lors de l'ajout de l'événement
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText("Erreur lors de l'ajout de l'événement : " + e.getMessage());
-            alert.showAndWait();
+            alert.show();
         }
     }
-
 }
-
-

@@ -4,6 +4,7 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Vote;
 import edu.esprit.services.ServiceUser;
 import edu.esprit.services.ServiceVote;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -13,43 +14,41 @@ import java.sql.SQLException;
 public class AjouterVote {
 
     @FXML
-    private TextField DesTF;
+    private TextField TDdesc;
 
     @FXML
-    private TextField DateTF;
+    private TextField TFdateS;
 
     private final ServiceVote serviceVote = new ServiceVote();
-    private final ServiceUser serviceUser = new ServiceUser();
 
     @FXML
-    public void AjouterVoteAction(javafx.event.ActionEvent actionEvent) {
-
+    void AjouterVoteOnClick(ActionEvent event) {
         try {
-            // Récupérer l'utilisateur actuel (vous devrez implémenter cette logique en fonction de votre application)
-            // Pour l'instant, supposons que l'ID de l'utilisateur est 1
-            EndUser currentUser = serviceUser.getOneByID(1);
+            // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
+            ServiceUser serviceUser = new ServiceUser();
+            EndUser user = serviceUser.getOneByID(12); // Exemple : suppose que l'utilisateur actuel a l'ID 1
 
-            // Créer l'objet vote
+            // Création du vote
             Vote vote = new Vote(
-                    currentUser, // Passer l'utilisateur actuel
-                    DesTF.getText(),
-                    DateTF.getText()
+                    user,
+                    TDdesc.getText(),
+                    TFdateS.getText()
             );
 
-            // Ajouter le vote
+            // Ajout du vote via le service
             serviceVote.ajouter(vote);
 
-            // Afficher un message de succès
+            // Affichage d'une notification de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
+            alert.setTitle("Success");
             alert.setContentText("Vote ajouté avec succès !");
             alert.show();
         } catch (SQLException e) {
-            // Afficher un message d'erreur si quelque chose ne va pas
+            // En cas d'erreur lors de l'ajout du vote
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText("Erreur lors de l'ajout du vote : " + e.getMessage());
-            alert.showAndWait();
+            alert.show();
         }
     }
 }
