@@ -5,6 +5,7 @@ import edu.esprit.services.ServiceEvenement;
 import edu.esprit.utils.DataSource;
 
 import javax.xml.crypto.Data;
+import java.sql.SQLException;
 import java.util.Set;
 
 import java.util.Set;
@@ -19,7 +20,7 @@ import edu.esprit.services.ServiceVote;
 import edu.esprit.utils.DataSource;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // Create a DataSource instance to ensure database connection
         DataSource ds = new DataSource();
 
