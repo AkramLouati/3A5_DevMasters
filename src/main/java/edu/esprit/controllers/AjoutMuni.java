@@ -9,7 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -23,6 +28,11 @@ public class AjoutMuni {
     @FXML
     private PasswordField TFpassword;
 
+    @FXML
+    private ImageView ImageF;
+
+    File selectedFile;
+
     private final ServiceMuni serviceMuni = new ServiceMuni();
 
     @FXML
@@ -33,6 +43,23 @@ public class AjoutMuni {
         alert.setContentText("GG");
         alert.show();
 
+    }
+
+    @FXML
+    void pickImageAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            // Handle the selected image file (e.g., display it, process it, etc.)
+            System.out.println("Selected image: " + selectedFile.getAbsolutePath());
+            Image image = new Image(selectedFile.toURI().toString());
+            ImageF.setImage(image);
+        }
     }
 
     public void navigatetoAfficherMuniAction(ActionEvent actionEvent) {
