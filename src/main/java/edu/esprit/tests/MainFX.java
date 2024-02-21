@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 public class MainFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/AfficherVote.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/AfficherEvent.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Afficher les votes");
+        stage.setTitle("Afficher les events");
         stage.show();
     }
 
