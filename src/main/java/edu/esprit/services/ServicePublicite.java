@@ -7,7 +7,9 @@ import edu.esprit.entities.Publicite;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ServicePublicite implements IService<Publicite> {
@@ -17,7 +19,7 @@ public class ServicePublicite implements IService<Publicite> {
     public void ajouter(Publicite publicite) {
         // Basic input validation to ensure all required fields are filled
         if (isValidPublicite(publicite)) {
-            String req = "INSERT INTO `publicite`(`titre_pub`, `description_pub`, `contact_pub`, `localisation_pub`, `image_pub`,`id_user`,`id_a`) VALUES (?,?,?,?,?,?,?)";
+            String req = "INSERT INTO `publicite`(`titre_pub`, `description_pub`, `contact_pub`, `localisation_pub`, `image_pub`,`id_user`,`id_a`,`offre_pub`) VALUES (?,?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setString(1,publicite.getTitre_pub());
@@ -27,6 +29,7 @@ public class ServicePublicite implements IService<Publicite> {
                 ps.setString(5,publicite.getImage_pub());
                 ps.setInt(6,publicite.getEndUser().getId());
                 ps.setInt(7,publicite.getActualite().getId_a());
+                ps.setString(8,publicite.getOffre_pub());
                 ps.executeUpdate();
                 System.out.println("Publicite added!");
             } catch (SQLException e) {
@@ -35,6 +38,7 @@ public class ServicePublicite implements IService<Publicite> {
         } else {
             System.out.println("remplir tous les champs");
         }
+
     }
 
 
@@ -46,7 +50,8 @@ public class ServicePublicite implements IService<Publicite> {
                 publicite.getLocalisation_pub() != null && !publicite.getLocalisation_pub().isEmpty() &&
                 publicite.getImage_pub() != null && !publicite.getImage_pub().isEmpty() &&
                 publicite.getEndUser().getId() > 0 && // You may want to adjust this based on your requirements
-                publicite.getActualite().getId_a() > 0; // You may want to adjust this based on your requirements
+                publicite.getActualite().getId_a() > 0 && // You may want to adjust this based on your requirements
+                publicite.getOffre_pub() != null; // Check for offre_pub
     }
 
 
@@ -58,8 +63,11 @@ public class ServicePublicite implements IService<Publicite> {
             if (publiciteExists(publicite.getId_pub())) {
                 // Check if the associated Actualite ID exists in the actualite table
                 if (actualiteExists(publicite.getActualite().getId_a())) {
-                    String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub`=?, `id_user`=?, `id_a`=? WHERE `id_pub`=?";
+                    String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub`=?, `id_user`=?, `id_a`=?, `offre_pub`=? WHERE `id_pub`=?";
                     try {
+                        // Set up connection for transaction
+                        cnx.setAutoCommit(false);
+
                         PreparedStatement ps = cnx.prepareStatement(req);
                         ps.setString(1, publicite.getTitre_pub());
                         ps.setString(2, publicite.getDescription_pub());
@@ -68,11 +76,31 @@ public class ServicePublicite implements IService<Publicite> {
                         ps.setString(5, publicite.getImage_pub());
                         ps.setInt(6, publicite.getEndUser().getId());
                         ps.setInt(7, publicite.getActualite().getId_a());
-                        ps.setInt(8, publicite.getId_pub());
+                        ps.setString(8, publicite.getOffre_pub());
+                        ps.setInt(9, publicite.getId_pub());
+
+                        // Execute the update statement
                         ps.executeUpdate();
+
+                        // Commit the changes
+                        cnx.commit();
+
                         System.out.println("Publicite with ID " + publicite.getId_pub() + " modified!");
                     } catch (SQLException e) {
+                        // Rollback changes in case of an exception
+                        try {
+                            cnx.rollback();
+                        } catch (SQLException rollbackException) {
+                            rollbackException.printStackTrace();
+                        }
                         System.out.println(e.getMessage());
+                    } finally {
+                        // Reset auto-commit to true after transaction
+                        try {
+                            cnx.setAutoCommit(true);
+                        } catch (SQLException autoCommitException) {
+                            autoCommitException.printStackTrace();
+                        }
                     }
                 } else {
                     System.out.println("Associated Actualite with ID " + publicite.getActualite().getId_a() + " does not exist.");
@@ -84,6 +112,7 @@ public class ServicePublicite implements IService<Publicite> {
             System.out.println("Invalid input. Please fill all required fields.");
         }
     }
+
 
 
 
@@ -104,6 +133,7 @@ public class ServicePublicite implements IService<Publicite> {
 
 
 
+
     @Override
     public Set<Publicite> getAll() {
         Set<Publicite> publicites = new HashSet<>();
@@ -119,6 +149,7 @@ public class ServicePublicite implements IService<Publicite> {
                 int contact_pub = rs.getInt("contact_pub");
                 String localisation_pub = rs.getString("localisation_pub");
                 String image_pub = rs.getString("image_pub");
+                String offre_pub = rs.getString("offre_pub");
                 int id_user = rs.getInt("id_user");
                 int id_a = rs.getInt("id_a");
 
@@ -128,7 +159,7 @@ public class ServicePublicite implements IService<Publicite> {
                 ServiceActualite serviceActualite = new ServiceActualite();
                 Actualite actualite = serviceActualite.getOneByID(id_a);
 
-                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,endUser,actualite);
+                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,offre_pub,endUser,actualite);
                 publicites.add(pub);
             }
         } catch (SQLException e) {
@@ -152,6 +183,7 @@ public class ServicePublicite implements IService<Publicite> {
                 int contact_pub = rs.getInt("contact_pub");
                 String localisation_pub = rs.getString( "localisation_pub");
                 String image_pub = rs.getString("image_pub");
+                String offre_pub = rs.getString("offre_pub");
                 int id_user = rs.getInt("id_user");
                 int id_a = rs.getInt("id_a");
                 ServiceUser serviceUser = new ServiceUser();
@@ -160,7 +192,7 @@ public class ServicePublicite implements IService<Publicite> {
                 ServiceActualite serviceActualite = new ServiceActualite();
                 Actualite actualite = serviceActualite.getOneByID(id_a);
 
-                Publicite pub = new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,endUser,actualite);
+                Publicite pub = new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,offre_pub,endUser,actualite);
 
             }
         } catch (SQLException e) {

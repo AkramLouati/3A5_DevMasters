@@ -9,33 +9,36 @@ public class Publicite {
     private int contact_pub;
     private String localisation_pub;
     private String image_pub;
+    private String offre_pub;
 
     EndUser endUser;
     Actualite actualite;
 
 
-    public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, EndUser user, Muni muni) {
+    public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, Object offre_pub, EndUser user, Actualite muni) {
     }
 
     ;
 
-    public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, EndUser endUser, Actualite actualite) {
+    public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, String offre_pub, EndUser endUser, Actualite actualite) {
         this.id_pub = id_pub;
         this.titre_pub = titre_pub;
         Description_pub = description_pub;
         this.contact_pub = contact_pub;
         this.localisation_pub = localisation_pub;
         this.image_pub = image_pub;
+        this.offre_pub = offre_pub;
         this.endUser = endUser;
         this.actualite = actualite;
     }
 
-    public Publicite(String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, EndUser endUser, Actualite actualite) {
+    public Publicite(String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, String offre_pub, EndUser endUser, Actualite actualite) {
         this.titre_pub = titre_pub;
         Description_pub = description_pub;
         this.contact_pub = contact_pub;
         this.localisation_pub = localisation_pub;
         this.image_pub = image_pub;
+        this.offre_pub = offre_pub;
         this.endUser = endUser;
         this.actualite = actualite;
     }
@@ -104,6 +107,14 @@ public class Publicite {
         this.actualite = actualite;
     }
 
+    public String getOffre_pub() {
+        return offre_pub;
+    }
+
+    public void setOffre_pub(String offre_pub) {
+        this.offre_pub = offre_pub;
+    }
+
     @Override
     public String toString() {
         return "Publicite{" +
@@ -112,6 +123,7 @@ public class Publicite {
                 ", contact_pub=" + contact_pub +
                 ", localisation_pub='" + localisation_pub + '\'' +
                 ", image_pub='" + image_pub + '\'' +
+                ", offre_pub='" + offre_pub + '\'' +
                 ", endUser=" + endUser +
                 ", actualite=" + actualite +
                 '}';

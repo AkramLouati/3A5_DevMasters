@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="1281.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ActualiteController">
+   <children>
+      <Text fx:id="TitreActualiteAff" strokeType="OUTSIDE" strokeWidth="0.0" text="titre" wrappingWidth="184.5367374420166">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fx:id="DescriptionActualiteAff" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="266.93677711486816">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fx:id="DateActualiteAff" strokeType="OUTSIDE" strokeWidth="0.0" text="date" wrappingWidth="162.13677406311035">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="ImageActualite" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Button mnemonicParsing="false" onAction="#viewDetailActualiteAction" prefHeight="30.0" prefWidth="91.0" text="Détail" />
+      <Button mnemonicParsing="false" onAction="#deleteActualiteAction" prefHeight="30.0" prefWidth="98.0" text="Delete" textFill="#ea0707" />
+      <Button mnemonicParsing="false" onAction="#modifierActualiteAction" prefHeight="31.0" prefWidth="82.0" text="modifier" />
+   </children>
+</HBox>

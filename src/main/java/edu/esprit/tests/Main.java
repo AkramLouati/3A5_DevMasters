@@ -18,10 +18,10 @@ public class Main {
         ServiceActualite sp2 = new ServiceActualite();
         Muni muni = new Muni(1);
         EndUser user = new EndUser(12,muni);
-        Actualite actualite = new Actualite(27,muni);
+        Actualite actualite = new Actualite(68,muni);
         java.sql.Date sqlDate2 = new java.sql.Date(new Date().getTime());
 
-       //sp1.ajouter(new Publicite("pub1","about the vehicules",94007815,"tunis","img1",user,actualite));
+       sp1.ajouter(new Publicite("pub1","about the vehicules",94007815,"tunis","img1","hadil",user,actualite));
        //sp1.modifier(new Publicite(464,"aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbb", 00000, "la petite ariana","afzgzeg",1,24));
         // sp1.modifier(new Publicite(453,"amine", "yah", 4, "","",12,24));
         // sp1.supprimer(461);
