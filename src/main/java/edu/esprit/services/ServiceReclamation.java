@@ -26,10 +26,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                 !reclamation.getAdresse_reclamation().isEmpty();
     }
     @Override
-    public void ajouter(Reclamation reclamation) {
+    public void ajouter(Reclamation reclamation) throws SQLException {
         if (!validateReclamation(reclamation)) {
-            System.out.println("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
-            return;
+            throw new SQLException("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
         }
         String req = "INSERT INTO `reclamation`(`id_user`, `id_muni`, `sujet_reclamation`,`date_reclamation`, `type_reclamation`, `description_reclamation`, `status_reclamation`, `image_reclamation`, `adresse_reclamation`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
