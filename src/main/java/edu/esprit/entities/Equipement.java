@@ -10,10 +10,11 @@ public class Equipement {
     private String etat_eq;
     private String description_eq;
     private EndUser user;
+    private Muni muni;
     public Equipement(){
     }
 
-    public Equipement(String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user) {
+    public Equipement(String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user,Muni muni) {
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
         this.image_eq = image_eq;
@@ -22,6 +23,7 @@ public class Equipement {
         this.etat_eq = etat_eq;
         this.description_eq = description_eq;
         this.user = user;
+        this.muni = muni;
     }
 
     public Equipement(int id_eq, String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user) {
