@@ -14,7 +14,16 @@ public class Equipement {
     public Equipement(){
     }
 
-    public Equipement(String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user,Muni muni) {
+    public Equipement(String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq) {
+        this.ref_eq = ref_eq;
+        this.nom_eq = nom_eq;
+        this.typeMateriel_eq = typeMateriel_eq;
+        this.quantite_eq = quantite_eq;
+        this.etat_eq = etat_eq;
+        this.description_eq = description_eq;
+    }
+
+    public Equipement(String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user, Muni muni) {
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
         this.image_eq = image_eq;
@@ -26,7 +35,7 @@ public class Equipement {
         this.muni = muni;
     }
 
-    public Equipement(int id_eq, String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user) {
+    public Equipement(int id_eq, String ref_eq, String nom_eq, String image_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq, EndUser user,Muni muni) {
         this.id_eq = id_eq;
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;
@@ -36,6 +45,7 @@ public class Equipement {
         this.etat_eq = etat_eq;
         this.description_eq = description_eq;
         this.user = user;
+        this.muni=muni;
     }
 
     @Override
@@ -134,5 +144,13 @@ public class Equipement {
 
     public void setUser(EndUser user) {
         this.user = user;
+    }
+
+    public Muni getMuni() {
+        return muni;
+    }
+
+    public void setMuni(Muni muni) {
+        this.muni = muni;
     }
 }

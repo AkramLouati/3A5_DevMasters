@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="287.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EquipementItemController">
+   <children>
+      <Text layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom equipement :" wrappingWidth="90.80337905883789" />
+      <Text fx:id="TFnomeuipement" layoutX="91.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.47002410888672" />
+      <Text layoutX="14.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reference :" wrappingWidth="90.80337905883795" />
+      <Text fx:id="TFreference_equipement" layoutX="78.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="90.80337905883795" />
+      <Text layoutX="14.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quantite :" wrappingWidth="72.80337905883789" />
+      <Text fx:id="TFquantite_equipement" layoutX="68.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="72.80337905883795" />
+      <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image :" wrappingWidth="72.80337905883789" />
+      <ImageView fx:id="imgView_reclamation" fitHeight="150.0" fitWidth="200.0" layoutX="59.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

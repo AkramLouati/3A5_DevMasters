@@ -21,7 +21,7 @@ public class Main {
         EndUser user = new EndUser(12,muni);
         ServiceEquipement se = new ServiceEquipement();
         //se.ajouter(new Equipement("aaaaa","bala","bbbb","aaaaa",15,"ccccc","dddddd",user));
-        Equipement equipement = new Equipement(2,"bbbbb","bbbbb","bbbb","bbbbb",15,"bbbbb","bbbbb",user);
+        //Equipement equipement = new Equipement(2,"bbbbb","bbbbb","bbbb","bbbbb",15,"bbbbb","bbbbb",user);
         //se.modifier(equipement);
         //se.supprimer(1);
         //System.out.println(se.getAll());

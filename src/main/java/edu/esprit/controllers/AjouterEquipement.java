@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -50,27 +52,22 @@ public class AjouterEquipement {
 
     @FXML
     private Button uploadimg;
+    @FXML
+    private Label imgurl;
     private final ServiceEquipement se = new ServiceEquipement();
-    Muni muni = new Muni(5);
-    EndUser user = new EndUser(13,muni);
+    Muni muni = new Muni(1);
+    EndUser user = new EndUser(1,muni);
     private String imagePath;
     private Label label;
 
     @FXML
     void ajouterEquipementAction(ActionEvent event) {
-        try {
-            // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-            se.ajouter(new Equipement(refeq.getText(), nomeq.getText(), imagePath, typeeq.getText(), Integer.parseInt(quantiteq.getText()), etateq.getText(),desc.getText(),user,muni));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Equipement a été ajoutée");
-            alert.setContentText("GG");
-            alert.show();
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL Exception");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
+        // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+        se.ajouter(new Equipement(refeq.getText(), nomeq.getText(), imagePath, typeeq.getText(), Integer.parseInt(quantiteq.getText()), etateq.getText(),desc.getText(),user,muni));
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Equipement a été ajoutée");
+        alert.setContentText("GG");
+        alert.show();
 
     }
 
@@ -98,7 +95,7 @@ public class AjouterEquipement {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 // Affiche le nom du fichier sélectionné
-                label.setText(selectedFile.getName());
+                imgurl.setText(selectedFile.getName());
 
                 // Récupère le chemin absolu du fichier
                 String absolutePath = selectedFile.getAbsolutePath();

@@ -1,5 +1,7 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Equipement;
+import edu.esprit.services.ServiceEquipement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,28 +46,31 @@ public class ModifierEquipement {
     private String imagePath;
     @FXML
     void modifierEquipementAction(ActionEvent event) {
-        if (equipement != null && serviceEquipement != null) {
+        Equipement e = new Equipement();
+        ServiceEquipement se =  new ServiceEquipement();
+        if (e != null && se != null) {
             // Mettre à jour les données de l'equipement avec les valeurs des champs de texte
-            equipement.setRefeqmod(refeqmod.getText());
-            equipement.setNomeqmod(nomeqmod.getText());
-            equipement.setTypeeqmod(typeeqmod.getText());
-            equipement.setEtateqmod(etateqmod.getText());
-            equipement.setQuantiteeqmod(quantiteeqmod.getText());
-            equipement.setDescmod(descmod.getText());
+            e.setRef_eq(refeqmod.getText());
+            e.setNom_eq(nomeqmod.getText());
+            e.setTypeMateriel_eq(typeeqmod.getText());
+            e.setEtat_eq(etateqmod.getText());
+            e.setQuantite_eq(Integer.parseInt(quantiteeqmod.getText()));
+            e.setDescription_eq(descmod.getText());
+
 
             try {
                 // Appeler la méthode de modification du service de equipement
-                serviceEquipement.modifier(equipement);
+                se.modifier(e);
 
                 // Afficher un message de succès
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setContentText("Equipement modifiée avec succès !");
                 successAlert.setTitle("Modification réussie");
                 successAlert.show();
-            } catch (Exception e) {
+            } catch (Exception exception) {
                 // Afficher un message d'erreur en cas d'échec de la modification
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Erreur lors de la modification de l'equipement' : " + e.getMessage());
+                errorAlert.setContentText("Erreur lors de la modification de l'equipement' : " + exception.getMessage());
                 errorAlert.setTitle("Erreur de modification");
                 errorAlert.show();
             }
@@ -120,13 +125,13 @@ public class ModifierEquipement {
             Image image = new Image(fileUrl);
 
             // Affiche l'image dans l'ImageView
-            uploadimgmod.setImage(image);
+            // uploadimgmod.setImage(image);
 
             // Mettre à jour le chemin d'accès à l'image dans la réclamation
-            if (equipement != null) {
-                equipement.setImage_eq(imagePath);
+            // if (equipement != null) {
+            //     equipement.setImage_eq(imagePath);
             }
         }
 
     }
-}
+

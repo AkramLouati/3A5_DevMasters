@@ -21,14 +21,15 @@
             <TextField fx:id="nomeq" />
             <Label text="Type de matériel:" />
             <TextField fx:id="typeeq" />
-            <Label text="Etat:" />
+            <Label text="Quantié : " />
             <TextField fx:id="quantiteq" />
-            <Label text="Quantité:" />
+            <Label text="Etat : " />
             <TextField fx:id="etateq" />
             <Label text="Description:" />
             <TextField fx:id="desc" prefHeight="91.0" prefWidth="286.0" />
          </children>
       </VBox>
       <Button layoutX="512.0" layoutY="357.0" mnemonicParsing="false" onAction="#navigatetoAfficherEquipementAction" text="Navigate" />
+      <Label fx:id="imgurl" layoutX="391.0" layoutY="58.0" prefHeight="10.0" prefWidth="108.0" />
    </children>
 </AnchorPane>

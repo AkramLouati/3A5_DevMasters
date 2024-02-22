@@ -2,6 +2,7 @@ package edu.esprit.services;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
+import edu.esprit.entities.Muni;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -19,11 +20,13 @@ public class ServiceEquipement implements IService<Equipement> {
 
     Connection cnx = DataSource.getInstance().getCnx();
     ServiceUser serviceUser = new ServiceUser();
+    ServiceMuni serviceMuni = new ServiceMuni();
+
 
 
     @Override
     public void ajouter(Equipement equipement) {
-        String req = "INSERT INTO equipement (ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO equipement (ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user,id_muni) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, equipement.getRef_eq());
@@ -34,6 +37,8 @@ public class ServiceEquipement implements IService<Equipement> {
             ps.setString(6, equipement.getEtat_eq());
             ps.setString(7, equipement.getDescription_eq());
             ps.setInt(8, equipement.getUser().getId());
+            ps.setInt(9, equipement.getMuni().getId());
+
             ps.executeUpdate();
             System.out.println("Equipement ajouté avec succès !");
         } catch (SQLException e) {
@@ -43,7 +48,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
     @Override
     public void modifier(Equipement equipement) {
-        String req = "UPDATE equipement SET ref_eq=?, nom_eq=?, typeMateriel_eq=?, quantite_eq=?, etat_eq=?, description_eq=?, id_user=? WHERE id_eq=?";
+        String req = "UPDATE equipement SET ref_eq=?, nom_eq=?, typeMateriel_eq=?, quantite_eq=?, etat_eq=?, description_eq=?, id_user=?, id_muni=? WHERE id_eq=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, equipement.getRef_eq());
@@ -53,7 +58,8 @@ public class ServiceEquipement implements IService<Equipement> {
             ps.setString(5, equipement.getEtat_eq());
             ps.setString(6, equipement.getDescription_eq());
             ps.setInt(7, equipement.getUser().getId());
-            ps.setInt(8, equipement.getId_eq());
+            ps.setInt(8, equipement.getMuni().getId());
+            ps.setInt(9, equipement.getId_eq());
             ps.executeUpdate();
             System.out.println("Equipement modifié avec succès !");
         } catch (SQLException e) {
@@ -94,12 +100,15 @@ public class ServiceEquipement implements IService<Equipement> {
                 String etat_eq = rs.getString("etat_eq");
                 String description_eq = rs.getString("description_eq");
                 int id_user = rs.getInt("id_user");
+                int id_muni = rs.getInt("id_muni");
 
                 // Récupération de l'utilisateur associé à l'équipement
                 EndUser user = serviceUser.getOneByID(id_user);
+                Muni muni = serviceMuni.getOneByID(id_muni);
+
 
                 // Création de l'équipement et ajout à la liste
-                Equipement equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user);
+                Equipement equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user,muni);
                 equipements.add(equipement);
             }
         } catch (SQLException e) {
@@ -127,12 +136,15 @@ public class ServiceEquipement implements IService<Equipement> {
                 String etat_eq = rs.getString("etat_eq");
                 String description_eq = rs.getString("description_eq");
                 int id_user = rs.getInt("id_user");
+                int id_muni = rs.getInt("id_muni");
+
 
                 // Récupération de l'utilisateur associé à l'équipement
                 EndUser user = serviceUser.getOneByID(id_user);
+                Muni muni = serviceMuni.getOneByID(id_muni);
 
                 // Création de l'équipement
-                equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user);
+                equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user,muni);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'équipement : " + e.getMessage());
