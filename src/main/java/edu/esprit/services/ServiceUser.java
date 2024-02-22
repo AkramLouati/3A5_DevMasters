@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.utils.DataSource;
 
 import javax.swing.plaf.nimbus.State;
@@ -25,7 +26,7 @@ public class ServiceUser implements IService<EndUser> {
             ps.setString(2, endUser.getNom());
             ps.setString(3, endUser.getType());
             ps.setString(4, endUser.getPhoneNumber());
-            ps.setString(5, endUser.getId_muni());
+            ps.setInt(5, endUser.getMuni().getId_muni());
             ps.setString(6, endUser.getLocation());
             ps.setString(7, endUser.getImage());
             ps.setString(8, endUser.getPassword());
@@ -49,7 +50,7 @@ public class ServiceUser implements IService<EndUser> {
             }
             ps.setString(3, endUser.getType());
             ps.setString(4, endUser.getPhoneNumber());
-            ps.setString(5, endUser.getId_muni());
+            ps.setInt(5, endUser.getMuni().getId_muni());
             ps.setString(6, endUser.getLocation());
             ps.setString(7, endUser.getImage());
             ps.setString(8, endUser.getPassword());
@@ -100,10 +101,11 @@ public class ServiceUser implements IService<EndUser> {
                 String password = rs.getString("password");
                 String type = rs.getString("type_user");
                 String phoneNumber = rs.getString("phoneNumber_user");
-                String id_muni = rs.getString("id_muni");
+                int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,id_muni,location,image);
+                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image);
                 users.add(p);
             }
         } catch (SQLException e) {
@@ -115,31 +117,29 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public EndUser getOneByID(int userId) {
+        EndUser endUser = null;
         String query = "SELECT * FROM `enduser` WHERE `id_user` = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                // Créez un objet EndUser à partir des données du résultat
-                EndUser user = new EndUser();
-                user.setId(rs.getInt("id_user"));
-                user.setEmail(rs.getString("email_user"));
-                user.setNom(rs.getString("nom_user")); // Ajoutez d'autres attributs ici
-                user.setType(rs.getString("type_user"));
-                user.setPhoneNumber(rs.getString("phoneNumber_user"));
-                user.setId_muni(rs.getString("id_muni"));
-                user.setLocation(rs.getString("location_user"));
-                user.setImage(rs.getString("image_user"));
-                user.setPassword(rs.getString("password"));
-                return user;
-            } else {
-                System.out.println("Utilisateur introuvable pour l'ID : " + userId);
-                return null;
+            while(rs.next()){
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String email = rs.getString("email_user");
+                String password = rs.getString("password");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                int id_muni = rs.getInt("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return endUser;
     }
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";

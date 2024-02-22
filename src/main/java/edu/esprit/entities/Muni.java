@@ -28,6 +28,10 @@ public class Muni {
         return id_muni;
     }
 
+    public void setId_muni(int id_muni) {
+        this.id_muni = id_muni;
+    }
+
     public String getNom_muni() {
         return nom_muni;
     }

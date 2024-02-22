@@ -9,7 +9,7 @@ public class EndUser {
     private String password;
     private String type;
     private String phoneNumber;
-    private String id_muni;
+    private Muni muni;
     private String location;
     private String image;
 
@@ -22,20 +22,19 @@ public class EndUser {
         this.password = password;
         this.type = type;
         this.phoneNumber = phoneNumber;
-        this.id_muni = id_muni;
+        this.muni = muni;
         this.location = location;
         this.image = image;
     }
 
-    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, String id_muni, String location,String image) {
+    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, Muni muni, String location,String image) {
         this.id = id;
         this.email = email;
         this.nom = nom;
-        this.email = email;
         this.password = password;
         this.type = type;
         this.phoneNumber = phoneNumber;
-        this.id_muni = id_muni;
+        this.muni = muni;
         this.location = location;
         this.image = image;
     }
@@ -88,12 +87,12 @@ public class EndUser {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId_muni() {
-        return id_muni;
+    public Muni getMuni() {
+        return muni;
     }
 
-    public void setId_muni(String id_muni) {
-        this.id_muni = id_muni;
+    public void setMuni(Muni muni) {
+        this.muni = muni;
     }
 
     public String getLocation() {
@@ -120,7 +119,7 @@ public class EndUser {
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", id_muni='" + id_muni + '\'' +
+                ", muni='" + muni + '\'' +
                 ", location='" + location + '\'' +
                 ", image='" + image + '\'' +
                 '}';
