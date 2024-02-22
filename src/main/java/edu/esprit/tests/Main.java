@@ -30,7 +30,7 @@ public class Main {
         // Test CRUD operations for Evenement
         // 1. Add an event
         EndUser endUser = new EndUser(13);
-        Evenement eventToAdd = new Evenement(endUser, "Test Event", "2024-02-15 10:00:00", "2024-02-15 12:00:00", 100, "Test Category");
+        Evenement eventToAdd = new Evenement(endUser, "Test bb", "2024-02-15 10:00:00", "2024-02-15 12:00:00", 100, "Test Category");
         serviceEvenement.ajouter(eventToAdd);
 
         // 2. Retrieve all events

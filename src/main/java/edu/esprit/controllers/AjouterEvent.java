@@ -6,9 +6,14 @@ import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AjouterEvent {
@@ -62,4 +67,28 @@ public class AjouterEvent {
             alert.show();
         }
     }
+    @FXML
+    void navigateOnClickk(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de l'interface à laquelle vous souhaitez naviguer
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEventS.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir la scène actuelle à partir de l'un des éléments de l'interface actuelle
+            Stage stage = (Stage) TFnom.getScene().getWindow();
+
+            // Mettre la nouvelle scène sur le stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les exceptions liées au chargement de l'interface
+        }
+    }
+
+
+
 }

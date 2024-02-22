@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
    <children>
       <TextField fx:id="TFcapacite" layoutX="220.0" layoutY="223.0" promptText="Capacite Max" />
@@ -19,5 +18,6 @@
       <Label layoutX="99.0" layoutY="227.0" text="Capacite Maximale" />
       <Label layoutX="123.0" layoutY="269.0" text="Categorie" />
       <Button layoutX="254.0" layoutY="312.0" mnemonicParsing="false" onAction="#AjoutEventClick" text="Ajouter" />
+      <Button layoutX="451.0" layoutY="167.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="27.0" prefWidth="82.0" text="Navigate" />
    </children>
 </AnchorPane>
