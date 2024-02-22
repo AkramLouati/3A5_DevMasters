@@ -10,6 +10,7 @@
       <Button onAction="#ajouterTacheAction" text="Ajouter" />
       <Button onAction="#modifierTacheAction" text="Modifier" />
       <Button onAction="#supprimerTacheAction" text="Supprimer" />
+      <Button onAction="#CommentaireTacheAction" text="Commentaire" />
       <Button onAction="#PdfTacheAction" text="PDF" />
       <Button onAction="#ExcelTacheAction" text="Excel" />
       <Button onAction="#EmployeeDuMoiAction" text="Employe Du Moi" />

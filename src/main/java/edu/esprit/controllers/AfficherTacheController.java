@@ -27,7 +27,6 @@ public class AfficherTacheController {
     @FXML
     private ListView<Tache> listView;
 
-    public Label categorie;
     private ServiceTache serviceTache;
     private ObservableList<Tache> tacheObservableList;
 
@@ -132,5 +131,28 @@ public class AfficherTacheController {
     }
 
     public void EmployeeDuMoiAction(ActionEvent actionEvent) {
+    }
+
+    public void CommentaireTacheAction(javafx.event.ActionEvent actionEvent) {
+        Tache selectedTache = listView.getSelectionModel().getSelectedItem();
+        if (selectedTache != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCommentaire.fxml"));
+                Parent root = loader.load();
+
+                // Pass the selected task ID to the AfficherCommentaireController
+                AfficherCommentaireController controller = loader.getController();
+                controller.afficherCommentaire(selectedTache.getId_T());
+
+                // Open a new scene to display the comment
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Erreur lors de l'ouverture de la vue commentaire : " + e.getMessage());
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Veuillez sélectionner une tâche pour afficher les commentaires.");
+        }
     }
 }

@@ -5,6 +5,7 @@ import edu.esprit.services.*;
 import edu.esprit.utils.DataSource;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainT {
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class MainT {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-/*
+
         try {
 
             // Ajout d'une categorie
@@ -42,7 +43,7 @@ public class MainT {
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
-*/
+
         try {
             // Ajout d'une tâche
             Tache nouvelleTache = new Tache(categ01, "Titre de la tâche", "fichier.txt", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-12 12:00"),
@@ -66,18 +67,18 @@ public class MainT {
             System.out.println("Erreur : " + e.getMessage());
         }
 
-        /*
+
         // COMMENTAIRE :
         try {
             // Ajout d'un commentaire
-            CommentaireTache nouveauCommentaire = new CommentaireTache(user01, 2, new Date(), "555");
+            CommentaireTache nouveauCommentaire = new CommentaireTache(user01, 69, new Date(), "555");
             if (sct.isValidC(nouveauCommentaire)) {
                 sct.ajouter(nouveauCommentaire);
                // System.out.println(sct.getAll());
             }
 
             // Modification d'un commentaire
-            CommentaireTache commentaireModifie = new CommentaireTache(2, "9999999");
+            CommentaireTache commentaireModifie = new CommentaireTache(40, "6969");
             if (sct.isValidC(commentaireModifie)) {
                 sct.modifier(commentaireModifie);
                 //System.out.println(sct.getAll());
@@ -90,6 +91,6 @@ public class MainT {
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
-*/
+
 }
 }

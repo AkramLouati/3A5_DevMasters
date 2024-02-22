@@ -14,15 +14,25 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
     ServiceUser serviceUser = new ServiceUser();
     @Override
     public void ajouter(CommentaireTache ct) {
-        String req = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
+        // Check if the task ID exists in the tache table
+        String taskExistQuery = "SELECT id_T FROM tache WHERE id_T = ?";
         try {
-            PreparedStatement ps = cnx.prepareStatement(req);
+            PreparedStatement taskExistStatement = cnx.prepareStatement(taskExistQuery);
+            taskExistStatement.setInt(1, ct.getId_T());
+            ResultSet rs = taskExistStatement.executeQuery();
+            if (!rs.next()) {
+                throw new IllegalArgumentException("Tache avec ID " + ct.getId_T() + " exist pas.");
+            }
+
+            // Proceed to insert the comment
+            String insertQuery = "INSERT INTO commentairetache (id_user, id_T, date_C, texte_C) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = cnx.prepareStatement(insertQuery);
             ps.setInt(1, ct.getUser().getId());
             ps.setInt(2, ct.getId_T());
             ps.setDate(3, new java.sql.Date(ct.getDate_C().getTime()));
             ps.setString(4, ct.getText_C());
             ps.executeUpdate();
-            System.out.println("Commentaire ajouter");
+            System.out.println("Commentaire ajouté");
         } catch (SQLException e) {
             System.out.println("Erreur ajout commentaire: " + e.getMessage());
         }
@@ -120,5 +130,25 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
         }
         return true;
     }
+    public CommentaireTache getCommentaireForTask(int taskId) {
+        String req = "SELECT * FROM commentairetache WHERE id_T=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, taskId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id_C = rs.getInt("id_C");
+                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id_user);
+                Date date_C = rs.getDate("date_C");
+                String texte_C = rs.getString("texte_C");
+                return new CommentaireTache(id_C, user, taskId, date_C, texte_C);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving comment: " + e.getMessage());
+        }
+        return null;
+    }
+
 
 }
