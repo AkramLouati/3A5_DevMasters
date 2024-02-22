@@ -183,6 +183,35 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return reclamation;
     }
+    public Set<Reclamation> getReclamationsByUser(EndUser user) {
+        Set<Reclamation> userReclamations = new HashSet<>();
+        String req = "SELECT * FROM `reclamation` WHERE `id_user`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id_reclamation = rs.getInt("id_reclamation");
+                int id_muni = rs.getInt("id_muni");
+                String sujet_reclamation = rs.getString("sujet_reclamation");
+                Date date_reclamation = rs.getDate("date_reclamation");
+                String type_reclamation = rs.getString("type_reclamation");
+                String description_reclamation = rs.getString("description_reclamation");
+                String status_reclamation = rs.getString("status_reclamation");
+                String image_reclamation = rs.getString("image_reclamation");
+                String adresse_reclamation = rs.getString("adresse_reclamation");
+
+                Muni muni = serviceMuni.getOneByID(id_muni);
+
+                Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
+                userReclamations.add(r);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return userReclamations;
+    }
+
 
 
 }
