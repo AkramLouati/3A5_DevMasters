@@ -2,6 +2,7 @@ package edu.esprit.services;
 
 import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
 
@@ -161,4 +162,31 @@ public class ServiceTache implements IService<Tache> {
         }
         return true;
     }
+
+    public Set<Tache> getTachesByUser(EndUser user) {
+        Set<Tache> userTaches = new HashSet<>();
+        String req = "SELECT * FROM tache WHERE id_user = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int categorieId = rs.getInt("id_Cat");
+                CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                String titre = rs.getString("titre_T");
+                String pieceJointe = rs.getString("pieceJointe_T");
+                Date dateDT = rs.getDate("date_DT");
+                Date dateFT = rs.getDate("date_FT");
+                String desc = rs.getString("desc_T");
+                EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
+                int id_user = rs.getInt("id_user");
+                Tache r = new Tache(user,categorie, titre, pieceJointe, dateDT, dateFT, desc, etat);
+                userTaches.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userTaches;
+    }
+
 }

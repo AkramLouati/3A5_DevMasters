@@ -22,7 +22,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-public class AjouterModifierTacheController {
+public class AjouterTacheController {
 
     @FXML
     private Button Exit;
@@ -64,7 +64,7 @@ public class AjouterModifierTacheController {
 
     ServiceUser serviceUser = new ServiceUser();
     EndUser user01 = serviceUser.getOneByID(14);
-    public AjouterModifierTacheController() {
+    public AjouterTacheController() {
         this.serviceCategorieT = new ServiceCategorieT();
         this.serviceTache = new ServiceTache();
     }
@@ -114,7 +114,7 @@ public class AjouterModifierTacheController {
     }
 
     @FXML
-    void ajouterTache(ActionEvent event) {
+    void AjouterTache(ActionEvent event) {
         try {
             String categoryName = categoryField.getValue();
             String title = titleField.getText();
@@ -148,30 +148,12 @@ public class AjouterModifierTacheController {
             // Retrieve the CategorieT object associated with the selected category name
             CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
 
-            if (ajouterButton.getText().equals("Modifier")) {
-                Tache existingTache = serviceTache.getOneByID(selectedTaskId);
-                if (existingTache != null) {
-                    existingTache.setId_T(existingTache.getId_T());
-                    existingTache.setCategorie(categorie);
-                    existingTache.setTitre_T(title);
-                    existingTache.setPieceJointe_T(attachment);
-                    existingTache.setDesc_T(description);
-                    existingTache.setDate_DT(startDateSql);
-                    existingTache.setDate_FT(endDateSql);
-                    existingTache.setEtat_T(etat);
-                    existingTache.setUser(user01);
-                    serviceTache.modifier(existingTache);
-                    clearFields();
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Tache modifiée avec succès.");
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "La tache à modifier n'a pas été trouvée.");
-                }
-            } else if (ajouterButton.getText().equals("Ajouter")) {
+
                 Tache tache = new Tache(categorie, title, attachment, startDateSql, endDateSql, description, etat, user01);
                 serviceTache.ajouter(tache);
                 clearFields();
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutée avec succès.");
-            }
+
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }

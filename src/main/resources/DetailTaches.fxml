@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="554.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailTachesController">
+   <children>
+      <HBox layoutX="36.0" layoutY="24.0" prefHeight="56.0" prefWidth="447.0">
+         <children>
+            <Text fx:id="TFTitreDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre" wrappingWidth="382.13666915893555">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <VBox layoutX="36.0" layoutY="107.0" prefHeight="420.0" prefWidth="447.0">
+         <children>
+            <HBox prefHeight="37.0" prefWidth="402.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie :" wrappingWidth="189.614013671875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="TFCategorieDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.73669052124023">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="402.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut :" wrappingWidth="185.61407470703125">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="TFdateDebutDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.73669052124023">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="40.0" prefWidth="402.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin :" wrappingWidth="185.61407470703125">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="TFdateFinDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.73669052124023">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="42.0" prefWidth="402.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description :" wrappingWidth="186.4140625">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="TFdescriptionDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="212.53667831420898">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="38.0" prefWidth="402.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat :" wrappingWidth="186.41400146484375">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="TFEtatDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="181.33666610717773">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="222.0" prefWidth="447.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Piece Jointe :" wrappingWidth="188.0139923095703">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="PieceJointedetail" fitHeight="224.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="511.0" layoutY="24.0" prefHeight="406.0" prefWidth="302.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="278.0" text="COMMENTAIRE" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_date_C" prefHeight="22.0" prefWidth="278.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txt_text_C" prefHeight="301.0" prefWidth="302.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="278.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#BTNAjoutCMNT" prefHeight="109.0" prefWidth="70.0" text="Ajouter" />
+                  <Button mnemonicParsing="false" onAction="#BTNModifCMNT" prefHeight="139.0" prefWidth="70.0" text="Modifier" />
+                  <Button mnemonicParsing="false" onAction="#BTNSuppCMNT" prefHeight="133.0" prefWidth="78.0" text="Supprimer" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="743.0" layoutY="499.0" mnemonicParsing="false" onAction="#buttonReturnListeTaches" prefHeight="29.0" prefWidth="69.0" text="Retour" />
+   </children>
+</AnchorPane>

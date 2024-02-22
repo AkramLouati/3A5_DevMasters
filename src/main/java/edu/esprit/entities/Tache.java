@@ -39,7 +39,16 @@ public class Tache {
         this.user = user;
     }
 
-
+    public Tache(EndUser user, CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T) {
+        this.categorie = categorie;
+        this.titre_T = titre_T;
+        this.pieceJointe_T = pieceJointe_T;
+        this.date_DT = date_DT;
+        this.date_FT = date_FT;
+        this.desc_T = desc_T;
+        this.etat_T = etat_T;
+        this.user = user;
+    }
 
 
     public int getId_T() {
