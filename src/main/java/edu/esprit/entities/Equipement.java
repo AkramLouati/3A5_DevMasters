@@ -14,6 +14,10 @@ public class Equipement {
     public Equipement(){
     }
 
+    public Equipement(int id_eq) {
+        this.id_eq = id_eq;
+    }
+
     public Equipement(String ref_eq, String nom_eq, String typeMateriel_eq, int quantite_eq, String etat_eq, String description_eq) {
         this.ref_eq = ref_eq;
         this.nom_eq = nom_eq;

@@ -127,7 +127,7 @@ public class ModifierEquipement {
             // Affiche l'image dans l'ImageView
             // uploadimgmod.setImage(image);
 
-            // Mettre à jour le chemin d'accès à l'image dans la réclamation
+            // Mettre à jour le chemin d'accès à l'image dans l'equipement
             // if (equipement != null) {
             //     equipement.setImage_eq(imagePath);
             }

@@ -24,7 +24,7 @@ public class EquipementItemController {
     @FXML
     private ImageView imgView_reclamation;
     private Equipement equipement;
-    ServiceEquipement serviceReclamation = new ServiceEquipement();
+    ServiceEquipement serviceEquipement = new ServiceEquipement();
 
     public void setData(Equipement equipement){
         this.equipement = equipement;
