@@ -123,4 +123,27 @@ public class ServiceMuni implements IService<Muni>{
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
+
+    public Muni getOneByName(String nom) {
+        String req = "SELECT * FROM `muni` WHERE `nom_muni` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, nom);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id_muni = rs.getInt("id_muni");
+                String nom_muni = rs.getString("nom_muni");
+                String email_muni = rs.getString("email_muni");
+                String password_muni = rs.getString("password_muni");
+                String image = rs.getString("imagee_user");
+                return new Muni(id_muni, nom_muni, email_muni, password_muni, image);
+            } else {
+                // Handle case where no Muni with the given ID exists
+                System.out.println("Muni avec le nom " + nom + " n'existe pas.");
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

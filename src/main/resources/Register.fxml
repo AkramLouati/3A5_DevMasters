@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.RegisterController">
+    <children>
+        <Label layoutX="267.0" layoutY="21.0" text="Inscription" />
+        <Label layoutX="111.0" layoutY="61.0" text="Nom" />
+        <Label layoutX="109.0" layoutY="97.0" text="Email" />
+        <Label layoutX="104.0" layoutY="136.0" text="Mot de passe" />
+        <TextField fx:id="tfNom" layoutX="247.0" layoutY="58.0" />
+        <TextField fx:id="tfEmail" layoutX="247.0" layoutY="94.0" />
+        <PasswordField fx:id="pfMotDePasse" layoutX="247.0" layoutY="132.0" />
+        <Button layoutX="263.0" layoutY="340.0" mnemonicParsing="false" onAction="#registerAction" text="S'inscrire" />
+      <Label layoutX="102.0" layoutY="179.0" text="Numéro du télèhone" />
+      <Label layoutX="104.0" layoutY="218.0" text="Localisation" />
+      <Label layoutX="100.0" layoutY="261.0" text="Type de profil" />
+      <ComboBox fx:id="profilTypeComboBox" layoutX="248.0" layoutY="256.0" onAction="#profileType" prefHeight="26.0" prefWidth="218.0" promptText="Sélectionnez le type de profil">
+      </ComboBox>
+      <TextField fx:id="tfNumTel" layoutX="247.0" layoutY="175.0" />
+      <TextField fx:id="tfLocation" layoutX="247.0" layoutY="223.0" />
+      <Label layoutX="103.0" layoutY="295.0" text="Municipalité" />
+      <ComboBox fx:id="muniSelectionComboBox" layoutX="248.0" layoutY="290.0" onAction="#muniSelection" prefHeight="26.0" prefWidth="218.0" promptText="Sélectionnez votre municipalité" />
+    </children>
+</AnchorPane>
