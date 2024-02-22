@@ -3,12 +3,10 @@ package edu.esprit.tests;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 
 public class MainTFX extends Application {
     public static Stage stg;
@@ -31,7 +29,6 @@ public class MainTFX extends Application {
         primaryStage.setTitle("Baladity");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(event -> System.exit(0));
-        //primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("edu/esprit/IMG/LOGOww.png"))));
         primaryStage.show();
     }
 }
