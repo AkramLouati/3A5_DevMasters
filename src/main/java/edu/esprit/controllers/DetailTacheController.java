@@ -157,9 +157,8 @@ public class DetailTacheController {
 
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
+                controller.setUserAndTaskIds(taches, taches.getUser());
                 controller.setData(commentaireTache);
-                controller.setTaskId(taches.getId_T());
-
                 // Create a new stage
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
