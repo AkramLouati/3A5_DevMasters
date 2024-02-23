@@ -38,6 +38,30 @@ public class ServiceUser implements IService<EndUser> {
 
     }
 
+    public EndUser authenticateUser(String email, String password) {
+        String query = "SELECT * FROM `enduser` WHERE `email_user` = ? AND `password` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                int id_muni = rs.getInt("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                return new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null; // Authentication failed
+    }
+
     @Override
     public void modifier(EndUser endUser) {
         String req = "UPDATE `enduser` SET `nom_user`=?, `email_user`=?, `type_user`=?, `phoneNumber_user`=?, `id_muni`=?, `location_user`=?, `image_user`=?, `password`=? WHERE `id_user`=?";

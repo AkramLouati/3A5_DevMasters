@@ -16,7 +16,7 @@
         <TextField fx:id="tfNom" layoutX="247.0" layoutY="58.0" />
         <TextField fx:id="tfEmail" layoutX="247.0" layoutY="94.0" />
         <PasswordField fx:id="pfMotDePasse" layoutX="247.0" layoutY="132.0" />
-        <Button layoutX="263.0" layoutY="340.0" mnemonicParsing="false" onAction="#registerAction" text="S'inscrire" />
+        <Button layoutX="248.0" layoutY="342.0" mnemonicParsing="false" onAction="#registerAction" text="S'inscrire" />
       <Label layoutX="102.0" layoutY="179.0" text="Numéro du télèhone" />
       <Label layoutX="104.0" layoutY="218.0" text="Localisation" />
       <Label layoutX="100.0" layoutY="261.0" text="Type de profil" />
@@ -26,5 +26,6 @@
       <TextField fx:id="tfLocation" layoutX="247.0" layoutY="223.0" />
       <Label layoutX="103.0" layoutY="295.0" text="Municipalité" />
       <ComboBox fx:id="muniSelectionComboBox" layoutX="248.0" layoutY="290.0" onAction="#muniSelection" prefHeight="26.0" prefWidth="218.0" promptText="Sélectionnez votre municipalité" />
+      <Button fx:id="loginButton" layoutX="338.0" layoutY="342.0" mnemonicParsing="false" onAction="#loginButton" text="Login" />
     </children>
 </AnchorPane>

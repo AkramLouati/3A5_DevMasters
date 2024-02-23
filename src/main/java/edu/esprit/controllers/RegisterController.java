@@ -8,12 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,6 +42,9 @@ public class RegisterController implements Initializable {
 
     @FXML
     private TextField tfLocation;
+
+    @FXML
+    private Button loginButton;
 
     Muni muni;
     ServiceUser serviceUser = new ServiceUser();
@@ -80,6 +86,22 @@ public class RegisterController implements Initializable {
         muni = serviceMuni.getOneByName(selectedMuni.toString());
         System.out.println(muni);
 
+    }
+
+    @FXML
+    void loginButton(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
 
     private void showAlert(String message) {
