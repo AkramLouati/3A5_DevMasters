@@ -115,7 +115,7 @@ public class AfficherVoteItem {
         private void actualiserVueVotes() {
             // Redirection vers la vue précédente (par exemple, la liste des votes)
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherVote.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/AfficherVoteS.fxml"));
                 DescriptionAff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Gérer l'exception si la redirection échoue
