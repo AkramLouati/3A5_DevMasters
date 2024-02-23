@@ -34,11 +34,11 @@ public class TacheController {
         TFstatus_reclamationaff.setText(taches.getEtat_T().toString());
     }
     @FXML
-    void viewDetailReclamationAction(ActionEvent event) {
+    void viewDetailTache(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailTaches.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailTache.fxml"));
             Parent root = loader.load();
-            DetailTachesController controller = loader.getController();
+            DetailTacheController controller = loader.getController();
             controller.setData(taches);
             TFsujet_reclamationaff.getScene().setRoot(root);
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public class TacheController {
         }
     }
     @FXML
-    void deleteReclamationAction(ActionEvent event) {
+    void deleteTache(ActionEvent event) {
         if (taches != null) {
             ServiceTache serviceReclamation = new ServiceTache();
             serviceReclamation.supprimer(taches.getId_T());
@@ -62,7 +62,7 @@ public class TacheController {
 
             // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
             try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTaches.fxml")));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
                 TFsujet_reclamationaff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Gérer l'exception si la redirection échoue
@@ -80,22 +80,22 @@ public class TacheController {
         }
     }
     @FXML
-    void modifierReclamationAction(ActionEvent event) {
+    void modifierTache(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierTache.fxml"));
             Parent root = loader.load();
-            AjouterTacheController controller = loader.getController();
-
-            // Set the stage if it's not null
-
-            Stage stage = new Stage();
-            if (stage != null) {
-                controller.setStage(stage);
-                stage.setScene(new Scene(root));
-                stage.show();
-            }
+            ModifierTacheController controller = loader.getController();
+            controller.initModifier(taches); // Call initModifier and pass the necessary data
+            Stage currentStage = (Stage) TFsujet_reclamationaff.getScene().getWindow();
+            controller.setStage(currentStage);
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+            currentStage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Erreur lors de l'ajout de la tâche : " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
         }
     }
 

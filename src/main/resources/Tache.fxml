@@ -25,15 +25,15 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#viewDetailReclamationAction" prefHeight="26.0" prefWidth="60.0" text="Details">
+            <Button mnemonicParsing="false" onAction="#viewDetailTache" prefHeight="26.0" prefWidth="60.0" text="Details">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#deleteReclamationAction" prefHeight="26.0" prefWidth="54.0" text="Supp" textFill="#ea0707">
+            <Button mnemonicParsing="false" onAction="#deleteTache" prefHeight="26.0" prefWidth="54.0" text="Supp" textFill="#ea0707">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#modifierReclamationAction" prefHeight="26.0" prefWidth="66.0" text="Modifier">
+            <Button mnemonicParsing="false" onAction="#modifierTache" prefHeight="26.0" prefWidth="66.0" text="Modifier">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>

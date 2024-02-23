@@ -119,7 +119,7 @@
         </children>
     </HBox>
 
-    <Button fx:id="AjouterButton" layoutX="649.0" layoutY="497.0" onAction="#AjouterTache" prefHeight="32.0" prefWidth="80.0" text="Modifier">
+    <Button layoutX="649.0" layoutY="497.0" onAction="#AjouterTache" prefHeight="32.0" prefWidth="80.0" text="Ajouter">
         <font>
             <Font size="14.0" />
         </font>

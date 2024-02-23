@@ -24,19 +24,35 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AfficherTachesController implements Initializable {
+public class AfficherTacheController implements Initializable {
+
+    private Tache taches = new Tache();
+
+    private Stage stage; // Define a stage variable
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     @FXML
     private GridPane grid;
 
     @FXML
     private ScrollPane scroll;
+
     EndUser user = new EndUser(12);
-    private ServiceTache sr=new ServiceTache();
+    private ServiceTache sr= new ServiceTache();
+
     Set<Tache> tacheSet = sr.getAll();
     List<Tache> tacheList= new ArrayList<>(tacheSet);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Set<Tache> tacheSet = sr.getAll();
+        List<Tache> tacheList = new ArrayList<>(tacheSet);
+
+        grid.getChildren().clear();
+
         int column = 0;
         int row = 1;
         try {
@@ -70,23 +86,27 @@ public class AfficherTachesController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    public void AjoutTacheLabel(ActionEvent actionEvent) {
+    public void ajouterButton(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
             Parent root = loader.load();
             AjouterTacheController controller = loader.getController();
 
-            // Set the stage if it's not null
+            // Get the stage of the current scene
+            Stage currentStage = (Stage) grid.getScene().getWindow();
 
-            Stage stage = new Stage();
-            if (stage != null) {
-                controller.setStage(stage);
-                stage.setScene(new Scene(root));
-                stage.show();
-            }
+            // Set the stage to the controller
+            controller.setStage(currentStage);
+
+            // Create a new scene with the root and set it on the current stage
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+            currentStage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Erreur lors de l'ajout de la tâche : " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
         }
     }
 

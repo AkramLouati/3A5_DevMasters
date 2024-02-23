@@ -7,18 +7,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DetailTachesController {
+public class DetailTacheController {
     @FXML
     private Text TFEtatDetail;
 
@@ -40,6 +42,8 @@ public class DetailTachesController {
     @FXML
     private Text TFCategorieDetail;
 
+    private int taskId; // Variable to store the task ID
+
     @FXML
     private TextField txt_date_C;
 
@@ -47,6 +51,12 @@ public class DetailTachesController {
     private TextField txt_text_C;
     private Tache taches;
 
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+    public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
+        this.serviceCommentaireTache = serviceCommentaireTache;
+    }
     private ServiceCommentaireTache serviceCommentaireTache;
     public void setData(Tache taches){
         this.taches = taches;
@@ -98,7 +108,7 @@ public class DetailTachesController {
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTaches.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
             TFTitreDetail.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -106,35 +116,79 @@ public class DetailTachesController {
             alert.setTitle("Error");
             alert.show();
         }
-
     }
     @FXML
     void BTNAjoutCMNT(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
+            Parent root = loader.load();
+            AjouterCommentaireTacheController controller = loader.getController();
 
+            // Pass the task ID to the controller
+            controller.setTaskId(taches.getId_T());
+
+            // Create a new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle error
+        }
     }
 
     @FXML
     void BTNModifCMNT(ActionEvent event) {
+        // Check if a comment exists
+        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
+        if (commentaireTache != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCommentaireTache.fxml"));
+                Parent root = loader.load();
+                ModifierCommentaireTacheController controller = loader.getController();
 
+                // Pass the current comment to the controller
+                controller.setData(commentaireTache);
+
+                // Pass the task ID to the controller
+                controller.setTaskId(taches.getId_T());
+
+                // Create a new stage
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle error
+            }
+        } else {
+            // Show an alert indicating that no comment exists
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Aucun commentaire à modifier.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     void BTNSuppCMNT(ActionEvent event) {
-        // Vérifier si un commentaire existe
-        if (serviceCommentaireTache.getCommentaireForTask(taches.getId_T()) != null) {
-            // Supprimer le commentaire de la base de données
-            serviceCommentaireTache.supprimer(taches.getId_T());
-            // Réinitialiser les champs de texte des commentaires
+        // Check if a comment exists
+        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
+        if (commentaireTache != null) {
+            // Delete the comment from the database
+            serviceCommentaireTache.supprimer(commentaireTache.getId_C());
+            // Reset comment fields
             txt_text_C.setText("");
             txt_date_C.setText("");
-            // Afficher un message de succès
+            // Show a success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
             alert.setContentText("Le commentaire a été supprimé avec succès.");
             alert.showAndWait();
         } else {
-            // Afficher un message d'erreur si aucun commentaire n'existe
+            // Show an error message indicating no comment exists
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
