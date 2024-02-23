@@ -26,8 +26,17 @@ public class ModifierCommentaireTacheController {
         commentField.setText(commentaireTache.getText_C());
     }
 
+    public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
+        this.serviceCommentaireTache = serviceCommentaireTache;
+    }
+
     @FXML
     void modifierCommentaire(ActionEvent event) {
+        if (serviceCommentaireTache == null) {
+            System.err.println("Service CommentaireTache not set.");
+            return;
+        }
+
         String newCommentText = commentField.getText();
 
         // Update the comment text

@@ -27,13 +27,6 @@ import java.util.Date;
 import java.util.List;
 
 public class AjouterTacheController {
-
-    @FXML
-    private Button Exit;
-
-    @FXML
-    private Button ajouterButton;
-
     @FXML
     private TextField attachmentField;
 
@@ -90,41 +83,6 @@ public class AjouterTacheController {
         if (selectedFile != null) {
             attachmentField.setText(selectedFile.getAbsolutePath());
         }
-    }
-
-    public void initModifier(Tache tache) {
-        try{
-            this.selectedTaskId = tache.getId_T();
-            ajouterButton.setText("Modifier");
-            titleField.setText(tache.getTitre_T());
-            attachmentField.setText(tache.getPieceJointe_T());
-            descriptionField.setText(tache.getDesc_T());
-            // Convert java.sql.Date to java.util.Date
-            Date startDateUtil = new Date(tache.getDate_DT().getTime());
-            Date endDateUtil = new Date(tache.getDate_FT().getTime());
-
-            // Convert java.util.Date to LocalDate
-            LocalDate startDate = startDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate endDate = endDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            startDatePicker.setValue(startDate);
-            endDatePicker.setValue(endDate);
-
-            switch (tache.getEtat_T()) {
-                case TO_DO:
-                    toDoRadioButton.setSelected(true);
-                    break;
-                case DOING:
-                    doingRadioButton.setSelected(true);
-                    break;
-                case DONE:
-                    doneRadioButton.setSelected(true);
-                    break;
-            }
-        } catch (IllegalArgumentException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
-        }
-
     }
 
     @FXML

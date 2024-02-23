@@ -74,7 +74,7 @@ public class TacheController {
         } else {
             // Afficher un message d'erreur si la réclamation est null
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setContentText("Impossible de supprimer la réclamation car aucune réclamation n'est sélectionnée.");
+            errorAlert.setContentText("Impossible de supprimer la tache car aucune tache n'est sélectionnée.");
             errorAlert.setTitle("Erreur de suppression");
             errorAlert.show();
         }

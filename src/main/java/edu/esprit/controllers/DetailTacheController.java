@@ -1,6 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.CommentaireTache;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
 import javafx.event.ActionEvent;
@@ -42,8 +43,6 @@ public class DetailTacheController {
     @FXML
     private Text TFCategorieDetail;
 
-    private int taskId; // Variable to store the task ID
-
     @FXML
     private TextField txt_date_C;
 
@@ -51,13 +50,21 @@ public class DetailTacheController {
     private TextField txt_text_C;
     private Tache taches;
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
+    private EndUser userId;
+    private int taskId; // Variable to store the task ID
+
+    private ServiceCommentaireTache serviceCommentaireTache;
+
+    public void setUserAndTaskIds(EndUser userId, Tache task) {
+        this.userId = userId;
+        this.taskId = task.getId_T();
     }
+
+
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
     }
-    private ServiceCommentaireTache serviceCommentaireTache;
+
     public void setData(Tache taches){
         this.taches = taches;
         if (taches != null) {
@@ -124,8 +131,9 @@ public class DetailTacheController {
             Parent root = loader.load();
             AjouterCommentaireTacheController controller = loader.getController();
 
-            // Pass the task ID to the controller
-            controller.setTaskId(taches.getId_T());
+            // Pass the service and user/task IDs to the controller
+            controller.setServiceCommentaireTache(serviceCommentaireTache);
+            controller.setUserAndTaskIds(taches, taches.getUser());
 
             // Create a new stage
             Stage stage = new Stage();
@@ -137,9 +145,9 @@ public class DetailTacheController {
         }
     }
 
+
     @FXML
     void BTNModifCMNT(ActionEvent event) {
-        // Check if a comment exists
         CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
         if (commentaireTache != null) {
             try {
@@ -147,10 +155,9 @@ public class DetailTacheController {
                 Parent root = loader.load();
                 ModifierCommentaireTacheController controller = loader.getController();
 
-                // Pass the current comment to the controller
+                // Pass the service, current comment, and task ID to the controller
+                controller.setServiceCommentaireTache(serviceCommentaireTache);
                 controller.setData(commentaireTache);
-
-                // Pass the task ID to the controller
                 controller.setTaskId(taches.getId_T());
 
                 // Create a new stage
@@ -159,10 +166,8 @@ public class DetailTacheController {
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
-                // Handle error
             }
         } else {
-            // Show an alert indicating that no comment exists
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -173,22 +178,17 @@ public class DetailTacheController {
 
     @FXML
     void BTNSuppCMNT(ActionEvent event) {
-        // Check if a comment exists
         CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
         if (commentaireTache != null) {
-            // Delete the comment from the database
             serviceCommentaireTache.supprimer(commentaireTache.getId_C());
-            // Reset comment fields
             txt_text_C.setText("");
             txt_date_C.setText("");
-            // Show a success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
             alert.setContentText("Le commentaire a été supprimé avec succès.");
             alert.showAndWait();
         } else {
-            // Show an error message indicating no comment exists
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -197,4 +197,6 @@ public class DetailTacheController {
         }
     }
 
-}
+    }
+
+

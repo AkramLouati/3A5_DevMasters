@@ -54,7 +54,7 @@ public class MainT {
             }
 
             // Modification d'une tâche
-            Tache tacheModifiee = new Tache(59, categ01, "Titre de la tâche 02", "fichier", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 20:00"),
+            Tache tacheModifiee = new Tache(97, categ01, "Titre de la tâche 02", "fichier", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 20:00"),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, user01);
             if (st.isValidT(tacheModifiee)) {
                 st.modifier(tacheModifiee);

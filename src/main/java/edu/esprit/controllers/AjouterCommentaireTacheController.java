@@ -1,38 +1,47 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.CommentaireTache;
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.util.Date;
 
 public class AjouterCommentaireTacheController {
+
+    private ServiceCommentaireTache serviceCommentaireTache;
+
+    private Tache tache;
+    private EndUser user;
+
+    public void setUserAndTaskIds(Tache tache, EndUser user) {
+        this.tache = tache;
+        this.user = user;
+    }
+
+
+    public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
+        this.serviceCommentaireTache = serviceCommentaireTache;
+    }
 
     @FXML
     private TextArea commentField;
 
-    private int taskId; // Variable to store the task ID
-
-    private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache(); // Initialize the service
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
     @FXML
-    void ajouterCommentaire(javafx.event.ActionEvent  event) {
+    void ajouterCommentaire(javafx.event.ActionEvent event) {
         String commentaireText = commentField.getText();
 
         // Creating the comment object
         CommentaireTache commentaireTache = new CommentaireTache();
-        commentaireTache.setId_T(taskId); // Set the task ID
         commentaireTache.setText_C(commentaireText);
+        commentaireTache.setId_T(tache.getId_T()); // Set the task ID
+        commentaireTache.setUser(user); // Set the task ID
 
-        // Adding the comment using the service
+        commentaireTache.setDate_C(new Date()); // Set the current date
+
+        // Call the service to add the comment
         serviceCommentaireTache.ajouter(commentaireTache);
-
-        // You might want to close the window or show a confirmation message here
     }
 }

@@ -12,16 +12,15 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
 
     Connection cnx = DataSource.getInstance().getCnx();
     ServiceUser serviceUser = new ServiceUser();
+
     @Override
     public void ajouter(CommentaireTache ct) {
         // Check if the task ID exists in the tache table
-        String taskExistQuery = "SELECT id_T FROM tache WHERE id_T = ?";
         try {
-            PreparedStatement taskExistStatement = cnx.prepareStatement(taskExistQuery);
-            taskExistStatement.setInt(1, ct.getId_T());
-            ResultSet rs = taskExistStatement.executeQuery();
-            if (!rs.next()) {
-                throw new IllegalArgumentException("Tache avec ID " + ct.getId_T() + " exist pas.");
+            // Check if the task ID exists in the tache table
+            if (!isTaskExists(ct.getId_T())) {
+                System.out.println("Tache avec ID " + ct.getId_T() + " n'existe pas.");
+                return; // Exit the method gracefully
             }
 
             // Proceed to insert the comment
@@ -37,6 +36,15 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
             System.out.println("Erreur ajout commentaire: " + e.getMessage());
         }
     }
+
+    private boolean isTaskExists(int taskId) throws SQLException {
+        String taskExistQuery = "SELECT id_T FROM tache WHERE id_T = ?";
+        PreparedStatement taskExistStatement = cnx.prepareStatement(taskExistQuery);
+        taskExistStatement.setInt(1, taskId);
+        ResultSet rs = taskExistStatement.executeQuery();
+        return rs.next();
+    }
+
 
 
     /*
