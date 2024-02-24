@@ -9,6 +9,10 @@ public class Muni {
     private String password_muni;
     private String image;
 
+    public Muni(int id_muni) {
+        this.id_muni = id_muni;
+    }
+
     public Muni(String nom_muni, String email_muni, String password_muni, String image) {
         this.nom_muni = nom_muni;
         this.email_muni = email_muni;

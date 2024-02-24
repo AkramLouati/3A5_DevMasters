@@ -37,7 +37,7 @@ public class AjoutMuni {
 
     @FXML
     void ajouterMuniAction(ActionEvent event) {
-        serviceMuni.ajouter(new Muni(TFnom.getText(),TFemail.getText(),TFpassword.getText(),"Fergha"));
+        serviceMuni.ajouter(new Muni(TFnom.getText(),TFemail.getText(),TFpassword.getText(),selectedFile.getAbsolutePath()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setContentText("GG");

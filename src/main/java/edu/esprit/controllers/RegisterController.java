@@ -14,22 +14,26 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
 
+    public Button pickImageButton;
     @FXML
     private TextField tfNom;
 
     @FXML
     private TextField tfEmail;
-
-    @FXML
-    private ComboBox<String> profilTypeComboBox;
 
     @FXML
     private ComboBox<String> muniSelectionComboBox;
@@ -44,7 +48,9 @@ public class RegisterController implements Initializable {
     private TextField tfLocation;
 
     @FXML
-    private Button loginButton;
+    private ImageView ImageF;
+
+    File selectedFile;
 
     Muni muni;
     ServiceUser serviceUser = new ServiceUser();
@@ -63,19 +69,18 @@ public class RegisterController implements Initializable {
         // Vous pouvez appeler votre service pour enregistrer l'utilisateur, par exemple
         if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty()) {
             showAlert("Veuillez remplir tous les champs.");
-            return;
         }else {
-            serviceUser.ajouter(new EndUser(nom,email,motDePasse,profilTypeComboBox.getValue(),numTel,muni,location,""));
+            serviceUser.ajouter(new EndUser(nom,email,motDePasse,"Citoyen",numTel,muni,location, selectedFile.getAbsolutePath()));
             showAlert("Inscription réussie pour : " + nom);
         }
     }
 
-    @FXML
-    void profileType(ActionEvent event) {
-        // Access the selected item in profilTypeComboBox
-        String selectedProfileType = profilTypeComboBox.getValue();
-        System.out.println("Selected Profile Type: " + selectedProfileType);
-    }
+//    @FXML
+//    void profileType(ActionEvent event) {
+//        // Access the selected item in profilTypeComboBox
+//        String selectedProfileType = profilTypeComboBox.getValue();
+//        System.out.println("Selected Profile Type: " + selectedProfileType);
+//    }
 
     @FXML
     void muniSelection(ActionEvent event) {
@@ -83,15 +88,33 @@ public class RegisterController implements Initializable {
         // Access the selected item in muniSelectionComboBox
         String selectedMuni = muniSelectionComboBox.getValue();
         System.out.println("Selected Muni: " + selectedMuni);
-        muni = serviceMuni.getOneByName(selectedMuni.toString());
+        muni = serviceMuni.getOneByName(selectedMuni);
         System.out.println(muni);
 
     }
 
+
     @FXML
-    void loginButton(ActionEvent event) {
+    void pickImageAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            // Handle the selected image file (e.g., display it, process it, etc.)
+            System.out.println("Selected image: " + selectedFile.getAbsolutePath());
+            Image image = new Image(selectedFile.toURI().toString());
+            ImageF.setImage(image);
+        }
+    }
+
+    @FXML
+    void handleLabelClick(MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -115,14 +138,14 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> typesProfile = FXCollections.observableArrayList();
+//        ObservableList<String> typesProfile = FXCollections.observableArrayList();
         ObservableList<String> muniSelection = FXCollections.observableArrayList();
 
-        typesProfile.addAll("Citoyen", "Employé", "Responsable employé");
+//        typesProfile.addAll("Citoyen", "Employé", "Responsable employé");
         muniSelection.addAll("Ariana Ville", "La Soukra", "Mnihla","Raoued","Ettadhamen","Sidi Thabet");
 
         // Définir les éléments du ComboBox en utilisant la liste observable
-        profilTypeComboBox.setItems(typesProfile);
+//        profilTypeComboBox.setItems(typesProfile);
         muniSelectionComboBox.setItems(muniSelection);
     }
 }
