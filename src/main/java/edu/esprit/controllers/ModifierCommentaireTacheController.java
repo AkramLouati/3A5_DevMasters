@@ -12,11 +12,13 @@ import javafx.stage.Stage;
 
 public class ModifierCommentaireTacheController {
 
+    @FXML
+    private TextArea commentField;
+
     private int taskId; // Variable to store the task ID
     private Tache tache; // Variable to store the task
     private EndUser user; // Variable to store the user
     private CommentaireTache commentaireTache; // Variable to store the current comment
-
     private ServiceCommentaireTache serviceCommentaireTache;
 
     public void setData(CommentaireTache commentaireTache) {
@@ -32,9 +34,6 @@ public class ModifierCommentaireTacheController {
         this.tache = tache;
         this.user = user;
     }
-
-    @FXML
-    private TextArea commentField;
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
@@ -65,4 +64,5 @@ public class ModifierCommentaireTacheController {
         // Close the window
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();
-}}
+    }
+}

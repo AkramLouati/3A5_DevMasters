@@ -15,24 +15,22 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class TacheController {
+    ServiceTache serviceTache = new ServiceTache();
     @FXML
     private Text TFdate_reclamationaff;
-
     @FXML
     private Text TFsujet_reclamationaff;
-
     @FXML
     private Text TFstatus_reclamationaff;
-
     private Tache taches;
-    ServiceTache serviceTache = new ServiceTache();
 
-    public void setData(Tache taches){
+    public void setData(Tache taches) {
         this.taches = taches;
         TFsujet_reclamationaff.setText(taches.getTitre_T());
         TFdate_reclamationaff.setText(taches.getDate_DT().toString());
         TFstatus_reclamationaff.setText(taches.getEtat_T().toString());
     }
+
     @FXML
     void viewDetailTache(ActionEvent event) {
         try {
@@ -48,6 +46,7 @@ public class TacheController {
             alert.show();
         }
     }
+
     @FXML
     void deleteTache(ActionEvent event) {
         if (taches != null) {
@@ -56,8 +55,8 @@ public class TacheController {
 
             // Afficher une alerte pour informer l'utilisateur que la réclamation a été supprimée avec succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("La réclamation a été supprimée avec succès.");
-            alert.setTitle("Réclamation supprimée");
+            alert.setContentText("Tache supprimée avec succès.");
+            alert.setTitle("Tache supprimée");
             alert.show();
 
             // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
@@ -79,6 +78,7 @@ public class TacheController {
             errorAlert.show();
         }
     }
+
     @FXML
     void modifierTache(ActionEvent event) {
         try {

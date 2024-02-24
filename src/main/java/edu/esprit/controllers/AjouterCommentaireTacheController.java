@@ -7,13 +7,16 @@ import edu.esprit.services.ServiceCommentaireTache;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 import java.util.Date;
 
 public class AjouterCommentaireTacheController {
 
-    private ServiceCommentaireTache serviceCommentaireTache;
+    @FXML
+    private TextArea commentField;
 
+    private ServiceCommentaireTache serviceCommentaireTache;
     private Tache tache;
     private EndUser user;
 
@@ -22,13 +25,9 @@ public class AjouterCommentaireTacheController {
         this.user = user;
     }
 
-
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
     }
-
-    @FXML
-    private TextArea commentField;
 
     @FXML
     void ajouterCommentaire(javafx.event.ActionEvent event) {
@@ -63,5 +62,10 @@ public class AjouterCommentaireTacheController {
         successAlert.setHeaderText(null);
         successAlert.setContentText("Le commentaire a été ajouté avec succès.");
         successAlert.showAndWait();
+
+        // Close the window
+        Stage stage = (Stage) commentField.getScene().getWindow();
+        stage.close();
     }
+
 }

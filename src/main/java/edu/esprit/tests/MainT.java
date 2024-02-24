@@ -27,15 +27,15 @@ public class MainT {
         try {
 
             // Ajout d'une categorie
-            CategorieT cat = new CategorieT("Employee") ;
+            CategorieT cat = new CategorieT("Employee");
             scat.ajouter(cat);
-               // System.out.println(scat.getAll());
+            // System.out.println(scat.getAll());
 
 
             // Modification d'une categorie
-            CategorieT catmodifier = new CategorieT(8,"RH");
+            CategorieT catmodifier = new CategorieT(8, "RH");
             scat.modifier(catmodifier);
-               // System.out.println(scat.getAll());
+            // System.out.println(scat.getAll());
 
 
             scat.supprimer(10);
@@ -74,7 +74,7 @@ public class MainT {
             CommentaireTache nouveauCommentaire = new CommentaireTache(user01, 69, new Date(), "555");
             if (sct.isValidC(nouveauCommentaire)) {
                 sct.ajouter(nouveauCommentaire);
-               // System.out.println(sct.getAll());
+                // System.out.println(sct.getAll());
             }
 
             // Modification d'un commentaire
@@ -92,5 +92,5 @@ public class MainT {
             System.out.println("Erreur : " + e.getMessage());
         }
 
-}
+    }
 }

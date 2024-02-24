@@ -19,37 +19,18 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class DetailTacheController {
     @FXML
-    private Text TFEtatDetail;
-
-    @FXML
-    private Text TFdateDebutDetail;
-
-    @FXML
-    private Text TFdateFinDetail;
-
-    @FXML
-    private Text TFdescriptionDetail;
+    private Text TFEtatDetail, TFdateDebutDetail, TFdateFinDetail, TFdescriptionDetail, TFTitreDetail, TFCategorieDetail;
 
     @FXML
     private ImageView PieceJointedetail;
 
     @FXML
-    private Text TFTitreDetail;
+    private TextField txt_date_C, txt_text_C;
 
-    @FXML
-    private Text TFCategorieDetail;
-
-    @FXML
-    private TextField txt_date_C;
-
-    @FXML
-    private TextField txt_text_C;
     private Tache taches;
-
     private EndUser userId;
     private int taskId; // Variable to store the task ID
 
@@ -65,7 +46,7 @@ public class DetailTacheController {
         this.serviceCommentaireTache = serviceCommentaireTache;
     }
 
-    public void setData(Tache taches){
+    public void setData(Tache taches) {
         this.taches = taches;
         if (taches != null) {
             serviceCommentaireTache = new ServiceCommentaireTache();
@@ -76,7 +57,7 @@ public class DetailTacheController {
                 txt_text_C.setText(commentaireTache.getText_C());
                 txt_date_C.setText(commentaireTache.getDate_C().toString());
             } else {
-                txt_text_C.setText("Pas de commentaire...");
+                txt_text_C.setText("");
                 txt_date_C.setText("Pas de commentaire...");
             }
             TFCategorieDetail.setText(taches.getCategorie().getNom_Cat());
@@ -101,17 +82,10 @@ public class DetailTacheController {
                     // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
                     e.printStackTrace();
                 }
-            } else {
-                // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
-                // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
-                // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/edu/esprit/img/imageblanche.png");
-                assert defaultImageUrl != null;
-                Image defaultImage = new Image(defaultImageUrl.toString());
-                PieceJointedetail.setImage(defaultImage);
             }
         }
     }
+
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {
@@ -124,24 +98,33 @@ public class DetailTacheController {
             alert.show();
         }
     }
+
     @FXML
     void BTNAjoutCMNT(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
-            Parent root = loader.load();
-            AjouterCommentaireTacheController controller = loader.getController();
+        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
+        if (commentaireTache == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
+                Parent root = loader.load();
+                AjouterCommentaireTacheController controller = loader.getController();
 
-            // Pass the service and user/task IDs to the controller
-            controller.setServiceCommentaireTache(serviceCommentaireTache);
-            controller.setUserAndTaskIds(taches, taches.getUser());
+                // Pass the service and user/task IDs to the controller
+                controller.setServiceCommentaireTache(serviceCommentaireTache);
+                controller.setUserAndTaskIds(taches, taches.getUser());
 
-            // Create a new stage
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle error
+                // Create a new stage
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("commentaire Existe deja!");
+            alert.showAndWait();
         }
     }
 
@@ -196,6 +179,6 @@ public class DetailTacheController {
         }
     }
 
-    }
+}
 
 

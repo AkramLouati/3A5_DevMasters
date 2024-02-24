@@ -97,19 +97,19 @@ public class ServiceCategorieT implements IService<CategorieT> {
         return null;
     }
 
-        public List<String> getAllCategoryNames() throws SQLException {
-            List<String> categoryNames = new ArrayList<>();
-            String query = "SELECT nom_Cat FROM categorietache"; // Adjust the query according to your database schema
+    public List<String> getAllCategoryNames() throws SQLException {
+        List<String> categoryNames = new ArrayList<>();
+        String query = "SELECT nom_Cat FROM categorietache"; // Adjust the query according to your database schema
 
-            try (PreparedStatement statement = cnx.prepareStatement(query);
-                 ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    String name = resultSet.getString("nom_Cat");
-                    categoryNames.add(name);
-                }
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                String name = resultSet.getString("nom_Cat");
+                categoryNames.add(name);
             }
-            return categoryNames;
         }
+        return categoryNames;
+    }
 
     public List<Integer> getAllCategoryIds() throws SQLException {
         List<Integer> categoryIds = new ArrayList<>();

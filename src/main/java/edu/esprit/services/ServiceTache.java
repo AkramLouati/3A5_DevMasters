@@ -2,7 +2,6 @@ package edu.esprit.services;
 
 import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
 import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
 
@@ -136,33 +135,6 @@ public class ServiceTache implements IService<Tache> {
         return null;
     }
 
-    public boolean isValidT(Tache tache) throws IllegalArgumentException {
-        // Vérifier si la catégorie, le titre et l'utilisateur sont non nuls et non vides
-        if (tache.getCategorie() == null) {
-            throw new IllegalArgumentException("Categorie Obligatoire");
-        }
-        if (tache.getTitre_T() == null ) {
-            throw new IllegalArgumentException("Titre Obligatoire");
-        }
-        if (tache.getDate_DT() == null) {
-            throw new IllegalArgumentException("Date Debut Obligatoire");
-        }
-        if (tache.getDate_FT() == null) {
-            throw new IllegalArgumentException("Date fin Obligatoire");
-        }
-        if (tache.getDate_FT().before(tache.getDate_DT())) {
-            throw new IllegalArgumentException("Date fin est avant Date Debut");
-        }
-        EtatTache etatT = tache.getEtat_T();
-        if (etatT != EtatTache.TO_DO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
-            throw new IllegalArgumentException("Etat de la tâche doit etre (TO_DO | DOING | DONE)");
-        }
-        if (tache.getUser().getId() <= 0) {
-            throw new IllegalArgumentException("ID User Obligatoire");
-        }
-        return true;
-    }
-
     public Set<Tache> getTachesByUser(EndUser user) {
         Set<Tache> userTaches = new HashSet<>();
         String req = "SELECT * FROM tache WHERE id_user = ?";
@@ -180,13 +152,40 @@ public class ServiceTache implements IService<Tache> {
                 String desc = rs.getString("desc_T");
                 EtatTache etat = EtatTache.valueOf(rs.getString("etat_T"));
                 int id_user = rs.getInt("id_user");
-                Tache r = new Tache(user,categorie, titre, pieceJointe, dateDT, dateFT, desc, etat);
+                Tache r = new Tache(user, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat);
                 userTaches.add(r);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return userTaches;
+    }
+
+    public boolean isValidT(Tache tache) throws IllegalArgumentException {
+        EtatTache etatT = tache.getEtat_T();
+        // Vérifier si la catégorie, le titre et l'utilisateur sont non nuls et non vides
+        if (tache.getCategorie() == null) {
+            throw new IllegalArgumentException("Categorie Obligatoire");
+        }
+        if (tache.getTitre_T() == null) {
+            throw new IllegalArgumentException("Titre Obligatoire");
+        }
+        if (tache.getDate_DT() == null) {
+            throw new IllegalArgumentException("Date Debut Obligatoire");
+        }
+        if (tache.getDate_FT() == null) {
+            throw new IllegalArgumentException("Date fin Obligatoire");
+        }
+        if (tache.getDate_FT().before(tache.getDate_DT())) {
+            throw new IllegalArgumentException("Date fin est avant Date Debut");
+        }
+        if (etatT != EtatTache.TO_DO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
+            throw new IllegalArgumentException("Etat de la tâche doit etre (TO_DO | DOING | DONE)");
+        }
+        if (tache.getUser().getId() <= 0) {
+            throw new IllegalArgumentException("ID User Obligatoire");
+        }
+        return true;
     }
 
 }

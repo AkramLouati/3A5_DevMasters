@@ -26,25 +26,20 @@ import java.util.Set;
 
 public class AfficherTacheController implements Initializable {
 
+    EndUser user = new EndUser(12);
+    @FXML
+    private GridPane grid;
+    @FXML
+    private ScrollPane scroll;
     private Tache taches = new Tache();
-
     private Stage stage; // Define a stage variable
+    private ServiceTache sr = new ServiceTache();
+    Set<Tache> tacheSet = sr.getAll();
+    List<Tache> tacheList = new ArrayList<>(tacheSet);
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    @FXML
-    private GridPane grid;
-
-    @FXML
-    private ScrollPane scroll;
-
-    EndUser user = new EndUser(12);
-    private ServiceTache sr= new ServiceTache();
-
-    Set<Tache> tacheSet = sr.getAll();
-    List<Tache> tacheList= new ArrayList<>(tacheSet);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,6 +65,7 @@ public class AfficherTacheController implements Initializable {
                 }
 
                 grid.add(anchorPane, column++, row); //(child,column,row)
+
                 //set grid width
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -86,18 +82,16 @@ public class AfficherTacheController implements Initializable {
             e.printStackTrace();
         }
     }
+
     public void ajouterButton(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
             Parent root = loader.load();
             AjouterTacheController controller = loader.getController();
-
             // Get the stage of the current scene
             Stage currentStage = (Stage) grid.getScene().getWindow();
-
             // Set the stage to the controller
             controller.setStage(currentStage);
-
             // Create a new scene with the root and set it on the current stage
             Scene scene = new Scene(root);
             currentStage.setScene(scene);

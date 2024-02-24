@@ -62,6 +62,7 @@ public class Tache {
     public EndUser getUser() {
         return user;
     }
+
     public void setUser(EndUser user) {
         this.user = user;
     }

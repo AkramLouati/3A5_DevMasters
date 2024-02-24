@@ -46,7 +46,6 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
     }
 
 
-
     /*
         @Override
         public void modifier(CommentaireTache ct) {
@@ -133,6 +132,7 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
         }
         return null;
     }
+
     public boolean isValidC(CommentaireTache ct) throws IllegalArgumentException {
 
         if (ct.getText_C() == null || ct.getText_C().isEmpty()) {
@@ -140,6 +140,7 @@ public class ServiceCommentaireTache implements IService<CommentaireTache> {
         }
         return true;
     }
+
     public CommentaireTache getCommentaireForTask(int taskId) {
         String req = "SELECT * FROM commentairetache WHERE id_T=?";
         try {

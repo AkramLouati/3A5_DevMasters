@@ -4,12 +4,13 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
 import edu.esprit.utils.DataSource;
 
-import java.util.Set;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-public class ServiceUser implements IService<EndUser>{
+import java.util.Set;
+
+public class ServiceUser implements IService<EndUser> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
@@ -53,6 +54,7 @@ public class ServiceUser implements IService<EndUser>{
             throw new RuntimeException(e);
         }
     }
+
     private ServiceMuni getServiceMuni() {
         return new ServiceMuni(); // Vous pouvez utiliser une injection de dépendance ou un singleton selon votre architecture
     }
