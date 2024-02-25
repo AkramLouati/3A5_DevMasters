@@ -1,6 +1,8 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
+import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceEquipement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,10 +46,13 @@ public class ModifierEquipement {
     private Button uploadimgmod;
     private Label label;
     private String imagePath;
+    private Equipement e;
+    private ServiceEquipement se;
+    Muni muni = new Muni(1);
+    EndUser user = new EndUser(1,muni);
+
     @FXML
     void modifierEquipementAction(ActionEvent event) {
-        Equipement e = new Equipement();
-        ServiceEquipement se =  new ServiceEquipement();
         if (e != null && se != null) {
             // Mettre à jour les données de l'equipement avec les valeurs des champs de texte
             e.setRef_eq(refeqmod.getText());
@@ -125,13 +130,14 @@ public class ModifierEquipement {
             Image image = new Image(fileUrl);
 
             // Affiche l'image dans l'ImageView
-            // uploadimgmod.setImage(image);
+            modifiereqimg.setImage(image);
 
             // Mettre à jour le chemin d'accès à l'image dans l'equipement
-            // if (equipement != null) {
-            //     equipement.setImage_eq(imagePath);
+            if (e != null) {
+                e.setImage_eq(imagePath);
             }
         }
 
     }
+}
 
