@@ -10,13 +10,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class AjouterEvent {
+
     @FXML
     private TextField TFnom;
 
@@ -32,11 +39,26 @@ public class AjouterEvent {
     @FXML
     private TextField TFcategorie;
 
+    @FXML
+    private ImageView imageID;
+
+    private String imagePath; // Variable to store the path of the selected image
+
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
 
     @FXML
     void AjoutEventClick(ActionEvent event) {
+        updateTextFieldStyles();
         try {
+            // Check if an image is selected
+            if (imagePath == null || imagePath.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please select an image.");
+                alert.show();
+                return;
+            }
+
             // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
             ServiceUser serviceUser = new ServiceUser();
             EndUser user = serviceUser.getOneByID(12); // Exemple : suppose que l'utilisateur actuel a l'ID 1
@@ -48,7 +70,8 @@ public class AjouterEvent {
                     TFdateDeb.getText(),
                     TFdateFin.getText(),
                     Integer.parseInt(TFcapacite.getText()),
-                    TFcategorie.getText()
+                    TFcategorie.getText(),
+                    imagePath // Set the image path
             );
 
             // Ajout de l'événement via le service
@@ -67,6 +90,7 @@ public class AjouterEvent {
             alert.show();
         }
     }
+
     @FXML
     void navigateOnClickk(ActionEvent event) {
         try {
@@ -89,6 +113,69 @@ public class AjouterEvent {
         }
     }
 
+    @FXML
+    void browseOnClick(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG Image", "*.png"),
+                new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png")
+        );
+        Stage stage = (Stage) imageID.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            try {
+                imagePath = selectedFile.getAbsolutePath();
+                Image image = new Image(selectedFile.toURI().toString());
+                imageID.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Error", "Failed to load image: " + e.getMessage());
+            }
+        }
+    }
+    private void updateTextFieldStyles() {
+        // Vérifier si le champ Nom Event est vide
+        if (TFnom.getText().isEmpty()) {
+            TFnom.setStyle("-fx-background-color: red;");
+        } else {
+            TFnom.setStyle("-fx-background-color: lime;");
+        }
 
+        // Vérifier si le champ Date Debut est vide
+        if (TFdateDeb.getText().isEmpty()) {
+            TFdateDeb.setStyle("-fx-background-color: red;");
+        } else {
+            TFdateDeb.setStyle("-fx-background-color: lime;");
+        }
 
+        // Vérifier si le champ Date Fin est vide
+        if (TFdateFin.getText().isEmpty()) {
+            TFdateFin.setStyle("-fx-background-color: red;");
+        } else {
+            TFdateFin.setStyle("-fx-background-color: lime;");
+        }
+
+        // Vérifier si le champ Capacite Max est vide
+        if (TFcapacite.getText().isEmpty()) {
+            TFcapacite.setStyle("-fx-background-color: red;");
+        } else {
+            TFcapacite.setStyle("-fx-background-color: lime;");
+        }
+
+        // Vérifier si le champ Categorie est vide
+        if (TFcategorie.getText().isEmpty()) {
+            TFcategorie.setStyle("-fx-background-color: red;");
+        } else {
+            TFcategorie.setStyle("-fx-background-color: lime;");
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.show();
+    }
 }

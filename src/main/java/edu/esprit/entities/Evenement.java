@@ -10,12 +10,14 @@ public class Evenement{
     private String date_DHF;
     private int capacite_E;
     private String categorie_E;
+    private String imageEvent;
+
 
     public Evenement(){
 
     }
 
-    public Evenement(int id_E, String nom_E, EndUser user, String date_DHE, String date_DHF, int capacite_E, String categorie_E) {
+    public Evenement(int id_E, String nom_E, EndUser user, String date_DHE, String date_DHF, int capacite_E, String categorie_E, String imageEvent) {
         this.id_E = id_E;
         this.nom_E = nom_E;
         this.user =user;
@@ -23,15 +25,25 @@ public class Evenement{
         this.date_DHF = date_DHF;
         this.capacite_E = capacite_E;
         this.categorie_E = categorie_E;
+        this.imageEvent = imageEvent;
     }
 
-    public Evenement(EndUser user, String nom_E, String date_DHE, String date_DHF, int capacite_E, String categorie_E) {
+    public Evenement(EndUser user, String nom_E, String date_DHE, String date_DHF, int capacite_E, String categorie_E , String imageEvent) {
         this.user=user;
         this.nom_E=nom_E;
         this.date_DHE = date_DHE;
         this.date_DHF = date_DHF;
         this.capacite_E = capacite_E;
         this.categorie_E = categorie_E;
+        this.imageEvent = imageEvent;
+    }
+
+    public String getImageEvent() {
+        return imageEvent;
+    }
+
+    public void setImageEvent(String imageEvent) {
+        this.imageEvent = imageEvent;
     }
 
     public int getId_E() {
@@ -100,6 +112,8 @@ public class Evenement{
                 ", date_DHF='" + date_DHF + '\'' +
                 ", capacite_E=" + capacite_E +
                 ", categorie_E='" + categorie_E + '\'' +
+                ", imageEvent='" + imageEvent + '\'' +
+
                 '}';
     }
 

@@ -16,7 +16,6 @@ public class ServiceEvenement implements IService<Evenement> {
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
     public void ajouter(Evenement evenement) throws SQLException {
-        // Vérification des champs requis
         if (!validateEvenement(evenement)) {
             System.out.println("Tous les champs doivent être remplis !");
             return;
@@ -27,7 +26,7 @@ public class ServiceEvenement implements IService<Evenement> {
             return;
         }
 
-        String req = "INSERT INTO evenement (id_user, nom_E, date_DHE, date_DHF, capacite_E, categorie_E) VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO evenement (id_user, nom_E, date_DHE, date_DHF, capacite_E, categorie_E, imageEvent) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, evenement.getUser().getId());
@@ -36,6 +35,7 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setString(4, evenement.getDateEtHeureFin());
             ps.setInt(5, evenement.getCapaciteMax());
             ps.setString(6, evenement.getCategorie());
+            ps.setString(7, evenement.getImageEvent());
             ps.executeUpdate();
             System.out.println("Evenement ajouté !");
         } catch (SQLException e) {
@@ -50,7 +50,7 @@ public class ServiceEvenement implements IService<Evenement> {
             return;
         }
 
-        String req = "UPDATE evenement SET id_user=?, nom_E=?, date_DHE=?, date_DHF=?, capacite_E=?, categorie_E=? WHERE id_E=?";
+        String req = "UPDATE evenement SET id_user=?, nom_E=?, date_DHE=?, date_DHF=?, capacite_E=?, categorie_E=?, imageEvent=? WHERE id_E=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, evenement.getUser().getId());
@@ -59,7 +59,8 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setString(4, evenement.getDateEtHeureFin());
             ps.setInt(5, evenement.getCapaciteMax());
             ps.setString(6, evenement.getCategorie());
-            ps.setInt(7, evenement.getId_E());
+            ps.setString(7, evenement.getImageEvent());
+            ps.setInt(8, evenement.getId_E());
             ps.executeUpdate();
             System.out.println("Evenement modifié !");
         } catch (SQLException e) {
@@ -68,7 +69,7 @@ public class ServiceEvenement implements IService<Evenement> {
     }
 
     private boolean validateEvenement(Evenement evenement) {
-        return evenement.getUser().getId() > 0 &&
+        return evenement.getUser() != null &&
                 !evenement.getNomEvent().isEmpty() &&
                 !evenement.getDateEtHeureDeb().isEmpty() &&
                 !evenement.getDateEtHeureFin().isEmpty() &&
@@ -105,11 +106,13 @@ public class ServiceEvenement implements IService<Evenement> {
                 String date_DHF = rs.getString("date_DHF");
                 int capacite_E = rs.getInt("capacite_E");
                 String categorie_E = rs.getString("categorie_E");
+                String imageEvent = rs.getString("imageEvent"); // Fetch imageEvent from the result set
                 ServiceUser serviceUser = new ServiceUser();
                 EndUser endUser = serviceUser.getOneByID(id_user);
-                Evenement evenement = new Evenement(id, nom_E, endUser, date_DHE, date_DHF, capacite_E, categorie_E);
+                Evenement evenement = new Evenement(id, nom_E, endUser, date_DHE, date_DHF, capacite_E, categorie_E, imageEvent);
                 evenements.add(evenement);
             }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -130,9 +133,11 @@ public class ServiceEvenement implements IService<Evenement> {
                 String date_DHF = rs.getString("date_DHF");
                 int capacite_E = rs.getInt("capacite_E");
                 String categorie_E = rs.getString("categorie_E");
+                String imageEvent = rs.getString("imageEvent"); // Fetch imageEvent from the result set
                 ServiceUser serviceUser = new ServiceUser();
                 EndUser endUser = serviceUser.getOneByID(id_user);
-                return new Evenement(id, nom_E, endUser, date_DHE, date_DHF, capacite_E, categorie_E);
+                Evenement evenement = new Evenement(id, nom_E, endUser, date_DHE, date_DHF, capacite_E, categorie_E, imageEvent);
+                return evenement; // Return the evenement object
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

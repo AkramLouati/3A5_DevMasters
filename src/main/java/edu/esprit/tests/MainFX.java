@@ -20,7 +20,7 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) throws IOException {
         stg = primaryStage;
         FXMLLoader loader = new FXMLLoader();
-        InputStream fxmlStream = getClass().getResourceAsStream("/AfficherVoteS.fxml");
+        InputStream fxmlStream = getClass().getResourceAsStream("/AfficherEventS.fxml");
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }

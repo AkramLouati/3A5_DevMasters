@@ -29,8 +29,8 @@ public class Main {
 
         // Test CRUD operations for Evenement
         // 1. Add an event
-        EndUser endUser = new EndUser(13);
-        Evenement eventToAdd = new Evenement(endUser, "Test bb", "2024-02-15 10:00:00", "2024-02-15 12:00:00", 100, "Test Category");
+        EndUser endUser = new EndUser(13); // Assuming you have an EndUser with ID 13
+        Evenement eventToAdd = new Evenement(endUser, "Test Event", "2024-02-15 10:00:00", "2024-02-15 12:00:00", 100, "Test Category", "image_path_here");
         serviceEvenement.ajouter(eventToAdd);
 
         // 2. Retrieve all events
@@ -41,10 +41,10 @@ public class Main {
         }
 
         // 3. Update an event
-        // Assuming there's an event with ID 1, update its name
-        Evenement eventToUpdate = serviceEvenement.getOneByID(10);
+        // Assuming there's an event with ID 10, update its name
+        Evenement eventToUpdate = serviceEvenement.getOneByID(34); // Assuming ID 34 exists
         if (eventToUpdate != null) {
-            eventToUpdate.setNomEvent("Updated Test Event");
+            eventToUpdate.setNomEvent("sport");
             serviceEvenement.modifier(eventToUpdate);
             System.out.println("Event updated successfully!");
         } else {
@@ -52,8 +52,8 @@ public class Main {
         }
 
         // 4. Delete an event
-        // Assuming there's an event with ID 1 to delete
-        serviceEvenement.supprimer(5);
+        // Assuming there's an event with ID 5 to delete
+        serviceEvenement.supprimer(5); // Assuming ID 5 exists
         System.out.println("Event deleted successfully!");
     }
 }

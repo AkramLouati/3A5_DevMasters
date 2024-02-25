@@ -78,6 +78,11 @@ public class AfficherEventItem {
     @FXML
     void modifierEventOnClick(ActionEvent event) {
         try {
+            // Initialiser le serviceEvenement si ce n'est pas déjà fait
+            if (serviceEvenement == null) {
+                serviceEvenement = new ServiceEvenement();
+            }
+
             // Charger la vue de modification d'événement
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvent.fxml"));
             Parent root = loader.load();
@@ -96,6 +101,7 @@ public class AfficherEventItem {
             alert.show();
         }
     }
+
     @FXML
     void ajouterEventOnclickk(ActionEvent event) {
         try {
@@ -133,6 +139,29 @@ public class AfficherEventItem {
             errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
             errorAlert.setTitle("Erreur de redirection");
             errorAlert.show();
+        }
+    }
+    @FXML
+    void detailsOnClick(ActionEvent event) {
+        try {
+            // Charger la vue des détails de l'événement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsEvent.fxml"));
+            Parent root = loader.load();
+
+            // Passer l'événement dont les détails sont affichés au contrôleur des détails
+            DetailsEvent controller = loader.getController();
+            controller.setData(evenement);
+
+            // Afficher la vue des détails de l'événement
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement de la vue des détails
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Erreur lors du chargement des détails de l'événement.");
+            alert.setTitle("Erreur de chargement des détails");
+            alert.show();
         }
     }
 

@@ -2,17 +2,27 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ModifierEvent {
+
     @FXML
     private TextField TFnomM;
 
@@ -28,6 +38,9 @@ public class ModifierEvent {
     @FXML
     private TextField TFcategorieM;
 
+    @FXML
+    private ImageView imageM;
+
     private ServiceEvenement serviceEvenement;
     private Evenement evenement;
 
@@ -39,10 +52,25 @@ public class ModifierEvent {
         TFdateFinM.setText(evenement.getDateEtHeureFin());
         TFcapaciteM.setText(String.valueOf(evenement.getCapaciteMax()));
         TFcategorieM.setText(evenement.getCategorie());
+
+        // Afficher l'image de l'événement
+        String imagePath = evenement.getImageEvent();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File file = new File(imagePath);
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                imageM.setImage(image);
+            }
+        }
     }
 
     @FXML
-    void ModifierEventClick() {
+    void ModifierEventClick(ActionEvent event) {
+        // Vérifier si le serviceEvenement est initialisé
+        if (serviceEvenement == null) {
+            serviceEvenement = new ServiceEvenement();
+        }
+
         // Récupérer les nouvelles valeurs des champs de texte
         String nom = TFnomM.getText();
         String dateDeb = TFdateDebM.getText();
@@ -58,9 +86,6 @@ public class ModifierEvent {
         evenement.setCategorie(categorie);
 
         // Appeler le service pour mettre à jour l'événement dans la base de données
-        if (serviceEvenement == null) {
-            serviceEvenement = new ServiceEvenement();
-        }
         serviceEvenement.modifier(evenement);
 
         // Afficher une alerte pour confirmer la modification
@@ -69,12 +94,13 @@ public class ModifierEvent {
         alert.setTitle("Événement modifié");
         alert.show();
     }
+
+
     @FXML
-    void navigateOnClick() {
+    void navigateOnClick(ActionEvent event) {
         try {
             // Charger le fichier FXML de l'interface AfficherEventS.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEventS.fxml"));
-            Parent root = loader.load();
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEventS.fxml"));
 
             // Créer une nouvelle scène
             Scene scene = new Scene(root);
@@ -88,6 +114,32 @@ public class ModifierEvent {
         } catch (IOException e) {
             e.printStackTrace();
             // Gérer les exceptions liées au chargement de l'interface AfficherEventS.fxml
+        }
+    }
+
+    @FXML
+    void browseMOnClick(ActionEvent event) {
+        // Configurer le FileChooser pour sélectionner une image
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
+        );
+
+        // Afficher le FileChooser et récupérer le fichier sélectionné
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                // Créer une image JavaFX à partir du fichier sélectionné
+                Image image = new Image(new FileInputStream(selectedFile));
+                // Afficher l'image dans l'ImageView
+                imageM.setImage(image);
+                // Enregistrer le chemin de l'image dans l'événement
+                evenement.setImageEvent(selectedFile.getAbsolutePath());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                // Gérer les exceptions liées à la lecture de l'image
+            }
         }
     }
 }
