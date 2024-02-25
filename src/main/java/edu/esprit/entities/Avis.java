@@ -32,6 +32,16 @@ public class Avis {
         this.date_avis = date_avis;
     }
 
+    public Avis(int id_avis, EndUser user, Equipement equipement, Muni muni, int note_avis, String commentaire_avis, Date date_avis) {
+        this.id_avis = id_avis;
+        this.user = user;
+        this.equipement = equipement;
+        this.muni = muni;
+        this.note_avis = note_avis;
+        this.commentaire_avis = commentaire_avis;
+        this.date_avis = date_avis;
+    }
+
     public int getId_avis() {
         return id_avis;
     }
