@@ -84,13 +84,17 @@ public class AjouterEvent {
             // Ajout de l'événement via le service
             serviceEvenement.ajouter(evenement);
 
-            // Affichage d'une notification de succès
+            // Affichage d'une notification de succès après l'ajout de l'événement
             showAlert("Success", "Événement ajouté avec succès !");
         } catch (SQLException e) {
             // En cas d'erreur lors de l'ajout de l'événement
-            showAlert("Erreur", "Erreur lors de l'ajout de l'événement : " + e.getMessage());
+            showAlert("Error", "Erreur lors de l'ajout de l'événement : " + e.getMessage());
+        } catch (NumberFormatException e) {
+            // En cas d'erreur de formatage du nombre pour la capacité
+            showAlert("Error", "Le champ Capacite Max doit être un entier.");
         }
     }
+
 
     @FXML
     void navigateOnClickk(ActionEvent event) {
@@ -171,9 +175,13 @@ public class AjouterEvent {
     }
 
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // Change to INFORMATION
         alert.setTitle(title);
         alert.setContentText(content);
-        alert.show();
+        try {
+            alert.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

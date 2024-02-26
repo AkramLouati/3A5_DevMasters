@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 
@@ -44,5 +45,19 @@ public class DetailsEvent {
             imageTFF.setImage(new javafx.scene.image.Image(new File(imagePath).toURI().toString()));
         }
     }
+    @FXML
+    void retournerOnClick() {
+        try {
+            // Obtenir la scène actuelle à partir du bouton Retourner
+            Stage stage = (Stage) backButton.getScene().getWindow();
+
+            // Fermer la fenêtre du pop-up
+            stage.close();
+        } catch (Exception e) {
+            // Gérer les exceptions
+            e.printStackTrace();
+        }
+    }
+
 
 }
