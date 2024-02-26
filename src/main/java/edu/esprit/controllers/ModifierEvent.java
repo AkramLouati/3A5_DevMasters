@@ -144,39 +144,36 @@ public class ModifierEvent {
         }
     }
     private void updateTextFieldStyles() {
-        // Vérifier si le champ Nom Event est vide
-        if (TFnomM.getText().isEmpty()) {
-            TFnomM.setStyle("-fx-background-color: red;");
-        } else {
-            TFnomM.setStyle("-fx-background-color: lime;");
-        }
+        setFieldStyle(TFnomM, isFieldEmpty(TFnomM));
+        setFieldStyle(TFdateDebM, isFieldEmpty(TFdateDebM));
+        setFieldStyle(TFdateFinM, isFieldEmpty(TFdateFinM));
+        setFieldStyle(TFcapaciteM, !isCapaciteValid());
+        setFieldStyle(TFcategorieM, isFieldEmpty(TFcategorieM));
+    }
 
-        // Vérifier si le champ Date Debut est vide
-        if (TFdateDebM.getText().isEmpty()) {
-            TFdateDebM.setStyle("-fx-background-color: red;");
-        } else {
-            TFdateDebM.setStyle("-fx-background-color: lime;");
-        }
+    private boolean isFieldEmpty(TextField textField) {
+        return textField.getText().isEmpty();
+    }
 
-        // Vérifier si le champ Date Fin est vide
-        if (TFdateFinM.getText().isEmpty()) {
-            TFdateFinM.setStyle("-fx-background-color: red;");
-        } else {
-            TFdateFinM.setStyle("-fx-background-color: lime;");
+    private boolean isCapaciteValid() {
+        try {
+            Integer.parseInt(TFcapaciteM.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
+    }
 
-        // Vérifier si le champ Capacite Max est vide
-        if (TFcapaciteM.getText().isEmpty()) {
-            TFcapaciteM.setStyle("-fx-background-color: red;");
+    private void setFieldStyle(TextField textField, boolean isEmpty) {
+        if (isEmpty) {
+            textField.setStyle("-fx-background-color: red;");
         } else {
-            TFcapaciteM.setStyle("-fx-background-color: lime;");
+            textField.setStyle("-fx-background-color: lime;");
         }
+    }
 
-        // Vérifier si le champ Categorie est vide
-        if (TFcategorieM.getText().isEmpty()) {
-            TFcategorieM.setStyle("-fx-background-color: red;");
-        } else {
-            TFcategorieM.setStyle("-fx-background-color: lime;");
-        }
+    private boolean isAnyFieldEmpty() {
+        return isFieldEmpty(TFnomM) || isFieldEmpty(TFdateDebM) || isFieldEmpty(TFdateFinM) ||
+                isFieldEmpty(TFcapaciteM) || isFieldEmpty(TFcategorieM);
     }
 }
