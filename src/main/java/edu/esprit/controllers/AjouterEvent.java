@@ -50,6 +50,26 @@ public class AjouterEvent {
     void AjoutEventClick(ActionEvent event) {
         updateTextFieldStyles();
         try {
+            // Vérifier si un champ est vide
+            if (TFnom.getText().isEmpty() || TFdateDeb.getText().isEmpty() || TFdateFin.getText().isEmpty() ||
+                    TFcapacite.getText().isEmpty() || TFcategorie.getText().isEmpty()) {
+                showAlert("Error", "Tous les champs doivent être remplis.");
+                return;
+            }
+
+            // Vérifier si le champ Capacite Max est un entier
+            try {
+                Integer.parseInt(TFcapacite.getText());
+            } catch (NumberFormatException e) {
+                showAlert("Error", "Le champ Capacite Max doit être un entier.");
+                return;
+            }
+
+            // Vérifier si une image est sélectionnée
+            if (imagePath == null || imagePath.isEmpty()) {
+                showAlert("Error", "Veuillez sélectionner une image.");
+                return;
+            }
             // Check if an image is selected
             if (imagePath == null || imagePath.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
