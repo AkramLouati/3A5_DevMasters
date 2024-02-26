@@ -1,11 +1,9 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Reclamation;
-import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -16,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ResourceBundle;
 
 public class DetailReclamationController {
     @FXML
@@ -63,7 +60,7 @@ public class DetailReclamationController {
             // Si l'URL de l'image est vide ou null, afficher une image par défaut
             // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
             // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-            URL defaultImageUrl = getClass().getResource("/edu/esprit/img/imageblanche.png");
+            URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
             if (defaultImageUrl != null) {
                 Image defaultImage = new Image(defaultImageUrl.toString());
                 Imagedetail.setImage(defaultImage);

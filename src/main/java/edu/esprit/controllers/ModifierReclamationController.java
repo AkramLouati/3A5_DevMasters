@@ -5,7 +5,6 @@ import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -17,8 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class ModifierReclamationController{
     @FXML
@@ -159,7 +156,7 @@ public class ModifierReclamationController{
                 // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
                 // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
                 // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/edu/esprit/img/imageblanche.png");
+                URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
                 if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
                     Image defaultImage = new Image(defaultImageUrl.toString());
                     modifierimgView_reclamation.setImage(defaultImage);
