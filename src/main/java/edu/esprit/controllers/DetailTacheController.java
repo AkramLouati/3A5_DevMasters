@@ -89,7 +89,7 @@ public class DetailTacheController {
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
             TFTitreDetail.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

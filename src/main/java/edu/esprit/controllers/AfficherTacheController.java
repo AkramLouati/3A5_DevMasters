@@ -19,8 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -34,8 +32,6 @@ public class AfficherTacheController implements Initializable {
     private Tache taches = new Tache();
     private Stage stage; // Define a stage variable
     private ServiceTache sr = new ServiceTache();
-    Set<Tache> tacheSet = sr.getAll();
-    List<Tache> tacheList = new ArrayList<>(tacheSet);
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -43,8 +39,7 @@ public class AfficherTacheController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Set<Tache> tacheSet = sr.getAll();
-        List<Tache> tacheList = new ArrayList<>(tacheSet);
+        Set<Tache> tacheList = sr.getAll();
 
         grid.getChildren().clear();
 

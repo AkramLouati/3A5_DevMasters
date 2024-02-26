@@ -18,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,10 +30,12 @@ import org.controlsfx.validation.Validator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
 
 
 public class AjouterTacheController {
@@ -39,6 +43,8 @@ public class AjouterTacheController {
     ServiceUser serviceUser = new ServiceUser();
     EndUser user01 = serviceUser.getOneByID(14);
 
+    @FXML
+    private ImageView PieceJointeImage;
     @FXML
     private TextField titleField, attachmentField, descriptionField, RECRadioButton;
     @FXML
@@ -72,7 +78,16 @@ public class AjouterTacheController {
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
-            attachmentField.setText(selectedFile.getAbsolutePath());
+            try {
+                String fileUrl = selectedFile.toURI().toURL().toString();
+                // Créer une instance d'Image à partir de l'URL de fichier
+                Image image = new Image(fileUrl);
+                // Définir l'image dans l'ImageView
+                PieceJointeImage.setImage(image);
+            } catch (MalformedURLException e) {
+                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                e.printStackTrace();
+            }
         }
     }
 
@@ -184,7 +199,7 @@ public class AjouterTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

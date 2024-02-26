@@ -233,7 +233,7 @@ public class ModifierTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

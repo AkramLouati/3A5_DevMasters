@@ -141,7 +141,7 @@
     </Button>
     <ImageView fitHeight="274.0" fitWidth="254.0" layoutX="587.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../java/edu/esprit/img/baladiapng.png" />
+            <Image url="@img/Baladia.png" />
         </image>
     </ImageView>
 </AnchorPane>
