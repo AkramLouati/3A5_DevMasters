@@ -10,8 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,17 +48,14 @@ public class AjouterEvent {
     void AjoutEventClick(ActionEvent event) {
         updateTextFieldStyles();
         try {
-            // Vérifier si un champ est vide
-            if (TFnom.getText().isEmpty() || TFdateDeb.getText().isEmpty() || TFdateFin.getText().isEmpty() ||
-                    TFcapacite.getText().isEmpty() || TFcategorie.getText().isEmpty()) {
+            // Vérifier si tous les champs sont remplis
+            if (isAnyFieldEmpty()) {
                 showAlert("Error", "Tous les champs doivent être remplis.");
                 return;
             }
 
             // Vérifier si le champ Capacite Max est un entier
-            try {
-                Integer.parseInt(TFcapacite.getText());
-            } catch (NumberFormatException e) {
+            if (!isCapaciteValid()) {
                 showAlert("Error", "Le champ Capacite Max doit être un entier.");
                 return;
             }
@@ -68,14 +63,6 @@ public class AjouterEvent {
             // Vérifier si une image est sélectionnée
             if (imagePath == null || imagePath.isEmpty()) {
                 showAlert("Error", "Veuillez sélectionner une image.");
-                return;
-            }
-            // Check if an image is selected
-            if (imagePath == null || imagePath.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Please select an image.");
-                alert.show();
                 return;
             }
 
@@ -98,16 +85,10 @@ public class AjouterEvent {
             serviceEvenement.ajouter(evenement);
 
             // Affichage d'une notification de succès
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Événement ajouté avec succès !");
-            alert.show();
-        } catch (SQLException | NumberFormatException e) {
+            showAlert("Success", "Événement ajouté avec succès !");
+        } catch (SQLException e) {
             // En cas d'erreur lors de l'ajout de l'événement
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors de l'ajout de l'événement : " + e.getMessage());
-            alert.show();
+            showAlert("Erreur", "Erreur lors de l'ajout de l'événement : " + e.getMessage());
         }
     }
 
@@ -115,8 +96,7 @@ public class AjouterEvent {
     void navigateOnClickk(ActionEvent event) {
         try {
             // Charger le fichier FXML de l'interface à laquelle vous souhaitez naviguer
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEventS.fxml"));
-            Parent root = loader.load();
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEventS.fxml"));
 
             // Créer une nouvelle scène
             Scene scene = new Scene(root);
@@ -155,41 +135,39 @@ public class AjouterEvent {
             }
         }
     }
+
     private void updateTextFieldStyles() {
-        // Vérifier si le champ Nom Event est vide
-        if (TFnom.getText().isEmpty()) {
-            TFnom.setStyle("-fx-background-color: red;");
-        } else {
-            TFnom.setStyle("-fx-background-color: lime;");
-        }
+        setFieldStyle(TFnom, isFieldEmpty(TFnom));
+        setFieldStyle(TFdateDeb, isFieldEmpty(TFdateDeb));
+        setFieldStyle(TFdateFin, isFieldEmpty(TFdateFin));
+        setFieldStyle(TFcapacite, !isCapaciteValid());
+        setFieldStyle(TFcategorie, isFieldEmpty(TFcategorie));
+    }
 
-        // Vérifier si le champ Date Debut est vide
-        if (TFdateDeb.getText().isEmpty()) {
-            TFdateDeb.setStyle("-fx-background-color: red;");
-        } else {
-            TFdateDeb.setStyle("-fx-background-color: lime;");
-        }
+    private boolean isFieldEmpty(TextField textField) {
+        return textField.getText().isEmpty();
+    }
 
-        // Vérifier si le champ Date Fin est vide
-        if (TFdateFin.getText().isEmpty()) {
-            TFdateFin.setStyle("-fx-background-color: red;");
-        } else {
-            TFdateFin.setStyle("-fx-background-color: lime;");
+    private boolean isCapaciteValid() {
+        try {
+            Integer.parseInt(TFcapacite.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
+    }
 
-        // Vérifier si le champ Capacite Max est vide
-        if (TFcapacite.getText().isEmpty()) {
-            TFcapacite.setStyle("-fx-background-color: red;");
+    private void setFieldStyle(TextField textField, boolean isEmpty) {
+        if (isEmpty) {
+            textField.setStyle("-fx-background-color: red;");
         } else {
-            TFcapacite.setStyle("-fx-background-color: lime;");
+            textField.setStyle("-fx-background-color: lime;");
         }
+    }
 
-        // Vérifier si le champ Categorie est vide
-        if (TFcategorie.getText().isEmpty()) {
-            TFcategorie.setStyle("-fx-background-color: red;");
-        } else {
-            TFcategorie.setStyle("-fx-background-color: lime;");
-        }
+    private boolean isAnyFieldEmpty() {
+        return isFieldEmpty(TFnom) || isFieldEmpty(TFdateDeb) || isFieldEmpty(TFdateFin) ||
+                isFieldEmpty(TFcapacite) || isFieldEmpty(TFcategorie);
     }
 
     private void showAlert(String title, String content) {
