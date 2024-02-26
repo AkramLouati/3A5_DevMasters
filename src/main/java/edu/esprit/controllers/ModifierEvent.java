@@ -66,6 +66,7 @@ public class ModifierEvent {
 
     @FXML
     void ModifierEventClick(ActionEvent event) {
+        updateTextFieldStyles();
         // Vérifier si le serviceEvenement est initialisé
         if (serviceEvenement == null) {
             serviceEvenement = new ServiceEvenement();
@@ -140,6 +141,42 @@ public class ModifierEvent {
                 e.printStackTrace();
                 // Gérer les exceptions liées à la lecture de l'image
             }
+        }
+    }
+    private void updateTextFieldStyles() {
+        // Vérifier si le champ Nom Event est vide
+        if (TFnomM.getText().isEmpty()) {
+            TFnomM.setStyle("-fx-background-color: red;");
+        } else {
+            TFnomM.setStyle("-fx-background-color: lime;");
+        }
+
+        // Vérifier si le champ Date Debut est vide
+        if (TFdateDebM.getText().isEmpty()) {
+            TFdateDebM.setStyle("-fx-background-color: red;");
+        } else {
+            TFdateDebM.setStyle("-fx-background-color: lime;");
+        }
+
+        // Vérifier si le champ Date Fin est vide
+        if (TFdateFinM.getText().isEmpty()) {
+            TFdateFinM.setStyle("-fx-background-color: red;");
+        } else {
+            TFdateFinM.setStyle("-fx-background-color: lime;");
+        }
+
+        // Vérifier si le champ Capacite Max est vide
+        if (TFcapaciteM.getText().isEmpty()) {
+            TFcapaciteM.setStyle("-fx-background-color: red;");
+        } else {
+            TFcapaciteM.setStyle("-fx-background-color: lime;");
+        }
+
+        // Vérifier si le champ Categorie est vide
+        if (TFcategorieM.getText().isEmpty()) {
+            TFcategorieM.setStyle("-fx-background-color: red;");
+        } else {
+            TFcategorieM.setStyle("-fx-background-color: lime;");
         }
     }
 }
