@@ -26,6 +26,7 @@ public class MainGuiController {
 
     private boolean isSidebarVisible = true;
 
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -58,8 +59,6 @@ public class MainGuiController {
     }
 
 
-
-
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
     }
@@ -85,7 +84,6 @@ public class MainGuiController {
                 stage.close();
             }
 
-
             // Load AfficherTache.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherTache.fxml"));
             AnchorPane afficherAP = loader.load();
@@ -94,14 +92,17 @@ public class MainGuiController {
             AfficherTacheController controller = loader.getController();
             controller.setStage(stage);
 
+            // Set user data to pass MainGuiController instance
+            stage.setUserData(this);
+
             // Set AfficherTache view into MainAnchorPaneBaladity
             MainAnchorPaneBaladity.getChildren().setAll(afficherAP);
-
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load AfficherTache view");
         }
     }
+
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -109,4 +110,7 @@ public class MainGuiController {
         alert.showAndWait();
     }
 
+    public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
+        MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
+    }
 }

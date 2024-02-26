@@ -1,12 +1,13 @@
 package edu.esprit.tests;
 
+import edu.esprit.controllers.MainGuiController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MainTFX extends Application {
     public static Stage stg;
@@ -17,15 +18,15 @@ public class MainTFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        stg = primaryStage;
-        FXMLLoader loader = new FXMLLoader();
-        InputStream fxmlStream = getClass().getResourceAsStream("/MainGui.fxml");
-        if (fxmlStream == null) {
-            throw new IOException("FXML file not found");
-        }
-        // Set the location of the FXML file in the loader
-        Scene scene = new Scene(loader.load(fxmlStream));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainGui.fxml"));
+        Parent root = loader.load();
+        MainGuiController mainGuiController = loader.getController();
 
+        // Set the UserData of the stage
+        primaryStage.setUserData(mainGuiController);
+
+        // Set the scene
+        Scene scene = new Scene(root);
         primaryStage.setTitle("Baladity");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(event -> System.exit(0));
