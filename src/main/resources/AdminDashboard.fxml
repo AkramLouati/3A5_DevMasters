@@ -118,7 +118,7 @@
                      </HBox.margin>
                   </Label>
                   <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" stylesheets="@style.css" text="Nouvelle municipalité" textFill="WHITE">
+                  <Button fx:id="addMuniButton" mnemonicParsing="false" onAction="#addMuni" prefHeight="40.0" prefWidth="220.0" stylesheets="@style.css" text="Nouvelle municipalité" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -151,26 +151,18 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #54D39D;" styleClass="municipalite" stylesheets="@style.css" text="Aiana Ville" textFill="WHITE">
-                     <font>
-                        <Font name="Corbel" size="28.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #70B8D9;" styleClass="municipalite" stylesheets="@style.css" text="La Sokra" textFill="WHITE">
-                     <font>
-                        <Font name="Corbel" size="28.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="CENTER" layoutX="210.0" layoutY="10.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #54D39D;" styleClass="municipalite" stylesheets="@style.css" text="Mnihla" textFill="WHITE">
-                     <font>
-                        <Font name="Corbel" size="28.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="CENTER" layoutX="410.0" layoutY="10.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #70B8D9;" styleClass="municipalite" stylesheets="@style.css" text="Ettadhamen" textFill="WHITE">
-                     <font>
-                        <Font name="Corbel" size="28.0" />
-                     </font>
-                  </Button>
+                  <HBox prefHeight="200.0" prefWidth="987.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="991.0" styleClass="white-backgroung" stylesheets="@style.css">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <content>
+                              <HBox fx:id="muniButtonLayout" prefHeight="200.0" prefWidth="964.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             <Label prefHeight="55.0" text="Les citoyen">
