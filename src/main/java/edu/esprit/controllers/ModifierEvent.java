@@ -100,21 +100,12 @@ public class ModifierEvent {
     @FXML
     void navigateOnClick(ActionEvent event) {
         try {
-            // Charger le fichier FXML de l'interface AfficherEventS.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEventS.fxml"));
-
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
-
-            // Obtenir la scène actuelle à partir du bouton "Navigate"
+            // Fermer la fenêtre actuelle
             Stage stage = (Stage) TFnomM.getScene().getWindow();
-
-            // Mettre la nouvelle scène sur le stage
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
+            stage.close();
+        } catch (Exception e) {
             e.printStackTrace();
-            // Gérer les exceptions liées au chargement de l'interface AfficherEventS.fxml
+            // Gérer les exceptions liées à la fermeture de la fenêtre
         }
     }
 

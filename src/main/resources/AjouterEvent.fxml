@@ -3,25 +3,75 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
    <children>
-      <TextField fx:id="TFcapacite" layoutX="126.0" layoutY="153.0" promptText="Capacite Max" />
-      <TextField fx:id="TFnom" layoutX="126.0" layoutY="32.0" promptText="Nom Event" />
-      <TextField fx:id="TFdateDeb" layoutX="126.0" layoutY="72.0" promptText="Date Debut" />
-      <TextField fx:id="TFdateFin" layoutX="126.0" layoutY="110.0" promptText="Date Fin" />
-      <TextField fx:id="TFcategorie" layoutX="126.0" layoutY="196.0" promptText="Categorie" />
-      <Label layoutX="14.0" layoutY="36.0" text="Nom evenement" />
-      <Label layoutX="28.0" layoutY="67.0" text="Date Debut" />
-      <Label layoutX="39.0" layoutY="114.0" text="Date fin" />
-      <Label layoutX="8.0" layoutY="157.0" text="Capacite Maximale" />
-      <Label layoutX="33.0" layoutY="200.0" text="Categorie" />
-      <Button layoutX="244.0" layoutY="303.0" mnemonicParsing="false" onAction="#AjoutEventClick" prefHeight="27.0" prefWidth="94.0" text="Ajouter" />
-      <Button layoutX="517.0" layoutY="372.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="27.0" prefWidth="82.0" text="Navigate" />
-      <Label layoutX="322.0" layoutY="89.0" prefHeight="19.0" prefWidth="82.0" text="Affiche " />
-      <ImageView fx:id="imageID" fitHeight="150.0" fitWidth="200.0" layoutX="386.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="458.0" layoutY="223.0" mnemonicParsing="false" onAction="#browseOnClick" text="Browse" />
+      <TextField fx:id="TFcapacite" layoutX="180.0" layoutY="211.0" promptText="Capacite Maximale" />
+      <TextField fx:id="TFnom" layoutX="180.0" layoutY="73.0" promptText="Nom Event" />
+      <TextField fx:id="TFdateDeb" layoutX="180.0" layoutY="117.0" promptText="Date Debut" />
+      <TextField fx:id="TFdateFin" layoutX="180.0" layoutY="164.0" promptText="Date Fin" />
+      <TextField fx:id="TFcategorie" layoutX="180.0" layoutY="254.0" promptText="Categorie" />
+      <Label layoutX="50.0" layoutY="65.0" prefHeight="22.0" prefWidth="45.0" text="Nom">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="26.0" layoutY="120.0" text="Date Debut">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="167.0" text="Date fin">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="25.0" layoutY="214.0" text="Capacite Max">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="39.0" layoutY="257.0" text="Categorie">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Button alignment="CENTER" layoutX="231.0" layoutY="297.0" mnemonicParsing="false" onAction="#AjoutEventClick" prefHeight="30.0" prefWidth="108.0" stylesheets="@style.css" text="Ajouter" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="231.0" layoutY="342.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="30.0" prefWidth="108.0" stylesheets="@style.css" text="Precedent" textFill="#fffdfd">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Label layoutX="425.0" layoutY="54.0" prefHeight="22.0" prefWidth="141.0" text="Affiche evenement">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <ImageView fx:id="imageID" fitHeight="181.0" fitWidth="244.0" layoutX="352.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="445.0" layoutY="263.0" mnemonicParsing="false" onAction="#browseOnClick" prefHeight="27.0" prefWidth="81.0" stylesheets="@style.css" text="Browse" textFill="#fffafa">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font></Button>
+      <Text layoutX="159.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un evenement">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="77.0" fitWidth="81.0" layoutX="26.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/addEvent.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="77.0" fitWidth="81.0" layoutX="496.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/addEvent.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="57.0" fitWidth="108.0" layoutX="4.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/LOGO.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

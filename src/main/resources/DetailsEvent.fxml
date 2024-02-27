@@ -1,19 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailsEvent">
+<AnchorPane prefHeight="403.0" prefWidth="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailsEvent">
     <children>
-        <Text fx:id="nomTFF" layoutX="30.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom evnement" wrappingWidth="115.61249923706055" />
-        <Text fx:id="debTFF" layoutX="30.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date debut " wrappingWidth="108.4124870300293" />
-        <Text fx:id="finTFF" layoutX="30.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="102.0124626159668" />
-        <Text fx:id="capTFF" layoutX="30.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite Max" wrappingWidth="102.0124626159668" />
-        <Text fx:id="cateTFF" layoutX="30.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="102.0124626159668" />
-        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="271.0" layoutX="275.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="backButton" layoutX="258.0" layoutY="274.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="27.0" prefWidth="84.0" text="Retourner" />
+        <Text fx:id="nomTFF" fill="#0d0d0d" layoutX="28.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom evnement" wrappingWidth="150.01252365112305">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font></Text>
+        <Text fx:id="debTFF" layoutX="28.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date debut " wrappingWidth="108.4124870300293">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font></Text>
+        <Text fx:id="finTFF" layoutX="26.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="102.0124626159668">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font></Text>
+        <Text fx:id="capTFF" layoutX="23.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite Max" wrappingWidth="108.41248703002924">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font></Text>
+        <Text fx:id="cateTFF" layoutX="23.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="137.2124137878418">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font></Text>
+        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="271.0" layoutX="227.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="backButton" layoutX="246.0" layoutY="322.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="31.0" prefWidth="108.0" stylesheets="@style.css" text="Retourner" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
+      <Text layoutX="217.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Evenement" wrappingWidth="165.1004638671875">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="479.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/info.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="69.0" layoutX="498.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/LOGO.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="300.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="150.012523651123">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
         
     </children>
 </AnchorPane>
