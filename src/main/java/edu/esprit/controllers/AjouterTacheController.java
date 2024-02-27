@@ -72,8 +72,17 @@ public class AjouterTacheController {
         fileChooser.setTitle("Choose Attachment File");
 
         // Set initial directory
-        String initialDirectory = "src/main/java/edu/esprit/img";
-        fileChooser.setInitialDirectory(new File(initialDirectory));
+        String initialDirectory = "src/main/resources/img";
+        File initialDirFile = new File(initialDirectory);
+
+        // Check if the initial directory is valid
+        if(initialDirFile.exists() && initialDirFile.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirFile);
+        } else {
+            System.err.println("Initial directory is not valid: " + initialDirectory);
+            // You might want to handle this error condition appropriately
+            return;
+        }
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
@@ -198,7 +207,7 @@ public class AjouterTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

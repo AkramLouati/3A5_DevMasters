@@ -1,72 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="540.0" prefWidth="800.0"
-            style="-fx-background-color: #12314e;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="edu.esprit.controllers.AfficherTacheController">
-    <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" prefHeight="60.0" prefWidth="409.0"
-               text="LISTE DES TACHES" textFill="WHITE">
-            <font>
-                <Font name="Arial Bold" size="36.0"/>
-            </font>
-        </Label>
-        <TextField layoutX="416.0" layoutY="46.0" onAction="#searchTacheLabel" prefHeight="30.0" prefWidth="386.0"
-                   promptText="Rechercher..."/>
-        <HBox layoutX="417.0" layoutY="19.0" prefHeight="23.0" prefWidth="394.0">
-            <children>
-                <Button mnemonicParsing="false" onAction="#ajouterButton" prefHeight="23.0" prefWidth="59.0"
-                        text="Ajouter">
-                    <font>
-                        <Font name="Arial Bold" size="12.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#PDFTacheLabel" prefHeight="23.0" prefWidth="56.0" text="PDF">
-                    <font>
-                        <Font name="Arial Bold" size="12.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#ExcelTacheLabel" prefHeight="21.0" prefWidth="58.0"
-                        text="EXCEL">
-                    <font>
-                        <Font name="Arial Bold" size="12.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#MeilleurEmpTLabel" prefHeight="23.0" prefWidth="181.0"
-                        text="STAT MEILLEUR EMP">
-                    <font>
-                        <Font name="Arial Bold" size="12.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </Button>
-            </children>
-        </HBox>
-        <ScrollPane layoutY="97.0" prefHeight="444.0" prefWidth="811.0">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="438.0" prefWidth="806.0">
-                    <children>
-                        <GridPane fx:id="grid" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="18.0">
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0"/>
-                            </rowConstraints>
-                        </GridPane>
-                    </children>
-                </AnchorPane>
-            </content>
-        </ScrollPane>
-    </children>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="851.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherTacheController">
+   <children>
+      <Group layoutX="14.0" layoutY="10.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="425.0" text="Liste Des Taches" textFill="#0a3e5e">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+            <HBox layoutX="446.0" layoutY="2.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#ajouterButton" prefHeight="22.0" prefWidth="66.0" text="Ajouter">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#PDFTacheLabel" prefHeight="21.0" prefWidth="47.0" text="PDF">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#ExcelTacheLabel" prefHeight="21.0" prefWidth="58.0" text="EXCEL">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#MeilleurEmpTLabel" prefHeight="23.0" prefWidth="148.0" text="STAT MEILLEUR EMP">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <TextField layoutX="446.0" layoutY="36.0" onAction="#searchTacheLabel" prefHeight="30.0" prefWidth="362.0" promptText="Rechercher..." />
+         </children>
+      </Group>
+      <ScrollPane layoutY="94.0" prefHeight="464.0" prefWidth="852.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
+               <children>
+                  <GridPane fx:id="grid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
 </AnchorPane>

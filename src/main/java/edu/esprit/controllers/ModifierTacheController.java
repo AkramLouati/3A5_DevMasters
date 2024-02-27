@@ -67,7 +67,7 @@ public class ModifierTacheController {
         fileChooser.setTitle("Choose Attachment File");
 
         // Set initial directory
-        String initialDirectory = "src/main/java/edu/esprit/img";
+        String initialDirectory = "src/main/resources/img";
         fileChooser.setInitialDirectory(new File(initialDirectory));
 
         File selectedFile = fileChooser.showOpenDialog(null);
@@ -233,7 +233,7 @@ public class ModifierTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

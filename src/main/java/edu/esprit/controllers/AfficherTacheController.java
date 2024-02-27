@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -79,12 +81,18 @@ public class AfficherTacheController implements Initializable {
     public void ajouterButton(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
-            AnchorPane ajouterAP = loader.load();
+            Parent root = loader.load();
             AjouterTacheController controller = loader.getController();
 
-            // Retrieve the user data which is the MainGuiController instance
-            MainGuiController mainGuiController = (MainGuiController) stage.getUserData();
-            mainGuiController.setMainAnchorPaneContent(ajouterAP);
+            // Get the stage of the current scene
+            Stage currentStage = (Stage) grid.getScene().getWindow();
+
+            // Set the stage to the controller
+            controller.setStage(currentStage);
+
+            // Create a new scene with the root and set it on the current stage
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load AjouterTache view");

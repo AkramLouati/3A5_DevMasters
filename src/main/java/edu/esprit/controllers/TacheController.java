@@ -61,7 +61,7 @@ public class TacheController {
 
             // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
             try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainGui.fxml")));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
                 TFsujet_reclamationaff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Gérer l'exception si la redirection échoue
