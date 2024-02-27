@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReclamationController">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReclamationDetailController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -163,46 +163,103 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="467.0" fitWidth="476.0" layoutX="357.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                  <VBox layoutX="121.0" layoutY="100.0" prefHeight="368.0" prefWidth="640.0" style="-fx-border-color: #012545; -fx-border-radius: 10;">
+                     <children>
+                        <HBox prefHeight="45.0" prefWidth="467.0">
+                           <children>
+                              <Text fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text=" Type Reclamation:" wrappingWidth="226.4140167236328">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="TFtypeReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="263.7367362976074">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="67.0" prefWidth="467.0">
+                           <children>
+                              <Text fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text=" Date Reclamation:" wrappingWidth="226.4140167236328">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="TFdateReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="255.20335006713867">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="467.0">
+                           <children>
+                              <Text fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text=" Description Reclamation:" wrappingWidth="249.88070678710938">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="TFdescriptionReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="262.67004013061523">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="574.0">
+                           <children>
+                              <Text fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text=" adresse Reclamation:" wrappingWidth="232.8140411376953">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="TFadresseReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse" wrappingWidth="258.403377532959">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="574.0">
+                           <children>
+                              <Text fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text=" Image Reclamation:" wrappingWidth="232.8140411376953">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fx:id="Imagedetail" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button layoutX="13.0" layoutY="534.0" mnemonicParsing="false" onAction="#buttonReturnDetailReclamation" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;" stylesheets="@css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/left-arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <HBox layoutX="23.0" layoutY="14.0" prefHeight="63.0" prefWidth="303.0">
+                     <children>
+                        <Text fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text="Sujet :" wrappingWidth="115.21401977539062">
+                           <font>
+                              <Font name="Arial Bold" size="21.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="TFsujetReclamationDetail" fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="167.73669052124023">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <ImageView fitHeight="75.0" fitWidth="112.0" layoutX="711.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/Baladia.png" />
+                        <Image url="@assets/loupe.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#012545" layoutX="69.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="veuillez choisir le type de votre réclamation :" wrappingWidth="275.73670959472656">
-                     <font>
-                        <Font name="Arial Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <Button layoutX="61.0" layoutY="197.0" mnemonicParsing="false" onAction="#BTNtypeurgent" prefHeight="86.0" prefWidth="254.0" style="-fx-background-radius: 10;" text="Cas urgent" textFill="#012545">
-                     <font>
-                        <Font name="Arial Bold" size="20.0" />
-                     </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <graphic>
-                        <ImageView fitHeight="61.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/alarm.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="61.0" layoutY="356.0" mnemonicParsing="false" onAction="#BTNtypenonurgent" prefHeight="86.0" prefWidth="254.0" style="-fx-background-radius: 10;" text="Cas non urgent" textFill="#012545">
-                     <font>
-                        <Font name="Arial Bold" size="20.0" />
-                     </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <graphic>
-                        <ImageView fitHeight="68.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/claim.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                </children>
             </AnchorPane>
             </center>
