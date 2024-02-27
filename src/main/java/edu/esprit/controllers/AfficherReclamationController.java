@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
@@ -140,6 +141,18 @@ public class AfficherReclamationController implements Initializable {
 
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
+    }
+    @FXML
+    void buttonReturnAfficherReclamation(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+            MainAnchorPaneBaladity.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
 
 }

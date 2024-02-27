@@ -99,9 +99,9 @@ public class ReclamationItemComponentController {
     @FXML
     void modifierReclamationAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReclamation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationEditGui.fxml"));
             Parent root = loader.load();
-            ModifierReclamationController controller = loader.getController();
+            ReclamationEditController controller = loader.getController();
             controller.setServiceReclamation(serviceReclamation);
             controller.setData(reclamation);
             TFsujet_reclamationaff.getScene().setRoot(root);
