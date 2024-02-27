@@ -8,21 +8,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="74.0" prefWidth="705.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReclamationItemComponentController">
+<AnchorPane prefHeight="70.0" prefWidth="781.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReclamationItemComponentGuiController">
    <children>
-      <HBox prefHeight="71.0" prefWidth="725.0">
+      <HBox prefHeight="71.0" prefWidth="805.0">
          <children>
-            <AnchorPane fx:id="AnchoPaneMessage1111" prefHeight="54.0" prefWidth="715.0" style="-fx-background-color: #f2f5ec; -fx-background-radius: 10;">
+            <AnchorPane fx:id="AnchoPaneMessage1111" prefHeight="71.0" prefWidth="807.0" style="-fx-background-color: #E5E4E2; -fx-background-radius: 10;">
                <children>
                   <ImageView fx:id="arrowrightimg" fitHeight="33.0" fitWidth="49.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/right-arrow.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="TFsujet_reclamationaff" layoutX="71.0" layoutY="22.0" prefHeight="27.0" prefWidth="155.0" style="-fx-text-fill: #000000; -fx-font-size: 14; -fx-font-weight: bold;" text="Sujet" />
-                  <Label fx:id="TFdate_reclamationaff" layoutX="235.0" layoutY="22.0" prefHeight="27.0" prefWidth="155.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 14;" text="Date" />
-                  <Label fx:id="TFstatus_reclamationaff" layoutX="372.0" layoutY="22.0" prefHeight="27.0" prefWidth="161.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 14;" text="status" />
-                  <Button layoutX="548.0" layoutY="14.0" mnemonicParsing="false" onAction="#viewDetailReclamationAction" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #f2f5ec; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
+                  <Label fx:id="TFsujet_reclamationaff" layoutX="69.0" layoutY="22.0" prefHeight="27.0" prefWidth="155.0" style="-fx-text-fill: #000000; -fx-font-size: 14; -fx-font-weight: bold;" text="Sujet" />
+                  <Label fx:id="TFdate_reclamationaff" layoutX="263.0" layoutY="22.0" prefHeight="27.0" prefWidth="155.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 14;" text="Date" />
+                  <Label fx:id="TFstatus_reclamationaff" layoutX="462.0" layoutY="21.0" prefHeight="27.0" prefWidth="161.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 14;" text="status" />
+                  <Button layoutX="635.0" layoutY="14.0" mnemonicParsing="false" onAction="#viewDetailReclamationAction" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #E5E4E2; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -34,7 +34,10 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="653.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifierReclamationAction" prefHeight="36.0" prefWidth="0.0" style="-fx-background-color: #f2f5ec; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
+                  <Button layoutX="740.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifierReclamationAction" prefHeight="36.0" prefWidth="0.0" style="-fx-background-color: #E5E4E2; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -42,11 +45,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                  </Button>
+                  <Button layoutX="684.0" layoutY="13.0" mnemonicParsing="false" onAction="#deleteReclamationAction" prefHeight="27.0" prefWidth="26.0" style="-fx-background-color: #E5E4E2; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </Button>
-                  <Button layoutX="597.0" layoutY="13.0" mnemonicParsing="false" onAction="#deleteReclamationAction" prefHeight="27.0" prefWidth="26.0" style="-fx-background-color: #f2f5ec; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -54,9 +57,6 @@
                            </image>
                         </ImageView>
                      </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
                   </Button>
                </children>
             </AnchorPane>

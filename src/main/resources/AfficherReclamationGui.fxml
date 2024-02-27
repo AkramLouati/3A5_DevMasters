@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutReclamation">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherReclamationController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -167,103 +165,37 @@
                 </HBox>
             </top>
             <center>
-                <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
-                    <children>
-                        <Text fill="#012545" layoutX="69.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Reclamation :" wrappingWidth="275.73670959472656">
-                            <font>
-                                <Font name="Arial Bold" size="20.0" />
-                            </font>
-                        </Text>
-                  <TextField fx:id="TFsujet_reclamation" layoutX="69.0" layoutY="108.0" prefHeight="34.0" prefWidth="398.0" stylesheets="@css/styles.css" />
-                  <Text layoutX="69.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sujet de reclamation :">
+                <AnchorPane fx:id="MainAnchorPaneBaladity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="#012545" layoutX="18.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes Réclamations :" wrappingWidth="275.73670959472656">
                      <font>
-                        <Font name="Arial" size="14.0" />
+                        <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="TAdescription_reclamation" layoutX="68.0" layoutY="176.0" prefHeight="217.0" prefWidth="402.0" stylesheets="@css/styles.css" />
-                  <Text layoutX="66.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description :" wrappingWidth="86.13671875">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="TFadresse_reclamation" layoutX="69.0" layoutY="431.0" prefHeight="34.0" prefWidth="399.0" stylesheets="@css/styles.css" />
-                  <Text layoutX="69.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse :">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                  <ComboBox fx:id="typeReclamationComboBox" layoutX="68.0" layoutY="516.0" prefHeight="42.0" prefWidth="401.0" promptText="Sélectionnez le type de réclamation" stylesheets="@css/styles.css">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:id="value1" fx:value="Urgence médicale" />
-                           <String fx:value="Incendie" />
-                           <String fx:value="Fuite de gaz" />
-                           <String fx:value="Inondations" />
-                           <String fx:value="Sécurité publique" />
-                           <String fx:value="Défaillances des infrastructures critiques" />
-                        </FXCollections>
-                     </items>
-                  </ComboBox>
-                  <Text layoutX="69.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="type :" wrappingWidth="56.80316162109375">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="775.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Envoyer :" wrappingWidth="88.53668212890625">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                  <ImageView fx:id="imgView_reclamation" fitHeight="183.0" fitWidth="257.0" layoutX="567.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="label" layoutX="555.0" layoutY="109.0" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #f0f0f0;">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                     <graphic>
-                        <Button fx:id="uploadbutton" mnemonicParsing="false" onAction="#uploadimg" prefHeight="42.0" prefWidth="67.0" style="-fx-background-color: #FFFFFF;">
-                           <graphic>
-                              <ImageView fitHeight="38.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/upload.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </graphic>
-                  </Label>
-                  <Button layoutX="772.0" layoutY="501.0" mnemonicParsing="false" onAction="#ajouterReclamationAction" prefHeight="72.0" prefWidth="85.0" style="-fx-background-color: #FFFFFF;" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="76.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/share.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Button>
-                  <Text layoutX="669.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancel :" wrappingWidth="88.53668212890625">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                  <Button layoutX="669.0" layoutY="507.0" mnemonicParsing="false" onAction="#cancelReclamationAction" prefHeight="58.0" prefWidth="77.0" style="-fx-background-color: #FFFFFF;">
-                     <graphic>
-                        <ImageView fitHeight="65.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/cancel.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Text layoutX="567.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image :" wrappingWidth="56.80316162109375">
-                     <font>
-                        <Font name="Arial" size="14.0" />
-                     </font>
-                  </Text>
-                    </children>
-                </AnchorPane>
+                  <VBox layoutX="19.0" layoutY="48.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <HBox prefHeight="34.0" prefWidth="769.0" style="-fx-background-color: #D3D3D3;">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="102.0" />
+                              <Label fx:id="receiverNameLabel211111" prefHeight="27.0" prefWidth="182.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Sujet" />
+                              <Label fx:id="receiverNameLabel2111111" prefHeight="27.0" prefWidth="204.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Date" />
+                              <Label fx:id="receiverNameLabel2111112" prefHeight="27.0" prefWidth="180.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="status" />
+                              <Label fx:id="receiverNameLabel21111131" prefHeight="27.0" prefWidth="157.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Actions" />
+                           </children>
+                        </HBox>
+                        <ScrollPane fx:id="scroll" prefHeight="508.0" prefWidth="833.0" styleClass="transparent">
+                           <content>
+                              <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
             </center>
             <effect>
                 <DropShadow />

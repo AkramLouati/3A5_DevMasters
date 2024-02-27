@@ -1,5 +1,4 @@
 package edu.esprit.controllers;
-
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
@@ -7,19 +6,26 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class ReclamationController {
-    @FXML
-    private Text TFdate_reclamationaff;
+
+public class ReclamationItemComponentGuiController {
 
     @FXML
-    private Text TFsujet_reclamationaff;
+    private Label TFdate_reclamationaff;
 
     @FXML
-    private Text TFstatus_reclamationaff;
+    private Label TFstatus_reclamationaff;
+
+    @FXML
+    private Label TFsujet_reclamationaff;
+
+    @FXML
+    private ImageView arrowrightimg;
 
     private Reclamation reclamation;
     ServiceReclamation serviceReclamation = new ServiceReclamation();
@@ -59,7 +65,7 @@ public class ReclamationController {
 
             // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamation.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
                 TFsujet_reclamationaff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Gérer l'exception si la redirection échoue
@@ -92,6 +98,4 @@ public class ReclamationController {
             alert.show();
         }
     }
-
-
 }
