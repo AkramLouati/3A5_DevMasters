@@ -4,6 +4,7 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,8 +15,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +59,16 @@ public class AjoutReclamation implements Initializable {
     EndUser user = new EndUser(13,muni);
     private String imagePath;
     private boolean type_reclamation;
+
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+
+    @FXML
+    private VBox MainLeftSidebar;
+
+    @FXML
+    private BorderPane SecondBorderPane;
+    private boolean isSidebarVisible = true;
 
     public boolean getType_reclamation() {
         return type_reclamation;
@@ -117,9 +132,9 @@ public class AjoutReclamation implements Initializable {
         });
     }
     @FXML
-    void navigatetoAfficherReclamationAction(ActionEvent event) {
+    void cancelReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamation.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
             TFsujet_reclamation.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -134,4 +149,67 @@ public class AjoutReclamation implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    @FXML
+    void BTNGestionAct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionEquipement(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionEvennement(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionRec(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionTache(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionUser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNToggleSidebar(ActionEvent event) {
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
+
+        double sidebarWidth = MainLeftSidebar.getWidth();
+
+        if (isSidebarVisible) {
+            // Hide sidebar
+            sideBarTransition.setByX(-sidebarWidth);
+            isSidebarVisible = false;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+            // Translate SecondBorderPane to the left to take the extra space
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(400), SecondBorderPane);
+            borderPaneTransition.setByX(-sidebarWidth);
+            borderPaneTransition.play();
+        } else {
+            // Show sidebar
+            sideBarTransition.setByX(sidebarWidth);
+            isSidebarVisible = true;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
+            // Reset the translation of SecondBorderPane to 0
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(sidebarWidth);
+            borderPaneTransition.play();
+        }
+
+        sideBarTransition.play();
+    }
+
+
 }
