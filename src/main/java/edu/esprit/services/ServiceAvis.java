@@ -22,10 +22,10 @@ public class ServiceAvis implements IService<Avis> {
 
     @Override
     public void ajouter(Avis avis) {
-        String req = "INSERT INTO avis (id_eq, id_user, id_muni, note_avis, commentaire_avis, date_avis) VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO avis (id_equipement, id_user, id_muni, note_avis, commentaire_avis, date_avis) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, avis.getEquipement().getId_eq());
+            ps.setInt(1, avis.getEquipement().getId_equipement());
             ps.setInt(2, avis.getUser().getId());
             ps.setInt(3, avis.getMuni().getId());
             ps.setInt(4, avis.getNote_avis());
@@ -45,7 +45,7 @@ public class ServiceAvis implements IService<Avis> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, avis.getUser().getId());
             ps.setInt(2, avis.getMuni().getId());
-            ps.setInt(3, avis.getEquipement().getId_eq());
+            ps.setInt(3, avis.getEquipement().getId_equipement());
             ps.setInt(4, avis.getNote_avis());
             ps.setString(5, avis.getCommentaire_avis());
             ps.setDate(6, new java.sql.Date(avis.getDate_avis().getTime()));

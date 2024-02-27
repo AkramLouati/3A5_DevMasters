@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+/*package edu.esprit.controllers;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -105,4 +105,5 @@ public class MainGuiController {
     }
 
 }
-}
+
+*/

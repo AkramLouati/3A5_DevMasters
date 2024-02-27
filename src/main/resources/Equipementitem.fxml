@@ -1,18 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="287.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EquipementItemController">
+
+<AnchorPane prefHeight="214.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EquipementItemController">
    <children>
-      <Text layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom equipement :" wrappingWidth="90.80337905883789" />
-      <Text fx:id="TFnomeuipement" layoutX="91.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.47002410888672" />
-      <Text layoutX="14.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reference :" wrappingWidth="90.80337905883795" />
-      <Text fx:id="TFreference_equipement" layoutX="78.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="90.80337905883795" />
-      <Text layoutX="14.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quantite :" wrappingWidth="72.80337905883789" />
-      <Text fx:id="TFquantite_equipement" layoutX="68.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="72.80337905883795" />
-      <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image :" wrappingWidth="72.80337905883789" />
-      <ImageView fx:id="imgView_reclamation" fitHeight="150.0" fitWidth="200.0" layoutX="59.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="2.0" layoutY="-3.0" prefHeight="226.0" prefWidth="794.0">
+         <children>
+            <HBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <BorderPane>
+                     <right>
+                        <ImageView fx:id="imageViewaffiche" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </BorderPane.margin>
+                        </ImageView>
+                     </right>
+                  </BorderPane>
+                  <VBox spacing="10.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Text fx:id="referenceeq" text="Reference" wrappingWidth="190">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="nomeq" text="Nom" wrappingWidth="190">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="categorieeq" text="Categorie" wrappingWidth="190">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Text fx:id="quantiteeq" text="Quantité" wrappingWidth="190">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="dateajouteq" text="Date d'ajout" wrappingWidth="190">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="descriptioneq" text="Description" wrappingWidth="190">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#modifierEquipementAction" styleClass="light-button" text="Modifier">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="deleteButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#supprimerEquipementAction" styleClass="light-button" text="Supprimer">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

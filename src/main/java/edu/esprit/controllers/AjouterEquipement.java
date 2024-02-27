@@ -4,17 +4,13 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceEquipement;
-import edu.esprit.services.ServiceUser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
-
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -22,51 +18,77 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
-
+import java.util.ResourceBundle;
 
 public class AjouterEquipement {
     @FXML
-    private Button ajouteq;
+    private Button ajoutequipementbtn;
+    @FXML
+    private Button navigateequipementbtn;
+    @FXML
+    private RadioButton categoriefixe;
 
     @FXML
-    private TextField desc;
+    private RadioButton categoriemobile;
 
     @FXML
-    private TextField etateq;
+    private DatePicker dateajout;
 
     @FXML
-    private ImageView img;
+    private TextArea descriptionTF;
 
     @FXML
-    private TextField nomeq;
+    private Label imageequipement;
 
     @FXML
-    private TextField quantiteq;
+    private ImageView imagevieweq;
 
     @FXML
-    private TextField refeq;
+    private TextField nomTF;
 
     @FXML
-    private TextField typeeq;
+    private ComboBox<Integer> quantiteCB;
 
     @FXML
-    private Button uploadimg;
+    private TextField referenceTF;
+
     @FXML
-    private Label imgurl;
+    private Button telechargerimage;
+    @FXML
+
     private final ServiceEquipement se = new ServiceEquipement();
     Muni muni = new Muni(1);
     EndUser user = new EndUser(1,muni);
     private String imagePath;
     private Label label;
+    @FXML
+    void selectQuantite(ActionEvent event) {
+        Integer selectedQuantity = (Integer) quantiteCB.getSelectionModel().getSelectedItem();
+    }
+    @FXML
+    public void initialize() {
+        ObservableList<Integer> list = FXCollections.observableArrayList();
+        for (int i = 0; i <= 20; i++) {
+            list.add(i);
+        }
+        quantiteCB.setItems(list);
+    }
 
     @FXML
     void ajouterEquipementAction(ActionEvent event) {
         // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-        se.ajouter(new Equipement(refeq.getText(), nomeq.getText(), imagePath, typeeq.getText(), Integer.parseInt(quantiteq.getText()), etateq.getText(),desc.getText(),user,muni));
+        Date dateAjout = Date.valueOf(dateajout.getValue()); // Convertissez la valeur du DatePicker en objet Date
+        int quantite = Integer.parseInt(quantiteCB.getValue().toString()); // Assurez-vous que la ComboBox est correctement initialisée avec des valeurs
+        Equipement equipement = new Equipement(referenceTF.getText(), nomTF.getText(), categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, muni);
+
+        se.ajouter(equipement); // Ajoutez l'équipement en utilisant votre service
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Equipement a été ajoutée");
-        alert.setContentText("GG");
+        alert.setTitle("Equipement ajouté");
+        alert.setContentText("L'équipement a été ajouté avec succès !");
         alert.show();
 
     }
@@ -75,7 +97,7 @@ public class AjouterEquipement {
     void navigatetoAfficherEquipementAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipement.fxml"));
-            refeq.getScene().setRoot(root);
+            referenceTF.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
@@ -86,16 +108,16 @@ public class AjouterEquipement {
     }
 
     @FXML
-    void uploadImageAction(ActionEvent event) {
-        uploadimg.setOnAction(actionEvent -> {
+    void telechargerImageEquipemnt(ActionEvent event) {
+        telechargerimage.setOnAction(actionEvent -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"), new FileChooser.ExtensionFilter("PNG Image", "*.png"), new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png"));
-            Stage stage = (Stage) uploadimg.getScene().getWindow();
+            Stage stage = (Stage) telechargerimage.getScene().getWindow();
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 // Affiche le nom du fichier sélectionné
-                imgurl.setText(selectedFile.getName());
+                imageequipement.setText(selectedFile.getName());
 
                 // Récupère le chemin absolu du fichier
                 String absolutePath = selectedFile.getAbsolutePath();
@@ -109,10 +131,9 @@ public class AjouterEquipement {
                 Image image = new Image(fileUrl);
 
                 // Affiche l'image dans l'ImageView
-                img.setImage(image);
+                imagevieweq.setImage(image);
             }
         });
     }
-
 }
 

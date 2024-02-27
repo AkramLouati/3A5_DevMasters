@@ -1,18 +1,13 @@
 package edu.esprit.services;
 
+
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Muni;
+import edu.esprit.entities.EndUser;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,19 +17,17 @@ public class ServiceEquipement implements IService<Equipement> {
     ServiceUser serviceUser = new ServiceUser();
     ServiceMuni serviceMuni = new ServiceMuni();
 
-
-
     @Override
     public void ajouter(Equipement equipement) {
-        String req = "INSERT INTO equipement (ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, id_user,id_muni) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO equipement (reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, id_user,id_muni) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, equipement.getRef_eq());
+            ps.setString(1, equipement.getReference_eq());
             ps.setString(2, equipement.getNom_eq());
-            ps.setString(3, equipement.getImage_eq());
-            ps.setString(4, equipement.getTypeMateriel_eq());
+            ps.setString(3, equipement.getCategorie_eq());
+            ps.setString(4, String.valueOf(equipement.getDate_ajouteq()));
             ps.setInt(5, equipement.getQuantite_eq());
-            ps.setString(6, equipement.getEtat_eq());
+            ps.setString(6, equipement.getImage_eq());
             ps.setString(7, equipement.getDescription_eq());
             ps.setInt(8, equipement.getUser().getId());
             ps.setInt(9, equipement.getMuni().getId());
@@ -48,18 +41,18 @@ public class ServiceEquipement implements IService<Equipement> {
 
     @Override
     public void modifier(Equipement equipement) {
-        String req = "UPDATE equipement SET ref_eq=?, nom_eq=?, typeMateriel_eq=?, quantite_eq=?, etat_eq=?, description_eq=?, id_user=?, id_muni=? WHERE id_eq=?";
+        String req = "UPDATE equipement SET `reference_eq`=?, `nom_eq`=?, `categorie_eq`=?, `date_ajouteq`=?, `quantite_eq`=?, `image_eq`=?, `description_eq`=?, `id_user`=?, `id_muni`=? WHERE `id_equipement`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, equipement.getRef_eq());
+            ps.setString(1, equipement.getReference_eq());
             ps.setString(2, equipement.getNom_eq());
-            ps.setString(3, equipement.getTypeMateriel_eq());
-            ps.setInt(4, equipement.getQuantite_eq());
-            ps.setString(5, equipement.getEtat_eq());
-            ps.setString(6, equipement.getDescription_eq());
-            ps.setInt(7, equipement.getUser().getId());
-            ps.setInt(8, equipement.getMuni().getId());
-            ps.setInt(9, equipement.getId_eq());
+            ps.setString(3, equipement.getCategorie_eq());
+            ps.setString(4, String.valueOf(equipement.getDate_ajouteq()));
+            ps.setInt(5, equipement.getQuantite_eq());
+            ps.setString(6, equipement.getImage_eq());
+            ps.setString(7, equipement.getDescription_eq());
+            ps.setInt(8, equipement.getUser().getId());
+            ps.setInt(9, equipement.getMuni().getId());
             ps.executeUpdate();
             System.out.println("Equipement modifié avec succès !");
         } catch (SQLException e) {
@@ -70,7 +63,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
     @Override
     public void supprimer(int id) {
-        String req = "DELETE FROM equipement WHERE id_eq=?";
+        String req = "DELETE FROM equipement WHERE id_equipement=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
@@ -91,13 +84,13 @@ public class ServiceEquipement implements IService<Equipement> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                int id_eq = rs.getInt("id_eq");
-                String ref_eq = rs.getString("ref_eq");
+                int id_equipement = rs.getInt("id_equipement");
+                String reference_eq = rs.getString("reference_eq");
                 String nom_eq = rs.getString("nom_eq");
-                String image_eq = rs.getString("image_eq");
-                String typeMateriel_eq = rs.getString("typeMateriel_eq");
+                String categorie_eq = rs.getString("categorie_eq");
+                Date date_ajouteq = rs.getDate("date_ajouteq");
                 int quantite_eq = rs.getInt("quantite_eq");
-                String etat_eq = rs.getString("etat_eq");
+                String image_eq = rs.getString("image_eq");
                 String description_eq = rs.getString("description_eq");
                 int id_user = rs.getInt("id_user");
                 int id_muni = rs.getInt("id_muni");
@@ -108,7 +101,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
 
                 // Création de l'équipement et ajout à la liste
-                Equipement equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user,muni);
+                Equipement equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user,muni);
                 equipements.add(equipement);
             }
         } catch (SQLException e) {
@@ -121,19 +114,19 @@ public class ServiceEquipement implements IService<Equipement> {
     @Override
     public Equipement getOneByID(int id) {
         Equipement equipement = null;
-        String req = "SELECT * FROM equipement WHERE id_eq=?";
+        String req = "SELECT * FROM equipement WHERE id_equipement=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int id_eq = rs.getInt("id_eq");
-                String ref_eq = rs.getString("ref_eq");
+                int id_equipement = rs.getInt("id_equipement");
+                String reference_eq = rs.getString("reference_eq");
                 String nom_eq = rs.getString("nom_eq");
-                String image_eq = rs.getString("image_eq");
-                String typeMateriel_eq = rs.getString("typeMateriel_eq");
+                String categorie_eq = rs.getString("categorie_eq");
+                Date date_ajouteq = rs.getDate("date_ajouteq");
                 int quantite_eq = rs.getInt("quantite_eq");
-                String etat_eq = rs.getString("etat_eq");
+                String image_eq = rs.getString("image_eq");
                 String description_eq = rs.getString("description_eq");
                 int id_user = rs.getInt("id_user");
                 int id_muni = rs.getInt("id_muni");
@@ -144,7 +137,7 @@ public class ServiceEquipement implements IService<Equipement> {
                 Muni muni = serviceMuni.getOneByID(id_muni);
 
                 // Création de l'équipement
-                equipement = new Equipement(id_eq, ref_eq, nom_eq, image_eq, typeMateriel_eq, quantite_eq, etat_eq, description_eq, user,muni);
+                equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user,muni);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'équipement : " + e.getMessage());

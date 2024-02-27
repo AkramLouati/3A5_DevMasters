@@ -2,7 +2,9 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -13,24 +15,52 @@ import java.net.URL;
 
 public class EquipementItemController {
     @FXML
-    private Text TFnomeuipement;
+    private Text categorieeq;
 
     @FXML
-    private Text TFquantite_equipement;
+    private Text dateajouteq;
 
     @FXML
-    private Text TFreference_equipement;
+    private Button deleteButton;
 
     @FXML
-    private ImageView imgView_reclamation;
+    private Text descriptioneq;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
+    private ImageView imageViewaffiche;
+
+    @FXML
+    private Text nomeq;
+
+    @FXML
+    private Text quantiteeq;
+
+    @FXML
+    private Text referenceeq;
+
+    @FXML
+    void modifierEquipementAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void supprimerEquipementAction(ActionEvent event) {
+
+    }
     private Equipement equipement;
     ServiceEquipement serviceEquipement = new ServiceEquipement();
 
-    public void setData(Equipement equipement){
+    public void setData(Equipement equipement) {
         this.equipement = equipement;
-        TFnomeuipement.setText(equipement.getNom_eq());
-        TFreference_equipement.setText(equipement.getRef_eq());
-        TFquantite_equipement.setText(String.valueOf(equipement.getQuantite_eq()));
+        nomeq.setText(equipement.getNom_eq());
+        referenceeq.setText(equipement.getReference_eq());
+        quantiteeq.setText(String.valueOf(equipement.getQuantite_eq()));
+        categorieeq.setText(equipement.getCategorie_eq());
+        descriptioneq.setText(equipement.getDescription_eq());
+        dateajouteq.setText(String.valueOf(equipement.getDate_ajouteq()));
         String imageUrl = equipement.getImage_eq();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
@@ -41,12 +71,11 @@ public class EquipementItemController {
                 // Créer une instance d'Image à partir de l'URL de fichier
                 Image image = new Image(fileUrl);
                 // Définir l'image dans l'ImageView
-                imgView_reclamation.setImage(image);
+                imageViewaffiche.setImage(image);
             } catch (MalformedURLException e) {
                 // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
                 e.printStackTrace();
             }
         }
-
     }
 }
