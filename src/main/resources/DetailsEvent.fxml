@@ -29,22 +29,17 @@
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Text>
-        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="271.0" layoutX="227.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="323.0" layoutX="188.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="backButton" layoutX="246.0" layoutY="322.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="31.0" prefWidth="108.0" stylesheets="@style.css" text="Retourner" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Button>
-      <Text layoutX="217.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Evenement" wrappingWidth="165.1004638671875">
+      <Text layoutX="207.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Evenement" wrappingWidth="165.1004638671875">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Text>
-      <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="479.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/info.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="69.0" layoutX="498.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="477.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/LOGO.png" />
          </image>

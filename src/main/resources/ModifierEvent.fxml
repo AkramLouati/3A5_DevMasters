@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="375.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierEvent">
+<AnchorPane prefHeight="375.0" prefWidth="591.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierEvent">
     <children>
         <TextField fx:id="TFcapaciteM" layoutX="166.0" layoutY="186.0" promptText="Capacite Maximale" />
         <TextField fx:id="TFnomM" layoutX="166.0" layoutY="57.0" promptText="Nom Event" />
@@ -18,21 +18,21 @@
         <TextField fx:id="TFcategorieM" layoutX="166.0" layoutY="234.0" promptText="Categorie" />
         <Label layoutX="36.0" layoutY="61.0" prefHeight="19.0" prefWidth="45.0" text="Nom ">
          <font>
-            <Font name="Arial Bold" size="15.0" />
+            <Font name="Arial Bold" size="16.0" />
          </font></Label>
-        <Label layoutX="36.0" layoutY="103.0" text="Date Debut">
+        <Label layoutX="36.0" layoutY="103.0" text="Date Debut" textFill="#1e1c1c">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Label>
-        <Label layoutX="34.0" layoutY="149.0" prefHeight="19.0" prefWidth="69.0" text="Date Fin">
+        <Label layoutX="34.0" layoutY="149.0" prefHeight="19.0" prefWidth="69.0" text="Date Fin" textFill="#0d0c0c">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Label>
-        <Label layoutX="28.0" layoutY="191.0" text="Capacite Max">
+        <Label layoutX="28.0" layoutY="191.0" text="Capacite Max" textFill="#131111">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Label>
-        <Label layoutX="35.0" layoutY="237.0" text="Categorie">
+        <Label layoutX="35.0" layoutY="237.0" text="Categorie" textFill="#232021">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -44,12 +44,12 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Button>
-        <ImageView fx:id="imageM" fitHeight="156.0" fitWidth="243.0" layoutX="345.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
-        <Button layoutX="431.0" layoutY="224.0" mnemonicParsing="false" onAction="#browseMOnClick" stylesheets="@style.css" text="Browse" textFill="WHITE">
+        <ImageView fx:id="imageM" fitHeight="180.0" fitWidth="243.0" layoutX="345.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+        <Button layoutX="431.0" layoutY="248.0" mnemonicParsing="false" onAction="#browseMOnClick" stylesheets="@style.css" text="Browse" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font></Button>
-      <Text layoutX="186.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Evenement">
+      <Text layoutX="166.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Evenement">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -59,14 +59,14 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <ImageView fitHeight="89.0" fitWidth="96.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="89.0" fitWidth="126.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/modifier.png" />
+            <Image url="@assets/LOGO.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="89.0" fitWidth="96.0" layoutX="496.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/modifier.png" />
+            <Image url="@assets/LOGO.png" />
          </image>
       </ImageView>
     </children>

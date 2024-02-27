@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
    <children>
       <TextField fx:id="TFcapacite" layoutX="180.0" layoutY="211.0" promptText="Capacite Maximale" />
       <TextField fx:id="TFnom" layoutX="180.0" layoutY="73.0" promptText="Nom Event" />
@@ -60,15 +60,10 @@
       </Text>
       <ImageView fitHeight="77.0" fitWidth="81.0" layoutX="26.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/addEvent.png" />
+            <Image url="@assets/LOGO.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="77.0" fitWidth="81.0" layoutX="496.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/addEvent.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="57.0" fitWidth="108.0" layoutX="4.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="496.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/LOGO.png" />
          </image>
