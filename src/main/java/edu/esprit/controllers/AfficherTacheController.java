@@ -25,6 +25,7 @@ import java.util.Set;
 public class AfficherTacheController implements Initializable {
 
     EndUser user = new EndUser(12);
+
     @FXML
     private GridPane grid;
     @FXML
