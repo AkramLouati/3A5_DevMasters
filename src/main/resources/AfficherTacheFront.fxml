@@ -84,7 +84,7 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Text>
-      <TextField layoutX="515.0" layoutY="35.0" onAction="#searchTacheLabel" prefHeight="34.0" prefWidth="283.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
+      <TextField fx:id="searchTacheLabel" layoutX="515.0" layoutY="35.0" onAction="#searchTacheLabel" prefHeight="34.0" prefWidth="283.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
       <HBox alignment="CENTER" layoutY="102.0" prefHeight="38.0" prefWidth="851.0">
          <children>
             <TextField fx:id="todoCount" editable="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 8;" text="TO DO : ">
