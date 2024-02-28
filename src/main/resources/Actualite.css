@@ -1,0 +1,97 @@
+.validation-label {
+    -fx-text-fill: red;
+}
+/* Apply this style to your TextField or TextArea */
+.text-input {
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+    -fx-text-fill: black;
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Apply this style to your TextArea if needed */
+.text-area {
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+    -fx-text-fill: black;
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Apply this style to your Button */
+.button-styled {
+    -fx-background-color: #00cc00; /* Green background color */
+    -fx-background-radius: 10; /* Set the background radius */
+    -fx-text-fill: #FFFFFF; /* White text color */
+    -fx-font-weight: bold; /* Set the font weight to bold */
+}
+.combo-box {
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+    -fx-text-fill: black;
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #f0f0f0;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+.text {
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-text-fill: black; /* Couleur du texte */
+    -fx-font-family: "Arial"; /* Famille de police */
+    -fx-font-weight: normal; /* Poids de la police */
+    -fx-font-style: normal; /* Style de la police */
+}
+
+.bold-text {
+    -fx-font-weight: bold; /* Texte en gras */
+}
+
+.italic-text {
+    -fx-font-style: italic; /* Texte en italique */
+}
+
+.warning-text {
+    -fx-text-fill: red; /* Texte en rouge pour les avertissements */
+}
+
+.success-text {
+    -fx-text-fill: green; /* Texte en vert pour les succès */
+}
+/* Actualite.css */
+
+.root {
+    -fx-border-color: #000000;
+    -fx-border-width: 10; /* Set the border width to 2 pixels */
+}
+
+/* Apply this style to your Label */
+
+

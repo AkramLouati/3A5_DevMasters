@@ -202,6 +202,44 @@ public class ServicePublicite implements IService<Publicite> {
 
     }
 
+    private Set<Publicite> getPublicites() {
+        return null;
+    }
+    public Set<Publicite> getByActualiteId(int actualiteId) {
+        Set<Publicite> publicites = new HashSet<>();
+
+        String req = "SELECT * FROM `publicite` WHERE `id_a`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, actualiteId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id_pub = rs.getInt("id_pub");
+                String titre_pub = rs.getString("titre_pub");
+                String description_pub = rs.getString("description_pub");
+                int contact_pub = rs.getInt("contact_pub");
+                String localisation_pub = rs.getString("localisation_pub");
+                String image_pub = rs.getString("image_pub");
+                String offre_pub = rs.getString("offre_pub");
+                int id_user = rs.getInt("id_user");
+                int id_a = rs.getInt("id_a");
+
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
+
+                ServiceActualite serviceActualite = new ServiceActualite();
+                Actualite actualite = serviceActualite.getOneByID(id_a);
+
+                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub, image_pub, offre_pub, endUser, actualite);
+                publicites.add(pub);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return publicites;
+    }
+
 
     private boolean publiciteExists(int id_pub) {
         String req = "SELECT COUNT(*) FROM `publicite` WHERE `id_pub`=?";

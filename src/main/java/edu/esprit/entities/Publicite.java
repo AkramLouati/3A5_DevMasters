@@ -15,7 +15,7 @@ public class Publicite {
     Actualite actualite;
 
 
-    public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, Object offre_pub, EndUser user, Actualite muni) {
+    public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, Object offre_pub, EndUser user, Actualite actualite) {
     }
 
     ;
@@ -141,4 +141,7 @@ public class Publicite {
     public int hashCode() {
         return Objects.hash(id_pub);
     }
+
+
+
 }

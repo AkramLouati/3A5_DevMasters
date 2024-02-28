@@ -1,5 +1,6 @@
 package edu.esprit.entities;
 
+    import javax.xml.stream.events.EndDocument;
     import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
@@ -10,35 +11,35 @@ public class Actualite {
     String Description_a;
     Date date_a;
     String image_a ;
-   Muni muni ;
+  EndUser user ;
 
 
-    public Actualite(String titre_a, String description_a, Date date_a, String image_a, Muni muni) {
+    public Actualite(String titre_a, String description_a, Date date_a, String image_a, EndUser user) {
         this.titre_a = titre_a;
         Description_a = description_a;
         this.date_a = date_a;
         this.image_a = image_a;
-        this.muni = muni;
+        this.user= user;
     }
 
-    public Actualite(int id_a, Muni muni) {
+    public Actualite(int id_a, EndUser user) {
         this.id_a = id_a;
-        this.muni = muni;
+        this.user = user;
     }
 
-    public Actualite(String titre_a, String description_a, Muni muni) {
+    public Actualite(String titre_a, String description_a, EndUser user) {
         this.titre_a = titre_a;
         Description_a = description_a;
-        this.muni = muni;
+        this.user = user;
     }
 
-    public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, Muni muni) {
+    public Actualite(int id_a, String titre_a, String description_a, Date date_a, String image_a, EndUser user) {
         this.id_a = id_a;
         this.titre_a = titre_a;
         Description_a = description_a;
         this.date_a = date_a;
         this.image_a = image_a;
-        this.muni = muni;
+        this.user = user;
     }
 
     public int getId_a() {
@@ -82,14 +83,13 @@ public class Actualite {
         this.date_a = date_a;
     }
 
-    public Muni getMuni() {
-        return muni;
+    public EndUser getUser() {
+        return user;
     }
 
-    public void setMuni(Muni muni) {
-        this.muni = muni;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -111,10 +111,8 @@ public class Actualite {
                 ", Description_a='" + Description_a + '\'' +
                 ", date_a=" + date_a +
                 ", image_a='" + image_a + '\'' +
-                ", muni=" + muni +
+                ", user=" + user +
                 '}';
-
     }
-
 }
 

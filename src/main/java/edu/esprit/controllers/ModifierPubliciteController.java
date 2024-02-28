@@ -1,6 +1,8 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Actualite;
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
@@ -50,15 +52,18 @@ public class ModifierPubliciteController {
     private ServicePublicite servicePublicite;
     private Publicite publicite;
     private String imagePath;
+    Muni muni = new Muni(1);
+    EndUser user = new EndUser(12,muni);
+    Actualite actualite = new Actualite(68,user);
 
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
         if (publicite != null && servicePublicite != null) {
             // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
-            publicite.setTitre_pub(TFtitrepubModif.getText());
-            publicite.setDescription_pub(TFdescriptionpubModif.getText());
-            publicite.setTitre_pub(TFtitrepubModif.getText());
-            publicite.setDescription_pub(TFdescriptionpubModif.getText());
+                publicite.setTitre_pub(TFtitrepubModif.getText());
+                publicite.setDescription_pub(TFdescriptionpubModif.getText());
+                publicite.setTitre_pub(TFtitrepubModif.getText());
+                publicite.setDescription_pub(TFdescriptionpubModif.getText());
 
 // Assuming offrePubComboModif is a ComboBox<String>
             publicite.setOffre_pub(offrePubComboModif.getValue());

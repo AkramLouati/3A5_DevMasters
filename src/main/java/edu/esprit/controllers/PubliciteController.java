@@ -110,6 +110,7 @@ public class PubliciteController {
     }
 
 
-
+    public void ValiderPubliciteAction(ActionEvent actionEvent) {
+    }
 }
 

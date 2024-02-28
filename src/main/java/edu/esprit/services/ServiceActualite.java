@@ -19,14 +19,14 @@ public class ServiceActualite implements IService<Actualite>{
     public void ajouter(Actualite actualite) {
         // Basic input validation to ensure all required fields are filled
         if (isValidActualite(actualite)) {
-            String req = "INSERT INTO `actualite`(`titre_a`, `description_a`, `date_a`, `image_a`, `id_muni`) VALUES (?,?,?,?,?)";
+            String req = "INSERT INTO `actualite`(`titre_a`, `description_a`, `date_a`, `image_a`, `id_user`) VALUES (?,?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setString(1, actualite.getTitre_a());
                 ps.setString(2, actualite.getDescription_a());
                 ps.setDate(3, actualite.getDate_a());
                 ps.setString(4, actualite.getImage_a());
-                ps.setInt(5, actualite.getMuni().getId());
+                ps.setInt(5, actualite.getUser().getId());
                 ps.executeUpdate();
                 System.out.println("Actualite added!");
             } catch (SQLException e) {
@@ -44,7 +44,7 @@ public class ServiceActualite implements IService<Actualite>{
                 actualite.getDescription_a() != null && !actualite.getDescription_a().isEmpty() &&
                 actualite.getDate_a() != null && // You may want to adjust this based on your requirements
                 actualite.getImage_a() != null && !actualite.getImage_a().isEmpty() &&
-                actualite.getMuni().getId() > 0; // You may want to adjust this based on your requirements
+                actualite.getUser().getId() > 0; // You may want to adjust this based on your requirements
     }
 
 
@@ -54,14 +54,14 @@ public class ServiceActualite implements IService<Actualite>{
         if (actualiteExists(actualite.getId_a())) {
             // Check if the new id_a value exists in the actualite table
             if (actualiteExists(actualite.getId_a())) {
-                String req = "UPDATE `actualite` SET `titre_a`=?, `description_a`=?, `date_a`=?, `image_a`=? , `id_muni`=? WHERE `id_a`=?";
+                String req = "UPDATE `actualite` SET `titre_a`=?, `description_a`=?, `date_a`=?, `image_a`=? , `id_user`=? WHERE `id_a`=?";
                 try {
                     PreparedStatement ps = cnx.prepareStatement(req);
                     ps.setString(1, actualite.getTitre_a());
                     ps.setString(2, actualite.getDescription_a());
                     ps.setDate(3, new java.sql.Date(actualite.getDate_a().getTime())); // Use new Date object
                     ps.setString(4, actualite.getImage_a());
-                    ps.setInt(5, actualite.getMuni().getId());
+                    ps.setInt(5, actualite.getUser().getId());
                     ps.setInt(6, actualite.getId_a());
                     ps.executeUpdate();
                     System.out.println("Actualite with ID " + actualite.getId_a() + " modified!");
@@ -113,16 +113,13 @@ public class ServiceActualite implements IService<Actualite>{
 
                 Date date_a = rs.getDate("date_a");
                 String image_a = rs.getString("image_a");
-                int id_muni = rs.getInt("id_muni");
+                int id_user = rs.getInt("id_user");
 
 
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
 
-                ServiceMuni serviceMuni = new ServiceMuni();
-
-                // Call the non-static method using the instance
-                Muni muni = serviceMuni.getOneByID(id_muni);
-
-                Actualite act = new Actualite(id_a, titre_a, description_a, date_a, image_a, muni);
+                Actualite act = new Actualite(id_a, titre_a, description_a, date_a, image_a, endUser);
                 actualites.add(act);
 
             }
@@ -148,15 +145,12 @@ public class ServiceActualite implements IService<Actualite>{
 
                 Date date_a = rs.getDate("date_a");
                 String image_a = rs.getString("image_a");
-                int id_muni = rs.getInt("id_muni");
+                int id_user = rs.getInt("id_user");
 
-                ServiceMuni serviceMuni = new ServiceMuni();
+                ServiceUser serviceUser = new ServiceUser();
+                EndUser endUser = serviceUser.getOneByID(id_user);
 
-                // Call the non-static method using the instance
-                Muni muni = serviceMuni.getOneByID(id_muni);
-
-
-                return new Actualite(id_a, titre_a, description_a, date_a,image_a,muni);
+                Actualite act = new Actualite(id_a, titre_a, description_a, date_a, image_a, endUser);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

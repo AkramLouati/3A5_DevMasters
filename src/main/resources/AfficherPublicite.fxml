@@ -27,9 +27,9 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="scrollPub" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" HBox.hgrow="ALWAYS">
+                        <ScrollPane fx:id="scrollPub" prefHeight="570.0" prefWidth="1255.0" styleClass="transparent" HBox.hgrow="ALWAYS">
                            <content>
-                              <GridPane fx:id="gridPub" prefHeight="0.0" prefWidth="0.0">
+                              <GridPane fx:id="gridPub" prefHeight="476.0" prefWidth="899.0">
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" />
                                  </rowConstraints>

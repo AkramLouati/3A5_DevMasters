@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -30,6 +31,7 @@ public class AfficherPubliciteController implements Initializable {
     List<Publicite> publiciteList = new ArrayList<>(publiciteSet);
     private int actualiteId; // New variable to store the id_a
 
+
     public void setActualiteId(int actualiteId) {
         this.actualiteId = actualiteId;
     }
@@ -41,7 +43,7 @@ public class AfficherPubliciteController implements Initializable {
             for (int i = 0; i < publiciteList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/PubliciteItem.fxml"));
-                HBox hbox = fxmlLoader.load(); // Change this line
+                AnchorPane anchorPane = fxmlLoader.load();
 
                 PubliciteController itemController = fxmlLoader.getController();
                 itemController.setData(publiciteList.get(i));
@@ -51,7 +53,7 @@ public class AfficherPubliciteController implements Initializable {
                     row++;
                 }
 
-                gridPub.add(hbox, column++, row); //(child,column,row)
+                gridPub.add(anchorPane, column++, row); //(child,column,row)
                 // set grid width
                 gridPub.setMinWidth(Region.USE_COMPUTED_SIZE);
                 gridPub.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -62,7 +64,7 @@ public class AfficherPubliciteController implements Initializable {
                 gridPub.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 gridPub.setMaxHeight(Region.USE_PREF_SIZE);
 
-                GridPane.setMargin(hbox, new Insets(10));
+                GridPane.setMargin(anchorPane, new Insets(10));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -47,31 +47,108 @@ public class AjouterPublicite {
 
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     @FXML
+    public void initialize() {
+        // Add a listener to the text property of TFtitrepub
+        TFtitrepub.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Validate the length of the text
+            if (newValue.length() > 6) {
+                // If length is greater than 6, set the background color to a light color
+                TFtitrepub.setStyle("-fx-background-color: #ffffff;"); // Light green
+            } else {
+                // If length is 6 or less, set the background color to a light red color
+                TFtitrepub.setStyle("-fx-background-color: #e83939;"); // Light pink
+            }
+        });
+
+        // Add a listener to the text property of TFdescriptionpub
+        TFdescriptionpub.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Validate the length of the text
+            if (newValue.length() >= 15) {
+                // If length is 15 or more, set the background color to a light color
+                TFdescriptionpub.setStyle("-fx-background-color: #ffffff;"); // Light green
+            } else {
+                // If length is less than 15, set the background color to a light red color
+                TFdescriptionpub.setStyle("-fx-background-color: #e83939;"); // Light pink
+            }
+        });
+
+        // Add a listener to the text property of TFlocalisationpub
+        TFlocalisationpub.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Validate the length of the text
+            if (newValue.length() >= 3) {
+                // If length is 2 or more, set the background color to a light color
+                TFlocalisationpub.setStyle("-fx-background-color: rgba(0,169,71,0.98);"); // Light green
+            } else {
+                // If length is less than 2, set the background color to a light red color
+                TFlocalisationpub.setStyle("-fx-background-color: #e83939;"); // Light pink
+            }
+        });
+    }
+
+
+    @FXML
     void ajouterActualiteAction(ActionEvent event) {
         Muni muni = new Muni(1);
-        EndUser user = new EndUser(1, muni);
-        Actualite actualite = new Actualite(21, muni);
+        EndUser user = new EndUser(12, muni);
+        Actualite actualite = new Actualite(87, user);
 
-        try {
-            // Parse the contact information to an integer
-            int contact = Integer.parseInt(TFcontactpub.getText());
-
-            // Create and add the Publicite object
-            sp.ajouter(new Publicite(TFtitrepub.getText(), TFdescriptionpub.getText(), contact, TFlocalisationpub.getText(), imagePath, offrePubCombo.getValue(), user, actualite));
-
-            // Display success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Publicité a été ajoutée");
-            alert.setContentText("GG");
-            alert.show();
-        } catch (NumberFormatException e) {
-            // Handle the case where TFcontactpub.getText() is not a valid integer
-            e.printStackTrace(); // Log or handle the exception as needed
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Veuillez saisir un numéro de contact valide.");
-            alert.show();
+        // Check if an image is selected
+        if (imagePath == null || !new File(imagePath).isFile()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez télécharger une image.");
+            return;
         }
+
+        // Validate contact
+        if (!validateContact(TFcontactpub.getText())) {
+            return;
+        }
+
+        // Validate offer
+        if (offrePubCombo.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez sélectionner une offre.");
+            return;
+        }
+
+        // Validate all fields are filled
+        if (TFtitrepub.getText().isEmpty() || TFdescriptionpub.getText().isEmpty() ||
+                TFlocalisationpub.getText().isEmpty() || TFcontactpub.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez remplir tous les champs.");
+            return;
+        }
+
+        // Create and add the Publicite object
+        sp.ajouter(new Publicite(
+                TFtitrepub.getText(),
+                TFdescriptionpub.getText(),
+                Integer.parseInt(TFcontactpub.getText()),
+                TFlocalisationpub.getText(),
+                imagePath,
+                offrePubCombo.getValue(),
+                user,
+                actualite
+        ));
+
+        // Display success message
+        showAlert(Alert.AlertType.INFORMATION, "Publicité a été ajoutée", "Publicité ajoutée, merci pour votre confiance");
+    }
+    private boolean validateContact(String contactValue) {
+        try {
+            int contact = Integer.parseInt(contactValue);
+            if (contact <= 0) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide.");
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide.");
+            return false;
+        }
+    }
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 
