@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.UserAccount">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.UserAccount">
     <children>
         <Text layoutX="18.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier user" wrappingWidth="111.7366943359375" />
         <Button layoutX="451.0" layoutY="333.0" mnemonicParsing="false" onAction="#modifierUser" text="modifier" />
@@ -20,7 +20,7 @@
         <VBox layoutX="18.0" layoutY="45.0" prefHeight="329.0" prefWidth="292.0">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
-                <TextField fx:id="tfNom" />
+                <TextField fx:id="tfNom" stylesheets="@css/style.css" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="email" />
             <TextField fx:id="tfEmail" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />

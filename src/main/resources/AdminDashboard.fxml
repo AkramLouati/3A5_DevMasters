@@ -14,9 +14,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="1310.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AdminDashboard">
    <left>
-      <VBox prefHeight="200.0" prefWidth="320.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="320.0" styleClass="white-backgroung" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="380.0" prefWidth="100.0" styleClass="profile-layout" stylesheets="@style.css">
+            <VBox alignment="CENTER" prefHeight="380.0" prefWidth="100.0" styleClass="profile-layout" stylesheets="@css/style.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -90,7 +90,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" stylesheets="@style.css" text="Modifier" textFill="WHITE">
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" stylesheets="@css/style.css" text="Modifier" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
@@ -105,9 +105,9 @@
       </VBox>
    </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="white-backgroung" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="white-backgroung" stylesheets="@style.css">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="white-backgroung" stylesheets="@css/style.css">
                <children>
                   <Label text="Les Municipalité">
                      <font>
@@ -118,12 +118,12 @@
                      </HBox.margin>
                   </Label>
                   <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="addMuniButton" mnemonicParsing="false" onAction="#addMuni" prefHeight="40.0" prefWidth="220.0" stylesheets="@style.css" text="Nouvelle municipalité" textFill="WHITE">
+                  <Button fx:id="addMuniButton" mnemonicParsing="false" onAction="#addMuni" prefHeight="40.0" prefWidth="220.0" stylesheets="@css/style.css" text="Nouvelle municipalité" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="transparent" stylesheets="@style.css">
+                  <Button mnemonicParsing="false" styleClass="transparent" stylesheets="@css/style.css">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -135,7 +135,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="227.0" layoutY="40.0" mnemonicParsing="false" styleClass="transparent" stylesheets="@style.css">
+                  <Button layoutX="227.0" layoutY="40.0" mnemonicParsing="false" styleClass="transparent" stylesheets="@css/style.css">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -153,12 +153,12 @@
                <children>
                   <HBox prefHeight="200.0" prefWidth="987.0">
                      <children>
-                        <ScrollPane prefHeight="200.0" prefWidth="991.0" styleClass="white-backgroung" stylesheets="@style.css">
+                        <ScrollPane prefHeight="200.0" prefWidth="991.0" styleClass="white-backgroung" stylesheets="@css/style.css">
                            <padding>
                               <Insets left="20.0" />
                            </padding>
                            <content>
-                              <HBox fx:id="muniButtonLayout" prefHeight="200.0" prefWidth="964.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css" />
+                              <HBox fx:id="muniButtonLayout" prefHeight="200.0" prefWidth="964.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@css/style.css" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -175,11 +175,11 @@
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ScrollPane prefHeight="446.0" prefWidth="965.0" styleClass="transparent" stylesheets="@style.css">
+                  <ScrollPane prefHeight="446.0" prefWidth="965.0" styleClass="transparent" stylesheets="@css/style.css">
                      <content>
-                        <VBox fx:id="usersLayout" prefHeight="443.0" prefWidth="949.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
+                        <VBox fx:id="usersLayout" prefHeight="443.0" prefWidth="949.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@css/style.css">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="200.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@style.css">
+                              <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="200.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@css/style.css">
                                  <children>
                                     <Label alignment="CENTER" prefWidth="50.0" text="A" textFill="#575757">
                                        <font>
@@ -217,7 +217,7 @@
                   </ScrollPane>
                   <VBox prefHeight="446.0" prefWidth="44.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="32.0" styleClass="light-grey-background" stylesheets="@style.css" text="#" textFill="#575757">
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="32.0" styleClass="light-grey-background" stylesheets="@css/style.css" text="#" textFill="#575757">
                            <font>
                               <Font name="Corbel Bold" size="20.0" />
                            </font>

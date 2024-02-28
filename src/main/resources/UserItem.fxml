@@ -40,7 +40,7 @@
                   <Font name="Corbel" size="20.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#editUser" prefHeight="40.0" prefWidth="40.0" stylesheets="@style.css">
+            <Button mnemonicParsing="false" onAction="#editUser" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button" stylesheets="@css/style.css">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

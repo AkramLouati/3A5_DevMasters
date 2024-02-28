@@ -7,9 +7,9 @@
 
 <HBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.MuniItem">
    <children>
-      <Pane prefHeight="200.0" prefWidth="200.0">
+      <Pane>
          <children>
-            <Button fx:id="muniButton" alignment="CENTER" layoutX="1.0" layoutY="24.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #54D39D;" styleClass="municipalite" stylesheets="@style.css" text="Ariana Ville" textFill="WHITE">
+            <Button fx:id="muniButton" alignment="CENTER" layoutY="8.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #003668;" styleClass="municipalite" stylesheets="@css/style.css" text="Ariana Ville" textFill="WHITE">
                <font>
                   <Font name="Corbel" size="28.0" />
                </font>
