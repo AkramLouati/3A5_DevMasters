@@ -2,21 +2,20 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherActualiteController">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierActualiteController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -171,34 +170,73 @@
                 </HBox>
             </top>
             <center>
-                <AnchorPane fx:id="MainAnchorPaneBaladity" prefHeight="780.0" prefWidth="949.0" BorderPane.alignment="CENTER">
+                <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <ScrollPane fx:id="scrollA" layoutX="183.0" layoutY="80.0" prefHeight="602.0" prefWidth="907.0" styleClass="transparent" stylesheets="@Actualite.css">
-                     <content>
-                        <GridPane fx:id="gridA" prefHeight="0.0" prefWidth="0.0">
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                           </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-                  <Text fill="#012545" layoutX="374.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La liste des Actualités:" wrappingWidth="349.3366241455078">
-                     <font>
-                        <Font name="Arial Bold" size="32.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="ajouterActualiteAction2" layoutX="928.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajouterActualiteAction2" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" text="   Ajouter" textFill="WHITE">
+                  <ImageView fitHeight="438.0" fitWidth="426.0" layoutX="484.0" layoutY="74.0">
+                     <image>
+                        <Image url="@assets/baladia.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="TFtitreModifier" layoutX="207.0" layoutY="91.0" prefHeight="38.0" prefWidth="223.0" promptText="titre" stylesheets="@Actualite.css" />
+                  <TextField fx:id="TFdescriptionModifier" layoutX="207.0" layoutY="162.0" prefHeight="147.0" prefWidth="223.0" promptText="Description" stylesheets="@Actualite.css" />
+                  <Button fx:id="modifierActualiteAction" layoutX="95.0" layoutY="522.0" mnemonicParsing="false" onAction="#modifierActualiteAction" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" text="Modifier" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="22.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/plus.png" />
+                              <Image url="@assets/edit1.png" />
                            </image>
                         </ImageView>
-                     </graphic>
-                  </Button>
+                     </graphic></Button>
+                  <Label layoutX="82.0" layoutY="96.0" prefHeight="26.0" prefWidth="62.0" text="Titre:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="82.0" layoutY="175.0" prefHeight="27.0" prefWidth="105.0" text="Description:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="282.0" layoutY="522.0" mnemonicParsing="false" onAction="#navigatetoAfficherActualiteModifierAction" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #012545;" text="   Afficher" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/visible.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Text layoutX="82.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image:" wrappingWidth="71.20000000000005">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="imgView_actualiteModifier" fitHeight="106.0" fitWidth="228.0" layoutX="205.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelAModifier" layoutX="207.0" layoutY="339.0" prefHeight="38.0" prefWidth="222.0" style="-fx-background-color: #f0f0f0;" stylesheets="@Actualite.css">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <Button fx:id="uploadbuttonAModifier" mnemonicParsing="false" onAction="#uploadimgAModifer" prefHeight="26.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/image-.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </graphic></Label>
+                  <Text fill="#012545" layoutX="207.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Actualité " wrappingWidth="275.73670959472656">
+                     <font>
+                        <Font name="Arial Bold" size="25.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
             </center>

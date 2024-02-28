@@ -93,9 +93,9 @@ public class ActualiteController {
 
     public void modifierActualiteAction(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierActualite.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierActualiteGui.fxml"));
             Parent root = loader.load();
-            ModifierActualite controller = loader.getController();
+            ModifierActualiteController controller = loader.getController();
             controller.setServiceActualite(serviceActualite);
             controller.setData(actualite);
             TitreActualiteAff.getScene().setRoot(root);
