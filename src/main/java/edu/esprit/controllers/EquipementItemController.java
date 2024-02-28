@@ -67,30 +67,42 @@ public class EquipementItemController {
     @FXML
     void supprimerEquipementAction(ActionEvent event) {
         if (equipement != null) {
-            ServiceEquipement serviceEquipement = new ServiceEquipement();
-            serviceEquipement.supprimer(equipement.getId_equipement());
+            // Créer une boîte de dialogue de confirmation
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cet équipement ?");
+            confirmationAlert.setTitle("Confirmation de suppression");
 
-            // Afficher une alerte pour informer l'utilisateur que l'equipement a été supprimée avec succès
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("L'équipement a été supprimée avec succès.");
-            alert.setTitle("Equipement supprimée");
-            alert.show();
+            // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-            // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des equipements)
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
-                editButton.getScene().setRoot(root);
-            } catch (IOException e) {
-                // Gérer l'exception si la redirection échoue
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                errorAlert.setTitle("Erreur de redirection");
-                errorAlert.show();
+            // Vérifier si l'utilisateur a cliqué sur le bouton OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Supprimer la réclamation
+                ServiceEquipement serviceEquipement = new ServiceEquipement();
+                serviceEquipement.supprimer(equipement.getId_equipement());
+
+                // Afficher une alerte pour informer l'utilisateur que l'equipement a été supprimée avec succès
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("L'equipement' a été supprimée avec succès.");
+                alert.setTitle("equipement supprimée");
+                alert.show();
+
+                // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des équipement)
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
+                    editButton.getScene().setRoot(root);
+                } catch (IOException e) {
+                    // Gérer l'exception si la redirection échoue
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                    errorAlert.setTitle("Erreur de redirection");
+                    errorAlert.show();
+                }
             }
         } else {
-            // Afficher un message d'erreur si l'equipement est null
+            // Afficher un message d'erreur si la réclamation est null
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setContentText("Impossible de supprimer l'equipement' car aucune équipement n'est sélectionnée.");
+            errorAlert.setContentText("Impossible de supprimer l'equipement car aucune equipement n'est sélectionnée.");
             errorAlert.setTitle("Erreur de suppression");
             errorAlert.show();
         }

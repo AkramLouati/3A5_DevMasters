@@ -145,5 +145,7 @@ public class ServiceEquipement implements IService<Equipement> {
         return equipement;
     }
 
-
 }
+
+
+
