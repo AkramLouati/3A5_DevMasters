@@ -1,49 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="554.0" prefWidth="850.0"
-            style="-fx-background-color: #12314e;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="edu.esprit.controllers.ModifierTacheController">
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="14.0" layoutY="37.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="137.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="14.0" layoutY="88.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="137.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="14.0" layoutY="139.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="137.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="14.0" layoutY="190.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="137.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="14.0" layoutY="251.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="137.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="16.0" layoutY="322.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="137.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="16.0" layoutY="425.0" stroke="BLACK"
-               strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="4.0" width="91.0"/>
-    <TextField fx:id="RECRadioButton" editable="false" layoutX="207.0" layoutY="425.0" prefHeight="46.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="554.0" prefWidth="850.0" stylesheets="@css/TacheCss.css"
+            xmlns="http://javafx.com/javafx/21" fx:controller="edu.esprit.controllers.ModifierTacheController">
+    <TextField fx:id="RECRadioButton" editable="false" layoutX="212.0" layoutY="427.0" prefHeight="46.0"
                prefWidth="354.0"/>
     <HBox layoutX="35.0" layoutY="435.0" prefHeight="31.0" prefWidth="511.0">
         <children>
-            <Label prefHeight="23.0" prefWidth="203.0" text="Etat">
+            <Label prefHeight="23.0" prefWidth="176.0" text="Etat">
                 <font>
                     <Font size="18.0"/>
                 </font>
+                <HBox.margin>
+                    <Insets right="30.0"/>
+                </HBox.margin>
             </Label>
-            <RadioButton fx:id="toDoRadio" onAction="#toDoRadioButton" prefHeight="31.0" prefWidth="110.0" text="To Do">
+            <RadioButton fx:id="toDoRadio" onAction="#toDoRadioButton" prefHeight="31.0" prefWidth="110.0" text="To Do"
+                         textFill="WHITE">
                 <font>
                     <Font size="14.0"/>
                 </font>
             </RadioButton>
             <RadioButton fx:id="doingRadio" onAction="#doingRadioButton" prefHeight="31.0" prefWidth="118.0"
-                         text="Doing">
+                         text="Doing" textFill="WHITE">
                 <font>
                     <Font size="14.0"/>
                 </font>
             </RadioButton>
-            <RadioButton fx:id="doneRadio" onAction="#doneRadioButton" prefHeight="50.0" prefWidth="59.0" text="Done">
+            <RadioButton fx:id="doneRadio" onAction="#doneRadioButton" prefHeight="50.0" prefWidth="59.0" text="Done"
+                         textFill="WHITE">
                 <font>
                     <Font size="14.0"/>
                 </font>
@@ -87,12 +76,17 @@
                 <font>
                     <Font size="18.0"/>
                 </font>
+                <HBox.margin>
+                    <Insets right="5.0"/>
+                </HBox.margin>
             </TextField>
             <Button onAction="#browseForImage" prefHeight="36.0" prefWidth="103.0" text="Browse">
                 <font>
                     <Font size="14.0"/>
                 </font>
             </Button>
+            <ImageView fx:id="PieceJointeImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
+                       preserveRatio="true"/>
         </children>
     </HBox>
     <HBox layoutX="34.0" layoutY="202.0">
@@ -145,10 +139,4 @@
             <Font size="14.0"/>
         </font>
     </Button>
-    <ImageView fitHeight="274.0" fitWidth="254.0" layoutX="587.0" layoutY="8.0" pickOnBounds="true"
-               preserveRatio="true">
-        <image>
-            <Image url="@img/Baladia.png"/>
-        </image>
-    </ImageView>
 </AnchorPane>

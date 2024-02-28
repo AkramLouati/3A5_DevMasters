@@ -9,27 +9,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="75.0" prefWidth="258.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.TacheFrontController">
+<AnchorPane prefHeight="93.0" prefWidth="249.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.TacheFrontController">
     <children>
-        <HBox alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="64.0" prefWidth="249.0" style="-fx-border-color: #012545; -fx-border-radius: 10; -fx-border-width: 2;">
+        <HBox alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="74.0" prefWidth="237.0" style="-fx-border-color: #012545; -fx-border-radius: 8; -fx-border-width: 2;">
             <children>
-                <Text fx:id="TFsujet_reclamationaff" fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text="TITRE" wrappingWidth="165.33689832687378">
+                <Text fx:id="TFsujet_reclamationaff" fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text="TITRE" wrappingWidth="135.73692274093628">
                     <font>
                         <Font name="Arial Bold" size="14.0" />
                     </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
+                    <HBox.margin>
+                        <Insets left="5.0" />
+                    </HBox.margin>
                 </Text>
-                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewDetailTache" prefHeight="41.0" prefWidth="47.0" style="-fx-background-color: white; -fx-border-color: #012545; -fx-border-radius: 10;">
+                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewDetailTache" style="-fx-background-color: white; -fx-border-color: #012545; -fx-border-radius: 8;">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
+                    <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                    </HBox.margin>
                <graphic>
-                  <ImageView fitHeight="101.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/detail.gif" />
                      </image>

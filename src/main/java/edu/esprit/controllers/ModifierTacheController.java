@@ -18,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,6 +30,7 @@ import org.controlsfx.validation.Validator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -39,6 +42,8 @@ public class ModifierTacheController {
     ServiceUser serviceUser = new ServiceUser();
     EndUser user01 = serviceUser.getOneByID(14);
 
+    @FXML
+    private ImageView PieceJointeImage;
     @FXML
     private TextField titleField, attachmentField, descriptionField, RECRadioButton;
     @FXML
@@ -68,11 +73,29 @@ public class ModifierTacheController {
 
         // Set initial directory
         String initialDirectory = "src/main/resources/img";
-        fileChooser.setInitialDirectory(new File(initialDirectory));
+        File initialDirFile = new File(initialDirectory);
+
+        // Check if the initial directory is valid
+        if (initialDirFile.exists() && initialDirFile.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirFile);
+        } else {
+            System.err.println("Initial directory is not valid: " + initialDirectory);
+            // You might want to handle this error condition appropriately
+            return;
+        }
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
-            attachmentField.setText(selectedFile.getAbsolutePath());
+            try {
+                String fileUrl = selectedFile.toURI().toURL().toString();
+                // Créer une instance d'Image à partir de l'URL de fichier
+                Image image = new Image(fileUrl);
+                // Définir l'image dans l'ImageView
+                PieceJointeImage.setImage(image);
+            } catch (MalformedURLException e) {
+                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                e.printStackTrace();
+            }
         }
     }
 

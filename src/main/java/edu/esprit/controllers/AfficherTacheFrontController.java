@@ -2,6 +2,7 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,21 +13,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-import javafx.beans.value.ChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 
-
 public class AfficherTacheFrontController implements Initializable {
 
-    @FXML
-    private TextField searchTacheLabel;
     public TextField todoCount;
     public TextField doingCount;
     public TextField doneCount;
+    @FXML
+    private TextField searchTacheLabel;
     @FXML
     private GridPane gridTodo;
 

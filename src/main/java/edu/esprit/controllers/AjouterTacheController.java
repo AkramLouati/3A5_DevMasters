@@ -42,6 +42,7 @@ public class AjouterTacheController {
     ServiceUser serviceUser = new ServiceUser();
     EndUser user01 = serviceUser.getOneByID(14);
 
+
     @FXML
     private ImageView PieceJointeImage;
     @FXML
@@ -76,7 +77,7 @@ public class AjouterTacheController {
         File initialDirFile = new File(initialDirectory);
 
         // Check if the initial directory is valid
-        if(initialDirFile.exists() && initialDirFile.isDirectory()) {
+        if (initialDirFile.exists() && initialDirFile.isDirectory()) {
             fileChooser.setInitialDirectory(initialDirFile);
         } else {
             System.err.println("Initial directory is not valid: " + initialDirectory);
@@ -92,6 +93,7 @@ public class AjouterTacheController {
                 Image image = new Image(fileUrl);
                 // Définir l'image dans l'ImageView
                 PieceJointeImage.setImage(image);
+                attachmentField.setText(fileUrl);
             } catch (MalformedURLException e) {
                 // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
                 e.printStackTrace();

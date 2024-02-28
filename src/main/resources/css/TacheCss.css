@@ -4,6 +4,7 @@
     -fx-text-fill: #012545;
     -fx-fill: #012545;
 }
+
 /* Button styling */
 .button {
     -fx-background-color: #012545;
@@ -23,15 +24,18 @@
 
 /* Text area styling */
 .text-area {
-    -fx-background-color: #012545;
-    -fx-text-fill: #FFFFFF;
-}
-
-Label {
+    -fx-background-color: #FFFFFF;
     -fx-text-fill: #012545;
     -fx-border-color: #012545;
     -fx-border-radius: 10;
     -fx-border-width: 2;
+}
+
+Label {
+    -fx-text-fill: #012545;
+    /*-fx-border-color: #012545;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;*/
 }
 
 Text {

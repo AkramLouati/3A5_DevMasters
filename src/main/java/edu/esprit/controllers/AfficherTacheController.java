@@ -7,14 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,45 +38,24 @@ public class AfficherTacheController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadTasks();
+    }
+    private void loadTasks() {
         Set<Tache> tacheList = sr.getAll();
-
-        grid.getChildren().clear();
-
-        int column = 0;
-        int row = 1;
         try {
             for (Tache tache : tacheList) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/Tache.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Tache.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
-
                 TacheController itemController = fxmlLoader.getController();
                 itemController.setData(tache);
 
-                if (column == 1) {
-                    column = 0;
-                    row++;
-                }
 
-                grid.add(anchorPane, column++, row); //(child,column,row)
-
-                //set grid width
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                //set grid height
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
+                grid.addRow(grid.getRowCount(), anchorPane);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public void ajouterButton(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));

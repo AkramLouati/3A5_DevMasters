@@ -16,9 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class DetailTacheController {
     @FXML
@@ -66,23 +64,8 @@ public class DetailTacheController {
             TFdateFinDetail.setText(String.valueOf(taches.getDate_FT()));
             TFdescriptionDetail.setText(taches.getDesc_T());
             TFEtatDetail.setText(taches.getEtat_T().toString());
-
-            String imageUrl = taches.getPieceJointe_T();
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                try {
-                    // Créer une instance de File à partir du chemin d'accès à l'image
-                    File file = new File(imageUrl);
-                    // Convertir le chemin de fichier en URL
-                    String fileUrl = file.toURI().toURL().toString();
-                    // Créer une instance d'Image à partir de l'URL de fichier
-                    Image image = new Image(fileUrl);
-                    // Définir l'image dans l'ImageView
-                    PieceJointedetail.setImage(image);
-                } catch (MalformedURLException e) {
-                    // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
-                    e.printStackTrace();
-                }
-            }
+            Image image = new Image(taches.getPieceJointe_T());
+            PieceJointedetail.setImage(image);
         }
     }
 
