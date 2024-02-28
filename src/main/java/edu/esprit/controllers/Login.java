@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,12 +18,13 @@ import java.util.prefs.Preferences;
 public class Login {
 
     private static final String USER_PREF_KEY = "current_user";
+    public Hyperlink forgetPwd;
 
 
     @FXML
     private Button loginButtonAction;
 
-    public Label clickableLabel;
+    public Hyperlink clickableLabel;
 
     @FXML
     private TextField tfEmail;
@@ -35,7 +35,7 @@ public class Login {
     ServiceUser serviceUser = new ServiceUser();
 
     @FXML
-    void handleLabelClick(MouseEvent event) {
+    void handleLabelClick(ActionEvent event) {
         System.out.println("Label clicked!");
         // Add your label click logic here
         try {
