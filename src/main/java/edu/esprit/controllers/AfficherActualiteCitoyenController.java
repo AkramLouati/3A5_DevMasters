@@ -1,7 +1,9 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.Publicite;
-import edu.esprit.services.ServicePublicite;
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
+import edu.esprit.entities.Actualite;
+import edu.esprit.services.ServiceActualite;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -21,70 +26,59 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-
-public class AfficherPubliciteController implements Initializable{
-
+public class AfficherActualiteCitoyenController implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
-    @FXML
-    private VBox MainLeftSidebar;
 
     @FXML
     private BorderPane SecondBorderPane;
 
     @FXML
-    private BorderPane firstborderpane;
-
-    @FXML
-    private GridPane gridPub;
-
-    @FXML
-    private ScrollPane scrollPub;
-
+    private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-    private ServicePublicite servicePublicite = new ServicePublicite();
-    Set<Publicite> publiciteSet = servicePublicite.getAll();
-    List<Publicite> publiciteList = new ArrayList<>(publiciteSet);
-    private int actualiteId; // New variable to store the id_a
+
+    @FXML
+    private GridPane gridCitoyen;
+
+    @FXML
+    private ImageView imgView_actualite;
+
+    @FXML
+    private ScrollPane scrollCitoyen;
 
 
-    public void setActualiteId(int actualiteId) {
-        this.actualiteId = actualiteId;
-    }
+    private ServiceActualite sr = new ServiceActualite();
+    Set<Actualite> actualiteSet = sr.getAll();
+    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int column = 0;
         int row = 1;
         try {
-            for (int i = 0; i < publiciteList.size(); i++) {
+            for (int i = 0; i < actualiteList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/PubliciteItem.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ActualiteItemCitoyen.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                PubliciteController itemController = fxmlLoader.getController();
-                itemController.setData(publiciteList.get(i));
+                ActualiteController itemController = fxmlLoader.getController();
+                itemController.setData(actualiteList.get(i));
 
                 if (column == 1) {
                     column = 0;
                     row++;
                 }
 
-                gridPub.add(anchorPane, column++, row); //(child,column,row)
-                // set grid width
-                gridPub.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridPub.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridPub.setMaxWidth(Region.USE_PREF_SIZE);
+                gridCitoyen.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                gridCitoyen.setMinWidth(Region.USE_COMPUTED_SIZE);
+                gridCitoyen.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                gridCitoyen.setMaxWidth(Region.USE_PREF_SIZE);
 
-                // set grid height
-                gridPub.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridPub.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridPub.setMaxHeight(Region.USE_PREF_SIZE);
+                //set grid height
+                gridCitoyen.setMinHeight(Region.USE_COMPUTED_SIZE);
+                gridCitoyen.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                gridCitoyen.setMaxHeight(Region.USE_PREF_SIZE);
 
                 GridPane.setMargin(anchorPane, new Insets(10));
             }
@@ -92,9 +86,6 @@ public class AfficherPubliciteController implements Initializable{
             e.printStackTrace();
         }
     }
-
-
-
 
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -161,18 +152,4 @@ public class AfficherPubliciteController implements Initializable{
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
-
-    public void retourToActualite(ActionEvent actionEvent) {
-        try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
-            gridPub.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
     }
-}
