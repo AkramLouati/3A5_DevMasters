@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -33,29 +34,23 @@ public class AfficherVoteS implements Initializable {
         try {
             for (Vote vote : voteList) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/AfficherVoteItem.fxml"));
-                HBox hbox = fxmlLoader.load();
+                fxmlLoader.setLocation(getClass().getResource("/VoteItem.fxml"));
+                GridPane gridPane = fxmlLoader.load();
 
-                AfficherVoteItem itemController = fxmlLoader.getController();
+                VoteItem itemController = fxmlLoader.getController();
                 itemController.setData(vote);
 
-                if (column == 1) {
+                gridA.add(gridPane, column++, row);
+                GridPane.setMargin(gridPane, new Insets(10));
+
+                if (column == 3) {
                     column = 0;
                     row++;
                 }
-
-                gridA.add(hbox, column++, row);
-                gridA.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridA.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridA.setMaxWidth(Region.USE_PREF_SIZE);
-                gridA.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridA.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridA.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(hbox, new Insets(10));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+

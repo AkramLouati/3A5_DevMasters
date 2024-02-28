@@ -2,6 +2,7 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Vote;
 import edu.esprit.services.ServiceVote;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -72,5 +73,17 @@ public class ModifierVote {
             e.printStackTrace();
             // Gérer les exceptions liées au chargement de l'interface AfficherVoteS.fxml
         }
+    }
+    @FXML
+    void returnnOnClick(ActionEvent event) {
+        try {
+            // Fermer la fenêtre actuelle
+            Stage stage = (Stage) TDdescM.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gérer les exceptions liées à la fermeture de la fenêtre
+        }
+
     }
 }

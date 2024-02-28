@@ -6,9 +6,13 @@ import edu.esprit.services.ServiceUser;
 import edu.esprit.services.ServiceVote;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AjouterVote {
@@ -51,4 +55,17 @@ public class AjouterVote {
             alert.show();
         }
     }
+    @FXML
+    void returnOnclick(ActionEvent event) {
+        try {
+            // Fermer la fenêtre actuelle
+            Stage stage = (Stage) TDdesc.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gérer les exceptions liées à la fermeture de la fenêtre
+        }
+
+    }
+
 }
