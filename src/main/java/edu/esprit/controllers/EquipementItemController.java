@@ -6,9 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -22,17 +20,18 @@ import java.util.Optional;
 public class EquipementItemController {
     @FXML
     private Button avisButton;
-    @FXML
-    private Text categorieeq;
 
     @FXML
-    private Text dateajouteq;
+    private Text categorieitemTF;
+
+    @FXML
+    private Text dateajoutitemTF;
 
     @FXML
     private Button deleteButton;
 
     @FXML
-    private Text descriptioneq;
+    private Text descriptionitemTA;
 
     @FXML
     private Button editButton;
@@ -41,13 +40,13 @@ public class EquipementItemController {
     private ImageView imageViewaffiche;
 
     @FXML
-    private Text nomeq;
+    private Text nomitemTF;
 
     @FXML
-    private Text quantiteeq;
+    private Text quantiteitemTF;
 
     @FXML
-    private Text referenceeq;
+    private Text referenceitemTF;
 
     @FXML
     void modifierEquipementAction(ActionEvent event) {
@@ -106,12 +105,12 @@ public class EquipementItemController {
 
     public void setData(Equipement equipement) {
         this.equipement = equipement;
-        nomeq.setText(equipement.getNom_eq());
-        referenceeq.setText(equipement.getReference_eq());
-        quantiteeq.setText(String.valueOf(equipement.getQuantite_eq()));
-        categorieeq.setText(equipement.getCategorie_eq());
-        descriptioneq.setText(equipement.getDescription_eq());
-        dateajouteq.setText(String.valueOf(equipement.getDate_ajouteq()));
+        nomitemTF.setText(equipement.getNom_eq());
+        referenceitemTF.setText(equipement.getReference_eq());
+        quantiteitemTF.setText(String.valueOf(equipement.getQuantite_eq()));
+        categorieitemTF.setText(equipement.getCategorie_eq());
+        descriptionitemTA.setText(equipement.getDescription_eq());
+        dateajoutitemTF.setText(String.valueOf(equipement.getDate_ajouteq()));
         String imageUrl = equipement.getImage_eq();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
