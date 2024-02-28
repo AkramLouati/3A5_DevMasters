@@ -28,29 +28,7 @@
                         <DropShadow />
                     </effect>
                 </ImageView>
-                <Button mnemonicParsing="false" onAction="#BTNGestionTache" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Tache" textFill="#012545">
-                    <font>
-                        <Font name="Arial Bold" size="20.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                    <effect>
-                        <DropShadow />
-                    </effect>
-                </Button>
                 <Button mnemonicParsing="false" onAction="#BTNGestionEvennement" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Evénement" textFill="#012545">
-                    <font>
-                        <Font name="Arial Bold" size="20.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                    <effect>
-                        <DropShadow />
-                    </effect>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#BTNGestionUser" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Utilisateur" textFill="#012545">
                     <font>
                         <Font name="Arial Bold" size="20.0" />
                     </font>
@@ -96,17 +74,6 @@
                             </image>
                         </ImageView>
                     </graphic>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#BTNGestionEquipement" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Equipement" textFill="#012545">
-                    <font>
-                        <Font name="Arial Bold" size="20.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets bottom="5.0" top="20.0" />
-                    </VBox.margin>
-                    <effect>
-                        <DropShadow />
-                    </effect>
                 </Button>
             </children>
             <BorderPane.margin>

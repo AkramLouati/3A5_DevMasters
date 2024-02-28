@@ -180,8 +180,8 @@ public class AjouterPubliciteController implements Initializable {
     @FXML
     public void tolistActualite(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -245,7 +245,7 @@ public class AjouterPubliciteController implements Initializable {
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
         Muni muni = new Muni(1);
         EndUser user = new EndUser(12, muni);
-        Actualite actualite = new Actualite(87, user);
+        Actualite actualite = new Actualite(102, user);
 
         // Check if an image is selected
         if (imagePath == null || !new File(imagePath).isFile()) {

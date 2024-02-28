@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -30,7 +32,8 @@ public class AfficherPubliciteCitoyenController implements Initializable{
 
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
+    @FXML
+    private Button retoutActCitoyen;
     @FXML
     private VBox MainLeftSidebar;
 
@@ -161,5 +164,17 @@ public class AfficherPubliciteCitoyenController implements Initializable{
     }
 
 
-
+    public void retoutActCitoyen(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
+            gridPubC.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }

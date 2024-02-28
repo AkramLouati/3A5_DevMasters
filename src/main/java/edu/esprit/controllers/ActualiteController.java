@@ -123,6 +123,20 @@ public class ActualiteController {
     }
 
 
+    public void viewDetailActualiteActionC(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+            Parent root = loader.load();
+
+            // Passer l'id de l'actualité à AfficherPubliciteController
+            AfficherPubliciteCitoyenController controller = loader.getController();
+            controller.setActualiteId(actualite.getId_a());
+
+            TitreActualiteAff.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace(); // Gérer l'exception de manière appropriée
+        }
+    }
 }
 
 

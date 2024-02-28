@@ -30,7 +30,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <Button fx:id="detailButton" layoutX="438.0" layoutY="39.0" mnemonicParsing="false" onAction="#viewDetailActualiteAction" prefHeight="46.0" prefWidth="58.0" style="-fx-background-color: #CCCCCC9B;">
+      <Button fx:id="detailButton1" layoutX="438.0" layoutY="39.0" mnemonicParsing="false" onAction="#viewDetailActualiteActionC" prefHeight="46.0" prefWidth="58.0" style="-fx-background-color: #CCCCCC9B;">
          <graphic>
             <ImageView fitHeight="43.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                <image>

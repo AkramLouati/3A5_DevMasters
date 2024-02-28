@@ -120,5 +120,36 @@ public class PubliciteController {
 
     public void ValiderPubliciteAction(ActionEvent actionEvent) {
     }
+
+    public void deletePubliciteActionC(ActionEvent actionEvent) {
+        if (publicite != null) {
+            ServicePublicite servicePublicite1 = new ServicePublicite();
+            servicePublicite1.supprimer(publicite.getId_pub());
+
+            // Display an alert to inform the user that the publicite has been successfully deleted
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("La publicité a été supprimée avec succès.");
+            alert.setTitle("Publicité supprimée");
+            alert.show();
+
+            // Redirect the user to the previous view (e.g., the list of publicites)
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+                TitrePubliciteAff.getScene().setRoot(root);
+            } catch (IOException e) {
+                // Handle the exception if the redirection fails
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                errorAlert.setTitle("Erreur de redirection");
+                errorAlert.show();
+            }
+        } else {
+            // Display an error message if the publicite is null
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Impossible de supprimer la publicité car aucune publicité n'est sélectionnée.");
+            errorAlert.setTitle("Erreur de suppression");
+            errorAlert.show();
+        }
+    }
 }
 

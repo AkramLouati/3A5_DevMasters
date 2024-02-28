@@ -175,4 +175,6 @@ public class AfficherPubliciteController implements Initializable{
             alert.show();
         }
     }
+
+
 }
