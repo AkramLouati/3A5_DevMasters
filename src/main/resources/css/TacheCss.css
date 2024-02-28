@@ -31,14 +31,9 @@ Label {
     -fx-text-fill: #012545;
     -fx-border-color: #012545;
     -fx-border-radius: 10;
+    -fx-border-width: 2;
 }
 
-/* AnchorPane child padding */
-.anchor-pane > * {
-    -fx-padding: 10px;
-}
-/* Other detail text styling */
-.detail-text {
+Text {
     -fx-fill: #012545;
-    -fx-font-size: 18px;
 }
