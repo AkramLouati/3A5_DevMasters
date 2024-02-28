@@ -1,6 +1,10 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Actualite;
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Publicite;
+import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +36,11 @@ public class PubliciteController {
     private Text offrePubliciteAff;
 
     private Publicite publicite;
-    private ServicePublicite servicePublicite = new ServicePublicite();
+    ServicePublicite servicePublicite = new ServicePublicite();
+
+    Muni muni = new Muni(1);
+    EndUser user = new EndUser(12,muni);
+    Actualite actualite = new Actualite(87,user);
 
     public void setData(Publicite publicite) {
         this.publicite = publicite;
@@ -75,7 +83,7 @@ public class PubliciteController {
 
             // Redirect the user to the previous view (e.g., the list of publicites)
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherPublicite.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/AfficherPubliciteGui.fxml"));
                 TitrePubliciteAff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Handle the exception if the redirection fails

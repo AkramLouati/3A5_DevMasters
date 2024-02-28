@@ -26,7 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class AfficherPubliciteController implements Initializable{
+public class AfficherPubliciteCitoyenController implements Initializable{
 
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
@@ -41,10 +41,10 @@ public class AfficherPubliciteController implements Initializable{
     private BorderPane firstborderpane;
 
     @FXML
-    private GridPane gridPub;
+    private GridPane gridPubC;
 
     @FXML
-    private ScrollPane scrollPub;
+    private ScrollPane scrollPubC;
 
     private boolean isSidebarVisible = true;
     private ServicePublicite servicePublicite = new ServicePublicite();
@@ -63,7 +63,7 @@ public class AfficherPubliciteController implements Initializable{
         try {
             for (int i = 0; i < publiciteList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/PubliciteItem.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/PubliciteItemCitoyen.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 PubliciteController itemController = fxmlLoader.getController();
@@ -74,16 +74,16 @@ public class AfficherPubliciteController implements Initializable{
                     row++;
                 }
 
-                gridPub.add(anchorPane, column++, row); //(child,column,row)
+                gridPubC.add(anchorPane, column++, row); //(child,column,row)
                 // set grid width
-                gridPub.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridPub.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridPub.setMaxWidth(Region.USE_PREF_SIZE);
+                gridPubC.setMinWidth(Region.USE_COMPUTED_SIZE);
+                gridPubC.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                gridPubC.setMaxWidth(Region.USE_PREF_SIZE);
 
                 // set grid height
-                gridPub.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridPub.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridPub.setMaxHeight(Region.USE_PREF_SIZE);
+                gridPubC.setMinHeight(Region.USE_COMPUTED_SIZE);
+                gridPubC.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                gridPubC.setMaxHeight(Region.USE_PREF_SIZE);
 
                 GridPane.setMargin(anchorPane, new Insets(10));
             }

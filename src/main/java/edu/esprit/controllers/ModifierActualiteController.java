@@ -72,6 +72,7 @@ public class ModifierActualiteController implements Initializable {
     @FXML
     void modifierActualiteAction(ActionEvent event) {
 
+
         if (actualite != null && serviceActualite != null) {
             actualite.setTitre_a(TFtitreModifier.getText());
             actualite.setDescription_a(TFdescriptionModifier.getText());

@@ -109,7 +109,7 @@ public class ActualiteController {
 
     public void viewDetailActualiteAction(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPublicite.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteGui.fxml"));
             Parent root = loader.load();
 
             // Passer l'id de l'actualité à AfficherPubliciteController
