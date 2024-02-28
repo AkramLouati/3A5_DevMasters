@@ -1,0 +1,46 @@
+/* Root styling */
+.root {
+    -fx-background-color: #12314e;
+}
+
+/* Text color */
+.text {
+    -fx-fill: #FFFFFF;
+}
+
+/* Label text color */
+.label {
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #FB3640;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button:hover {
+    -fx-background-color: #003668;
+}
+
+/* Text field background color */
+.text-field {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Customizing VBox */
+.vbox-custom {
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+/* Customizing HBox */
+.hbox-custom {
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+/* Customizing AnchorPane children */
+.anchor-pane > * {
+    -fx-padding: 10px;
+}
