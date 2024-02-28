@@ -1,46 +1,44 @@
 /* Root styling */
 .root {
-    -fx-background-color: #12314e;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #012545;
+    -fx-fill: #012545;
 }
-
-/* Text color */
-.text {
-    -fx-fill: #FFFFFF;
-}
-
-/* Label text color */
-.label {
-    -fx-text-fill: #FFFFFF;
-}
-
 /* Button styling */
 .button {
-    -fx-background-color: #FB3640;
+    -fx-background-color: #012545;
     -fx-text-fill: #FFFFFF;
 }
 
 .button:hover {
-    -fx-background-color: #003668;
+    -fx-background-color: #FB3640;
+    -fx-text-fill: #FFFFFF;
 }
 
-/* Text field background color */
+/* Text field styling */
 .text-field {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #012545;
+    -fx-text-fill: #FFFFFF;
 }
 
-/* Customizing VBox */
-.vbox-custom {
-    -fx-spacing: 10px;
-    -fx-padding: 10px;
+/* Text area styling */
+.text-area {
+    -fx-background-color: #012545;
+    -fx-text-fill: #FFFFFF;
 }
 
-/* Customizing HBox */
-.hbox-custom {
-    -fx-spacing: 10px;
-    -fx-padding: 10px;
+Label {
+    -fx-text-fill: #012545;
+    -fx-border-color: #012545;
+    -fx-border-radius: 10;
 }
 
-/* Customizing AnchorPane children */
+/* AnchorPane child padding */
 .anchor-pane > * {
     -fx-padding: 10px;
+}
+/* Other detail text styling */
+.detail-text {
+    -fx-fill: #012545;
+    -fx-font-size: 18px;
 }
