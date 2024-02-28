@@ -11,7 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -96,9 +98,19 @@ public class AjoutReclamation implements Initializable {
             alert.setTitle("Reclamation a été ajoutée");
             alert.setContentText("GG");
             alert.show();
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+                MainAnchorPaneBaladity.getScene().setRoot(root);
+            } catch (IOException e) {
+                // Gérer l'exception si la redirection échoue
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                errorAlert.setTitle("Erreur de redirection");
+                errorAlert.show();
+            }
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL Exception");
+            alert.setTitle("Exception");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
@@ -134,7 +146,7 @@ public class AjoutReclamation implements Initializable {
     @FXML
     void cancelReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationTypeGui.fxml"));
             TFsujet_reclamation.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
