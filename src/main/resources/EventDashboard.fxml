@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -184,11 +185,16 @@
                 </VBox>
                 <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="276.0" fitWidth="322.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="95.0" fitWidth="114.0" layoutX="106.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/LOGO.png" />
                      </image>
                   </ImageView>
+                        <Button layoutX="34.0" layoutY="117.0" mnemonicParsing="false" onAction="#AjouterVoteClick" prefHeight="39.0" prefWidth="264.0" stylesheets="@style.css" text="Ajouter une Proposition" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Bold" size="20.0" />
+                            </font>
+                        </Button>
                </children></Pane>
             </children>
         </VBox>
@@ -206,18 +212,16 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#AjouterEvenementClick" prefHeight="43.0" prefWidth="254.0" stylesheets="@style.css" text="Ajouter un evenement" textFill="WHITE">
-                            <font>
-                                <Font name="Arial Bold" size="20.0" />
-                            </font>
-                        </Button>
-                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="282.0" stylesheets="@style.css" text="Rechercher un evenement" textFill="WHITE">
+                  <ImageView fitHeight="43.0" fitWidth="47.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/recherche.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="searchTacheLabel" prefHeight="34.0" prefWidth="289.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
+                  <Button mnemonicParsing="false" onAction="#AjouterEvenementClick" prefHeight="39.0" prefWidth="239.0" stylesheets="@style.css" text="Ajouter un evenement" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                   </Button>
                     </children>
                 </HBox>
@@ -240,7 +244,7 @@
                   </ImageView>
                </children>
                 </HBox>
-                <Label prefHeight="55.0" text="Les Evenement">
+                <Label prefHeight="55.0" text="Liste Des Evenements">
                     <font>
                         <Font name="Corbel Bold" size="28.0" />
                     </font>
@@ -267,14 +271,14 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                                      <Label prefHeight="34.0" prefWidth="206.0" text="Affiche evenement" textFill="#575757" GridPane.rowIndex="1">
+                                                      <Label prefHeight="34.0" prefWidth="206.0" text="Affiche Evenement" textFill="#575757" GridPane.rowIndex="1">
                                                           <font>
-                                                              <Font name="Corbel Bold" size="20.0" />
+                                                              <Font name="Corbel Italic" size="22.0" />
                                                           </font>
                                                       </Label>
-                                                      <Label prefHeight="23.0" prefWidth="154.0" text="Nom evenement" textFill="#575757" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                      <Label prefHeight="27.0" prefWidth="166.0" text="Nom Evenement" textFill="#575757" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                           <font>
-                                                              <Font name="Corbel Bold" size="20.0" />
+                                                              <Font name="Corbel Italic" size="22.0" />
                                                           </font>
                                                       </Label>
                                        </children>

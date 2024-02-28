@@ -4,50 +4,156 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="403.0" prefWidth="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailsEvent">
+<AnchorPane prefHeight="403.0" prefWidth="580.0" style="-fx-background-color: #12314e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailsEvent">
     <children>
-        <Text fx:id="nomTFF" fill="#0d0d0d" layoutX="28.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom evnement" wrappingWidth="150.01252365112305">
+        <Text fx:id="nomTFF" layoutX="28.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom evnement" wrappingWidth="150.01252365112305">
          <font>
-            <Font name="Arial Bold" size="15.0" />
-         </font></Text>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8736842274665833" green="0.10354775935411453" blue="0.10354775935411453" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9017543792724609" green="0.9047953486442566" blue="0.9473684430122375" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Text>
         <Text fx:id="debTFF" layoutX="28.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date debut " wrappingWidth="108.4124870300293">
          <font>
-            <Font name="Arial Bold" size="15.0" />
-         </font></Text>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <fill>
+            <LinearGradient startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8736842274665833" green="0.19415204226970673" blue="0.19415204226970673" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006729475100942127">
+                     <color>
+                        <Color red="0.8736842274665833" green="0.19415204226970673" blue="0.19415204226970673" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9578947424888611" green="0.9046783447265625" blue="0.9046783447265625" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Text>
         <Text fx:id="finTFF" layoutX="26.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="102.0124626159668">
          <font>
-            <Font name="Arial Bold" size="15.0" />
-         </font></Text>
-        <Text fx:id="capTFF" layoutX="23.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite Max" wrappingWidth="108.41248703002924">
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8736842274665833" green="0.10354775935411453" blue="0.10354775935411453" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9017543792724609" green="0.9047953486442566" blue="0.9473684430122375" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Text>
+        <Text fx:id="capTFF" layoutX="27.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite Max" wrappingWidth="129.212474822998">
          <font>
-            <Font name="Arial Bold" size="15.0" />
-         </font></Text>
-        <Text fx:id="cateTFF" layoutX="23.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="137.2124137878418">
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8736842274665833" green="0.10354775935411453" blue="0.10354775935411453" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9017543792724609" green="0.9047953486442566" blue="0.9473684430122375" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Text>
+        <Text fx:id="cateTFF" layoutX="28.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="150.01252365112316">
          <font>
-            <Font name="Arial Bold" size="15.0" />
-         </font></Text>
-        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="323.0" layoutX="188.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="backButton" layoutX="246.0" layoutY="322.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="31.0" prefWidth="108.0" stylesheets="@style.css" text="Retourner" textFill="WHITE">
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8736842274665833" green="0.10354775935411453" blue="0.10354775935411453" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9017543792724609" green="0.9047953486442566" blue="0.9473684430122375" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Text>
+        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="323.0" layoutX="193.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="backButton" layoutX="198.0" layoutY="306.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="67.0" prefWidth="184.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
-         </font></Button>
-      <Text layoutX="207.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Evenement" wrappingWidth="165.1004638671875">
-         <font>
-            <Font name="System Bold" size="21.0" />
          </font>
-      </Text>
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/fleche.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="477.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/LOGO.png" />
          </image>
       </ImageView>
-      <Text layoutX="300.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="150.012523651123">
+      <Text layoutX="269.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="184.4125480651855">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8736842274665833" green="0.10354775935411453" blue="0.10354775935411453" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9017543792724609" green="0.9047953486442566" blue="0.9473684430122375" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
       </Text>
         
     </children>

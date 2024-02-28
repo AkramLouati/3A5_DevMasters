@@ -92,6 +92,32 @@ public class EventDashboard implements Initializable {
             alert.show();
         }
     }
+    @FXML
+    void AjouterVoteClick(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de l'interface d'ajout d'événement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterVote.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            AjouterVote controller = loader.getController();
+
+            // Obtenir la scène actuelle à partir de l'un des éléments de l'interface actuelle
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+            stage.setTitle("Ajouter proposition");
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre de ajout
+            stage.showAndWait();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement de l'interface
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de navigation");
+            alert.setContentText("Une erreur s'est produite lors de la navigation vers l'interface d'ajout de proposition.");
+            alert.show();
+        }
+    }
 
 
     }
