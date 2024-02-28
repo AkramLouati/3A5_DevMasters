@@ -13,6 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -20,7 +23,16 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 
-public class ModifierEquipement {
+public class ModifierEquipementGui {
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+
+    @FXML
+    private VBox MainLeftSidebar;
+
+    @FXML
+    private BorderPane SecondBorderPane;
+
     @FXML
     private RadioButton categoriefixemodif;
 
@@ -32,6 +44,9 @@ public class ModifierEquipement {
 
     @FXML
     private TextArea descriptionmodifTF;
+
+    @FXML
+    private BorderPane firstborderpane;
 
     @FXML
     private Label imageequipementmodfi;
@@ -62,6 +77,40 @@ public class ModifierEquipement {
     Equipement equipement = new Equipement(2);
     private String imagePath;
     private Label label;
+    @FXML
+    void BTNGestionAct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionEquipement(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionEvennement(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionRec(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionTache(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionUser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNToggleSidebar(ActionEvent event) {
+
+    }
 
     @FXML
     void modifierEquipementAction(ActionEvent event) {
@@ -91,7 +140,7 @@ public class ModifierEquipement {
     @FXML
     void navigatetoAfficherEquipementAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipement.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
             referencemodifTF.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -103,7 +152,7 @@ public class ModifierEquipement {
     }
 
     @FXML
-    void selectQuantiteModif(ActionEvent event) {
+    void selectQuantite(ActionEvent event) {
         Integer selectedQuantity = (Integer) quantitemodifCB.getSelectionModel().getSelectedItem();
 
     }
@@ -145,4 +194,3 @@ public class ModifierEquipement {
 
     }
 }
-

@@ -20,10 +20,11 @@ public class Main {
         Muni muni = new Muni(1);
         EndUser user = new EndUser(1,muni);
         ServiceEquipement se = new ServiceEquipement();
+        java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
 
         //se.ajouter(new Equipement("aaaaa","bala","bbbb","aaaaa",15,"ccccc","dddddd",user));
-        //Equipement equipement = new Equipement(2,"RTYUJ","vide","","bois",10,"excellent","cet equipement est nouveau",user,muni);
-        //se.modifier(equipement);
+        Equipement equipement = new Equipement(1,"RTYUJ","vide","mobile",sqlDate,10,"","cet equipement est nouveau",user,muni);
+        se.modifier(equipement);
         //se.supprimer(1);
         //System.out.println(se.getAll());
         //System.out.println(se.getOneByID(2));

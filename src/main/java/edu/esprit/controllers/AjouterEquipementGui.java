@@ -13,21 +13,29 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class AjouterEquipement {
+public class AjouterEquipementGui {
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+
+    @FXML
+    private VBox MainLeftSidebar;
+
+    @FXML
+    private BorderPane SecondBorderPane;
+
     @FXML
     private Button ajoutequipementbtn;
-    @FXML
-    private Button navigateequipementbtn;
+
     @FXML
     private RadioButton categoriefixe;
 
@@ -41,10 +49,16 @@ public class AjouterEquipement {
     private TextArea descriptionTF;
 
     @FXML
+    private BorderPane firstborderpane;
+
+    @FXML
     private Label imageequipement;
 
     @FXML
     private ImageView imagevieweq;
+
+    @FXML
+    private Button navigateequipementbtn;
 
     @FXML
     private TextField nomTF;
@@ -57,29 +71,50 @@ public class AjouterEquipement {
 
     @FXML
     private Button telechargerimage;
-    @FXML
-
+    private String imagePath;
     private final ServiceEquipement se = new ServiceEquipement();
     Muni muni = new Muni(1);
     EndUser user = new EndUser(1,muni);
-    private String imagePath;
     private Label label;
+
     @FXML
-    void selectQuantite(ActionEvent event) {
-        Integer selectedQuantity = (Integer) quantiteCB.getSelectionModel().getSelectedItem();
+    void BTNGestionAct(ActionEvent event) {
+
     }
+
     @FXML
-    public void initialize() {
-        ObservableList<Integer> list = FXCollections.observableArrayList();
-        for (int i = 0; i <= 20; i++) {
-            list.add(i);
-        }
-        quantiteCB.setItems(list);
+    void BTNGestionEquipement(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionEvennement(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionRec(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionTache(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNGestionUser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void BTNToggleSidebar(ActionEvent event) {
+
     }
 
     @FXML
     void ajouterEquipementAction(ActionEvent event) {
-        // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+// Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
         Date dateAjout = Date.valueOf(dateajout.getValue()); // Convertissez la valeur du DatePicker en objet Date
         int quantite = Integer.parseInt(quantiteCB.getValue().toString()); // Assurez-vous que la ComboBox est correctement initialisée avec des valeurs
         Equipement equipement = new Equipement(referenceTF.getText(), nomTF.getText(), categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, muni);
@@ -90,13 +125,12 @@ public class AjouterEquipement {
         alert.setTitle("Equipement ajouté");
         alert.setContentText("L'équipement a été ajouté avec succès !");
         alert.show();
-
     }
 
     @FXML
     void navigatetoAfficherEquipementAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipement.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
             referenceTF.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -105,6 +139,20 @@ public class AjouterEquipement {
             alert.show();
         }
 
+    }
+
+    @FXML
+    void selectQuantite(ActionEvent event) {
+        Integer selectedQuantity = (Integer) quantiteCB.getSelectionModel().getSelectedItem();
+
+    }
+    @FXML
+    public void initialize() {
+        ObservableList<Integer> list = FXCollections.observableArrayList();
+        for (int i = 0; i <= 20; i++) {
+            list.add(i);
+        }
+        quantiteCB.setItems(list);
     }
 
     @FXML
@@ -135,5 +183,6 @@ public class AjouterEquipement {
             }
         });
     }
+
 }
 
