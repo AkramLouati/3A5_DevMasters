@@ -1,14 +1,23 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.EndUser;
+import edu.esprit.services.ServiceUser;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +39,12 @@ public class UserItem implements Initializable {
     @FXML
     private Label type;
 
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId;
+
     public void setData(EndUser user){
+        userId = user.getId();
 //        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(user.getImage())));
 //        img.setImage(image);
         String imageUrl = user.getImage();
@@ -76,6 +90,35 @@ public class UserItem implements Initializable {
         email.setText(user.getEmail());
         type.setText(user.getType());
 
+    }
+
+    @FXML
+    void editUser(ActionEvent event) {
+        try {
+            EndUser endUser = serviceUser.getOneByID(userId);
+            // Charger la vue de modification d'événement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierUser.fxml"));
+            Parent root = loader.load();
+
+            // Passer l'événement à modifier au contrôleur de modification
+            ModifierUser controller = loader.getController();
+            controller.setData(endUser);
+
+            // Créer une nouvelle fenêtre (stage) pour afficher la vue de modification
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+            stage.setTitle("Modifier événement");
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre de modification
+            stage.showAndWait();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement de la vue de modification
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Erreur lors de la modification de l'événement.");
+            alert.setTitle("Erreur de modification");
+            alert.show();
+        }
     }
 
     @Override

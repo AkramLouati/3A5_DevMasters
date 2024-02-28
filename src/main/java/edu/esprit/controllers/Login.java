@@ -1,5 +1,6 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,20 +8,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class Login {
 
+    private static final String USER_PREF_KEY = "current_user";
+
+
+    @FXML
+    private Button loginButtonAction;
 
     public Label clickableLabel;
+
     @FXML
     private TextField tfEmail;
 
@@ -49,13 +54,26 @@ public class Login {
 
     @FXML
     void loginButtonAction(ActionEvent event) {
+
         String email = tfEmail.getText();
         String password = pfMotDePasse.getText();
+
         // Perform your authentication logic here
         if (isValidCredentials(email, password)) {
             // Successful login, you can navigate to another screen or perform other actions
+
+            EndUser currentUser = serviceUser.authenticateUser(email, password);
+
             try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UserAccount.fxml")));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
+                Parent root = loader.load();
+
+                // Get the controller instance
+                UserAccount userAccountController = loader.getController();
+                // Pass the current user to the UserAccount controller
+                userAccountController.setCurrentUser(currentUser);
+
+                // Continue with your navigation code
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
@@ -87,4 +105,16 @@ public class Login {
         alert.setContentText("Invalid username or password");
         alert.showAndWait();
     }
+
+    private void setCurrentUser(int userId) {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        preferences.put(USER_PREF_KEY, String.valueOf(userId));
+        System.out.println("Current User saved: " + userId);
+    }
+
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+
 }

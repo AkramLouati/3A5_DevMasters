@@ -46,6 +46,13 @@ public class UserAccount {
 
     ServiceUser serviceUser = new ServiceUser();
 
+    private EndUser currentUser;
+
+    public void setCurrentUser(EndUser user) {
+        this.currentUser = user;
+        // Now, you can use 'currentUser' to access the current user in this controller
+    }
+
     @FXML
     void modifierUser(ActionEvent event) {
         String nom = tfNom.getText();
@@ -53,13 +60,13 @@ public class UserAccount {
         String password = pfMotDePasse.getText();
         String numTel = tfNumTel.getText();
         String addresse = tfAddresse.getText();
-        String type = serviceUser.getOneByID(34).getType();
-        Muni muni = serviceUser.getOneByID(34).getMuni();
-        serviceUser.modifier(new EndUser(34,email,nom,password,type,numTel,muni,addresse,selectedFile.getAbsolutePath()));
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Success");
-//        alert.setContentText("User Updated");
-//        alert.show();
+        String type = serviceUser.getOneByID(currentUser.getId()).getType();
+        Muni muni = serviceUser.getOneByID(currentUser.getId()).getMuni();
+        serviceUser.modifier(new EndUser(currentUser.getId(), email,nom,password,type,numTel,muni,addresse,selectedFile.getAbsolutePath()));
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setContentText("User Updated");
+        alert.show();
 
     }
 
