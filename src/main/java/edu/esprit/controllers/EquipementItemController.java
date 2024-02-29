@@ -110,6 +110,17 @@ public class EquipementItemController {
     }
     @FXML
     void avisEquipementAction(ActionEvent event) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/AfficherAvisGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherAvisGui.fxml"));
+            editButton.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
 
     }
     private Equipement equipement;

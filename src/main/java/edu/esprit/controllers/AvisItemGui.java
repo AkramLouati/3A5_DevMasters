@@ -1,9 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Avis;
-import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceAvis;
-import edu.esprit.services.ServiceEquipement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,49 +9,27 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Objects;
 import java.util.Optional;
 
-public class AvisItemGuiFront {
+public class AvisItemGui {
     @FXML
-    private Text commentaireequipement;
+    private Text commentaireequipementB;
 
     @FXML
-    private Text dateequipement;
+    private Text dateequipementB;
 
     @FXML
-    private Button modifierAvis;
+    private Text noteequipementB;
 
     @FXML
-    private Text noteequipement;
-
+    private Button supprimerAvisB;
+    private Avis avis;
+    ServiceAvis serviceAvis= new ServiceAvis();
     @FXML
-    private Button supprimerAvis;
-
-    @FXML
-    void modifierAvisAction(ActionEvent event) {
-        try {
-            System.out.println("Resource URL: " + getClass().getResource("/ModifierAvisGuiFront.fxml"));
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/ModifierAvisGuiFront.fxml")));
-            modifierAvis.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-
-    }
-
-    @FXML
-    void supprimerAvisAction(ActionEvent event) {
+    void supprimerBAvisAction(ActionEvent event) {
         if (avis != null) {
             // Créer une boîte de dialogue de confirmation
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -78,7 +54,7 @@ public class AvisItemGuiFront {
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des équipement)
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("/AfficherAvisGuiFront.fxml"));
-                    supprimerAvis.getScene().setRoot(root);
+                    supprimerAvisB.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -94,14 +70,11 @@ public class AvisItemGuiFront {
             errorAlert.setTitle("Erreur de suppression");
             errorAlert.show();
         }
-
     }
-    private Avis avis;
-    ServiceAvis serviceAvis= new ServiceAvis();
     public void setData(Avis avis) {
         this.avis = avis;
-        commentaireequipement.setText(avis.getCommentaire_avis());
-        noteequipement.setText(String.valueOf(avis.getNote_avis()));
-        dateequipement.setText(String.valueOf(avis.getDate_avis()));
+        commentaireequipementB.setText(avis.getCommentaire_avis());
+        noteequipementB.setText(String.valueOf(avis.getNote_avis()));
+        dateequipementB.setText(String.valueOf(avis.getDate_avis()));
     }
 }

@@ -23,7 +23,7 @@ public class Avis {
         this.date_avis = date_avis;
     }
 
-    public Avis(EndUser user,Muni muni, Equipement equipement, int note_avis, String commentaire_avis, Date date_avis) {
+    public Avis(Equipement equipement,EndUser user,Muni muni, int note_avis, String commentaire_avis, Date date_avis) {
         this.user = user;
         this.muni = muni;
         this.equipement = equipement;

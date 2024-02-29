@@ -4,6 +4,7 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceEquipement;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +31,7 @@ public class ModifierEquipementGui {
 
     @FXML
     private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
 
     @FXML
     private BorderPane SecondBorderPane;
@@ -109,7 +112,45 @@ public class ModifierEquipementGui {
 
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
 
+        double sidebarWidth = MainLeftSidebar.getWidth();
+
+        if (isSidebarVisible) {
+            // Hide sidebar
+            sideBarTransition.setByX(-sidebarWidth);
+            isSidebarVisible = false;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+            // Translate SecondBorderPane to the left to take the extra space
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(400), SecondBorderPane);
+            borderPaneTransition.setByX(-sidebarWidth);
+            borderPaneTransition.play();
+        } else {
+            // Show sidebar
+            sideBarTransition.setByX(sidebarWidth);
+            isSidebarVisible = true;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
+            // Reset the translation of SecondBorderPane to 0
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(sidebarWidth);
+            borderPaneTransition.play();
+        }
+
+        sideBarTransition.play();
+
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
+        MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
     @FXML
