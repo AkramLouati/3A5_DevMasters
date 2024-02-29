@@ -27,7 +27,7 @@
                         <DropShadow />
                     </effect>
                 </ImageView>
-                <Button mnemonicParsing="false" onAction="#BTNGestionTache" prefHeight="54.0" prefWidth="193.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #012545; -fx-border-color: #FB3640; -fx-border-width: 2;" text="Tache" textFill="WHITE">
+                <Button mnemonicParsing="false" onAction="#BTNGestionTache" prefHeight="54.0" prefWidth="193.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #012545; -fx-border-color: #FB3640; -fx-border-width: 2; -fx-text-fill: white;" text="Tache" textFill="WHITE">
                     <font>
                         <Font name="Arial Bold" size="20.0" />
                     </font>

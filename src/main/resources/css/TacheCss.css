@@ -18,7 +18,10 @@
     -fx-background-color: #012545;
     -fx-text-fill: #FFFFFF;
 }
-
+.button:selected{
+    -fx-background-color: #012545;
+    -fx-text-fill: #FFFFFF;
+}
 /* Text field styling */
 .text-field {
     -fx-background-color: #012545;

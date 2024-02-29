@@ -38,8 +38,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-
-
+import java.util.function.UnaryOperator;
 public class AjouterTacheController {
 
     public BorderPane firstborderpane;
@@ -296,6 +295,17 @@ public class AjouterTacheController {
             return ValidationResult.fromMessageIf(c, "Etat Obligatoire", Severity.ERROR, !isAnySelected);
         });
 
+        // Inside the initialize() method
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[a-zA-Z]+") || newText.isEmpty()) {
+                return change;
+            }
+            return null;
+        };
+
+        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+        titleField.setTextFormatter(textFormatter);
         populateCategoryComboBox();
 
     }
