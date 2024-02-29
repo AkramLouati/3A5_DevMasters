@@ -6,15 +6,21 @@ import edu.esprit.services.ServiceUser;
 import edu.esprit.services.ServiceVote;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class AjouterVote {
+    private EventDashboard eventDashboardController;
 
     @FXML
     private TextField TDdesc;
@@ -53,6 +59,15 @@ public class AjouterVote {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs correctement !");
         }
     }
+    public void setEventDashboardController(EventDashboard eventDashboardController) {
+        this.eventDashboardController = eventDashboardController;
+    }
+
+    private void refreshEventDashboard() {
+        if (eventDashboardController != null) {
+            eventDashboardController.loadEvents();
+        }
+    }
 
     @FXML
     void returnOnclick(ActionEvent event) {
@@ -60,12 +75,26 @@ public class AjouterVote {
             // Fermer la fenêtre actuelle
             Stage stage = (Stage) TDdesc.getScene().getWindow();
             stage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Gérer les exceptions liées à la fermeture de la fenêtre
-        }
 
+            // Charger la vue de l'interface EventDashboard
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDashboard.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Accéder au Stage principal
+            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Mettre à jour la scène principale avec l'interface EventDashboard
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les exceptions liées au chargement de la vue
+        }
     }
+
 
     private boolean validateFields() {
         boolean isValid = true;
