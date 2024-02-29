@@ -65,6 +65,7 @@ public class VoteItem {
         }
     }
 
+
     @FXML
     void ModifierVoteClick(ActionEvent event) {
         try {
