@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -16,9 +18,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherReclamationController">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterAfficherMessageController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -166,25 +167,60 @@
                 </HBox>
             </top>
             <center>
-                <AnchorPane fx:id="MainAnchorPaneBaladity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#012545" layoutX="18.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes Réclamations :" wrappingWidth="275.73670959472656">
-                     <font>
-                        <Font name="Arial Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <VBox layoutX="19.0" layoutY="48.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <VBox layoutY="72.0" prefHeight="534.0" prefWidth="362.0" styleClass="gray-background" stylesheets="@css/styles.css">
                      <children>
-                        <HBox prefHeight="34.0" prefWidth="769.0" style="-fx-background-color: #D3D3D3;">
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="300.0" stylesheets="@css/styles.css">
                            <children>
-                              <Label prefHeight="34.0" prefWidth="102.0" />
-                              <Label fx:id="receiverNameLabel211111" prefHeight="27.0" prefWidth="182.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Sujet" />
-                              <Label fx:id="receiverNameLabel2111111" prefHeight="27.0" prefWidth="204.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Date" />
-                              <Label fx:id="receiverNameLabel2111112" prefHeight="27.0" prefWidth="180.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="status" />
-                              <Label fx:id="receiverNameLabel21111131" prefHeight="27.0" prefWidth="157.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Actions" />
+                              <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/search2.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ImageView>
+                              <TextField alignment="CENTER" prefHeight="34.0" prefWidth="235.0" promptText="search" stylesheets="@css/styles.css">
+                                 <styleClass>
+                                    <String fx:value="transparent-background" />
+                                    <String fx:value="text-input-simple" />
+                                 </styleClass>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="dark-gray-background" />
+                              <String fx:value="radius" />
+                           </styleClass>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="359.0" prefHeight="602.0" prefWidth="507.0">
+                     <children>
+                        <HBox prefHeight="70.0" prefWidth="514.0" style="-fx-background-color: #C0C0C0;">
+                           <children>
+                              <ImageView fx:id="userphoto" fitHeight="69.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/profile.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="Nameuser" alignment="CENTER" prefHeight="67.0" prefWidth="346.0" text="Yassine Zayane">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </HBox>
-                        <ScrollPane fx:id="scroll" prefHeight="460.0" prefWidth="834.0" styleClass="transparent">
+                        <ScrollPane fx:id="chatVbox" prefHeight="494.0" prefWidth="507.0">
                            <content>
                               <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
                                  <rowConstraints>
@@ -193,9 +229,19 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
+                        <HBox prefHeight="34.0" prefWidth="523.0">
+                           <children>
+                              <TextField fx:id="TFmessage" prefHeight="35.0" prefWidth="419.0" promptText="Ecrivez Votre Message ...." />
+                              <Button mnemonicParsing="false" onAction="#sendMessage" prefHeight="34.0" prefWidth="88.0" stylesheets="@css/styles.css" text="envoyer">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
-                  <Button layoutY="545.0" mnemonicParsing="false" onAction="#buttonReturnAfficherReclamation" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;" stylesheets="@css/styles.css">
+                  <Button mnemonicParsing="false" onAction="#buttonReturnAfficherReclamation" prefHeight="54.0" prefWidth="79.0" styleClass="transparent-background" stylesheets="@css/styles.css">
                      <graphic>
                         <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -204,17 +250,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField layoutX="589.0" layoutY="11.0" prefHeight="22.0" prefWidth="223.0" promptText="Search" stylesheets="@css/styles.css" />
-                  <ImageView fitHeight="32.0" fitWidth="26.0" layoutX="827.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/search.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="477.0" layoutY="17.0" prefHeight="20.0" prefWidth="112.0" text="rechercher par :" textFill="#012545">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
                </children>
             </AnchorPane>
             </center>

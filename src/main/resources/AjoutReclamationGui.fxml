@@ -215,14 +215,14 @@
                      </font>
                   </Text>
                   <ImageView fx:id="imgView_reclamation" fitHeight="183.0" fitWidth="257.0" layoutX="567.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="label" layoutX="555.0" layoutY="109.0" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #f0f0f0;">
+                  <Label fx:id="label" layoutX="555.0" layoutY="109.0" prefHeight="31.0" prefWidth="280.0" stylesheets="@css/styles.css">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
                      <graphic>
-                        <Button fx:id="uploadbutton" mnemonicParsing="false" onAction="#uploadimg" prefHeight="42.0" prefWidth="67.0" style="-fx-background-color: #FFFFFF;">
+                        <Button fx:id="uploadbutton" mnemonicParsing="false" onAction="#uploadimg" prefHeight="33.0" prefWidth="40.0" style="-fx-background-color: #FFFFFF;">
                            <graphic>
-                              <ImageView fitHeight="38.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@assets/upload.png" />
                                  </image>

@@ -1,5 +1,7 @@
 package edu.esprit.controllers;
+import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,12 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.util.Optional;
 
 
-public class ReclamationItemComponentController {
+public class ReclamationItemComponentMessagerieController {
 
     @FXML
     private Label TFdate_reclamationaff;
@@ -29,6 +33,7 @@ public class ReclamationItemComponentController {
     private ImageView arrowrightimg;
 
     private Reclamation reclamation;
+    private BorderPane SecondBorderPane;
     ServiceReclamation serviceReclamation = new ServiceReclamation();
 
     public void setData(Reclamation reclamation){
@@ -97,11 +102,11 @@ public class ReclamationItemComponentController {
     }
 
     @FXML
-    void ReclamationEditAction(ActionEvent event) {
+    void ReclamationReplyAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationEditGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MessagerieGui.fxml"));
             Parent root = loader.load();
-            ReclamationEditController controller = loader.getController();
+            AjouterAfficherMessageController controller = loader.getController();
             controller.setServiceReclamation(serviceReclamation);
             controller.setData(reclamation);
             TFsujet_reclamationaff.getScene().setRoot(root);
@@ -112,4 +117,5 @@ public class ReclamationItemComponentController {
             alert.show();
         }
     }
+
 }

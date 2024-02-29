@@ -34,7 +34,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, reclamation.getUser().getId());
-            ps.setInt(2, reclamation.getMuni().getId());
+            ps.setInt(2, reclamation.getMuni().getId_muni());
             ps.setString(3, reclamation.getSujet_reclamation());
             ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
             ps.setString(5, reclamation.getType_reclamation());
@@ -75,7 +75,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setInt(1, reclamation.getUser().getId());
-                ps.setInt(2, reclamation.getMuni().getId());
+                ps.setInt(2, reclamation.getMuni().getId_muni());
                 ps.setString(3, reclamation.getSujet_reclamation());
                 ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
                 ps.setString(5, reclamation.getType_reclamation());
@@ -124,7 +124,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     public Set<Reclamation> getAll() {
         Set<Reclamation> reclamations = new HashSet<>();
 
-        String req = "SELECT * FROM `reclamation`";
+        String req = "SELECT * FROM `reclamation` ORDER BY date_reclamation ASC";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ResultSet rs = ps.executeQuery();

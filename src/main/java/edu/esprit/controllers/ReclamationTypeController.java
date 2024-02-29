@@ -154,7 +154,16 @@ public class ReclamationTypeController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
+    @FXML
+    void buttonReturnTypeReclamation(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+            MainAnchorPaneBaladity.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }

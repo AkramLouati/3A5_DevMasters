@@ -11,9 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -57,8 +55,8 @@ public class AjoutReclamation implements Initializable {
 
     private final ServiceReclamation sr = new ServiceReclamation();
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-    Muni muni = new Muni(5);
-    EndUser user = new EndUser(13,muni);
+    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
+    EndUser user = new EndUser(37,"amine@gmail.com","amine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private String imagePath;
     private boolean type_reclamation;
 
