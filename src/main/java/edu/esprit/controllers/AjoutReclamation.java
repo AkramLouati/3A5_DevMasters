@@ -52,6 +52,17 @@ public class AjoutReclamation implements Initializable {
     private Button uploadbutton;
     @FXML
     private Label label;
+    @FXML
+    private Label checkadressereclamation;
+
+    @FXML
+    private Label checkdescriptionreclamation;
+
+    @FXML
+    private Label checksujetreclamation;
+
+    @FXML
+    private Label checktypereclamation;
 
     private final ServiceReclamation sr = new ServiceReclamation();
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
@@ -89,6 +100,14 @@ public class AjoutReclamation implements Initializable {
 
     @FXML
     void ajouterReclamationAction(ActionEvent event) {
+        // Valider tous les champs et mettre à jour les messages dans les labels
+        boolean sujetValid = validateTextField(TFsujet_reclamation, checksujetreclamation);
+        boolean descriptionValid = validateTextArea(TAdescription_reclamation, checkdescriptionreclamation);
+        boolean adresseValid = validateTextField(TFadresse_reclamation, checkadressereclamation);
+        boolean typeValid = validateComboBox(typeReclamationComboBox, checktypereclamation);
+
+        // Vérifier si tous les champs sont valides
+        if (sujetValid && descriptionValid && adresseValid && typeValid) {
         try {
             // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
             sr.ajouter(new Reclamation(user, muni, TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
@@ -111,6 +130,7 @@ public class AjoutReclamation implements Initializable {
             alert.setTitle("Exception");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+        }
         }
     }
     @FXML
@@ -220,6 +240,47 @@ public class AjoutReclamation implements Initializable {
 
         sideBarTransition.play();
     }
+    private boolean validateComboBox(ComboBox<String> comboBox, Label label) {
+        // Vérifie si aucune option n'est sélectionnée dans le ComboBox
+        if (comboBox.getValue() == null || comboBox.getValue().isEmpty()) {
+            label.setText("Veuillez sélectionner une option");
+            label.getStyleClass().add("warning-text");
+            return false;
+        } else {
+            label.setText("Valide");
+            label.getStyleClass().removeAll("warning-text");
+            label.getStyleClass().add("success-text");
+            return true;
+        }
+    }
 
+    // Méthode pour valider le champ de texte et mettre à jour le label associé
+    private boolean validateTextField(TextField textField, Label label) {
+        // Vérifie si le champ de texte est vide
+        if (textField.getText().isEmpty()) {
+            label.setText("Veuillez remplir ce champ");
+            label.getStyleClass().add("warning-text");
+            return false;
+        } else {
+            label.setText("Valide");
+            label.getStyleClass().removeAll("warning-text");
+            label.getStyleClass().add("success-text");
+            return true;
+        }
+    }
 
+    // Méthode pour valider le champ de texte et mettre à jour le label associé
+    private boolean validateTextArea(TextArea textArea, Label label) {
+        // Vérifie si la zone de texte est vide
+        if (textArea.getText().isEmpty()) {
+            label.setText("Veuillez remplir ce champ");
+            label.getStyleClass().add("warning-text");
+            return false;
+        } else {
+            label.setText("Valide");
+            label.getStyleClass().removeAll("warning-text");
+            label.getStyleClass().add("success-text");
+            return true;
+        }
+    }
 }
