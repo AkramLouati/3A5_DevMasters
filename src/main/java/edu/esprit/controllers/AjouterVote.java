@@ -6,21 +6,15 @@ import edu.esprit.services.ServiceUser;
 import edu.esprit.services.ServiceVote;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class AjouterVote {
-    private EventDashboard eventDashboardController;
+
+    private VoteList voteListController;
 
     @FXML
     private TextField TDdesc;
@@ -29,6 +23,10 @@ public class AjouterVote {
     private TextField TFdateS;
 
     private final ServiceVote serviceVote = new ServiceVote();
+
+    public void setVoteListController(VoteList voteListController) {
+        this.voteListController = voteListController;
+    }
 
     @FXML
     void AjouterVoteOnClick(ActionEvent event) {
@@ -50,6 +48,9 @@ public class AjouterVote {
 
                 // Affichage d'une notification de succès
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Vote ajouté avec succès !");
+
+                // Refresh the VoteList
+                refreshVoteList();
             } catch (SQLException e) {
                 // En cas d'erreur lors de l'ajout du vote
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ajout du vote : " + e.getMessage());
@@ -57,15 +58,6 @@ public class AjouterVote {
         } else {
             // Affichage d'une notification d'erreur si les champs ne sont pas valides
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs correctement !");
-        }
-    }
-    public void setEventDashboardController(EventDashboard eventDashboardController) {
-        this.eventDashboardController = eventDashboardController;
-    }
-
-    private void refreshEventDashboard() {
-        if (eventDashboardController != null) {
-            eventDashboardController.loadEvents();
         }
     }
 
@@ -81,7 +73,6 @@ public class AjouterVote {
         }
     }
 
-
     private boolean validateFields() {
         boolean isValid = true;
 
@@ -93,25 +84,7 @@ public class AjouterVote {
             setValidFieldStyle(TDdesc);
         }
 
-        // Validation de la date de soumission
-        if (!isValidDate(TFdateS.getText())) {
-            setInvalidFieldStyle(TFdateS);
-            isValid = false;
-        } else {
-            setValidFieldStyle(TFdateS);
-        }
-
         return isValid;
-    }
-
-    private boolean isValidDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        try {
-            LocalDate.parse(date, formatter);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     private void setInvalidFieldStyle(TextField textField) {
@@ -127,5 +100,11 @@ public class AjouterVote {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.show();
+    }
+
+    private void refreshVoteList() {
+        if (voteListController != null) {
+            voteListController.loadVotes();
+        }
     }
 }

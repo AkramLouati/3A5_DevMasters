@@ -1,20 +1,14 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Vote;
-import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceVote;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,10 +21,14 @@ public class VoteList implements Initializable {
 
     @FXML
     private VBox VoteLayout;
-    private Scene currentScene;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadVotes();
+    }
+
+    public void loadVotes() {
+        VoteLayout.getChildren().clear();
         List<Vote> votes = new ArrayList<>(getVotes());
         for (Vote vote : votes) {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -71,18 +69,16 @@ public class VoteList implements Initializable {
         try {
             // Charger le fichier FXML de l'interface d'ajout d'événement
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterVote.fxml"));
-            Parent root = loader.load();
+            javafx.scene.Parent root = loader.load();
 
             // Créer une nouvelle scène
             AjouterVote controller = loader.getController();
-
-            // Obtenir la scène actuelle à partir de l'un des éléments de l'interface actuelle
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
-            stage.setTitle("Ajouter proposition");
-            stage.setScene(new Scene(root));
+            controller.setVoteListController(this);
 
             // Afficher la fenêtre de ajout
+            javafx.stage.Stage stage = new javafx.stage.Stage();
+            stage.setTitle("Ajouter Proposition");
+            stage.setScene(new javafx.scene.Scene(root));
             stage.showAndWait();
         } catch (IOException e) {
             // Gérer les exceptions liées au chargement de l'interface
@@ -92,7 +88,4 @@ public class VoteList implements Initializable {
             alert.show();
         }
     }
-
-
 }
-

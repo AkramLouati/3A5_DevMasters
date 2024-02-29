@@ -249,9 +249,9 @@
                 </Label>
                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <ScrollPane fx:id="scrollA" prefHeight="490.0" prefWidth="986.0" styleClass="transparent" stylesheets="@style.css">
+                        <ScrollPane fx:id="scrollA" prefHeight="2000.0" prefWidth="2000.0" styleClass="transparent" stylesheets="@style.css">
                             <content>
-                                <VBox fx:id="VoteLayout" prefHeight="443.0" prefWidth="949.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
+                                <VBox fx:id="VoteLayout" prefHeight="2000.0" prefWidth="1500.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
                                     <children>
                                         <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="946.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@style.css">
                                             <children>
