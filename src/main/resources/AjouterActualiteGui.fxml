@@ -179,7 +179,7 @@
                   </ImageView>
                   <TextField fx:id="TFtitre" layoutX="207.0" layoutY="91.0" prefHeight="38.0" prefWidth="223.0" promptText="titre" stylesheets="@Actualite.css" />
                   <TextField fx:id="TFdescription" layoutX="207.0" layoutY="162.0" prefHeight="147.0" prefWidth="223.0" promptText="Description" stylesheets="@Actualite.css" />
-                  <Button fx:id="ajouterActualiteAction" layoutX="95.0" layoutY="522.0" mnemonicParsing="false" onAction="#ajouterActualiteAction" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" text="   Ajouter" textFill="WHITE">
+                  <Button fx:id="ajouterActualiteAction" layoutX="95.0" layoutY="522.0" mnemonicParsing="false" onAction="#ajouterActualiteAction" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Ajouter" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
@@ -200,7 +200,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Button layoutX="282.0" layoutY="522.0" mnemonicParsing="false" onAction="#navigatetoAfficherActualiteAction" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #012545;" text="   Afficher" textFill="WHITE">
+                  <Button layoutX="282.0" layoutY="522.0" mnemonicParsing="false" onAction="#navigatetoAfficherActualiteAction" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Afficher" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
@@ -224,9 +224,9 @@
                      <graphic>
                         <Button fx:id="uploadbuttonA" mnemonicParsing="false" onAction="#uploadimgA" prefHeight="26.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;">
                            <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@assets/image-.png" />
+                                    <Image url="@assets/imageIcon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -237,6 +237,8 @@
                         <Font name="Arial Bold" size="25.0" />
                      </font>
                   </Text>
+                  <Label fx:id="verifierTitre" layoutX="215.0" layoutY="129.0" prefHeight="18.0" prefWidth="206.0" text="vérifier ce champ" textFill="RED" visible="false" />
+                  <Label fx:id="verifierDescription" layoutX="220.0" layoutY="320.0" prefHeight="18.0" prefWidth="224.0" text="vérifier ce champ" textFill="RED" visible="false" />
                </children>
             </AnchorPane>
             </center>

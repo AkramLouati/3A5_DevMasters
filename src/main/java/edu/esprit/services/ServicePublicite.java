@@ -54,7 +54,6 @@ public class ServicePublicite implements IService<Publicite> {
                 publicite.getOffre_pub() != null; // Check for offre_pub
     }
 
-
     @Override
     public void modifier(Publicite publicite) {
         // Check if all the required fields are filled
@@ -62,7 +61,7 @@ public class ServicePublicite implements IService<Publicite> {
             // Check if the specified Publicite ID exists before attempting to update
             if (publiciteExists(publicite.getId_pub())) {
                 // Check if the associated Actualite ID exists in the actualite table
-                if (actualiteExists(publicite.getActualite().getId_a())) {
+                if (publicite.getActualite() != null && actualiteExists(publicite.getActualite().getId_a())) {
                     String req = "UPDATE `publicite` SET `titre_pub`=?, `description_pub`=?, `contact_pub`=?, `localisation_pub`=? , `image_pub`=?, `id_user`=?, `id_a`=?, `offre_pub`=? WHERE `id_pub`=?";
                     try {
                         // Set up connection for transaction
@@ -103,7 +102,7 @@ public class ServicePublicite implements IService<Publicite> {
                         }
                     }
                 } else {
-                    System.out.println("Associated Actualite with ID " + publicite.getActualite().getId_a() + " does not exist.");
+                    System.out.println("Associated Actualite is null or Actualite with ID " + publicite.getActualite().getId_a() + " does not exist.");
                 }
             } else {
                 System.out.println("Publicite with ID " + publicite.getId_pub() + " does not exist.");
@@ -112,8 +111,6 @@ public class ServicePublicite implements IService<Publicite> {
             System.out.println("Invalid input. Please fill all required fields.");
         }
     }
-
-
 
 
     // Check if the specified actualite ID exists
@@ -130,7 +127,21 @@ public class ServicePublicite implements IService<Publicite> {
             return false;
         }
     }
+    public boolean numeroExists(int contact) {
+        try {
 
+            String requete = "SELECT * FROM publicite WHERE contact_pub = ?";
+            PreparedStatement st = cnx.prepareStatement(requete);
+            st.setInt(1, contact);
+            ResultSet rs = st.executeQuery();
+
+            return rs.next(); // Returns true if the number exists in the database
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return false;
+        }
+    }
 
 
 

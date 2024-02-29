@@ -1,25 +1,39 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.Actualite;
 import edu.esprit.entities.Publicite;
-import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ModifierPubliciteController {
+public class ModifierPubliciteController implements Initializable {
+
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+
+    @FXML
+    private VBox MainLeftSidebar;
+
+    @FXML
+    private BorderPane SecondBorderPane;
 
     @FXML
     private TextField TFcontactpubModif;
@@ -34,51 +48,35 @@ public class ModifierPubliciteController {
     private TextField TFtitrepubModif;
 
     @FXML
+    private BorderPane firstborderpane;
+
+    @FXML
     private ImageView imgView_pubModif;
+
+    @FXML
+    private ImageView imgView_pub;
 
     @FXML
     private Label labelPubModif;
 
     @FXML
     private Button modifierPubliciteAction;
+    private boolean isSidebarVisible = true;
+    @FXML
+    private Label numeroexiste;
 
     @FXML
     private ComboBox<String> offrePubComboModif;
 
     @FXML
+    private Button retourToAfficherPub;
+
+    @FXML
     private Button uploadbuttonPModif;
+
     private ServicePublicite servicePublicite;
     private Publicite publicite;
     private String imagePath;
-
-    @FXML
-    void modifierPubliciteAction(ActionEvent event) {
-        if (publicite != null && servicePublicite != null) {
-            // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
-            publicite.setTitre_pub(TFtitrepubModif.getText());
-            publicite.setDescription_pub(TFdescriptionpubModif.getText());
-            publicite.setTitre_pub(TFtitrepubModif.getText());
-            publicite.setDescription_pub(TFdescriptionpubModif.getText());
-
-// Assuming offrePubComboModif is a ComboBox<String>
-            publicite.setOffre_pub(offrePubComboModif.getValue());
-
-// Assuming TFcontactpubModif is a TextField
-            try {
-                // Attempt to parse the text from the TextField as an integer
-                int contact = Integer.parseInt(TFcontactpubModif.getText());
-                publicite.setContact_pub(contact);
-            } catch (NumberFormatException e) {
-                // Handle the case where the text is not a valid integer
-                // You might want to show an error message to the user
-                e.printStackTrace(); // Print for debugging, you can replace this with appropriate error handling
-            }
-
-            publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
-
-
-        }
-    }
 
     @FXML
     void uploadimgP(ActionEvent event) {
@@ -92,84 +90,158 @@ public class ModifierPubliciteController {
         Stage stage = (Stage) uploadbuttonPModif.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            // Affiche le nom du fichier sélectionné
             labelPubModif.setText(selectedFile.getName());
-
-            // Récupère le chemin absolu du fichier
             String absolutePath = selectedFile.getAbsolutePath();
-            // Stocke le chemin absolu dans la variable de classe
             imagePath = absolutePath;
-
-            // Crée une URL à partir du chemin absolu du fichier
             String fileUrl = new File(absolutePath).toURI().toString();
-
-            // Crée une image à partir de l'URL du fichier
             Image image = new Image(fileUrl);
-
-            // Affiche l'image dans l'ImageView
             imgView_pubModif.setImage(image);
 
-            // Mettre à jour le chemin d'accès à l'image dans la réclamation
             if (publicite != null) {
                 publicite.setImage_pub(imagePath);
             }
         }
     }
 
+    @FXML
+    void modifierPubliciteAction(ActionEvent event) {
+        if (publicite != null && servicePublicite != null) {
+            try {
+                // Update publicite fields with values from the text fields and combo box
+                publicite.setTitre_pub(TFtitrepubModif.getText());
+                publicite.setDescription_pub(TFdescriptionpubModif.getText());
+                publicite.setContact_pub(Integer.parseInt(TFcontactpubModif.getText()));
+                publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
+                publicite.setOffre_pub(offrePubComboModif.getValue());
+                publicite.setImage_pub(imagePath);
+
+                // Call the modification method of the service
+                servicePublicite.modifier(publicite);
+
+                // Show success message
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setContentText("Publicité modifiée avec succès !");
+                successAlert.setTitle("Modification réussie");
+                successAlert.show();
+
+            } catch (NumberFormatException e) {
+                // Handle the case where the text is not a valid integer
+                showErrorAlert("Veuillez saisir un numéro de contact valide.");
+            } catch (Exception e) {
+                // Handle other exceptions during modification
+                showErrorAlert("Erreur lors de la modification de la publicité : " + e.getMessage());
+            }
+        } else {
+            // Handle the case where publicite or servicePublicite is null
+            showErrorAlert("Impossible de modifier la publicité car aucune publicité n'est sélectionnée ou le service n'est pas initialisé.");
+        }
+    }
+
     public void setData(Publicite publicite) {
         this.publicite = publicite;
-
 
         if (publicite != null) {
             TFtitrepubModif.setText(publicite.getTitre_pub());
             TFdescriptionpubModif.setText(publicite.getDescription_pub());
-
-            // Assuming publicite.getContact_pub() returns an int
             TFcontactpubModif.setText(String.valueOf(publicite.getContact_pub()));
-
             TFlocalisationpubModif.setText(publicite.getLocalisation_pub());
-
-            // Assuming offrePubComboModif is a ComboBox<String>
             offrePubComboModif.setValue(publicite.getOffre_pub());
-
             String imageUrl = publicite.getImage_pub();
-        }
 
-        String imageUrl = publicite.getImage_pub();
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            try {
-                // Créer une instance de File à partir du chemin d'accès à l'image
-                File file = new File(imageUrl);
-                // Convertir le chemin de fichier en URL
-                String fileUrl = file.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
-                Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
-                imgView_pubModif.setImage(image);
-            } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
-                e.printStackTrace();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                try {
+                    File file = new File(imageUrl);
+                    String fileUrl = file.toURI().toURL().toString();
+                    Image image = new Image(fileUrl);
+                    imgView_pubModif.setImage(image);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
-
 
     public void setServicePublicite(ServicePublicite servicePublicite) {
         this.servicePublicite = servicePublicite;
     }
 
-    public void retourToAfficherPub(ActionEvent actionEvent) {
+    @FXML
+    void retourToAfficherPub(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPublicite.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
             Parent root = loader.load();
 
-            // Si nécessaire, vous pouvez effectuer d'autres opérations ou envoyer des données au contrôleur ici
-
-            // Mettre à jour la scène pour afficher la liste des publicités
+            // Update the scene to display the list of advertisements
             TFtitrepubModif.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace(); // Gérer l'exception de manière appropriée
+            e.printStackTrace();
+            showErrorAlert("Erreur lors du retour à la liste des publicités.");
         }
     }
 
+    private void showErrorAlert(String errorMessage) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setContentText(errorMessage);
+        errorAlert.setTitle("Erreur");
+        errorAlert.show();
+    }
+
+
+
+    @FXML
+    public void BTNToggleSidebar(ActionEvent event) {
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
+
+        double sidebarWidth = MainLeftSidebar.getWidth();
+
+        if (isSidebarVisible) {
+            // Hide sidebar
+            sideBarTransition.setByX(-sidebarWidth);
+            isSidebarVisible = false;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+            // Translate SecondBorderPane to the left to take the extra space
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(400), SecondBorderPane);
+            borderPaneTransition.setByX(-sidebarWidth);
+            borderPaneTransition.play();
+        } else {
+            // Show sidebar
+            sideBarTransition.setByX(sidebarWidth);
+            isSidebarVisible = true;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
+            // Reset the translation of SecondBorderPane to 0
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(sidebarWidth);
+            borderPaneTransition.play();
+        }
+
+        sideBarTransition.play();
+    }
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
+        double sidebarWidth = MainLeftSidebar.getWidth();
+        SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+    }
 }

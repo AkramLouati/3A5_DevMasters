@@ -154,6 +154,11 @@
                                 <Font name="Arial Bold" size="32.0" />
                             </font>
                         </Text>
+                  <Button fx:id="toAJouterPub" layoutX="932.0" layoutY="11.0" mnemonicParsing="false" onAction="#toAJouterPub" prefHeight="38.0" prefWidth="148.0" stylesheets="@Actualite.css" text="Ajouter Publicité">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
                     </children>
                 </AnchorPane>
             </center>

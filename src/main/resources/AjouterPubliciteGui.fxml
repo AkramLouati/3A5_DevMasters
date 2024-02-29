@@ -202,14 +202,14 @@
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@assets/image-.png" />
+                                    <Image url="@assets/imageIcon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
                      </graphic>
                   </Label>
-                  <Button fx:id="ajouterPubliciteAction" layoutX="95.0" layoutY="526.0" mnemonicParsing="false" onAction="#ajouterPubliciteAction" prefHeight="42.0" prefWidth="136.0" style="-fx-background-color: #012545;" text="   Ajouter" textFill="WHITE">
+                  <Button fx:id="ajouterPubliciteAction" layoutX="95.0" layoutY="526.0" mnemonicParsing="false" onAction="#ajouterPubliciteAction" prefHeight="42.0" prefWidth="136.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Ajouter" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
@@ -221,7 +221,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="tolistActualite" layoutX="271.0" layoutY="526.0" mnemonicParsing="false" onAction="#tolistActualite" prefHeight="43.0" prefWidth="137.0" style="-fx-background-color: #012545;" text="   Afficher" textFill="WHITE">
+                  <Button fx:id="tolistActualite" layoutX="271.0" layoutY="526.0" mnemonicParsing="false" onAction="#tolistActualite" prefHeight="43.0" prefWidth="137.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Afficher" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
@@ -238,6 +238,7 @@
                         <Image url="@assets/cancel.gif" />
                      </image>
                   </ImageView>
+                  <Label fx:id="numeroexiste" layoutX="205.0" layoutY="385.0" prefHeight="18.0" prefWidth="207.0" text="le numéro déjà existe" textFill="RED" visible="false" />
                </children>
             </AnchorPane>
             </center>

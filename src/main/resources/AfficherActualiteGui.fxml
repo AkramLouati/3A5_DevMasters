@@ -187,7 +187,7 @@
                         <Font name="Arial Bold" size="32.0" />
                      </font>
                   </Text>
-                  <Button fx:id="ajouterActualiteAction2" layoutX="928.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajouterActualiteAction2" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" text="   Ajouter" textFill="WHITE">
+                  <Button fx:id="ajouterActualiteAction2" layoutX="928.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajouterActualiteAction2" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Ajouter" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>

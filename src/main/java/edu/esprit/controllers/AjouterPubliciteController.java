@@ -33,7 +33,8 @@ public class AjouterPubliciteController implements Initializable {
 
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
+    @FXML
+    private Label numeroexiste;
     @FXML
     private VBox MainLeftSidebar;
 
@@ -128,6 +129,17 @@ public class AjouterPubliciteController implements Initializable {
     private boolean validateContact(String contactValue) {
         try {
             int contact = Integer.parseInt(contactValue);
+
+            // Check if the contact number already exists in the database
+            if (sp.numeroExists(contact)) {
+                // Display the warning message
+                numeroexiste.setVisible(true);
+                return false; // Exit the method to prevent further processing
+            } else {
+                // Hide the warning message if it was previously shown
+                numeroexiste.setVisible(false);
+            }
+
             if (contact <= 0) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide.");
                 return false;
@@ -138,6 +150,7 @@ public class AjouterPubliciteController implements Initializable {
             return false;
         }
     }
+
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);

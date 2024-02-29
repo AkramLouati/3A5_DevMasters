@@ -13,7 +13,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -27,7 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AfficherActualiteCitoyenController implements Initializable {
+public class AfficherActualiteAdminController implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -35,19 +34,17 @@ public class AfficherActualiteCitoyenController implements Initializable {
     private BorderPane SecondBorderPane;
 
     @FXML
-    private Button toAJouterPub;
-    @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
 
     @FXML
-    private GridPane gridCitoyen;
+    private GridPane gridAdmin;
 
     @FXML
     private ImageView imgView_actualite;
 
     @FXML
-    private ScrollPane scrollCitoyen;
+    private ScrollPane scrollAdmin;
 
 
     private ServiceActualite sr = new ServiceActualite();
@@ -61,7 +58,7 @@ public class AfficherActualiteCitoyenController implements Initializable {
         try {
             for (int i = 0; i < actualiteList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ActualiteItemCitoyen.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ActualiteController itemController = fxmlLoader.getController();
@@ -72,16 +69,16 @@ public class AfficherActualiteCitoyenController implements Initializable {
                     row++;
                 }
 
-                gridCitoyen.add(anchorPane, column++, row); //(child,column,row)
+                gridAdmin.add(anchorPane, column++, row); //(child,column,row)
                 //set grid width
-                gridCitoyen.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridCitoyen.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridCitoyen.setMaxWidth(Region.USE_PREF_SIZE);
+                gridAdmin.setMinWidth(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setMaxWidth(Region.USE_PREF_SIZE);
 
                 //set grid height
-                gridCitoyen.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridCitoyen.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridCitoyen.setMaxHeight(Region.USE_PREF_SIZE);
+                gridAdmin.setMinHeight(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setMaxHeight(Region.USE_PREF_SIZE);
 
                 GridPane.setMargin(anchorPane, new Insets(10));
             }
@@ -155,18 +152,6 @@ public class AfficherActualiteCitoyenController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
-    public void toAJouterPub(ActionEvent actionEvent) {
-        try {
-            System.out.println("Resource URL: " + getClass().getResource("/AjouterPubliciteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterPubliciteGui.fxml"));
-            toAJouterPub.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-    }
 
+
+}

@@ -122,7 +122,6 @@ public class ActualiteController {
         }
     }
 
-
     public void viewDetailActualiteActionC(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));

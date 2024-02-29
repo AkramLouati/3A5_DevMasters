@@ -62,7 +62,11 @@ public class AjouterActualiteController implements Initializable {
     @FXML
     private Button uploadbuttonA;
 
+    @FXML
+    private Label verifierDescription;
 
+    @FXML
+    private Label verifierTitre;
     private boolean isSidebarVisible = true;
 
     @Override
@@ -159,11 +163,13 @@ public class AjouterActualiteController implements Initializable {
         } else {
             // Show validation message for titre and description with a red background
             if (titre.length() <= 6) {
-                TFtitre.setStyle("-fx-background-color: #da435b;"); // Light pink
+                verifierTitre.setVisible(true);
+                TFtitre.requestFocus();
                 showAlert(Alert.AlertType.ERROR, "Error", "Le titre doit avoir plus de 6 caractères.");
             }
             if (description.length() < 15) {
-                TFdescription.setStyle("-fx-background-color: #da435b;"); // Light pink
+                verifierDescription.setVisible(true);
+                TFdescription.requestFocus();
                 showAlert(Alert.AlertType.ERROR, "Error", "La description doit avoir au moins 15 caractères.");
             }
         }

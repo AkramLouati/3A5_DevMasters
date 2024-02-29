@@ -157,7 +157,10 @@
                         <Font name="Arial Bold" size="32.0" />
                      </font>
                   </Text>
-                  <Button fx:id="retoutActCitoyen" layoutX="783.0" layoutY="32.0" mnemonicParsing="false" onAction="#retoutActCitoyen" text="Retour" />
+                  <Button fx:id="retoutActCitoyen" layoutX="783.0" layoutY="23.0" mnemonicParsing="false" onAction="#retoutActCitoyen" prefHeight="35.0" prefWidth="82.0" stylesheets="@Actualite.css" text="Retour">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
          </center>

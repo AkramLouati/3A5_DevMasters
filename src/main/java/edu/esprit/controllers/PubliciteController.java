@@ -40,7 +40,8 @@ public class PubliciteController {
 
     Muni muni = new Muni(1);
     EndUser user = new EndUser(12,muni);
-    Actualite actualite = new Actualite(87,user);
+    Actualite actualite = new Actualite(102,user);
+
 
     public void setData(Publicite publicite) {
         this.publicite = publicite;
@@ -103,7 +104,7 @@ public class PubliciteController {
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierPublicite.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierPubliciteGui.fxml"));
             Parent root = loader.load();
             ModifierPubliciteController controller = loader.getController();
             controller.setServicePublicite(servicePublicite);
