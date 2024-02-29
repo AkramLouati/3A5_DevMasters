@@ -288,17 +288,38 @@
                         </TextField>
                         <HBox alignment="CENTER" prefHeight="34.0" prefWidth="278.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#BTNAjoutCMNT" prefHeight="109.0" prefWidth="70.0" text="Ajouter">
+                              <Button mnemonicParsing="false" onAction="#BTNAjoutCMNT" prefHeight="60.0" prefWidth="60.0">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#BTNModifCMNT" prefHeight="60.0" prefWidth="60.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@img/edit.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#BTNModifCMNT" prefHeight="139.0" prefWidth="70.0" text="Modifier">
+                              <Button mnemonicParsing="false" onAction="#BTNSuppCMNT" prefHeight="60.0" prefWidth="60.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@img/delete.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#BTNSuppCMNT" prefHeight="133.0" prefWidth="78.0" text="Supprimer" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />

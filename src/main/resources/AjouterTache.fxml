@@ -233,14 +233,6 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button onAction="#browseForImage" prefHeight="36.0" prefWidth="103.0" text="Browse">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Button>
                         <ImageView fx:id="PieceJointeImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
@@ -279,15 +271,34 @@
                      </children>
                   </HBox>
                   <HBox layoutX="224.60000610351562" layoutY="435.0" />
-                  <Button layoutX="400.0" layoutY="514.0" onAction="#AjouterTache" prefHeight="32.0" prefWidth="80.0" text="Ajouter" textFill="#012545">
+                  <Button layoutX="336.0" layoutY="512.0" onAction="#AjouterTache" prefHeight="40.0" prefWidth="110.0" text="Ajouter" textFill="#012545">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="500.0" layoutY="514.0" mnemonicParsing="false" onAction="#Exit" prefHeight="32.0" prefWidth="65.0" text="Exit" textFill="#012545">
+                  <Button layoutX="458.0" layoutY="512.0" mnemonicParsing="false" onAction="#Exit" prefHeight="40.0" prefWidth="110.0" text="Exit" textFill="#012545">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/left-arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="474.0" layoutY="143.0" onAction="#browseForImage" prefHeight="40.0" prefWidth="110.0" text="Browse">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/upload.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children></AnchorPane>
             </center>
