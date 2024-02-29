@@ -6,9 +6,6 @@ import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -17,8 +14,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AjouterEvent {
 
@@ -60,6 +58,12 @@ public class AjouterEvent {
                 return;
             }
 
+            // Vérifier si la date de fin est après la date de début
+            if (!isDateFinValid()) {
+                showAlert("Error", "La date de fin doit être après la date de début.");
+                return;
+            }
+
             // Vérifier si une image est sélectionnée
             if (imagePath == null || imagePath.isEmpty()) {
                 showAlert("Error", "Veuillez sélectionner une image.");
@@ -83,6 +87,7 @@ public class AjouterEvent {
 
             // Ajout de l'événement via le service
             serviceEvenement.ajouter(evenement);
+
 
             // Affichage d'une notification de succès après l'ajout de l'événement
             showAlert("Success", "Événement ajouté avec succès !");
@@ -134,7 +139,7 @@ public class AjouterEvent {
     private void updateTextFieldStyles() {
         setFieldStyle(TFnom, isFieldEmpty(TFnom));
         setFieldStyle(TFdateDeb, isFieldEmpty(TFdateDeb));
-        setFieldStyle(TFdateFin, isFieldEmpty(TFdateFin));
+        setFieldStyle(TFdateFin, isFieldEmpty(TFdateFin) || !isDateFinValid());
         setFieldStyle(TFcapacite, !isCapaciteValid());
         setFieldStyle(TFcategorie, isFieldEmpty(TFcategorie));
     }
@@ -152,11 +157,18 @@ public class AjouterEvent {
         }
     }
 
-    private void setFieldStyle(TextField textField, boolean isEmpty) {
-        if (isEmpty) {
-            textField.setStyle("-fx-background-color: red;");
+    private boolean isDateFinValid() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateDeb = LocalDate.parse(TFdateDeb.getText(), formatter);
+        LocalDate dateFin = LocalDate.parse(TFdateFin.getText(), formatter);
+        return dateFin.isAfter(dateDeb);
+    }
+
+    private void setFieldStyle(TextField textField, boolean isInvalid) {
+        if (isInvalid) {
+            textField.setStyle("-fx-border-color: red;");
         } else {
-            textField.setStyle("-fx-background-color: lime;");
+            textField.setStyle("-fx-border-color: lime;");
         }
     }
 

@@ -110,6 +110,7 @@ public class EventDashboard implements Initializable {
 
             // Afficher la fenêtre de ajout
             stage.showAndWait();
+            
         } catch (IOException e) {
             // Gérer les exceptions liées au chargement de l'interface
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -120,6 +121,6 @@ public class EventDashboard implements Initializable {
     }
 
 
-    }
+}
 
 
