@@ -12,8 +12,8 @@
 
 
 .button-style {
-    -fx-background-color: #E5E4E2;
-    -fx-text-fill: #003668;
+    -fx-background-color: #003668;
+    -fx-text-fill: #E5E4E2;
     -fx-background-radius: 10;
     -fx-min-height: 40px;
     -fx-min-width: 80px;
@@ -22,8 +22,8 @@
 }
 
 .button-style:hover{
-    -fx-background-color: #003668;
-    -fx-text-fill: #E5E4E2;
+    -fx-background-color: #E5E4E2;
+    -fx-text-fill: #003668;
 }
 
 .button-menu {
@@ -42,7 +42,8 @@
 }
 
 .combo-box {
-    -fx-font-size: 14px;
+    -fx-font-size: 10px;
+    -fx-cell-size: 10px;
     -fx-prompt-text-fill: gray;
     -fx-text-fill: black;
     -fx-background-color: #f0f0f0;
@@ -90,6 +91,7 @@
     -fx-border-radius: 10px;
     -fx-padding: 5px;
 }
+
 
 
 

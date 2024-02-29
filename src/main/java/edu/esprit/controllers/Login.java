@@ -39,10 +39,11 @@ public class Login {
         System.out.println("Label clicked!");
         // Add your label click logic here
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Register.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/RegisterUser.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("S'inscrire");
             stage.show();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

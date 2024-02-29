@@ -6,6 +6,7 @@ import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +20,7 @@ import java.io.FileNotFoundException;
 public class ModifierUser {
 
     @FXML
-    private ImageView imageM;
+    private ImageView ImageM;
 
     @FXML
     private TextField tfAdresse;
@@ -31,7 +32,7 @@ public class ModifierUser {
     private TextField tfNom;
 
     @FXML
-    private TextField tfPassword;
+    private PasswordField pfMdp;
 
     @FXML
     private TextField tfTel;
@@ -45,7 +46,7 @@ public class ModifierUser {
         // Afficher les données de l'événement dans les champs de texte
         tfNom.setText(endUser.getNom());
         tfEmail.setText(endUser.getEmail());
-        tfPassword.setText(endUser.getPassword());
+        pfMdp.setText(endUser.getPassword());
         tfAdresse.setText(endUser.getLocation());
         tfTel.setText(endUser.getPhoneNumber());
 
@@ -55,7 +56,7 @@ public class ModifierUser {
             File file = new File(imagePath);
             if (file.exists()) {
                 Image image = new Image(file.toURI().toString());
-                imageM.setImage(image);
+                ImageM.setImage(image);
             }
         }
     }
@@ -71,7 +72,7 @@ public class ModifierUser {
         // Récupérer les nouvelles valeurs des champs de texte
         String nom = tfNom.getText();
         String email = tfEmail.getText();
-        String password = tfPassword.getText();
+        String password = pfMdp.getText();
         String phone = tfTel.getText();
         String localisation = tfAdresse.getText();
 
@@ -120,7 +121,7 @@ public class ModifierUser {
                 // Créer une image JavaFX à partir du fichier sélectionné
                 Image image = new Image(new FileInputStream(selectedFile));
                 // Afficher l'image dans l'ImageView
-                imageM.setImage(image);
+                ImageM.setImage(image);
                 // Enregistrer le chemin de l'image dans l'événement
                 endUser.setImage(selectedFile.getAbsolutePath());
             } catch (FileNotFoundException e) {
@@ -134,7 +135,7 @@ public class ModifierUser {
         setFieldStyle(tfEmail, isFieldEmpty(tfEmail));
         setFieldStyle(tfAdresse, isFieldEmpty(tfAdresse));
         setFieldStyle(tfTel, isFieldEmpty(tfTel));
-        setFieldStyle(tfPassword, isFieldEmpty(tfPassword));
+        setFieldStyle(pfMdp, isFieldEmpty(pfMdp));
     }
 
     private boolean isFieldEmpty(TextField textField) {
@@ -151,7 +152,7 @@ public class ModifierUser {
 
     private boolean isAnyFieldEmpty() {
         return isFieldEmpty(tfNom) || isFieldEmpty(tfEmail) || isFieldEmpty(tfAdresse) ||
-                isFieldEmpty(tfTel) || isFieldEmpty(tfPassword);
+                isFieldEmpty(tfTel) || isFieldEmpty(pfMdp);
     }
 
 }

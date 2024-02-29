@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -28,27 +27,32 @@ import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
 
-    public Button pickImageButton;
     @FXML
-    private TextField tfNom;
-
-    @FXML
-    private TextField tfEmail;
+    private ImageView ImageF;
 
     @FXML
     private ComboBox<String> muniSelectionComboBox;
 
     @FXML
+    private PasswordField pfConfirmMotDePasse;
+
+    @FXML
     private PasswordField pfMotDePasse;
 
     @FXML
-    private TextField tfNumTel;
+    private Button pickImageButton;
 
     @FXML
-    private TextField tfLocation;
+    private TextField tfAddresse;
 
     @FXML
-    private ImageView ImageF;
+    private TextField tfEmail;
+
+    @FXML
+    private TextField tfNom;
+
+    @FXML
+    private TextField tfTel;
 
     File selectedFile;
 
@@ -62,25 +66,22 @@ public class RegisterController implements Initializable {
         String nom = tfNom.getText();
         String email = tfEmail.getText();
         String motDePasse = pfMotDePasse.getText();
-        String numTel = tfNumTel.getText();
-        String location = tfLocation.getText();
+        String confirmMotDePasse = pfConfirmMotDePasse.getText();
+        String numTel = tfTel.getText();
+        String location = tfAddresse.getText();
+        String selectedMuni = muniSelectionComboBox.getValue();
 
         // Votre logique de traitement d'inscription ici
         // Vous pouvez appeler votre service pour enregistrer l'utilisateur, par exemple
-        if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty()) {
+        if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirmMotDePasse.isEmpty() || numTel.isEmpty() || location.isEmpty() || selectedMuni.isEmpty()) {
             showAlert("Veuillez remplir tous les champs.");
-        }else {
-            serviceUser.ajouter(new EndUser(nom,email,motDePasse,"Citoyen",numTel,muni,location, selectedFile.getAbsolutePath()));
+        } else if(!motDePasse.equals(confirmMotDePasse)){
+            showAlert("Vérifier votre mot de passe.");
+        } else {
+            serviceUser.ajouter(new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath()));
             showAlert("Inscription réussie pour : " + nom);
         }
     }
-
-//    @FXML
-//    void profileType(ActionEvent event) {
-//        // Access the selected item in profilTypeComboBox
-//        String selectedProfileType = profilTypeComboBox.getValue();
-//        System.out.println("Selected Profile Type: " + selectedProfileType);
-//    }
 
     @FXML
     void muniSelection(ActionEvent event) {
@@ -112,12 +113,13 @@ public class RegisterController implements Initializable {
     }
 
     @FXML
-    void handleLabelClick(MouseEvent event) {
+    void handleLabelClick(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Se connecter");
             stage.show();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -142,7 +144,7 @@ public class RegisterController implements Initializable {
         ObservableList<String> muniSelection = FXCollections.observableArrayList();
 
 //        typesProfile.addAll("Citoyen", "Employé", "Responsable employé");
-        muniSelection.addAll("Ariana Ville", "La Soukra", "Mnihla","Raoued","Ettadhamen","Sidi Thabet");
+        muniSelection.addAll("Ariana Ville", "La Soukra", "Mnihla", "Raoued", "Ettadhamen", "Sidi Thabet");
 
         // Définir les éléments du ComboBox en utilisant la liste observable
 //        profilTypeComboBox.setItems(typesProfile);
