@@ -55,7 +55,7 @@
       <ImageView fx:id="ImageM" fitHeight="150.0" fitWidth="200.0" layoutX="339.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
         <Button layoutX="292.0" layoutY="308.0" mnemonicParsing="false" onAction="#ModifierEventClick" prefHeight="30.0" prefWidth="87.0" stylesheets="@css/style.css" text="Modifier" textFill="#fffbfb">
             <font>
-                <Font name="System Bold" size="14.0" />
+                <Font size="14.0" />
             </font></Button>
       <Button fx:id="pickImageButton" layoutX="491.0" layoutY="82.0" mnemonicParsing="false" onAction="#browseMOnClick" styleClass="transparent" stylesheets="@css/style.css">
          <graphic>

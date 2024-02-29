@@ -165,6 +165,35 @@ public class ServiceUser implements IService<EndUser> {
         }
         return endUser;
     }
+
+
+    public EndUser getOneByEmail(String mail) {
+        EndUser endUser = null;
+        String query = "SELECT * FROM `enduser` WHERE `email_user` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setString(1, mail);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String email = rs.getString("email_user");
+                String password = rs.getString("password");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                int id_muni = rs.getInt("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return endUser;
+    }
+
+
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.compile(regexPattern).matcher(email).matches();
