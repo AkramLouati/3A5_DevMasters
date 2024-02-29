@@ -180,14 +180,14 @@
                         <Font name="Arial" size="14.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="TmodifierAdescription_reclamation" layoutX="68.0" layoutY="176.0" prefHeight="217.0" prefWidth="402.0" stylesheets="@css/styles.css" />
-                  <Text layoutX="66.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description :" wrappingWidth="86.13671875">
+                  <TextArea fx:id="TmodifierAdescription_reclamation" layoutX="68.0" layoutY="197.0" prefHeight="176.0" prefWidth="400.0" stylesheets="@css/styles.css" />
+                  <Text layoutX="68.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description :" wrappingWidth="86.13671875">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="TFmodifieradresse_reclamation" layoutX="69.0" layoutY="431.0" prefHeight="34.0" prefWidth="399.0" stylesheets="@css/styles.css" />
-                  <Text layoutX="69.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse :">
+                  <TextField fx:id="TFmodifieradresse_reclamation" layoutX="68.0" layoutY="423.0" prefHeight="34.0" prefWidth="399.0" stylesheets="@css/styles.css" />
+                  <Text layoutX="68.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse :">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
@@ -215,7 +215,7 @@
                      </font>
                   </Text>
                   <ImageView fx:id="modifierimgView_reclamation" fitHeight="183.0" fitWidth="257.0" layoutX="567.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="label" layoutX="555.0" layoutY="109.0" prefHeight="31.0" prefWidth="280.0" style="-fx-background-color: #f0f0f0;">
+                  <Label fx:id="label" layoutX="555.0" layoutY="109.0" prefHeight="31.0" prefWidth="280.0" stylesheets="@css/styles.css">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
@@ -257,11 +257,16 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Text layoutX="567.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image :" wrappingWidth="56.80316162109375">
+                  <Text layoutX="567.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image : (Optionnel)" wrappingWidth="124.80316162109375">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
                   </Text>
+                  <Label fx:id="sujetmodifier" layoutX="69.0" layoutY="150.0" prefHeight="25.0" prefWidth="393.0" />
+                  <Label fx:id="sujetmodifier" layoutX="71.0" layoutY="150.0" prefHeight="25.0" prefWidth="393.0" styleClass="label-styled" stylesheets="@css/styles.css" />
+                  <Label fx:id="descriptionmodifier" layoutX="69.0" layoutY="373.0" prefHeight="25.0" prefWidth="393.0" styleClass="label-styled" stylesheets="@css/styles.css" />
+                  <Label fx:id="adressemodifier" layoutX="69.0" layoutY="462.0" prefHeight="25.0" prefWidth="393.0" styleClass="label-styled" stylesheets="@css/styles.css" />
+                  <Label fx:id="typemodifier" layoutX="69.0" layoutY="570.0" prefHeight="25.0" prefWidth="393.0" styleClass="label-styled" stylesheets="@css/styles.css" />
                     </children>
                 </AnchorPane>
             </center>

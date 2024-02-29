@@ -59,6 +59,17 @@ public class ReclamationEditController implements Initializable {
 
     @FXML
     private Button uploadimgmodifier;
+    @FXML
+    private Label sujetmodifier;
+
+    @FXML
+    private Label typemodifier;
+    @FXML
+    private Label adressemodifier;
+
+    @FXML
+    private Label descriptionmodifier;
+
 
     @FXML
     private Button uploadbutton_modifier;
@@ -138,6 +149,13 @@ public class ReclamationEditController implements Initializable {
     }
     @FXML
     void modifierReclamationAction(ActionEvent event) {
+        boolean sujetValid = validateTextField(TFmodifiersujet_reclamation, sujetmodifier);
+        boolean descriptionValid = validateTextArea(TmodifierAdescription_reclamation, descriptionmodifier);
+        boolean adresseValid = validateTextField(TFmodifieradresse_reclamation, adressemodifier);
+        boolean typeValid = validateComboBox(modifiertypeReclamationComboBox, typemodifier);
+
+        // Vérifier si tous les champs sont valides
+        if (sujetValid && descriptionValid && adresseValid && typeValid) {
         if (reclamation != null && serviceReclamation != null) {
             // Créer une boîte de dialogue de confirmation
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -190,6 +208,7 @@ public class ReclamationEditController implements Initializable {
             errorAlert.setContentText("Impossible de modifier la réclamation car aucune réclamation n'est sélectionnée ou le service de réclamation est null.");
             errorAlert.setTitle("Erreur de modification");
             errorAlert.show();
+        }
         }
     }
 
@@ -290,6 +309,58 @@ public class ReclamationEditController implements Initializable {
 
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
         this.serviceReclamation = serviceReclamation;
+    }
+    // Méthode pour valider le champ ComboBox et mettre à jour le label associé
+    private boolean validateComboBox(ComboBox<String> comboBox, Label label) {
+        // Vérifie si aucune option n'est sélectionnée dans le ComboBox
+        if (comboBox.getValue() == null || comboBox.getValue().isEmpty()) {
+            label.setText("Veuillez sélectionner une option");
+            label.getStyleClass().add("warning-text");
+            return false;
+        } else {
+            label.setText("Valide");
+            label.getStyleClass().removeAll("warning-text");
+            label.getStyleClass().add("success-text");
+            return true;
+        }
+    }
+
+    // Méthode pour valider le champ de texte et mettre à jour le label associé
+    private boolean validateTextField(TextField textField, Label label) {
+        // Vérifie si le champ de texte est vide
+        if (textField.getText().isEmpty()) {
+            label.setText("Veuillez remplir ce champ");
+            label.getStyleClass().add("warning-text"); // Ajoute la classe CSS d'avertissement
+            // Retirer la classe CSS de succès s'il y en a
+            label.getStyleClass().remove("success-text");
+            return false;
+        } else {
+            label.setText("Valide");
+            label.getStyleClass().removeAll("warning-text");
+            label.getStyleClass().add("success-text");
+            // Retirer la classe CSS d'avertissement s'il y en a
+            label.getStyleClass().remove("warning-text");
+            return true;
+        }
+    }
+
+    // Méthode pour valider le champ de texte et mettre à jour le label associé
+    private boolean validateTextArea(TextArea textArea, Label label) {
+        // Vérifie si la zone de texte est vide
+        if (textArea.getText().isEmpty()) {
+            label.setText("Veuillez remplir ce champ");
+            label.getStyleClass().add("warning-text"); // Ajoute la classe CSS d'avertissement
+            // Retirer la classe CSS de succès s'il y en a
+            label.getStyleClass().remove("success-text");
+            return false;
+        } else {
+            label.setText("Valide");
+            label.getStyleClass().removeAll("warning-text");
+            label.getStyleClass().add("success-text");
+            // Retirer la classe CSS d'avertissement s'il y en a
+            label.getStyleClass().remove("warning-text");
+            return true;
+        }
     }
 
 }

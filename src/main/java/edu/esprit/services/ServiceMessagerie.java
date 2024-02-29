@@ -161,6 +161,63 @@ public class ServiceMessagerie implements IService<Messagerie> {
         }
         return messagerie;
     }
+    public Set<Messagerie> getAllMessagesByReciverAndSender(int senderId, int receiverId) {
+        Set<Messagerie> messages = new HashSet<>();
+        String req = "SELECT * FROM messagerie WHERE (senderId_message = ? AND receiverId_message = ?) OR (senderId_message = ? AND receiverId_message = ?) ORDER BY id_message";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, senderId);
+            ps.setInt(2, receiverId);
+            ps.setInt(3, receiverId);
+            ps.setInt(4, senderId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Messagerie mess = new Messagerie();
+                    mess.setId_message(rs.getInt("id_message"));
+                    mess.setType_message(rs.getString("type_message"));
+                    mess.setContenu_message(rs.getString("contenu_message"));
+                    mess.setDate_message(rs.getTimestamp("date_message"));
+
+                    EndUser sender = new ServiceUser().getOneByID(rs.getInt("senderId_message"));
+                    EndUser receiver = new ServiceUser().getOneByID(rs.getInt("receiverId_message"));
+                    mess.setSender_message(sender);
+                    mess.setReceiver_message(receiver);
+
+                    messages.add(mess);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting Messagerie: " + e.getMessage());
+        }
+        return messages;
+    }
+    public Set<Messagerie> getAllMessagesByUserId(int userId) {
+        Set<Messagerie> messages = new HashSet<>();
+        String req = "SELECT * FROM messagerie WHERE senderId_message = ? ORDER BY date_message";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Messagerie mess = new Messagerie();
+                    mess.setId_message(rs.getInt("id_message"));
+                    mess.setType_message(rs.getString("type_message"));
+                    mess.setContenu_message(rs.getString("contenu_message"));
+                    mess.setDate_message(rs.getTimestamp("date_message"));
+
+                    EndUser sender = new ServiceUser().getOneByID(rs.getInt("senderId_message"));
+                    EndUser receiver = new ServiceUser().getOneByID(rs.getInt("receiverId_message"));
+                    mess.setSender_message(sender);
+                    mess.setReceiver_message(receiver);
+
+                    messages.add(mess);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting Messagerie: " + e.getMessage());
+        }
+        return messages;
+    }
 
 
 

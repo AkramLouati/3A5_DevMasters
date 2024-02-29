@@ -212,11 +212,22 @@ public class AjouterAfficherMessageController implements Initializable {
     @FXML
     void sendMessage(ActionEvent event) {
         String messageContent = TFmessage.getText();
-        // Proceed to send the message if it's not empty
-        serviceMessagerie.ajouter(new Messagerie(sqlDate,messageContent,reclamation.getUser(),userDirecteur, "text"));
-        TFmessage.setText("");
-        setData(reclamation);
+        // Vérifier si le champ de texte est vide
+        if (isTextFieldEmpty(TFmessage)) {
+            // Afficher une alerte pour informer l'utilisateur que le champ de texte est vide
+            showAlert(Alert.AlertType.WARNING, "Champ vide", "Veuillez saisir un message.");
+            // Mettre la bordure du champ de texte en rouge pour indiquer qu'il est vide
+            TFmessage.setStyle("-fx-border-color: red;");
+            return; // Sortir de la méthode sans envoyer le message
+        }
 
+        // Envoyer le message
+        serviceMessagerie.ajouter(new Messagerie(sqlDate, messageContent, reclamation.getUser(), userDirecteur, "text"));
+        // Réinitialiser le style du champ de texte à sa valeur par défaut
+        TFmessage.setStyle(null);
+        // Effacer le contenu du champ de texte après l'envoi du message avec succès
+        TFmessage.clear();
+        setData(reclamation);
     }
 
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
@@ -233,6 +244,9 @@ public class AjouterAfficherMessageController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+    private boolean isTextFieldEmpty(TextField textField) {
+        return textField.getText().trim().isEmpty();
     }
 
 
