@@ -99,7 +99,6 @@ public class EventDashboard implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterVote.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle scène
             AjouterVote controller = loader.getController();
 
             // Obtenir la scène actuelle à partir de l'un des éléments de l'interface actuelle

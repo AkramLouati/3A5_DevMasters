@@ -191,4 +191,8 @@ public class AjouterEvent {
             e.printStackTrace();
         }
     }
+    public void setEventDashboardController(EventDashboard eventDashboardController) {
+        this.eventDashboardController = eventDashboardController;
+    }
+
 }
