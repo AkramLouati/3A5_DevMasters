@@ -7,12 +7,15 @@
 
 /* Button styling */
 .button {
-    -fx-background-color: #012545;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #012545;
+    -fx-border-color: #012545;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
 }
 
 .button:hover {
-    -fx-background-color: #FB3640;
+    -fx-background-color: #012545;
     -fx-text-fill: #FFFFFF;
 }
 

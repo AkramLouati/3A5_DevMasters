@@ -4,6 +4,7 @@ import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +14,25 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
 public class DetailTacheController {
+
+    public BorderPane firstborderpane;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
     @FXML
     private Text TFEtatDetail, TFdateDebutDetail, TFdateFinDetail, TFdescriptionDetail, TFTitreDetail, TFCategorieDetail;
 
@@ -68,7 +82,56 @@ public class DetailTacheController {
             PieceJointedetail.setImage(image);
         }
     }
+    @FXML
+    void BTNToggleSidebar(ActionEvent event) {
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
+        double sidebarWidth = MainLeftSidebar.getWidth();
+        if (isSidebarVisible) {
+            // Hide sidebar
+            sideBarTransition.setByX(-sidebarWidth);
+            isSidebarVisible = false;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+            // Translate SecondBorderPane to the left to take the extra space
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(-sidebarWidth);
+            borderPaneTransition.play();
+        } else {
+            // Show sidebar
+            sideBarTransition.setByX(sidebarWidth);
+            isSidebarVisible = true;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
+            // Reset the translation of SecondBorderPane to 0
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(sidebarWidth);
+            borderPaneTransition.play();
+        }
 
+        sideBarTransition.play();
+    }
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
+
+    }
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {
@@ -161,6 +224,7 @@ public class DetailTacheController {
             alert.showAndWait();
         }
     }
+
 
 }
 

@@ -20,6 +20,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -39,6 +42,14 @@ import java.util.List;
 
 public class AjouterTacheController {
 
+    public BorderPane firstborderpane;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
     ServiceUser serviceUser = new ServiceUser();
     EndUser user01 = serviceUser.getOneByID(14);
 
@@ -65,6 +76,56 @@ public class AjouterTacheController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+    @FXML
+    void BTNToggleSidebar(ActionEvent event) {
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
+        double sidebarWidth = MainLeftSidebar.getWidth();
+        if (isSidebarVisible) {
+            // Hide sidebar
+            sideBarTransition.setByX(-sidebarWidth);
+            isSidebarVisible = false;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+            // Translate SecondBorderPane to the left to take the extra space
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(-sidebarWidth);
+            borderPaneTransition.play();
+        } else {
+            // Show sidebar
+            sideBarTransition.setByX(sidebarWidth);
+            isSidebarVisible = true;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
+            // Reset the translation of SecondBorderPane to 0
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(sidebarWidth);
+            borderPaneTransition.play();
+        }
+
+        sideBarTransition.play();
+    }
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
+
     }
 
     @FXML
