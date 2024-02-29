@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -75,8 +76,17 @@ public class VoteItem {
             ModifierVote controller = loader.getController();
             controller.setData(vote);
 
-            // Afficher la vue de modification de vote
-            DescTT.getScene().setRoot(root);
+            // Créer une nouvelle fenêtre pour afficher la vue de modification de vote
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+            stage.setTitle("Modifier vote");
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre de modification de vote
+            stage.showAndWait();
+
+            // Rafraîchir la scène actuelle après la modification du vote
+            refreshParentWindow();
         } catch (IOException e) {
             // Gérer les exceptions liées au chargement de la vue de modification
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -85,6 +95,20 @@ public class VoteItem {
             alert.show();
         }
     }
+
+    @FXML
+    void returnnOnClick(ActionEvent event) {
+        // Fermer la fenêtre actuelle
+        Stage stage = (Stage) DescTT.getScene().getWindow();
+        stage.close();
+    }
+
+    // Méthode pour actualiser la scène parente après la modification du vote
+    private void refreshParentWindow() {
+        Stage parentStage = (Stage) DescTT.getScene().getWindow();
+        parentStage.requestFocus(); // Rendre la scène parente à nouveau active
+    }
+
 
     // Méthode pour actualiser la vue des votes
     private void actualiserVueVotes() {

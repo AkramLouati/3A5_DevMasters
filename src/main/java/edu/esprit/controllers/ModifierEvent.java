@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ModifierEvent {
+    private EventDashboard eventDashboardController;
 
     @FXML
     private TextField TFnomM;
@@ -88,6 +89,9 @@ public class ModifierEvent {
 
         // Appeler le service pour mettre à jour l'événement dans la base de données
         serviceEvenement.modifier(evenement);
+        if (eventDashboardController != null) {
+            eventDashboardController.loadEvents();
+        }
 
         // Afficher une alerte pour confirmer la modification
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
