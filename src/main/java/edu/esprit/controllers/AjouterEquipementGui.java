@@ -167,6 +167,37 @@ public class AjouterEquipementGui {
         alert.setTitle("Equipement ajouté");
         alert.setContentText("L'équipement a été ajouté avec succès !");
         alert.show();
+
+         /*
+        // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+        Date dateAjout = Date.valueOf(dateajout.getValue()); // Convertissez la valeur du DatePicker en objet Date
+        int quantite = Integer.parseInt(quantiteCB.getValue().toString()); // Assurez-vous que la ComboBox est correctement initialisée avec des valeurs
+
+        // Vérifier que la référence est en majuscules
+        String reference = referenceTF.getText().toUpperCase();
+        // Vérifier que le nom commence par une majuscule
+        String nom = nomTF.getText();
+        if (!Character.isUpperCase(nom.charAt(0))) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom doit commencer par une majuscule.");
+            return;
+        }
+        // Vérifier que la description ne dépasse pas 100 mots
+        String description = descriptionTF.getText().trim();
+        String[] mots = description.split("\\s+");
+        if (mots.length > 100) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "La description ne doit pas dépasser 100 mots.");
+            return;
+        }
+
+        // Créer une nouvelle instance d'Equipement avec les données récupérées
+        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, description, user, muni);
+
+        se.ajouter(equipement); // Ajoutez l'équipement en utilisant votre service
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Equipement ajouté");
+        alert.setContentText("L'équipement a été ajouté avec succès !");
+        alert.show();*/
     }
 
     @FXML
