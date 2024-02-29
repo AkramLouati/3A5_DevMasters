@@ -53,6 +53,7 @@ public class ServiceEquipement implements IService<Equipement> {
             ps.setString(7, equipement.getDescription_eq());
             ps.setInt(8, equipement.getUser().getId());
             ps.setInt(9, equipement.getMuni().getId());
+            ps.setInt(10, equipement.getId_equipement());
             ps.executeUpdate();
             System.out.println("Equipement modifié avec succès !");
         } catch (SQLException e) {

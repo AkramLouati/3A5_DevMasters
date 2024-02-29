@@ -40,7 +40,7 @@ public class ServiceAvis implements IService<Avis> {
 
     @Override
     public void modifier(Avis avis) {
-        String req = "UPDATE avis SET id_user=?, id_muni=?, id_eq=?, note_avis=?, commentaire_avis=?, date_avis=? WHERE id_avis=?";
+        String req = "UPDATE avis SET id_user=?, id_muni=?, id_equipement=?, note_avis=?, commentaire_avis=?, date_avis=? WHERE id_avis=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, avis.getUser().getId());
