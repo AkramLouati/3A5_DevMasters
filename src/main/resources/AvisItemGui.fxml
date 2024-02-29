@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="97.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AvisItemGui">
    <children>
       <HBox prefHeight="121.0" prefWidth="810.0">
@@ -95,7 +94,7 @@
             </VBox>
             <VBox prefHeight="121.0" prefWidth="125.0">
                <children>
-                  <Button fx:id="supprimerAvisB" mnemonicParsing="false" onAction="#supprimerBAvisAction" text="Supprimer" textAlignment="CENTER" textFill="#012545">
+                  <Button fx:id="supprimerAvisB" mnemonicParsing="false" onAction="#supprimerBAvisAction" stylesheets="@style.css" text="Supprimer" textAlignment="CENTER" textFill="#012545">
                      <font>
                         <Font name="Cambria Bold" size="13.0" />
                      </font>

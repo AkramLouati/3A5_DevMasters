@@ -182,7 +182,7 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <Button fx:id="addequipement" layoutX="732.0" layoutY="4.0" mnemonicParsing="false" onAction="#ajouterEquipementAction" prefHeight="39.0" prefWidth="128.0" text="Ajouter" textFill="#012545">
+                        <Button fx:id="addequipement" layoutX="732.0" layoutY="4.0" mnemonicParsing="false" onAction="#ajouterEquipementAction" prefHeight="39.0" prefWidth="128.0" stylesheets="@style.css" text="Ajouter" textFill="#012545">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>

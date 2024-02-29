@@ -106,12 +106,12 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <Button fx:id="ajouterAvisbutton" layoutX="1057.0" layoutY="-4.0" mnemonicParsing="false" onAction="#ajouterAvisAction" prefHeight="43.0" prefWidth="82.0" text="Ajouter" textFill="#012545">
+                        <Button fx:id="ajouterAvisbutton" layoutX="1057.0" layoutY="-4.0" mnemonicParsing="false" onAction="#ajouterAvisAction" prefHeight="43.0" prefWidth="82.0" stylesheets="@style.css" text="Ajouter" textFill="#012545">
                            <font>
                               <Font name="Cambria Bold" size="17.0" />
                            </font>
                         </Button>
-                        <Button fx:id="retourEquipement" layoutX="953.0" layoutY="-4.0" mnemonicParsing="false" onAction="#navigateAvisEquipement" prefHeight="44.0" prefWidth="88.0" text="Retour">
+                        <Button fx:id="retourEquipement" layoutX="953.0" layoutY="-4.0" mnemonicParsing="false" onAction="#navigateAvisEquipement" prefHeight="44.0" prefWidth="88.0" stylesheets="@style.css" text="Retour">
                            <font>
                               <Font name="Cambria Bold" size="17.0" />
                            </font>

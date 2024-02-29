@@ -24,9 +24,8 @@ public class Main {
         //Equipement equipement = new Equipement (18);
 
         //se.ajouter(new Equipement("REF","NOM","MOBILE",sqlDate,10,"","DESC",user,muni));
-        // sp1.modifier(new Publicite(519,"pub1","about the vehicules",94007815,"tunis","img1","hadil",user,actualite));
-        se.modifier(new Equipement(18,"RTYUJ","vide","mobile",sqlDate,10,"","cet equipement est nouveau",user,muni));
-        //se.modifier(equipement);
+        Equipement equipement = new Equipement(1,"RTYUJ","vide","mobile",sqlDate,10,"","cet equipement est nouveau",user,muni);
+        se.modifier(equipement);
         //se.supprimer(1);
         //System.out.println(se.getAll());
         //System.out.println(se.getOneByID(2));
