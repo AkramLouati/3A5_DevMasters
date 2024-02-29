@@ -41,6 +41,8 @@ public class EventDashboard implements Initializable {
                 GridPane gridPane = fxmlLoader.load();
                 EventItem eventItemController = fxmlLoader.getController();
                 eventItemController.setData(evenement);
+                // Set the EventDashboard instance to the EventItem controller
+                eventItemController.setEventDashboard(this);
                 eventsLayout.getChildren().add(gridPane);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -78,6 +80,7 @@ public class EventDashboard implements Initializable {
 
             // Créer une nouvelle scène
             AjouterEvent controller = loader.getController();
+            controller.setEventDashboardController(this); // Injecter une référence vers EventDashboard
 
             // Obtenir la scène actuelle à partir de l'un des éléments de l'interface actuelle
             Stage stage = new Stage();
@@ -95,6 +98,7 @@ public class EventDashboard implements Initializable {
             alert.show();
         }
     }
+
     @FXML
     void AjouterVoteClick(ActionEvent event) {
         try {

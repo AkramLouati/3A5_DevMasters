@@ -184,4 +184,5 @@ public class ModifierEvent {
     public void setEventDashboardController(EventDashboard eventDashboardController) {
         this.eventDashboardController = eventDashboardController;
     }
+
 }

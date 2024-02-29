@@ -75,23 +75,9 @@ public class AjouterVote {
             // Fermer la fenêtre actuelle
             Stage stage = (Stage) TDdesc.getScene().getWindow();
             stage.close();
-
-            // Charger la vue de l'interface EventDashboard
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDashboard.fxml"));
-            Parent root = loader.load();
-
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
-
-            // Accéder au Stage principal
-            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Mettre à jour la scène principale avec l'interface EventDashboard
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            // Gérer les exceptions liées au chargement de la vue
+            // Gérer les exceptions liées à la fermeture de la fenêtre
         }
     }
 

@@ -22,7 +22,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+
 public class EventItem implements Initializable {
+    private EventDashboard eventDashboard;
 
     @FXML
     private ImageView img;
@@ -30,16 +32,17 @@ public class EventItem implements Initializable {
     @FXML
     private Text nomEventT;
 
-
     private Evenement evenement;
 
     private ServiceEvenement serviceEvenement;
 
+    public void setEventDashboard(EventDashboard eventDashboard) {
+        this.eventDashboard = eventDashboard;
+    }
+
     public void setData(Evenement evenement) {
         this.evenement = evenement;
         nomEventT.setText(evenement.getNomEvent());
-        // Si vous avez une image pour afficher, vous pouvez la charger ici
-        // img.setImage(new Image(evenement.getImagePath()));
         String imagePath = evenement.getImageEvent();
         if (imagePath != null && !imagePath.isEmpty()) {
             File file = new File(imagePath);
@@ -53,30 +56,31 @@ public class EventItem implements Initializable {
     @FXML
     void ModifierEvenementClick(ActionEvent event) {
         try {
-            // Charger la vue de modification d'événement
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvent.fxml"));
             Parent root = loader.load();
 
-            // Passer l'événement à modifier au contrôleur de modification
             ModifierEvent controller = loader.getController();
             controller.setData(evenement);
 
-            // Créer une nouvelle fenêtre (stage) pour afficher la vue de modification
+            // Make sure eventDashboard is initialized and set correctly
+            if (eventDashboard != null) {
+                controller.setEventDashboardController(eventDashboard);
+            } else {
+                System.err.println("EventDashboard instance is null.");
+            }
+
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Modifier événement");
             stage.setScene(new Scene(root));
 
-            // Afficher la fenêtre de modification
             stage.showAndWait();
         } catch (IOException e) {
-            // Gérer les exceptions liées au chargement de la vue de modification
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Erreur lors de la modification de l'événement.");
-            alert.setTitle("Erreur de modification");
-            alert.show();
+            e.printStackTrace();
+            // Handle exceptions
         }
     }
+
 
 
     @FXML
