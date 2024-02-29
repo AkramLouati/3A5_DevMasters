@@ -217,8 +217,8 @@
                         <Image url="@assets/recherche.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="searchTacheLabel" prefHeight="34.0" prefWidth="289.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
-                  <Button mnemonicParsing="false" onAction="#AjouterEvenementClick" prefHeight="39.0" prefWidth="239.0" stylesheets="@style.css" text="Ajouter un evenement" textFill="WHITE">
+                  <TextField fx:id="searchTacheLabel" prefHeight="34.0" prefWidth="253.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
+                  <Button mnemonicParsing="false" onAction="#AjouterEvenementClick" prefHeight="39.0" prefWidth="238.0" stylesheets="@style.css" text="Ajouter un evenement" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>

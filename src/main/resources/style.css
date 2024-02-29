@@ -23,3 +23,7 @@
 .light-grey-background{
     -fx-background-color: #F3F3F3;
 }
+
+.hyperlink{
+    -fx-background-color: #f63232;
+}

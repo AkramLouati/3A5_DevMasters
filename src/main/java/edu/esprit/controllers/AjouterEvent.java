@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class AjouterEvent {
+    private EventDashboard eventDashboardController;
 
     @FXML
     private TextField TFnom;
@@ -87,6 +88,9 @@ public class AjouterEvent {
 
             // Ajout de l'événement via le service
             serviceEvenement.ajouter(evenement);
+            if (eventDashboardController != null) {
+                eventDashboardController.loadEvents();
+            }
 
 
             // Affichage d'une notification de succès après l'ajout de l'événement

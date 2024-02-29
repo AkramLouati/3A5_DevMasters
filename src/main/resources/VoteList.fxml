@@ -207,17 +207,17 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#AjouterPropClick" prefHeight="39.0" prefWidth="270.0" stylesheets="@style.css" text="Ajouter une Proposition" textFill="WHITE">
-                            <font>
-                                <Font name="Arial Bold" size="20.0" />
-                            </font>
-                        </Button>
                         <ImageView fitHeight="43.0" fitWidth="47.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@assets/recherche.png" />
                             </image>
                         </ImageView>
                         <TextField fx:id="searchTacheLabel" prefHeight="34.0" prefWidth="234.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
+                        <Button mnemonicParsing="false" onAction="#AjouterPropClick" prefHeight="39.0" prefWidth="237.0" stylesheets="@style.css" text="Ajouter Proposition" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Bold" size="20.0" />
+                            </font>
+                        </Button>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" spacing="30.0">

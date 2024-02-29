@@ -110,13 +110,34 @@ public class EventDashboard implements Initializable {
 
             // Afficher la fenêtre de ajout
             stage.showAndWait();
-            
+
         } catch (IOException e) {
             // Gérer les exceptions liées au chargement de l'interface
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de navigation");
             alert.setContentText("Une erreur s'est produite lors de la navigation vers l'interface d'ajout de proposition.");
             alert.show();
+        }
+    }
+    public void loadEvents() {
+        // Effacer les événements existants de l'interface
+        eventsLayout.getChildren().clear();
+
+        // Charger à nouveau la liste des événements à partir de la base de données
+        List<Evenement> evenements = new ArrayList<>(getEvenements());
+        for (Evenement evenement : evenements) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL location = getClass().getResource("/EventItem.fxml");
+            fxmlLoader.setLocation(location);
+
+            try {
+                GridPane gridPane = fxmlLoader.load();
+                EventItem eventItemController = fxmlLoader.getController();
+                eventItemController.setData(evenement);
+                eventsLayout.getChildren().add(gridPane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
