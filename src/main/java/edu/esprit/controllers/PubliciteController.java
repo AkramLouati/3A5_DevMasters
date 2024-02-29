@@ -54,21 +54,20 @@ public class PubliciteController {
         String imageUrl = publicite.getImage_pub();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
+                // Créer une instance de File à partir du chemin d'accès à l'image
                 File file = new File(imageUrl);
+                // Convertir le chemin de fichier en URL
                 String fileUrl = file.toURI().toURL().toString();
+                // Créer une instance d'Image à partir de l'URL de fichier
                 Image image = new Image(fileUrl);
+                // Définir l'image dans l'ImageView
                 ImagePublicite.setImage(image);
             } catch (MalformedURLException e) {
+                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
                 e.printStackTrace();
             }
-        } else {
-            // Set a default image if the URL is empty
-            URL defaultImageUrl = getClass().getResource("/edu/esprit/img/image_blanche.png");
-            Image defaultImage = new Image(defaultImageUrl.toString());
-            ImagePublicite.setImage(defaultImage);
         }
     }
-
 
 
     public void deletePubliciteAction(ActionEvent actionEvent) {

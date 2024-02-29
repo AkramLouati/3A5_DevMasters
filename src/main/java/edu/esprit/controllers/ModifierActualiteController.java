@@ -71,25 +71,41 @@ public class ModifierActualiteController implements Initializable {
 
     @FXML
     void modifierActualiteAction(ActionEvent event) {
-
-
         if (actualite != null && serviceActualite != null) {
-            actualite.setTitre_a(TFtitreModifier.getText());
-            actualite.setDescription_a(TFdescriptionModifier.getText());
-            actualite.setDate_a(java.sql.Date.valueOf(java.time.LocalDate.now()));
+            String nouveauTitre = TFtitreModifier.getText();
+            String nouvelleDescription = TFdescriptionModifier.getText();
 
-            try {
-                serviceActualite.modifier(actualite);
+            // Validate titre and description
+            if (nouveauTitre.length() > 6 && nouvelleDescription.length() >= 15) {
+                actualite.setTitre_a(nouveauTitre);
+                actualite.setDescription_a(nouvelleDescription);
+                actualite.setDate_a(java.sql.Date.valueOf(java.time.LocalDate.now()));
 
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setContentText("Actualité modifiée avec succès !");
-                successAlert.setTitle("Modification réussie");
-                successAlert.show();
-            } catch (Exception e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Erreur lors de la modification de la réclamation : " + e.getMessage());
-                errorAlert.setTitle("Erreur de modification");
-                errorAlert.show();
+                try {
+                    serviceActualite.modifier(actualite);
+
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setContentText("Actualité modifiée avec succès !");
+                    successAlert.setTitle("Modification réussie");
+                    successAlert.show();
+                } catch (Exception e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText("Erreur lors de la modification de l'actualité : " + e.getMessage());
+                    errorAlert.setTitle("Erreur de modification");
+                    errorAlert.show();
+                }
+            } else {
+                // Show validation message for titre and description with a red background
+                if (nouveauTitre.length() <= 6) {
+                    // Additional check for titre length
+                    showAlert(Alert.AlertType.ERROR, "Error", "Le titre doit avoir plus de 6 caractères.");
+                    TFtitreModifier.requestFocus();
+                }
+                if (nouvelleDescription.length() < 15) {
+                    // Additional check for description length
+                    showAlert(Alert.AlertType.ERROR, "Error", "La description doit avoir au moins 15 caractères.");
+                    TFdescriptionModifier.requestFocus();
+                }
             }
         } else {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -160,6 +161,23 @@
                                 <DropShadow />
                             </effect>
                         </Button>
+                  <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="82.0" prefWidth="630.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label layoutX="479.0" layoutY="26.0" text="Amine yahyaoui" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="57.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/profile.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -239,6 +257,14 @@
                   </Text>
                   <Label fx:id="verifierTitre" layoutX="215.0" layoutY="129.0" prefHeight="18.0" prefWidth="206.0" text="vérifier ce champ" textFill="RED" visible="false" />
                   <Label fx:id="verifierDescription" layoutX="220.0" layoutY="320.0" prefHeight="18.0" prefWidth="224.0" text="vérifier ce champ" textFill="RED" visible="false" />
+                  <Button fx:id="buttonmain2" layoutX="806.0" layoutY="544.0" mnemonicParsing="false" onAction="#buttonmain2">
+                     <graphic>
+                        <ImageView fitHeight="64.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/cancel.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </AnchorPane>
             </center>

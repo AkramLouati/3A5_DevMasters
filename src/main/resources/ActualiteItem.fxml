@@ -9,14 +9,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="843.0" style="-fx-border-color: #012545; -fx-border-width: 4;" stylesheets="@Actualite.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ActualiteController">
    <children>
-      <Text fx:id="TitreActualiteAff" layoutX="438.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="titre" wrappingWidth="328.53679847717285">
+      <Text fx:id="TitreActualiteAff" layoutX="444.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="titre" wrappingWidth="392.53679847717285">
          <font>
-            <Font name="AdobeHeitiStd-Regular" size="30.0" />
+            <Font name="AdobeHeitiStd-Regular" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="DescriptionActualiteAff" layoutX="438.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="248.53687477111816">
+      <Text fx:id="DescriptionActualiteAff" layoutX="438.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="248.53687477111816">
          <font>
-            <Font name="Arial" size="21.0" />
+            <Font name="Arial" size="17.0" />
          </font>
       </Text>
       <Text fx:id="DateActualiteAff" layoutX="238.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date" wrappingWidth="162.13677406311035">
@@ -37,7 +37,14 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="detailButton" layoutX="512.0" layoutY="39.0" mnemonicParsing="false" onAction="#viewDetailActualiteAction" prefHeight="46.0" prefWidth="58.0" style="-fx-background-color: #CCCCCC9B;" />
+      <Button fx:id="detailButton" layoutX="512.0" layoutY="39.0" mnemonicParsing="false" onAction="#viewDetailActualiteAction" prefHeight="46.0" prefWidth="58.0" style="-fx-background-color: #CCCCCC9B;">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/detailsIcon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Button fx:id="modifierButton" layoutX="438.0" layoutY="39.0" mnemonicParsing="false" onAction="#modifierActualiteAction" prefHeight="46.0" prefWidth="58.0" style="-fx-background-color: #CCCCCC9B;">
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
@@ -46,11 +53,6 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <ImageView fitHeight="43.0" fitWidth="51.0" layoutX="522.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/detailsIcon.png" />
-         </image>
-      </ImageView>
       
    </children>
 </AnchorPane>

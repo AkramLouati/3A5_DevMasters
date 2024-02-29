@@ -158,7 +158,7 @@ public class AjouterActualiteController implements Initializable {
                 alert.show();
             } else {
                 // Handle invalid or missing image file
-                showAlert(Alert.AlertType.ERROR, "Error", "Invalid or missing image file. Please upload an image.");
+                showAlert(Alert.AlertType.ERROR, "Error", "il faut ajouter une image svp");
             }
         } else {
             // Show validation message for titre and description with a red background
@@ -261,6 +261,17 @@ public class AjouterActualiteController implements Initializable {
     }
 
 
-
-
+    public void buttonmain2(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            TFtitre.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }

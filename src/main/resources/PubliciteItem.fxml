@@ -35,12 +35,20 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Button layoutX="214.0" layoutY="348.0" mnemonicParsing="false" onAction="#ValiderPubliciteAction" prefHeight="26.0" prefWidth="83.0" text="valider" />
       <Button layoutX="450.0" layoutY="23.0" minHeight="17.0" minWidth="47.0" mnemonicParsing="false" onAction="#deletePubliciteAction" prefHeight="46.0" prefWidth="54.0" style="-fx-background-color: #CCCCCC9B;" styleClass="arrow-button" stylesheets="@Actualite.css" textFill="GREY">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/deleteIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="529.0" layoutY="24.0" minHeight="17.0" minWidth="47.0" mnemonicParsing="false" onAction="#deletePubliciteAction" prefHeight="46.0" prefWidth="54.0" style="-fx-background-color: #CCCCCC9B;" styleClass="arrow-button" stylesheets="@Actualite.css" textFill="GREY">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/approval.png" />
                </image>
             </ImageView>
          </graphic>

@@ -37,7 +37,12 @@ public class AjouterPubliciteController implements Initializable {
     private Label numeroexiste;
     @FXML
     private VBox MainLeftSidebar;
-
+    @FXML
+    private Label localisationAlerte;
+    @FXML
+    private Label descriptionAlerte;
+    @FXML
+    private Label titreAlerte;
     @FXML
     private BorderPane SecondBorderPane;
 
@@ -67,6 +72,8 @@ public class AjouterPubliciteController implements Initializable {
 
     @FXML
     private Label labelPub;
+    @FXML
+    private Label contactAlerte;
 
     @FXML
     private ComboBox<String> offrePubCombo;
@@ -92,39 +99,58 @@ public class AjouterPubliciteController implements Initializable {
         // Add a listener to the text property of TFtitrepub
         TFtitrepub.textProperty().addListener((observable, oldValue, newValue) -> {
             // Validate the length of the text
-            if (newValue.length() > 6) {
-                // If length is greater than 6, set the background color to a light color
-                TFtitrepub.setStyle("-fx-background-color: #ffffff;"); // Light green
+            if (newValue.length() < 6) {
+                // If length is less than 6, show the alert
+                titreAlerte.setVisible(true);
+                TFtitrepub.requestFocus();
             } else {
-                // If length is 6 or less, set the background color to a light red color
-                TFtitrepub.setStyle("-fx-background-color: #e83939;"); // Light pink
+                // If length is 6 or more, hide the alert
+                titreAlerte.setVisible(false);
             }
         });
 
         // Add a listener to the text property of TFdescriptionpub
         TFdescriptionpub.textProperty().addListener((observable, oldValue, newValue) -> {
             // Validate the length of the text
-            if (newValue.length() >= 15) {
-                // If length is 15 or more, set the background color to a light color
-                TFdescriptionpub.setStyle("-fx-background-color: #ffffff;"); // Light green
+            if (newValue.length() < 15) {
+                // If length is less than 15, show the alert
+                descriptionAlerte.setVisible(true);
+                TFdescriptionpub.requestFocus();
             } else {
-                // If length is less than 15, set the background color to a light red color
-                TFdescriptionpub.setStyle("-fx-background-color: #e83939;"); // Light pink
+                // If length is 15 or more, hide the alert
+                descriptionAlerte.setVisible(false);
             }
         });
 
         // Add a listener to the text property of TFlocalisationpub
         TFlocalisationpub.textProperty().addListener((observable, oldValue, newValue) -> {
             // Validate the length of the text
-            if (newValue.length() >= 3) {
-                // If length is 2 or more, set the background color to a light color
-                TFlocalisationpub.setStyle("-fx-background-color: rgba(0,169,71,0.98);"); // Light green
+            if (newValue.length() < 3) {
+                // If length is less than 3, show the alert
+                localisationAlerte.setVisible(true);
+                TFlocalisationpub.requestFocus();
             } else {
-                // If length is less than 2, set the background color to a light red color
-                TFlocalisationpub.setStyle("-fx-background-color: #e83939;"); // Light pink
+                // If length is 3 or more, hide the alert
+                localisationAlerte.setVisible(false);
+            }
+
+        });
+
+        TFcontactpub.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Allow only numeric input
+            if (!newValue.matches("\\d*")) {
+                // If non-numeric characters are entered, remove them
+                TFcontactpub.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+
+            // Limit the length to 8 characters
+            if (newValue.length() > 8) {
+                TFcontactpub.setText(newValue.substring(0, 8));
             }
         });
+
     }
+
 
     private boolean validateContact(String contactValue) {
         try {
@@ -140,16 +166,17 @@ public class AjouterPubliciteController implements Initializable {
                 numeroexiste.setVisible(false);
             }
 
-            if (contact <= 0) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide.");
+            if (contact <= 0 || contactValue.length() != 8) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide (8 chiffres).");
                 return false;
             }
             return true;
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez saisir un numéro de contact valide (8 chiffres).");
             return false;
         }
     }
+
 
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -284,6 +311,22 @@ public class AjouterPubliciteController implements Initializable {
             return;
         }
 
+        // Check if the contact number already exists
+        if (sp.numeroExists(Integer.parseInt(TFcontactpub.getText()))) {
+            // Display the warning message
+            numeroexiste.setVisible(true);
+            return; // Exit the method to prevent further processing
+        } else {
+            // Hide the warning message if it was previously shown
+            numeroexiste.setVisible(false);
+        }
+
+        // Check if the length conditions are met
+        if (TFtitrepub.getText().length() < 6 || TFdescriptionpub.getText().length() < 15) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez corriger les erreurs de saisie.");
+            return; // Exit the method to prevent further processing
+        }
+
         // Create and add the Publicite object
         sp.ajouter(new Publicite(
                 TFtitrepub.getText(),
@@ -298,5 +341,19 @@ public class AjouterPubliciteController implements Initializable {
 
         // Display success message
         showAlert(Alert.AlertType.INFORMATION, "Publicité a été ajoutée", "Publicité ajoutée, merci pour votre confiance");
+    }
+
+    public void buttonMain1(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            TFtitrepub.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
 }

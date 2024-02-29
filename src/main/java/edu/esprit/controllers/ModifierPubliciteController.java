@@ -1,5 +1,6 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Actualite;
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
 import javafx.animation.TranslateTransition;
@@ -78,6 +79,56 @@ public class ModifierPubliciteController implements Initializable {
     private Publicite publicite;
     private String imagePath;
 
+
+    @FXML
+    void modifierPubliciteAction(ActionEvent event) {
+        if (publicite != null && servicePublicite != null) {
+        publicite.setTitre_pub(TFtitrepubModif.getText());
+        publicite.setDescription_pub(TFdescriptionpubModif.getText());
+            TFcontactpubModif.textProperty().addListener((observable, oldValue, newValue) -> {
+                // Allow only numeric input
+                if (!newValue.matches("\\d*")) {
+                    // If non-numeric characters are entered, remove them
+                    TFcontactpubModif.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+
+                // Limit the length to 8 characters
+                if (newValue.length() > 8) {
+                    TFcontactpubModif.setText(newValue.substring(0, 8));
+                }
+
+                // Additional validation for exactly 8 numeric characters
+                if (newValue.length() == 8 && !newValue.matches("\\d{8}")) {
+                    // If exactly 8 characters are entered, but they are not all numeric, show an aler
+                    // Clear the field
+                    TFcontactpubModif.clear();
+                }
+            });
+        publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
+        publicite.setOffre_pub(offrePubComboModif.getValue());
+        publicite.setImage_pub(imagePath);
+
+        try {
+            servicePublicite.modifier(publicite);
+
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setContentText("pub modifiée avec succès !");
+            successAlert.setTitle("Modification réussie");
+            successAlert.show();
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Erreur lors de la modification de la publicité : " + e.getMessage());
+            errorAlert.setTitle("Erreur de modification");
+            errorAlert.show();
+        }}
+else
+    {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setContentText("Impossible de modifier l'actualité car aucune publicité n'est sélectionnée ");
+        errorAlert.setTitle("Erreur de modification");
+        errorAlert.show();
+    }
+}
     @FXML
     void uploadimgP(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -103,51 +154,16 @@ public class ModifierPubliciteController implements Initializable {
         }
     }
 
-    @FXML
-    void modifierPubliciteAction(ActionEvent event) {
-        if (publicite != null && servicePublicite != null) {
-            try {
-                // Update publicite fields with values from the text fields and combo box
-                publicite.setTitre_pub(TFtitrepubModif.getText());
-                publicite.setDescription_pub(TFdescriptionpubModif.getText());
-                publicite.setContact_pub(Integer.parseInt(TFcontactpubModif.getText()));
-                publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
-                publicite.setOffre_pub(offrePubComboModif.getValue());
-                publicite.setImage_pub(imagePath);
-
-                // Call the modification method of the service
-                servicePublicite.modifier(publicite);
-
-                // Show success message
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setContentText("Publicité modifiée avec succès !");
-                successAlert.setTitle("Modification réussie");
-                successAlert.show();
-
-            } catch (NumberFormatException e) {
-                // Handle the case where the text is not a valid integer
-                showErrorAlert("Veuillez saisir un numéro de contact valide.");
-            } catch (Exception e) {
-                // Handle other exceptions during modification
-                showErrorAlert("Erreur lors de la modification de la publicité : " + e.getMessage());
-            }
-        } else {
-            // Handle the case where publicite or servicePublicite is null
-            showErrorAlert("Impossible de modifier la publicité car aucune publicité n'est sélectionnée ou le service n'est pas initialisé.");
-        }
-    }
-
     public void setData(Publicite publicite) {
         this.publicite = publicite;
-
         if (publicite != null) {
             TFtitrepubModif.setText(publicite.getTitre_pub());
             TFdescriptionpubModif.setText(publicite.getDescription_pub());
-            TFcontactpubModif.setText(String.valueOf(publicite.getContact_pub()));
-            TFlocalisationpubModif.setText(publicite.getLocalisation_pub());
-            offrePubComboModif.setValue(publicite.getOffre_pub());
-            String imageUrl = publicite.getImage_pub();
 
+            // Assuming TFcontactpubModif is your TextField for contact
+            TFcontactpubModif.setText(String.valueOf(publicite.getContact_pub()));
+
+            String imageUrl = publicite.getImage_pub();
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 try {
                     File file = new File(imageUrl);
@@ -157,9 +173,18 @@ public class ModifierPubliciteController implements Initializable {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
+            } else {
+                URL defaultImageUrl = getClass().getResource("/edu/esprit/img/imageblanche.png");
+                Image defaultImage = new Image(defaultImageUrl.toString());
+                imgView_pubModif.setImage(defaultImage);
             }
+
+            // Assuming offrePubComboModif is your ComboBox for offers
+            offrePubComboModif.setValue(publicite.getOffre_pub());
         }
+        TFlocalisationpubModif.setText(publicite.getLocalisation_pub());
     }
+
 
     public void setServicePublicite(ServicePublicite servicePublicite) {
         this.servicePublicite = servicePublicite;
