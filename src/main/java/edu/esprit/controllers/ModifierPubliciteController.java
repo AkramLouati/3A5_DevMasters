@@ -78,57 +78,67 @@ public class ModifierPubliciteController implements Initializable {
     private ServicePublicite servicePublicite;
     private Publicite publicite;
     private String imagePath;
-
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.show();
+    }
 
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
         if (publicite != null && servicePublicite != null) {
-        publicite.setTitre_pub(TFtitrepubModif.getText());
-        publicite.setDescription_pub(TFdescriptionpubModif.getText());
-            TFcontactpubModif.textProperty().addListener((observable, oldValue, newValue) -> {
-                // Allow only numeric input
-                if (!newValue.matches("\\d*")) {
-                    // If non-numeric characters are entered, remove them
-                    TFcontactpubModif.setText(newValue.replaceAll("[^\\d]", ""));
+            String nouveauTitre = TFtitrepubModif.getText().trim();
+            String nouvelleDescription = TFdescriptionpubModif.getText().trim();
+            String contact = TFcontactpubModif.getText().trim();
+
+            // Validate titre, description, and contact
+            if (nouveauTitre.length() > 6 && nouvelleDescription.length() >= 15 && contact.matches("\\d{8}")) {
+                publicite.setTitre_pub(nouveauTitre);
+                publicite.setDescription_pub(nouvelleDescription);
+                publicite.setContact_pub(publicite.getContact_pub());
+                publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
+                publicite.setOffre_pub(offrePubComboModif.getValue());
+                publicite.setImage_pub(imagePath);
+
+                try {
+                    servicePublicite.modifier(publicite);
+
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setContentText("Publicité modifiée avec succès !");
+                    successAlert.setTitle("Modification réussie");
+                    successAlert.show();
+                } catch (Exception e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText("Erreur lors de la modification de la publicité : " + e.getMessage());
+                    errorAlert.setTitle("Erreur de modification");
+                    errorAlert.show();
                 }
-
-                // Limit the length to 8 characters
-                if (newValue.length() > 8) {
-                    TFcontactpubModif.setText(newValue.substring(0, 8));
+            } else {
+                // Show validation message for titre, description, and contact with a red background
+                if (nouveauTitre.length() <= 6) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Le titre doit avoir plus de 6 caractères.");
+                    TFtitrepubModif.requestFocus();
                 }
-
-                // Additional validation for exactly 8 numeric characters
-                if (newValue.length() == 8 && !newValue.matches("\\d{8}")) {
-                    // If exactly 8 characters are entered, but they are not all numeric, show an aler
-                    // Clear the field
-                    TFcontactpubModif.clear();
+                if (nouvelleDescription.length() < 15) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "La description doit avoir au moins 15 caractères.");
+                    TFdescriptionpubModif.requestFocus();
                 }
-            });
-        publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
-        publicite.setOffre_pub(offrePubComboModif.getValue());
-        publicite.setImage_pub(imagePath);
-
-        try {
-            servicePublicite.modifier(publicite);
-
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setContentText("pub modifiée avec succès !");
-            successAlert.setTitle("Modification réussie");
-            successAlert.show();
-        } catch (Exception e) {
+                if (!contact.matches("\\d{8}")) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Le contact doit avoir exactement 8 chiffres.");
+                    TFcontactpubModif.requestFocus();
+                }
+            }
+        } else {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setContentText("Erreur lors de la modification de la publicité : " + e.getMessage());
+            errorAlert.setContentText("Impossible de modifier la publicité car aucune publicité n'est sélectionnée ");
             errorAlert.setTitle("Erreur de modification");
             errorAlert.show();
-        }}
-else
-    {
-        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setContentText("Impossible de modifier l'actualité car aucune publicité n'est sélectionnée ");
-        errorAlert.setTitle("Erreur de modification");
-        errorAlert.show();
+        }
     }
-}
+
+
+
     @FXML
     void uploadimgP(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
