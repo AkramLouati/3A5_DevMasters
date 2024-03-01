@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifierUser implements Initializable{
+public class ModifierUser implements Initializable {
 
     @FXML
     private ImageView ImageM;
@@ -85,7 +85,7 @@ public class ModifierUser implements Initializable{
         String phone = tfTel.getText();
         String localisation = tfAdresse.getText();
 
-        if (isAnyFieldEmpty()){
+        if (isAnyFieldEmpty()) {
             updateTextFieldState();
         } else {
             // Mettre à jour les données de l'événement
@@ -96,13 +96,18 @@ public class ModifierUser implements Initializable{
             endUser.setLocation(localisation);
             endUser.setType(role);
 
-            // Appeler le service pour mettre à jour l'événement dans la base de données
-            serviceUser.modifier(endUser);
-            // Afficher une alerte pour confirmer la modification
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("L'événement a été modifié avec succès.");
-            alert.setTitle("Événement modifié");
-            alert.show();
+            if (nom.isEmpty() || email.isEmpty() || phone.isEmpty() || localisation.isEmpty() || roleSelectionComboBox.getValue() == null) {
+                showAlert("Veuillez remplir tous les champs!");
+            } else {
+                // Appeler le service pour mettre à jour l'événement dans la base de données
+                serviceUser.modifier(endUser);
+
+                // Afficher une alerte pour confirmer la modification
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("L'événement a été modifié avec succès.");
+                alert.setTitle("Événement modifié");
+                alert.show();
+            }
         }
     }
 
@@ -143,6 +148,16 @@ public class ModifierUser implements Initializable{
             }
         }
     }
+
+    private void showAlert(String message) {
+        // Affiche une boîte de dialogue d'information avec le message donné
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     private void updateTextFieldState() {
         setFieldState(tfNom, isFieldEmpty(tfNom));
         setFieldState(tfEmail, isFieldEmpty(tfEmail));
@@ -176,13 +191,14 @@ public class ModifierUser implements Initializable{
 
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //        ObservableList<String> typesProfile = FXCollections.observableArrayList();
         ObservableList<String> roleSelection = FXCollections.observableArrayList();
 
 //        typesProfile.addAll("Citoyen", "Employé", "Responsable employé");
-        roleSelection.addAll("Citoyen", "Responsable employé","Employé","Directeur");
+        roleSelection.addAll("Citoyen", "Responsable employé", "Employé", "Directeur");
 
         // Définir les éléments du ComboBox en utilisant la liste observable
 //        profilTypeComboBox.setItems(typesProfile);

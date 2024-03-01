@@ -27,7 +27,7 @@
             <Image url="@assets/mail.png" />
          </image>
       </ImageView>
-        <TextField fx:id="tfEmail" layoutX="90.0" layoutY="115.0" promptText="email" />
+        <TextField fx:id="tfEmail" editable="false" layoutX="90.0" layoutY="115.0" promptText="email" />
       <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="53.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/telephone.png" />

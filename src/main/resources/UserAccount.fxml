@@ -31,6 +31,5 @@
                 <TextField fx:id="tfAddresse" />
             </children>
         </VBox>
-        <Button layoutX="519.0" layoutY="333.0" mnemonicParsing="false" onAction="#navigate" text="Navigate" />
     </children>
 </AnchorPane>

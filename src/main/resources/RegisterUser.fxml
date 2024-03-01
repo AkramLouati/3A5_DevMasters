@@ -48,7 +48,7 @@
                   <Image url="@assets/mail.png" />
                </image>
             </ImageView>
-            <TextField fx:id="tfEmail" layoutX="120.0" layoutY="91.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #003668; -fx-border-width: 0px 0px 2px 0px;" />
+            <TextField fx:id="tfEmail"  layoutX="120.0" layoutY="91.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #003668; -fx-border-width: 0px 0px 2px 0px;" />
             <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="80.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/padlock.png" />

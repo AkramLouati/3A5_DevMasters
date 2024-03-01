@@ -104,6 +104,7 @@ public class Login {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
+                        stage.setTitle("User Account");
                         stage.show();
                     } catch (IOException e) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
