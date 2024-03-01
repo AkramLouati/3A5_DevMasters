@@ -14,169 +14,73 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="1310.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.VoteList">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.VoteList">
     <left>
-        <VBox prefHeight="200.0" prefWidth="320.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
+        <VBox prefHeight="823.0" prefWidth="205.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
             <children>
-                <VBox alignment="CENTER" prefHeight="571.0" prefWidth="299.0" styleClass="profile-layout" stylesheets="@style.css">
+                <VBox alignment="CENTER" prefHeight="512.0" prefWidth="179.0" styleClass="profile-layout" stylesheets="@style.css">
                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="115.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@assets/userr.png" />                            </image>
                         </ImageView>
-                        <Label prefHeight="31.0" prefWidth="264.0" text="Mohamed amin kaboubi" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="264.0" text="Mohamed amin kaboubi" textFill="WHITE">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
                             <font>
-                                <Font name="Corbel Bold" size="25.0" />
+                                <Font name="Corbel Bold" size="15.0" />
                             </font>
                         </Label>
                         <Label prefHeight="23.0" prefWidth="297.0" text="Numéro du télèphone" textFill="#fa353f">
                             <font>
-                                <Font name="Corbel Bold" size="20.0" />
+                                <Font name="Corbel Bold" size="15.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="10.0" />
                             </VBox.margin>
                         </Label>
-                        <Label prefHeight="23.0" prefWidth="298.0" text="+216 55-651-085">
+                        <Label prefHeight="23.0" prefWidth="298.0" text="+216 55-651-085" textFill="WHITE">
                             <font>
-                                <Font name="Corbel Bold" size="20.0" />
+                                <Font name="Corbel Bold" size="15.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="10.0" />
                             </VBox.margin>
-                            <textFill>
-                                <LinearGradient endX="1.0" endY="1.0" startX="0.14068441699212947">
-                                    <stops>
-                                        <Stop>
-                                            <color>
-                                                <Color red="0.8631578683853149" green="0.22058479487895966" blue="0.22058479487895966" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.3620457604306863">
-                                            <color>
-                                                <Color red="1.0" green="0.9629629850387573" blue="0.9672839641571045" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.7399862127827199">
-                                            <color>
-                                                <Color red="0.9052631855010986" green="0.12740740180015564" blue="0.2570500373840332" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.9532547680793093">
-                                            <color>
-                                                <Color red="1.0" green="0.9700000286102295" blue="0.9735000133514404" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="1.0">
-                                            <color>
-                                                <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                                            </color>
-                                        </Stop>
-                                    </stops>
-                                </LinearGradient>
-                            </textFill>
                         </Label>
-                        <Label prefHeight="23.0" prefWidth="298.0" text="Work" textFill="#fa353f">
+                        <Label prefHeight="23.0" prefWidth="298.0" text="Numéro du municipalité" textFill="#fa353f">
                             <font>
-                                <Font name="Corbel Bold" size="20.0" />
+                                <Font name="Corbel Bold" size="15.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="10.0" top="20.0" />
                             </VBox.margin>
                         </Label>
-                        <Label prefHeight="23.0" prefWidth="296.0" text="+216 xx-xxx-xxx">
+                        <Label prefHeight="23.0" prefWidth="296.0" text="+216 xx-xxx-xxx" textFill="WHITE">
                             <font>
-                                <Font name="Corbel Bold" size="20.0" />
+                                <Font name="Corbel Bold" size="15.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="10.0" />
                             </VBox.margin>
-                            <textFill>
-                                <LinearGradient endX="1.0" endY="1.0" startX="0.14068441699212947">
-                                    <stops>
-                                        <Stop>
-                                            <color>
-                                                <Color red="0.8631578683853149" green="0.22058479487895966" blue="0.22058479487895966" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.3620457604306863">
-                                            <color>
-                                                <Color red="1.0" green="0.9629629850387573" blue="0.9672839641571045" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.7399862127827199">
-                                            <color>
-                                                <Color red="0.9052631855010986" green="0.12740740180015564" blue="0.2570500373840332" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.9532547680793093">
-                                            <color>
-                                                <Color red="1.0" green="0.9700000286102295" blue="0.9735000133514404" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="1.0">
-                                            <color>
-                                                <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                                            </color>
-                                        </Stop>
-                                    </stops>
-                                </LinearGradient>
-                            </textFill>
                         </Label>
                         <Label prefHeight="23.0" prefWidth="297.0" text="Email" textFill="#fa353f">
                             <font>
-                                <Font name="Corbel Bold" size="20.0" />
+                                <Font name="Corbel Bold" size="16.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="10.0" top="20.0" />
                             </VBox.margin>
                         </Label>
-                        <Label prefHeight="23.0" prefWidth="297.0" text="Kaboubiamine78@gmail.com">
+                        <Label prefHeight="23.0" prefWidth="297.0" text="Kaboubiamine78@gmail.com" textFill="WHITE">
                             <font>
-                                <Font name="Corbel Bold" size="20.0" />
+                                <Font name="Corbel Bold" size="13.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="10.0" />
                             </VBox.margin>
-                            <textFill>
-                                <LinearGradient endX="1.0" endY="1.0" startX="0.14068441699212947">
-                                    <stops>
-                                        <Stop>
-                                            <color>
-                                                <Color red="0.8631578683853149" green="0.22058479487895966" blue="0.22058479487895966" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.3620457604306863">
-                                            <color>
-                                                <Color red="1.0" green="0.9629629850387573" blue="0.9672839641571045" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.7399862127827199">
-                                            <color>
-                                                <Color red="0.9052631855010986" green="0.12740740180015564" blue="0.2570500373840332" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="0.9532547680793093">
-                                            <color>
-                                                <Color red="1.0" green="0.9700000286102295" blue="0.9735000133514404" />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="1.0">
-                                            <color>
-                                                <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                                            </color>
-                                        </Stop>
-                                    </stops>
-                                </LinearGradient>
-                            </textFill>
                         </Label>
                     </children>
                     <VBox.margin>
@@ -185,7 +89,7 @@
                 </VBox>
                 <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="95.0" fitWidth="114.0" layoutX="106.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="95.0" fitWidth="114.0" layoutX="55.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@assets/LOGO.png" />
                             </image>
@@ -195,13 +99,13 @@
         </VBox>
     </left>
     <center>
-        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
+        <VBox prefHeight="610.0" prefWidth="831.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="white-backgroung" stylesheets="@style.css">
+                <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="1100.0" styleClass="white-backgroung" stylesheets="@style.css">
                     <children>
                         <Label prefHeight="34.0" prefWidth="420.0" text="Les Propositions">
                             <font>
-                                <Font name="Corbel Bold" size="28.0" />
+                                <Font name="Corbel Bold" size="24.0" />
                             </font>
                             <HBox.margin>
                                 <Insets left="20.0" />
@@ -213,14 +117,14 @@
                             </image>
                         </ImageView>
                         <TextField fx:id="searchTacheLabel" prefHeight="34.0" prefWidth="234.0" promptText="Rechercher..." style="-fx-background-radius: 10;" />
-                        <Button mnemonicParsing="false" onAction="#AjouterPropClick" prefHeight="39.0" prefWidth="237.0" stylesheets="@style.css" text="Ajouter Proposition" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#AjouterPropClick" prefHeight="39.0" prefWidth="268.0" stylesheets="@style.css" text="Ajouter Proposition" textFill="WHITE">
                             <font>
-                                <Font name="Arial Bold" size="20.0" />
+                                <Font name="Arial Bold" size="17.0" />
                             </font>
                         </Button>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" spacing="30.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="1097.0" spacing="30.0">
                     <children>
                         <ImageView fitHeight="182.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -241,17 +145,17 @@
                 </HBox>
                 <Label prefHeight="55.0" text="Liste Des Propositions">
                     <font>
-                        <Font name="Corbel Bold" size="28.0" />
+                        <Font name="Corbel Bold" size="22.0" />
                     </font>
                     <VBox.margin>
                         <Insets left="20.0" />
                     </VBox.margin>
                 </Label>
-                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <HBox prefHeight="456.0" prefWidth="831.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <ScrollPane fx:id="scrollA" prefHeight="2000.0" prefWidth="2000.0" styleClass="transparent" stylesheets="@style.css">
+                        <ScrollPane fx:id="scrollA" prefHeight="462.0" prefWidth="1004.0" styleClass="transparent" stylesheets="@style.css">
                             <content>
-                                <VBox fx:id="VoteLayout" prefHeight="2000.0" prefWidth="1500.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
+                                <VBox fx:id="VoteLayout" prefHeight="499.0" prefWidth="1098.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
                                     <children>
                                         <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="946.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@style.css">
                                             <children>

@@ -146,6 +146,38 @@ public class EventDashboard implements Initializable {
             }
         }
     }
+
+    @FXML
+    void PropositionsOnClick(ActionEvent event) {
+        try {
+            // Load the FXML file for the VoteList interface
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VoteList.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage
+            Stage stage = new Stage();
+            stage.setTitle("Vote List");
+            stage.setScene(new Scene(root));
+
+            // Display the VoteList window
+            stage.show();
+
+            // Close the current window
+            closeCurrentWindow();
+        } catch (IOException e) {
+            // Handle exceptions related to loading the interface
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Navigation Error");
+            alert.setContentText("An error occurred while navigating to the VoteList interface.");
+            alert.show();
+        }
+    }
+
+    private void closeCurrentWindow() {
+        Stage stage = (Stage) eventsLayout.getScene().getWindow();
+        stage.close();
+    }
+
     public BorderPane firstborderpane;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
