@@ -49,3 +49,14 @@ Label {
 Text {
     -fx-fill: #012545;
 }
+
+/* Validation icon styling */
+.validation-error .graphic,
+.validation-warning .graphic,
+.validation-info .graphic {
+    -fx-font-size: 24px; /* Increase the font size for validation icons */
+    -fx-min-width: 24px; /* Set minimum width to ensure icon is visible */
+    -fx-min-height: 24px; /* Set minimum height to ensure icon is visible */
+    -fx-max-width: 24px; /* Set maximum width to ensure icon doesn't exceed desired size */
+    -fx-max-height: 24px; /* Set maximum height to ensure icon doesn't exceed desired size */
+}

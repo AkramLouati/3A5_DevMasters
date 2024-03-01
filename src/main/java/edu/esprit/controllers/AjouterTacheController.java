@@ -291,24 +291,23 @@ public class AjouterTacheController {
 
     @FXML
     public void initialize() {
-
         validationSupport = new ValidationSupport();
 
         // Add validators for each field
         validationSupport.registerValidator(titleField, (Control c, String newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
-                return ValidationResult.fromMessageIf(c, "Title cannot be empty", Severity.ERROR, true);
+                return ValidationResult.fromMessageIf(c, "Titre Obligatoire", Severity.ERROR, true);
             } else if (newValue.matches(".*\\d+.*")) {
-                return ValidationResult.fromMessageIf(c, "Title cannot contain numbers", Severity.ERROR, true);
+                return ValidationResult.fromMessageIf(c, "Titre Ne Contient Pas Des Nombres", Severity.ERROR, true);
             }
             return null; // Return null if validation passes
         });
-        validationSupport.registerValidator(categoryField, Validator.createEmptyValidator("Categorie obligatoire"));
+        validationSupport.registerValidator(categoryField, Validator.createEmptyValidator("Categorie Obligatoire"));
         validationSupport.registerValidator(startDatePicker, (Control c, LocalDate newValue) -> {
             if (newValue == null) {
-                return ValidationResult.fromMessageIf(c, "Start date is required", Severity.ERROR, true);
+                return ValidationResult.fromMessageIf(c, "Date Debut Obligatoire", Severity.ERROR, true);
             } else if (endDatePicker.getValue() != null && newValue.isAfter(endDatePicker.getValue())) {
-                return ValidationResult.fromMessageIf(c, "Start date cannot be after end date", Severity.ERROR, true);
+                return ValidationResult.fromMessageIf(c, "Date Debut est apres Date Fin", Severity.ERROR, true);
             }
             return null; // Return null if validation passes
         });
@@ -316,20 +315,12 @@ public class AjouterTacheController {
         // Custom validator for end date
         validationSupport.registerValidator(endDatePicker, (Control c, LocalDate newValue) -> {
             if (newValue == null) {
-                return ValidationResult.fromMessageIf(c, "End date is required", Severity.ERROR, true);
+                return ValidationResult.fromMessageIf(c, "Date fin Obligatoire", Severity.ERROR, true);
             } else if (startDatePicker.getValue() != null && newValue.isBefore(startDatePicker.getValue())) {
-                return ValidationResult.fromMessageIf(c, "End date cannot be before start date", Severity.ERROR, true);
+                return ValidationResult.fromMessageIf(c, "Date fin est avant Date Debut", Severity.ERROR, true);
             }
             return null; // Return null if validation passes
         });
-        /*validationSupport.registerValidator(RECRadioButton, (Control c, String newValue) -> {
-            if (toDoRadio.isSelected() || doingRadio.isSelected() || doneRadio.isSelected()) {
-                return null; // Return null if validation passes
-            } else {
-                return ValidationResult.fromMessageIf(c, "Etat Obligatoire", Severity.ERROR, true);
-
-            }
-        });*/
 
         populateCategoryComboBox();
     }

@@ -2,6 +2,7 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
+import edu.esprit.services.ServiceCategorieT;
 import edu.esprit.services.ServiceTache;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
@@ -37,7 +38,7 @@ import java.util.Set;
 
 public class AfficherTacheController implements Initializable {
 
-
+private ServiceCategorieT serviceCategorieT;
     public BorderPane firstborderpane;
     EndUser user = new EndUser(12);
     @FXML
@@ -231,10 +232,24 @@ public class AfficherTacheController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to export tasks to PDF");
         }
     }
+    @FXML
+    void CategorieLabel(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCategorie.fxml"));
+            Parent root = loader.load();
+            AfficherCategorieController controller = loader.getController();
 
-    public void ExcelTacheLabel(ActionEvent actionEvent) {
+            // You might need to pass any necessary data or dependencies to the controller here
+
+            // Create a new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
+    @FXML
     public void MeilleurEmpTLabel(ActionEvent actionEvent) {
     }
 
