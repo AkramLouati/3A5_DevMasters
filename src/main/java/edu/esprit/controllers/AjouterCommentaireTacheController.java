@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.util.Date;
+import java.util.Set;
 
 public class AjouterCommentaireTacheController {
 
@@ -34,8 +35,8 @@ public class AjouterCommentaireTacheController {
         String commentaireText = commentField.getText();
 
         // Check if a comment already exists for the task
-        CommentaireTache existingComment = serviceCommentaireTache.getCommentaireForTask(tache.getId_T());
-        if (existingComment != null) {
+        Set<CommentaireTache> existingComment = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (!existingComment.isEmpty()) {
             // Show an error alert if a comment already exists
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Erreur");
@@ -48,9 +49,8 @@ public class AjouterCommentaireTacheController {
         // Creating the comment object
         CommentaireTache commentaireTache = new CommentaireTache();
         commentaireTache.setText_C(commentaireText);
-        commentaireTache.setId_T(tache.getId_T()); // Set the task ID
+        commentaireTache.setTache(tache); // Set the task ID
         commentaireTache.setUser(user); // Set the user
-
         commentaireTache.setDate_C(new Date()); // Set the current date
 
         // Call the service to add the comment
@@ -67,5 +67,4 @@ public class AjouterCommentaireTacheController {
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();
     }
-
 }

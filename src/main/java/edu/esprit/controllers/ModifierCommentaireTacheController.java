@@ -15,10 +15,9 @@ public class ModifierCommentaireTacheController {
     @FXML
     private TextArea commentField;
 
-    private int taskId; // Variable to store the task ID
-    private Tache tache; // Variable to store the task
-    private EndUser user; // Variable to store the user
-    private CommentaireTache commentaireTache; // Variable to store the current comment
+    private Tache tache;
+    private EndUser user;
+    private CommentaireTache commentaireTache;
     private ServiceCommentaireTache serviceCommentaireTache;
 
     public void setData(CommentaireTache commentaireTache) {
@@ -35,10 +34,6 @@ public class ModifierCommentaireTacheController {
         this.user = user;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
     @FXML
     void modifierCommentaire(ActionEvent event) {
         if (serviceCommentaireTache == null) {
@@ -50,7 +45,7 @@ public class ModifierCommentaireTacheController {
 
         // Update the comment text
         commentaireTache.setText_C(newCommentText);
-        // Set the task and user IDs
+
         // Modify the comment using the service
         serviceCommentaireTache.modifier(commentaireTache);
 

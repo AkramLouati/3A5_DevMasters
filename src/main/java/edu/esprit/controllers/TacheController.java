@@ -1,5 +1,4 @@
 package edu.esprit.controllers;
-import javafx.scene.control.ButtonType;
 
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
@@ -9,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 

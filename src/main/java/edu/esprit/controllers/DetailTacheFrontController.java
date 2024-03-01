@@ -4,6 +4,7 @@ import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
+import edu.esprit.services.ServiceTache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +18,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class DetailTacheFrontController {
+
     @FXML
     private Text TFEtatDetail, TFdateDebutDetail, TFdateFinDetail, TFdescriptionDetail, TFTitreDetail, TFCategorieDetail;
 
@@ -28,44 +31,49 @@ public class DetailTacheFrontController {
     @FXML
     private TextField txt_date_C, txt_text_C;
 
-    private Tache taches;
+    private Tache tache;
     private EndUser userId;
-    private int taskId; // Variable to store the task ID
+    private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
+    private ServiceTache serviceTache;
 
-    private ServiceCommentaireTache serviceCommentaireTache;
-
-    public void setUserAndTaskIds(EndUser userId, Tache task) {
+    public void setUserAndTaskIds(EndUser userId, Tache tache) {
         this.userId = userId;
-        this.taskId = task.getId_T();
+        this.tache = tache;
     }
 
-
-    public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
+    public void setServices(ServiceCommentaireTache serviceCommentaireTache, ServiceTache serviceTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
+        this.serviceTache = serviceTache;
     }
 
-    public void setData(Tache taches) {
-        this.taches = taches;
-        if (taches != null) {
-            serviceCommentaireTache = new ServiceCommentaireTache();
+    public void setData(Tache tache) {
+        this.tache = tache;
+        if (tache != null) {
             txt_date_C.setEditable(false);
             txt_text_C.setEditable(false);
-            CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-            if (commentaireTache != null) {
+            Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+            if (!commentairesTache.isEmpty()) {
+                CommentaireTache commentaireTache = commentairesTache.iterator().next();
                 txt_text_C.setText(commentaireTache.getText_C());
                 txt_date_C.setText(commentaireTache.getDate_C().toString());
             } else {
                 txt_text_C.setText("");
                 txt_date_C.setText("Pas de commentaire...");
             }
-            TFCategorieDetail.setText(taches.getCategorie().getNom_Cat());
-            TFTitreDetail.setText(taches.getTitre_T());
-            TFdateDebutDetail.setText(String.valueOf(taches.getDate_DT()));
-            TFdateFinDetail.setText(String.valueOf(taches.getDate_FT()));
-            TFdescriptionDetail.setText(taches.getDesc_T());
-            TFEtatDetail.setText(taches.getEtat_T().toString());
-            Image image = new Image(taches.getPieceJointe_T());
-            PieceJointedetail.setImage(image);
+            TFCategorieDetail.setText(tache.getCategorie().getNom_Cat());
+            TFTitreDetail.setText(tache.getTitre_T());
+            TFdateDebutDetail.setText(String.valueOf(tache.getDate_DT()));
+            TFdateFinDetail.setText(String.valueOf(tache.getDate_FT()));
+            TFdescriptionDetail.setText(tache.getDesc_T());
+            TFEtatDetail.setText(tache.getEtat_T().toString());
+            String pieceJointeUrl = tache.getPieceJointe_T();
+            if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
+                Image image = new Image(pieceJointeUrl);
+                PieceJointedetail.setImage(image);
+            } else {
+                // Handle case where piece jointe URL is empty or null
+            }
+
         }
     }
 
@@ -84,8 +92,8 @@ public class DetailTacheFrontController {
 
     @FXML
     void BTNAjoutCMNT(ActionEvent event) {
-        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-        if (commentaireTache == null) {
+        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (commentairesTache.isEmpty()) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
                 Parent root = loader.load();
@@ -93,7 +101,7 @@ public class DetailTacheFrontController {
 
                 // Pass the service and user/task IDs to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(taches, taches.getUser());
+                controller.setUserAndTaskIds(tache, tache.getUser());
 
                 // Create a new stage
                 Stage stage = new Stage();
@@ -101,21 +109,26 @@ public class DetailTacheFrontController {
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Une erreur est survenue lors du chargement de l'interface utilisateur.");
+                alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("commentaire Existe deja!");
+            alert.setContentText("Commentaire déjà existant !");
             alert.showAndWait();
         }
     }
 
-
     @FXML
     void BTNModifCMNT(ActionEvent event) {
-        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-        if (commentaireTache != null) {
+        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (!commentairesTache.isEmpty()) {
+            CommentaireTache commentaireTache = commentairesTache.iterator().next(); // Get the first comment for modification
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCommentaireTache.fxml"));
                 Parent root = loader.load();
@@ -123,7 +136,7 @@ public class DetailTacheFrontController {
 
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(taches, taches.getUser());
+                controller.setUserAndTaskIds(tache, tache.getUser());
                 controller.setData(commentaireTache);
                 // Create a new stage
                 Stage stage = new Stage();
@@ -143,9 +156,10 @@ public class DetailTacheFrontController {
 
     @FXML
     void BTNSuppCMNT(ActionEvent event) {
-        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-        if (commentaireTache != null) {
-            serviceCommentaireTache.supprimer(commentaireTache.getId_C());
+        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (!commentairesTache.isEmpty()) {
+            CommentaireTache commentaireTache = commentairesTache.iterator().next(); // Get the first comment to delete
+            serviceCommentaireTache.supprimer(commentaireTache.getId_Cmnt());
             txt_text_C.setText("");
             txt_date_C.setText("");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -162,6 +176,11 @@ public class DetailTacheFrontController {
         }
     }
 
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
-
-

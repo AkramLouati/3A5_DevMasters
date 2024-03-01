@@ -38,9 +38,9 @@ import java.util.Set;
 
 public class AfficherTacheController implements Initializable {
 
-private ServiceCategorieT serviceCategorieT;
     public BorderPane firstborderpane;
     EndUser user = new EndUser(12);
+    private ServiceCategorieT serviceCategorieT;
     @FXML
     private TextField searchbar;
     @FXML
@@ -232,6 +232,7 @@ private ServiceCategorieT serviceCategorieT;
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to export tasks to PDF");
         }
     }
+
     @FXML
     void CategorieLabel(ActionEvent event) {
         try {
@@ -249,6 +250,7 @@ private ServiceCategorieT serviceCategorieT;
             e.printStackTrace();
         }
     }
+
     @FXML
     public void MeilleurEmpTLabel(ActionEvent actionEvent) {
     }

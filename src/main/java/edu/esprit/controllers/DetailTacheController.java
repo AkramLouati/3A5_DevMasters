@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class DetailTacheController {
 
@@ -30,6 +31,7 @@ public class DetailTacheController {
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
     private BorderPane SecondBorderPane;
+
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
@@ -42,43 +44,42 @@ public class DetailTacheController {
     @FXML
     private TextField txt_date_C, txt_text_C;
 
-    private Tache taches;
+    private Tache tache;
     private EndUser userId;
-    private int taskId; // Variable to store the task ID
+    private int tacheId; // Variable to store the task ID
 
-    private ServiceCommentaireTache serviceCommentaireTache;
+    private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
 
-    public void setUserAndTaskIds(EndUser userId, Tache task) {
+    public void setUserAndTaskIds(EndUser userId, Tache tache) {
         this.userId = userId;
-        this.taskId = task.getId_T();
+        this.tacheId = tache.getId_T();
     }
-
 
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
     }
 
-    public void setData(Tache taches) {
-        this.taches = taches;
-        if (taches != null) {
-            serviceCommentaireTache = new ServiceCommentaireTache();
+    public void setData(Tache tache) {
+        this.tache = tache;
+        if (tache != null) {
             txt_date_C.setEditable(false);
             txt_text_C.setEditable(false);
-            CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-            if (commentaireTache != null) {
+            Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+            if (!commentairesTache.isEmpty()) {
+                CommentaireTache commentaireTache = commentairesTache.iterator().next();
                 txt_text_C.setText(commentaireTache.getText_C());
                 txt_date_C.setText(commentaireTache.getDate_C().toString());
             } else {
                 txt_text_C.setText("");
                 txt_date_C.setText("Pas de commentaire...");
             }
-            TFCategorieDetail.setText(taches.getCategorie().getNom_Cat());
-            TFTitreDetail.setText(taches.getTitre_T());
-            TFdateDebutDetail.setText(String.valueOf(taches.getDate_DT()));
-            TFdateFinDetail.setText(String.valueOf(taches.getDate_FT()));
-            TFdescriptionDetail.setText(taches.getDesc_T());
-            TFEtatDetail.setText(taches.getEtat_T().toString());
-            String pieceJointeUrl = taches.getPieceJointe_T();
+            TFCategorieDetail.setText(tache.getCategorie().getNom_Cat());
+            TFTitreDetail.setText(tache.getTitre_T());
+            TFdateDebutDetail.setText(String.valueOf(tache.getDate_DT()));
+            TFdateFinDetail.setText(String.valueOf(tache.getDate_FT()));
+            TFdescriptionDetail.setText(tache.getDesc_T());
+            TFEtatDetail.setText(tache.getEtat_T().toString());
+            String pieceJointeUrl = tache.getPieceJointe_T();
             if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
                 Image image = new Image(pieceJointeUrl);
                 PieceJointedetail.setImage(image);
@@ -118,28 +119,6 @@ public class DetailTacheController {
         sideBarTransition.play();
     }
 
-    public void BTNGestionEvennement(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionUser(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionRec(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionAct(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionEquipement(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionTache(ActionEvent actionEvent) {
-
-    }
-
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {
@@ -155,8 +134,8 @@ public class DetailTacheController {
 
     @FXML
     void BTNAjoutCMNT(ActionEvent event) {
-        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-        if (commentaireTache == null) {
+        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (commentairesTache.isEmpty()) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
                 Parent root = loader.load();
@@ -164,7 +143,7 @@ public class DetailTacheController {
 
                 // Pass the service and user/task IDs to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(taches, taches.getUser());
+                controller.setUserAndTaskIds(tache, tache.getUser());
 
                 // Create a new stage
                 Stage stage = new Stage();
@@ -172,21 +151,26 @@ public class DetailTacheController {
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Une erreur est survenue lors du chargement de l'interface utilisateur.");
+                alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("commentaire Existe deja!");
+            alert.setContentText("Commentaire déjà existant !");
             alert.showAndWait();
         }
     }
 
-
     @FXML
     void BTNModifCMNT(ActionEvent event) {
-        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-        if (commentaireTache != null) {
+        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (!commentairesTache.isEmpty()) {
+            CommentaireTache commentaireTache = commentairesTache.iterator().next(); // Get the first comment for modification
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCommentaireTache.fxml"));
                 Parent root = loader.load();
@@ -194,7 +178,7 @@ public class DetailTacheController {
 
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(taches, taches.getUser());
+                controller.setUserAndTaskIds(tache, tache.getUser());
                 controller.setData(commentaireTache);
                 // Create a new stage
                 Stage stage = new Stage();
@@ -214,9 +198,10 @@ public class DetailTacheController {
 
     @FXML
     void BTNSuppCMNT(ActionEvent event) {
-        CommentaireTache commentaireTache = serviceCommentaireTache.getCommentaireForTask(taches.getId_T());
-        if (commentaireTache != null) {
-            serviceCommentaireTache.supprimer(commentaireTache.getId_C());
+        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
+        if (!commentairesTache.isEmpty()) {
+            CommentaireTache commentaireTache = commentairesTache.iterator().next(); // Get the first comment to delete
+            serviceCommentaireTache.supprimer(commentaireTache.getId_Cmnt());
             txt_text_C.setText("");
             txt_date_C.setText("");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -233,7 +218,21 @@ public class DetailTacheController {
         }
     }
 
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+    }
 
+    public void BTNGestionTache(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
 }
-
-

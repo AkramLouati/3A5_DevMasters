@@ -187,6 +187,7 @@ public class ServiceTache implements IService<Tache> {
         }
         return true;
     }
+
     public boolean isTitleExist(String title) {
         String req = "SELECT * FROM tache WHERE titre_T = ?";
         try {

@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public class CommentaireTache {
-    private int id_C, id_T;
+    private int id_Cmnt;
+    private Tache tache;
     private EndUser user;
     private Date date_C;
     private String text_C;
@@ -13,33 +14,33 @@ public class CommentaireTache {
     public CommentaireTache() {
     }
 
-    public CommentaireTache(int id_C, EndUser user, int id_T, Date date_C, String text_C) {
-        this.id_C = id_C;
+    public CommentaireTache(EndUser user, Tache tache, Date date_C, String text_C) {
         this.user = user;
-        this.id_T = id_T;
+        this.tache = tache;
         this.date_C = date_C;
         this.text_C = text_C;
     }
 
-    public CommentaireTache(EndUser user, int id_T, Date date_C, String text_C) {
+    public CommentaireTache(int id_Cmnt, String text_C) {
+        this.id_Cmnt = id_Cmnt;
+        this.text_C = text_C;
+    }
+
+    public CommentaireTache(int id_Cmnt, EndUser user, Tache tache, Date date_C, String text_C) {
+        this.id_Cmnt = id_Cmnt;
         this.user = user;
-        this.id_T = id_T;
+        this.tache = tache;
         this.date_C = date_C;
         this.text_C = text_C;
     }
 
-    public CommentaireTache(int id_C, String text_C) {
-        this.id_C = id_C;
-        this.text_C = text_C;
+
+    public int getId_Cmnt() {
+        return id_Cmnt;
     }
 
-
-    public int getId_C() {
-        return id_C;
-    }
-
-    public void setId_C(int id_C) {
-        this.id_C = id_C;
+    public void setId_Cmnt(int id_Cmnt) {
+        this.id_Cmnt = id_Cmnt;
     }
 
     public EndUser getUser() {
@@ -50,12 +51,12 @@ public class CommentaireTache {
         this.user = user;
     }
 
-    public int getId_T() {
-        return id_T;
+    public Tache getTache() {
+        return tache;
     }
 
-    public void setId_T(int id_T) {
-        this.id_T = id_T;
+    public void setTache(Tache tache) {
+        this.tache = tache;
     }
 
     public String getText_C() {
@@ -78,12 +79,12 @@ public class CommentaireTache {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CommentaireTache that)) return false;
-        return getId_C() == that.getId_C();
+        return getId_Cmnt() == that.getId_Cmnt();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_C());
+        return Objects.hash(getId_Cmnt());
     }
 
     @Override
