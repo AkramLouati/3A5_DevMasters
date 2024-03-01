@@ -87,7 +87,7 @@ public class AjouterAvisGuiFront {
     private final ServiceAvis serviceAvis = new ServiceAvis();
     Muni muni = new Muni(1);
     EndUser user = new EndUser(1,muni);
-    Equipement e = new Equipement(1);
+    Equipement e = new Equipement(26);
     java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
     @FXML
     void ajouterAvisAction(ActionEvent event) {
