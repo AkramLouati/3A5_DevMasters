@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
 
@@ -54,12 +55,14 @@ public class RegisterController implements Initializable {
     @FXML
     private TextField tfTel;
 
-    File selectedFile;
+    File selectedFile = null;
 
     Muni muni;
     ServiceUser serviceUser = new ServiceUser();
 
     ServiceMuni serviceMuni = new ServiceMuni();
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
 
     @FXML
     void registerAction(ActionEvent event) {
@@ -73,8 +76,12 @@ public class RegisterController implements Initializable {
 
         // Votre logique de traitement d'inscription ici
         // Vous pouvez appeler votre service pour enregistrer l'utilisateur, par exemple
-        if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirmMotDePasse.isEmpty() || numTel.isEmpty() || location.isEmpty() || selectedMuni.isEmpty()) {
+        if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirmMotDePasse.isEmpty() || numTel.isEmpty() || location.isEmpty() || selectedMuni == null ) {
             showAlert("Veuillez remplir tous les champs!");
+        } else if (selectedFile == null) {
+            showAlert("Veuillez entrer une image!");
+        } else if (!EMAIL_PATTERN.matcher(email).matches()) {
+            showAlert("Veuillez entrer un email valid!");
         } else if(!motDePasse.equals(confirmMotDePasse)){
             showAlert("Vérifier votre mot de passe!");
         } else {

@@ -3,9 +3,13 @@ package edu.esprit.controllers;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceUser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -16,8 +20,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ModifierUser {
+public class ModifierUser implements Initializable{
 
     @FXML
     private ImageView ImageM;
@@ -31,12 +37,16 @@ public class ModifierUser {
     @FXML
     private TextField tfNom;
 
-    @FXML
-    private PasswordField pfMdp;
+//    @FXML
+//    private PasswordField pfMdp;
 
     @FXML
     private TextField tfTel;
 
+    @FXML
+    private ComboBox<String> roleSelectionComboBox;
+
+    String role;
 
     private ServiceUser serviceUser = new ServiceUser();
     private EndUser endUser;
@@ -46,7 +56,7 @@ public class ModifierUser {
         // Afficher les données de l'événement dans les champs de texte
         tfNom.setText(endUser.getNom());
         tfEmail.setText(endUser.getEmail());
-        pfMdp.setText(endUser.getPassword());
+//        pfMdp.setText(endUser.getPassword());
         tfAdresse.setText(endUser.getLocation());
         tfTel.setText(endUser.getPhoneNumber());
 
@@ -63,7 +73,6 @@ public class ModifierUser {
 
     @FXML
     void ModifierEventClick(ActionEvent event) {
-        updateTextFieldStyles();
         // Vérifier si le serviceEvenement est initialisé
 //        if (serviceUser == null) {
 //            serviceUser = new serviceUser();
@@ -72,25 +81,29 @@ public class ModifierUser {
         // Récupérer les nouvelles valeurs des champs de texte
         String nom = tfNom.getText();
         String email = tfEmail.getText();
-        String password = pfMdp.getText();
+//        String password = pfMdp.getText();
         String phone = tfTel.getText();
         String localisation = tfAdresse.getText();
 
-        // Mettre à jour les données de l'événement
-        endUser.setNom(nom);
-        endUser.setEmail(email);
-        endUser.setPassword(password);
-        endUser.setPhoneNumber(phone);
-        endUser.setLocation(localisation);
+        if (isAnyFieldEmpty()){
+            updateTextFieldState();
+        } else {
+            // Mettre à jour les données de l'événement
+            endUser.setNom(nom);
+            endUser.setEmail(email);
+//            endUser.setPassword(password);
+            endUser.setPhoneNumber(phone);
+            endUser.setLocation(localisation);
+            endUser.setType(role);
 
-        // Appeler le service pour mettre à jour l'événement dans la base de données
-        serviceUser.modifier(endUser);
-
-        // Afficher une alerte pour confirmer la modification
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("L'événement a été modifié avec succès.");
-        alert.setTitle("Événement modifié");
-        alert.show();
+            // Appeler le service pour mettre à jour l'événement dans la base de données
+            serviceUser.modifier(endUser);
+            // Afficher une alerte pour confirmer la modification
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("L'événement a été modifié avec succès.");
+            alert.setTitle("Événement modifié");
+            alert.show();
+        }
     }
 
     @FXML
@@ -106,7 +119,7 @@ public class ModifierUser {
     }
 
     @FXML
-    void browseMOnClick(ActionEvent event) {
+    void imagePicker(ActionEvent event) {
         // Configurer le FileChooser pour sélectionner une image
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
@@ -130,31 +143,51 @@ public class ModifierUser {
             }
         }
     }
-    private void updateTextFieldStyles() {
-        setFieldStyle(tfNom, isFieldEmpty(tfNom));
-        setFieldStyle(tfEmail, isFieldEmpty(tfEmail));
-        setFieldStyle(tfAdresse, isFieldEmpty(tfAdresse));
-        setFieldStyle(tfTel, isFieldEmpty(tfTel));
-        setFieldStyle(pfMdp, isFieldEmpty(pfMdp));
+    private void updateTextFieldState() {
+        setFieldState(tfNom, isFieldEmpty(tfNom));
+        setFieldState(tfEmail, isFieldEmpty(tfEmail));
+        setFieldState(tfAdresse, isFieldEmpty(tfAdresse));
+        setFieldState(tfTel, isFieldEmpty(tfTel));
+//        setFieldState(pfMdp, isFieldEmpty(pfMdp));
     }
 
     private boolean isFieldEmpty(TextField textField) {
         return textField.getText().isEmpty();
     }
 
-    private void setFieldStyle(TextField textField, boolean isEmpty) {
+    private void setFieldState(TextField textField, boolean isEmpty) {
         if (isEmpty) {
-            textField.setStyle("-fx-background-color: red;");
+            textField.setStyle("-fx-border-color: red;");
         } else {
-            textField.setStyle("-fx-background-color: lime;");
+            textField.setStyle("-fx-border-color: lime;");
         }
     }
 
     private boolean isAnyFieldEmpty() {
         return isFieldEmpty(tfNom) || isFieldEmpty(tfEmail) || isFieldEmpty(tfAdresse) ||
-                isFieldEmpty(tfTel) || isFieldEmpty(pfMdp);
+                isFieldEmpty(tfTel);
     }
 
+    @FXML
+    void roleSelection(ActionEvent event) {
+
+        // Access the selected item in muniSelectionComboBox
+        role = roleSelectionComboBox.getValue();
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //        ObservableList<String> typesProfile = FXCollections.observableArrayList();
+        ObservableList<String> roleSelection = FXCollections.observableArrayList();
+
+//        typesProfile.addAll("Citoyen", "Employé", "Responsable employé");
+        roleSelection.addAll("Citoyen", "Responsable employé","Employé","Directeur");
+
+        // Définir les éléments du ComboBox en utilisant la liste observable
+//        profilTypeComboBox.setItems(typesProfile);
+        roleSelectionComboBox.setItems(roleSelection);
+    }
 }
 
 
