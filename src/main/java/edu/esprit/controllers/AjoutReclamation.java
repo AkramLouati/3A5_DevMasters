@@ -26,8 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AjoutReclamation implements Initializable {
     @FXML
@@ -108,29 +107,41 @@ public class AjoutReclamation implements Initializable {
 
         // Vérifier si tous les champs sont valides
         if (sujetValid && descriptionValid && adresseValid && typeValid) {
-        try {
-            // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-            sr.ajouter(new Reclamation(user, muni, TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Reclamation a été ajoutée");
-            alert.setContentText("GG");
-            alert.show();
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
-                MainAnchorPaneBaladity.getScene().setRoot(root);
-            } catch (IOException e) {
-                // Gérer l'exception si la redirection échoue
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                errorAlert.setTitle("Erreur de redirection");
-                errorAlert.show();
+            // Vérifier les bad words
+            boolean hasBadWords = checkForBadWords();
+            if (hasBadWords) {
+                // Afficher un message d'erreur
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Contenu inapproprié");
+                alert.setContentText("Votre réclamation contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
+                alert.showAndWait();
+            } else {
+                // Pas de bad words, ajouter la réclamation
+                try {
+                    // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+                    sr.ajouter(new Reclamation(user, muni, TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Reclamation a été ajoutée");
+                    alert.setContentText("GG");
+                    alert.show();
+                    try {
+                        Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+                        MainAnchorPaneBaladity.getScene().setRoot(root);
+                    } catch (IOException e) {
+                        // Gérer l'exception si la redirection échoue
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                        errorAlert.setTitle("Erreur de redirection");
+                        errorAlert.show();
+                    }
+                } catch (SQLException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Exception");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
             }
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Exception");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
         }
     }
     @FXML
@@ -246,12 +257,13 @@ public class AjoutReclamation implements Initializable {
             label.setText("Veuillez sélectionner une option");
             label.getStyleClass().add("warning-text");
             return false;
-        } else {
+        }
+
             label.setText("Valide");
             label.getStyleClass().removeAll("warning-text");
             label.getStyleClass().add("success-text");
             return true;
-        }
+
     }
 
     // Méthode pour valider le champ de texte et mettre à jour le label associé
@@ -259,6 +271,13 @@ public class AjoutReclamation implements Initializable {
         // Vérifie si le champ de texte est vide
         if (textField.getText().isEmpty()) {
             label.setText("Veuillez remplir ce champ");
+            label.getStyleClass().add("warning-text");
+            return false;
+        }
+
+        // Vérifie les mots inappropriés uniquement si le champ est non vide
+        if (bad_words(textField.getText())) {
+            label.setText("Votre champ contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
             label.getStyleClass().add("warning-text");
             return false;
         } else {
@@ -276,11 +295,47 @@ public class AjoutReclamation implements Initializable {
             label.setText("Veuillez remplir ce champ");
             label.getStyleClass().add("warning-text");
             return false;
+        }
+
+        // Vérifie les mots inappropriés uniquement si la zone de texte est non vide
+        if (bad_words(textArea.getText())) {
+            label.setText("Votre champ contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
+            label.getStyleClass().add("warning-text");
+            return false;
         } else {
             label.setText("Valide");
             label.getStyleClass().removeAll("warning-text");
             label.getStyleClass().add("success-text");
             return true;
         }
+    }
+
+    private boolean checkForBadWords() {
+        // Vérifier le sujet de la réclamation
+        if (bad_words(TFsujet_reclamation.getText())) {
+            return true;
+        }
+
+        // Vérifier la description de la réclamation
+        if (bad_words(TAdescription_reclamation.getText())) {
+            return true;
+        }
+
+        // Vérifier l'adresse de la réclamation
+        if (bad_words(TFadresse_reclamation.getText())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean bad_words(String text) {
+        List<String> badListW = Arrays.asList("fuck", "din", "khra", "bhim", "hayawen", "kaleb", "putain");
+        for (String str : badListW) {
+            if (text.contains(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

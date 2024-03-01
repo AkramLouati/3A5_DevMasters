@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -310,11 +312,33 @@ public class ReclamationEditController implements Initializable {
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
         this.serviceReclamation = serviceReclamation;
     }
-    // Méthode pour valider le champ ComboBox et mettre à jour le label associé
     private boolean validateComboBox(ComboBox<String> comboBox, Label label) {
         // Vérifie si aucune option n'est sélectionnée dans le ComboBox
         if (comboBox.getValue() == null || comboBox.getValue().isEmpty()) {
             label.setText("Veuillez sélectionner une option");
+            label.getStyleClass().add("warning-text");
+            return false;
+        }
+
+        label.setText("Valide");
+        label.getStyleClass().removeAll("warning-text");
+        label.getStyleClass().add("success-text");
+        return true;
+
+    }
+
+    // Méthode pour valider le champ de texte et mettre à jour le label associé
+    private boolean validateTextField(TextField textField, Label label) {
+        // Vérifie si le champ de texte est vide
+        if (textField.getText().isEmpty()) {
+            label.setText("Veuillez remplir ce champ");
+            label.getStyleClass().add("warning-text");
+            return false;
+        }
+
+        // Vérifie les mots inappropriés uniquement si le champ est non vide
+        if (bad_words(textField.getText())) {
+            label.setText("Votre champ contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
             label.getStyleClass().add("warning-text");
             return false;
         } else {
@@ -326,41 +350,54 @@ public class ReclamationEditController implements Initializable {
     }
 
     // Méthode pour valider le champ de texte et mettre à jour le label associé
-    private boolean validateTextField(TextField textField, Label label) {
-        // Vérifie si le champ de texte est vide
-        if (textField.getText().isEmpty()) {
-            label.setText("Veuillez remplir ce champ");
-            label.getStyleClass().add("warning-text"); // Ajoute la classe CSS d'avertissement
-            // Retirer la classe CSS de succès s'il y en a
-            label.getStyleClass().remove("success-text");
-            return false;
-        } else {
-            label.setText("Valide");
-            label.getStyleClass().removeAll("warning-text");
-            label.getStyleClass().add("success-text");
-            // Retirer la classe CSS d'avertissement s'il y en a
-            label.getStyleClass().remove("warning-text");
-            return true;
-        }
-    }
-
-    // Méthode pour valider le champ de texte et mettre à jour le label associé
     private boolean validateTextArea(TextArea textArea, Label label) {
         // Vérifie si la zone de texte est vide
         if (textArea.getText().isEmpty()) {
             label.setText("Veuillez remplir ce champ");
-            label.getStyleClass().add("warning-text"); // Ajoute la classe CSS d'avertissement
-            // Retirer la classe CSS de succès s'il y en a
-            label.getStyleClass().remove("success-text");
+            label.getStyleClass().add("warning-text");
+            return false;
+        }
+
+        // Vérifie les mots inappropriés uniquement si la zone de texte est non vide
+        if (bad_words(textArea.getText())) {
+            label.setText("Votre champ contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
+            label.getStyleClass().add("warning-text");
             return false;
         } else {
             label.setText("Valide");
             label.getStyleClass().removeAll("warning-text");
             label.getStyleClass().add("success-text");
-            // Retirer la classe CSS d'avertissement s'il y en a
-            label.getStyleClass().remove("warning-text");
             return true;
         }
+    }
+
+    private boolean checkForBadWords() {
+        // Vérifier le sujet de la réclamation
+        if (bad_words(sujetmodifier.getText())) {
+            return true;
+        }
+
+        // Vérifier la description de la réclamation
+        if (bad_words(descriptionmodifier.getText())) {
+            return true;
+        }
+
+        // Vérifier l'adresse de la réclamation
+        if (bad_words(adressemodifier.getText())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean bad_words(String text) {
+        List<String> badListW = Arrays.asList("fuck", "din", "khra", "bhim", "hayawen", "kaleb", "putain");
+        for (String str : badListW) {
+            if (text.contains(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
