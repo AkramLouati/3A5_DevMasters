@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -178,92 +177,118 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="TFTitreDetail" layoutX="36.0" layoutY="55.0" stroke="#e11111" strokeType="OUTSIDE" strokeWidth="0.0" text="TITRE" wrappingWidth="327.1999999999999">
+                  <Text fx:id="TFTitreDetail" layoutX="36.0" layoutY="41.0" stroke="#e11111" strokeType="OUTSIDE" strokeWidth="0.0" text="TITRE" wrappingWidth="327.1999999999999">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <HBox layoutX="46.400001525878906" layoutY="89.4000015258789" prefHeight="38.0" prefWidth="279.0">
+                  <HBox layoutX="42.0" layoutY="68.0" prefHeight="32.0" prefWidth="331.0" style="-fx-border-color: #FB3640; -fx-border-width: 3; -fx-border-radius: 8;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie :" wrappingWidth="185.614013671875">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="185.614013671875">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                         <Text fx:id="TFCategorieDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="140.0">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="46.400001525878906" layoutY="127.80000305175781" prefHeight="39.0" prefWidth="420.0">
+                  <HBox layoutX="42.0" layoutY="116.0" prefHeight="32.0" prefWidth="300.0" style="-fx-border-color: #FB3640; -fx-border-width: 3; -fx-border-radius: 8;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut :" wrappingWidth="185.61407470703125">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" wrappingWidth="185.61407470703125">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                         <Text fx:id="TFdateDebutDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="140.0">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="46.400001525878906" layoutY="167.0" prefHeight="40.0" prefWidth="420.0">
+                  <HBox layoutX="41.0" layoutY="164.0" prefHeight="32.0" prefWidth="300.0" style="-fx-border-color: #FB3640; -fx-border-width: 3; -fx-border-radius: 8;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin :" wrappingWidth="185.61407470703125">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" wrappingWidth="185.61407470703125">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                         <Text fx:id="TFdateFinDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="140.0">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="46.400001525878906" layoutY="207.0" prefHeight="42.0" prefWidth="318.0">
+                  <HBox layoutX="42.0" layoutY="211.0" prefHeight="32.0" prefWidth="300.0" style="-fx-border-color: #FB3640; -fx-border-width: 3; -fx-border-radius: 8;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description :" wrappingWidth="186.4140625">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="186.4140625">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                         <Text fx:id="TFdescriptionDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="140.0">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="46.400001525878906" layoutY="249.39999389648438" prefHeight="38.0" prefWidth="420.0">
+                  <HBox layoutX="42.0" layoutY="258.0" prefHeight="32.0" prefWidth="300.0" style="-fx-border-color: #FB3640; -fx-border-width: 3; -fx-border-radius: 8;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat :" wrappingWidth="186.41400146484375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat" wrappingWidth="186.41400146484375">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                         <Text fx:id="TFEtatDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="140.0">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <Text layoutX="46.400001525878906" layoutY="305.89666748046875" strokeType="OUTSIDE" strokeWidth="0.0" text="Piece Jointe :" wrappingWidth="188.0139923095703">
+                  <Text layoutX="203.0" layoutY="589.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Piece Jointe" wrappingWidth="109.08064270019531">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Group layoutX="47.0" layoutY="320.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="261.0" layoutX="1.0" layoutY="6.0" stroke="#012545" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="4.0" width="404.0" />
-                        <ImageView fx:id="PieceJointedetail" fitHeight="228.0" fitWidth="370.0" layoutX="17.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Group>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="256.0" layoutX="47.0" layoutY="310.0" stroke="#012545" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="4.0" width="262.0" />
+                  <ImageView fx:id="PieceJointedetail" fitHeight="252.0" fitWidth="254.0" layoutX="51.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox alignment="CENTER" layoutX="512.0" layoutY="66.0" prefHeight="456.0" prefWidth="302.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="302.0" text="COMMENTAIRE" textAlignment="CENTER">

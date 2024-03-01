@@ -15,6 +15,14 @@
 
 <AnchorPane prefHeight="554.0" prefWidth="850.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailTacheFrontController">
     <children>
+        <Button layoutX="717.0" layoutY="11.0" mnemonicParsing="false" onAction="#buttonReturnListeTaches" prefHeight="40.0" prefWidth="82.0" text="Exit">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/left-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
         <Text fx:id="TFTitreDetail" layoutX="36.0" layoutY="55.0" stroke="#e11111" strokeType="OUTSIDE" strokeWidth="0.0" text="TITRE" wrappingWidth="327.1999999999999">
             <font>
                 <Font size="24.0" />
@@ -22,7 +30,7 @@
         </Text>
           <HBox layoutX="46.400001525878906" layoutY="89.4000015258789" prefHeight="38.0" prefWidth="279.0">
               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie :" wrappingWidth="185.614013671875">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="185.614013671875">
                       <font>
                           <Font size="18.0" />
                       </font>
@@ -36,7 +44,7 @@
           </HBox>
           <HBox layoutX="46.400001525878906" layoutY="127.80000305175781" prefHeight="39.0" prefWidth="420.0">
               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut :" wrappingWidth="185.61407470703125">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" wrappingWidth="185.61407470703125">
                       <font>
                           <Font size="18.0" />
                       </font>
@@ -50,7 +58,7 @@
           </HBox>
           <HBox layoutX="46.400001525878906" layoutY="167.0" prefHeight="40.0" prefWidth="420.0">
               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin :" wrappingWidth="185.61407470703125">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" wrappingWidth="185.61407470703125">
                       <font>
                           <Font size="18.0" />
                       </font>
@@ -64,7 +72,7 @@
           </HBox>
           <HBox layoutX="46.400001525878906" layoutY="207.0" prefHeight="42.0" prefWidth="318.0">
               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description :" wrappingWidth="186.4140625">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="186.4140625">
                       <font>
                           <Font size="18.0" />
                       </font>
@@ -78,7 +86,7 @@
           </HBox>
           <HBox layoutX="46.400001525878906" layoutY="249.39999389648438" prefHeight="38.0" prefWidth="420.0">
               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat :" wrappingWidth="186.41400146484375">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Etat" wrappingWidth="186.41400146484375">
                       <font>
                           <Font size="18.0" />
                       </font>
@@ -90,14 +98,14 @@
                   </Text>
               </children>
           </HBox>
-            <Text layoutX="46.400001525878906" layoutY="305.89666748046875" strokeType="OUTSIDE" strokeWidth="0.0" text="Piece Jointe :" wrappingWidth="188.0139923095703">
+            <Text layoutX="46.400001525878906" layoutY="305.89666748046875" strokeType="OUTSIDE" strokeWidth="0.0" text="Piece Jointe" wrappingWidth="188.0139923095703">
                 <font>
                     <Font size="18.0" />
                 </font>
             </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="52.0" layoutY="325.0" stroke="#012545" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="4.0" width="200.0" />
-            <ImageView fx:id="PieceJointedetail" fitHeight="193.0" fitWidth="188.0" layoutX="58.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
-        <VBox alignment="CENTER" layoutX="511.0" layoutY="24.0" prefHeight="456.0" prefWidth="302.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="50.0" layoutY="326.0" stroke="#012545" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="4.0" width="200.0" />
+            <ImageView fx:id="PieceJointedetail" fitHeight="193.0" fitWidth="197.0" layoutX="52.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
+        <VBox alignment="CENTER" layoutX="498.0" layoutY="71.0" prefHeight="456.0" prefWidth="302.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="302.0" style="-fx-border-color: #012545; -fx-border-radius: 8; -fx-border-width: 2;" text="COMMENTAIRE" textAlignment="CENTER">
                     <font>
@@ -163,6 +171,5 @@
                 </HBox>
             </children>
         </VBox>
-        <Button layoutX="743.0" layoutY="499.0" mnemonicParsing="false" onAction="#buttonReturnListeTaches" prefHeight="29.0" prefWidth="69.0" text="Retour" />
     </children>
 </AnchorPane>
