@@ -121,6 +121,11 @@ public class UserItem implements Initializable {
         }
     }
 
+    @FXML
+    void deleteUser(ActionEvent event) {
+        serviceUser.supprimer(userId);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
