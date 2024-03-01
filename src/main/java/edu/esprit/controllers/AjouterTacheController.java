@@ -212,6 +212,11 @@ public class AjouterTacheController {
                 etat = null;
             }
 
+            // Check if the title already exists in the database
+            if (serviceTache.isTitleExist(title)) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Titre déjà existant, veuillez en choisir un autre.");
+                return;
+            }
             if (stage != null) {
                 Exit(new ActionEvent());
             } else {
@@ -299,6 +304,8 @@ public class AjouterTacheController {
                 return ValidationResult.fromMessageIf(c, "Titre Obligatoire", Severity.ERROR, true);
             } else if (newValue.matches(".*\\d+.*")) {
                 return ValidationResult.fromMessageIf(c, "Titre Ne Contient Pas Des Nombres", Severity.ERROR, true);
+            } else if (newValue.length() > 8) {
+                return ValidationResult.fromMessageIf(c, "Titre doit avoir au maximum 8 caractères", Severity.ERROR, true);
             }
             return null; // Return null if validation passes
         });

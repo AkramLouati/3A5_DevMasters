@@ -187,5 +187,17 @@ public class ServiceTache implements IService<Tache> {
         }
         return true;
     }
+    public boolean isTitleExist(String title) {
+        String req = "SELECT * FROM tache WHERE titre_T = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, title);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // If a result is found, it means the title exists
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // If an exception occurs or no result is found, return false
+    }
 
 }

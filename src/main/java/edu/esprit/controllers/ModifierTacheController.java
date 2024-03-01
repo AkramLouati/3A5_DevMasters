@@ -348,12 +348,13 @@ public class ModifierTacheController {
     public void initialize() {
         validationSupport = new ValidationSupport();
 
-        // Add validators for each field
         validationSupport.registerValidator(titleField, (Control c, String newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
                 return ValidationResult.fromMessageIf(c, "Titre Obligatoire", Severity.ERROR, true);
             } else if (newValue.matches(".*\\d+.*")) {
                 return ValidationResult.fromMessageIf(c, "Titre Ne Contient Pas Des Nombres", Severity.ERROR, true);
+            } else if (newValue.length() > 8) {
+                return ValidationResult.fromMessageIf(c, "Titre doit avoir au maximum 8 caractères", Severity.ERROR, true);
             }
             return null; // Return null if validation passes
         });

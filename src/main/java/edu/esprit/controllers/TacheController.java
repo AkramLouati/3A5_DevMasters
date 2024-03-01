@@ -1,4 +1,5 @@
 package edu.esprit.controllers;
+import javafx.scene.control.ButtonType;
 
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
@@ -47,23 +48,38 @@ public class TacheController {
     @FXML
     void deleteTache(ActionEvent event) {
         if (taches != null) {
-            ServiceTache serviceReclamation = new ServiceTache();
-            serviceReclamation.supprimer(taches.getId_T());
+            // Create a confirmation dialog to confirm deletion
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation de suppression");
+            confirmationAlert.setHeaderText("Supprimer la tâche");
+            confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette tâche ?");
 
-            // Afficher une alerte pour informer l'utilisateur que la réclamation a été supprimée avec succès
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Tache supprimée avec succès.");
-            alert.setTitle("Tache supprimée");
-            alert.show();
+            // Set button types for confirmation dialog
+            confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
-            // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
-            try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
-                TF_Titre_Tache.getScene().setRoot(root);
-            } catch (Exception e) {
-                // Print or log the exception message
-                e.printStackTrace();
-            }
+            // Show the confirmation dialog and wait for user response
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    // If user confirms deletion, proceed with deletion
+                    ServiceTache serviceReclamation = new ServiceTache();
+                    serviceReclamation.supprimer(taches.getId_T());
+
+                    // Afficher une alerte pour informer l'utilisateur que la réclamation a été supprimée avec succès
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Tache supprimée avec succès.");
+                    alert.setTitle("Tache supprimée");
+                    alert.show();
+
+                    // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
+                    try {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
+                        TF_Titre_Tache.getScene().setRoot(root);
+                    } catch (Exception e) {
+                        // Print or log the exception message
+                        e.printStackTrace();
+                    }
+                }
+            });
         } else {
             // Afficher un message d'erreur si la réclamation est null
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
