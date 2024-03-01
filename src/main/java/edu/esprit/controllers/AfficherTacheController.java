@@ -4,6 +4,8 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,21 +14,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
-
 public class AfficherTacheController implements Initializable {
 
 
+    @FXML
+    private TextField searchbar;
     public BorderPane firstborderpane;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
@@ -51,6 +63,13 @@ public class AfficherTacheController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        searchbar.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Trigger searchTacheLabel method whenever text changes
+                searchTacheLabel(new ActionEvent());
+            }
+        });
         loadTasks();
     }
     private void loadTasks() {
@@ -149,6 +168,65 @@ public class AfficherTacheController implements Initializable {
     }
 
     public void PDFTacheLabel(ActionEvent actionEvent) {
+        // Get all tasks from the service
+        Set<Tache> allTasks = sr.getAll();
+
+        try {
+            // Create a new PDF document
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            // Create a content stream for writing to the PDF
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // Set font and position for writing
+            // Using a different font that supports the required characters
+            // For example, PDType1Font.HELVETICA
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+
+            // Set text color
+            contentStream.setNonStrokingColor(Color.BLACK);
+
+            // Starting position for writing
+            float yPosition = page.getMediaBox().getHeight() - 50; // Start from the top of the page
+            float margin = 50; // Left margin
+
+            // Write tasks to the PDF
+            for (Tache task : allTasks) {
+                // Write the task details
+                contentStream.beginText();
+                contentStream.newLineAtOffset(margin, yPosition);
+                contentStream.showText("Title: " + task.getTitre_T() + ", Etat Tache: " + task.getEtat_T());
+                contentStream.endText();
+
+                // Move to the next line for the next task
+                yPosition -= 20; // Adjust line spacing as needed
+            }
+
+            contentStream.close();
+
+            // Prompt the user to choose where to save the PDF file
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save PDF File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+            File selectedFile = fileChooser.showSaveDialog(stage);
+
+            if (selectedFile != null) {
+                // Save the document
+                document.save(selectedFile);
+                document.close();
+
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Tasks exported to PDF successfully!");
+            } else {
+                showAlert(Alert.AlertType.WARNING, "Warning", "No file selected. PDF export canceled.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to export tasks to PDF");
+        }
     }
 
     public void ExcelTacheLabel(ActionEvent actionEvent) {
@@ -157,6 +235,33 @@ public class AfficherTacheController implements Initializable {
     public void MeilleurEmpTLabel(ActionEvent actionEvent) {
     }
 
-    public void searchTacheLabel(ActionEvent actionEvent) {
+    @FXML
+    void searchTacheLabel(ActionEvent actionEvent) {
+        String searchText = searchbar.getText().toLowerCase().trim();
+        Set<Tache> allTasks = sr.getAll();
+        Set<Tache> filteredTasks = new HashSet<>();
+
+        for (Tache task : allTasks) {
+            if (task.getTitre_T().toLowerCase().contains(searchText)) { // Assuming getType() returns the type of the task
+                filteredTasks.add(task);
+            }
+        }
+
+        displayTasks(filteredTasks);
+    }
+
+    private void displayTasks(Set<Tache> tasks) {
+        grid.getChildren().clear(); // Clear existing tasks
+        try {
+            for (Tache tache : tasks) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Tache.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+                TacheController itemController = fxmlLoader.getController();
+                itemController.setData(tache);
+                grid.addRow(grid.getRowCount(), anchorPane);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
