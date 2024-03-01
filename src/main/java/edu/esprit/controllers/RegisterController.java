@@ -76,13 +76,15 @@ public class RegisterController implements Initializable {
 
         // Votre logique de traitement d'inscription ici
         // Vous pouvez appeler votre service pour enregistrer l'utilisateur, par exemple
-        if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirmMotDePasse.isEmpty() || numTel.isEmpty() || location.isEmpty() || selectedMuni == null ) {
+        if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirmMotDePasse.isEmpty() || numTel.isEmpty() || location.isEmpty() || selectedMuni == null) {
             showAlert("Veuillez remplir tous les champs!");
         } else if (selectedFile == null) {
             showAlert("Veuillez entrer une image!");
         } else if (!EMAIL_PATTERN.matcher(email).matches()) {
             showAlert("Veuillez entrer un email valid!");
-        } else if(!motDePasse.equals(confirmMotDePasse)){
+        } else if (serviceUser.getOneByEmail(email) != null) {
+            showAlert("Email existe déjà!");
+        } else if (!motDePasse.equals(confirmMotDePasse)) {
             showAlert("Vérifier votre mot de passe!");
         } else {
             serviceUser.ajouter(new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath()));
