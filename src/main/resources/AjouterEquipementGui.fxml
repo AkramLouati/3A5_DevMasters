@@ -181,12 +181,14 @@
                                  </font>
                               </Label>
                               <TextField fx:id="referenceTF" prefHeight="52.0" prefWidth="454.0" />
+                              <Label fx:id="referenceErrorLabel" prefHeight="35.0" prefWidth="317.0" stylesheets="@style.css" text="La référence doit être en majuscules" textFill="RED" visible="false" />
                               <Label text="  Nom :">
                                  <font>
                                     <Font name="Cambria" size="27.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="nomTF" prefHeight="47.0" prefWidth="454.0" />
+                              <Label fx:id="nomErrorLabel" prefHeight="22.0" prefWidth="373.0" stylesheets="@style.css" text="Le nom ne doit pas être vide et doit contenir uniquement des lettres." textFill="RED" visible="false" />
                               <Label text="  Categorie :">
                                  <font>
                                     <Font name="Cambria" size="27.0" />
@@ -208,6 +210,7 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="quantiteCB" onAction="#selectQuantite" prefHeight="41.0" prefWidth="165.0" promptText="Ajouter la quantité" />
+                              <Label fx:id="quantiteErrorLabel" prefHeight="16.0" prefWidth="149.0" stylesheets="@style.css" text="selectionner la quantité" textFill="RED" visible="false" />
                               <Label text="Description :">
                                  <font>
                                     <Font name="Cambria" size="27.0" />

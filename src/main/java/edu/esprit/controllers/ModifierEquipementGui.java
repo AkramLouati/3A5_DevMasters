@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Optional;
 
 public class ModifierEquipementGui {
     @FXML
@@ -74,10 +75,10 @@ public class ModifierEquipementGui {
 
     @FXML
     private Button telechargerimagemodif;
-    private final ServiceEquipement se = new ServiceEquipement();
     Muni muni = new Muni(1);
     EndUser user = new EndUser(1,muni);
-    Equipement equipement = new Equipement(2);
+    private ServiceEquipement se;
+    private Equipement equipement;
     private String imagePath;
     private Label label;
     @FXML
@@ -155,26 +156,52 @@ public class ModifierEquipementGui {
 
     @FXML
     void modifierEquipementAction(ActionEvent event) {
-        // Récupérer les valeurs des champs
-        String reference = referencemodifTF.getText();
-        String nom = nommodifTF.getText();
-        String categorie = categoriefixemodif.isSelected() ? "Fixe" : "Mobile";
-        String description = descriptionmodifTF.getText();
-        int quantite = quantitemodifCB.getValue();
-        String imagePath = this.imagePath; // Récupérer le chemin de l'image
-        Date dateAjoutModif = Date.valueOf(dateajoutmodif.getValue());
+        if (equipement != null && se!= null) {
+            // Créer une boîte de dialogue de confirmation
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cet equipement ?");
+            confirmationAlert.setTitle("Confirmation de modification");
 
-        // Créer un nouvel équipement avec les valeurs des champs
-        equipement = new Equipement(2,reference, nom, categorie, dateAjoutModif , quantite, imagePath, description, user, muni);
+            // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-        // Appeler la méthode de modification du service d'équipement
-        se.modifier(equipement);
+            // Vérifier si l'utilisateur a cliqué sur le bouton OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Mettre à jour les données de l'equipement  avec les valeurs des champs de texte
+                String categorie = categoriefixemodif.isSelected() ? "Fixe" : "Mobile";
+                Date dateAjoutModif = Date.valueOf(dateajoutmodif.getValue());
+                equipement.setReference_eq(referencemodifTF.getText());
+                equipement.setNom_eq(nommodifTF.getText());
+                equipement.setCategorie_eq(categorie);
+                equipement.setQuantite_eq(quantitemodifCB.getValue());
+                equipement.setDate_ajouteq(dateAjoutModif);
+                equipement.setDescription_eq(descriptionmodifTF.getText());
+                equipement.setImage_eq(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
+                try {
+                    // Appeler la méthode de modification du service equipement
+                    se.modifier(equipement);
 
-        // Afficher un message de succès
-        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-        successAlert.setContentText("Equipement modifié avec succès !");
-        successAlert.setTitle("Modification réussie");
-        successAlert.show();
+                    // Afficher un message de succès
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setContentText("equipement modifiée avec succès !");
+                    successAlert.setTitle("Modification réussie");
+                    successAlert.show();
+
+                } catch (Exception e) {
+                    // Afficher un message d'erreur en cas d'échec de la modification
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText("Erreur lors de la modification de l'equipement': " + e.getMessage());
+                    errorAlert.setTitle("Erreur de modification");
+                    errorAlert.show();
+                }
+            }
+        } else {
+            // Afficher un message d'erreur si l'equipement est null ou si le service equipement est null
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Impossible de modifier l'equipement car aucune equipement n'est pas sélectionnée ou le service equipement est null.");
+            errorAlert.setTitle("Erreur de modification");
+            errorAlert.show();
+        }
 
     }
 
@@ -232,6 +259,7 @@ public class ModifierEquipementGui {
                 imagevieweqmodif.setImage(image);
             }
         });
+
 
     }
 }

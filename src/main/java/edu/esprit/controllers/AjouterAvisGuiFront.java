@@ -44,6 +44,8 @@ public class AjouterAvisGuiFront {
 
     @FXML
     private Button retourButton;
+    @FXML
+    private Label commentaireErrorLabel;
 
     @FXML
     void BTNGestionAct(ActionEvent event) {
@@ -89,10 +91,20 @@ public class AjouterAvisGuiFront {
     java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
     @FXML
     void ajouterAvisAction(ActionEvent event) {
+        String commentaire_avis = commentaireeq.getText().trim();
+        String[] mots = commentaire_avis.split("\\s+");
+
+        if (mots.length > 50) {
+            commentaireErrorLabel.setText("Le commentaire ne doit pas dépasser 50 mots.");
+            commentaireErrorLabel.setVisible(true);
+            return; // Arrête la méthode si le commentaire dépasse 50 mots
+        } else {
+            commentaireErrorLabel.setVisible(false);
+        }
         try {
             // Récupérer les valeurs saisies par l'utilisateur
             int note_avis = Integer.parseInt(noteeq.getValue().toString());
-            String commentaire_avis = commentaireeq.getText();
+
             Date date_avis = Date.valueOf(dateaviseq.getValue()); // Convertissez la valeur du DatePicker en objet Date
             // Créer un nouvel objet Avis avec ces valeurs
             Avis nouvelAvis = new Avis(e,user, muni, note_avis, commentaireeq.getText(), date_avis);

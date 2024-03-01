@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -23,9 +24,11 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
+import java.util.ResourceBundle;
 
-public class AjouterEquipementGui {
+public class AjouterEquipementGui implements Initializable{
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -78,7 +81,12 @@ public class AjouterEquipementGui {
     private final ServiceEquipement se = new ServiceEquipement();
     Muni muni = new Muni(1);
     EndUser user = new EndUser(1,muni);
-    private Label label;
+    @FXML
+    private Label referenceErrorLabel;
+    @FXML
+    private Label nomErrorLabel;
+    @FXML
+    private Label quantiteErrorLabel;
 
     @FXML
     void BTNGestionAct(ActionEvent event) {
@@ -152,14 +160,34 @@ public class AjouterEquipementGui {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
-
-
+    private boolean isQuantiteSelected() {
+        return quantiteCB.getValue() != null;
+    }
     @FXML
     void ajouterEquipementAction(ActionEvent event) {
-// Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+     // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
         Date dateAjout = Date.valueOf(dateajout.getValue()); // Convertissez la valeur du DatePicker en objet Date
         int quantite = Integer.parseInt(quantiteCB.getValue().toString()); // Assurez-vous que la ComboBox est correctement initialisée avec des valeurs
-        Equipement equipement = new Equipement(referenceTF.getText(), nomTF.getText(), categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, muni);
+        String reference = referenceTF.getText();
+        String referenceUpper = reference.toUpperCase(); // Convertir la référence en majuscules
+        if (!reference.equals(referenceUpper) || reference.isEmpty()) {
+            referenceErrorLabel.setText("La référence doit être en majuscules.");
+            referenceErrorLabel.setVisible(true);
+            referenceTF.requestFocus();
+            return; // Arrêter la méthode si la référence n'est pas en majuscules
+        } else {
+            referenceErrorLabel.setVisible(false);
+        }
+        String nom=nomTF.getText();
+        if (nom.isEmpty() || !nom.matches("[a-zA-Z]+")) {
+            nomErrorLabel.setText("Le nom ne doit pas être vide et doit contenir uniquement des lettres.");
+            nomErrorLabel.setVisible(true);
+            nomTF.requestFocus();
+            return; // Arrêter la méthode si le nom est vide ou ne contient pas que des lettres
+        } else {
+            nomErrorLabel.setVisible(false);
+        }
+        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, muni);
 
         se.ajouter(equipement); // Ajoutez l'équipement en utilisant votre service
 
@@ -167,37 +195,6 @@ public class AjouterEquipementGui {
         alert.setTitle("Equipement ajouté");
         alert.setContentText("L'équipement a été ajouté avec succès !");
         alert.show();
-
-         /*
-        // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-        Date dateAjout = Date.valueOf(dateajout.getValue()); // Convertissez la valeur du DatePicker en objet Date
-        int quantite = Integer.parseInt(quantiteCB.getValue().toString()); // Assurez-vous que la ComboBox est correctement initialisée avec des valeurs
-
-        // Vérifier que la référence est en majuscules
-        String reference = referenceTF.getText().toUpperCase();
-        // Vérifier que le nom commence par une majuscule
-        String nom = nomTF.getText();
-        if (!Character.isUpperCase(nom.charAt(0))) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom doit commencer par une majuscule.");
-            return;
-        }
-        // Vérifier que la description ne dépasse pas 100 mots
-        String description = descriptionTF.getText().trim();
-        String[] mots = description.split("\\s+");
-        if (mots.length > 100) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "La description ne doit pas dépasser 100 mots.");
-            return;
-        }
-
-        // Créer une nouvelle instance d'Equipement avec les données récupérées
-        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, description, user, muni);
-
-        se.ajouter(equipement); // Ajoutez l'équipement en utilisant votre service
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Equipement ajouté");
-        alert.setContentText("L'équipement a été ajouté avec succès !");
-        alert.show();*/
     }
 
     @FXML
@@ -219,8 +216,8 @@ public class AjouterEquipementGui {
         Integer selectedQuantity = (Integer) quantiteCB.getSelectionModel().getSelectedItem();
 
     }
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Integer> list = FXCollections.observableArrayList();
         for (int i = 0; i <= 20; i++) {
             list.add(i);
