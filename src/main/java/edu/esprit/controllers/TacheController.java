@@ -11,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class TacheController {
@@ -39,11 +38,9 @@ public class TacheController {
             DetailTacheController controller = loader.getController();
             controller.setData(taches);
             TFsujet_reclamationaff.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
+        } catch (Exception e) {
+            // Print or log the exception message
+            e.printStackTrace();
         }
     }
 
@@ -63,12 +60,9 @@ public class TacheController {
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
                 TFsujet_reclamationaff.getScene().setRoot(root);
-            } catch (IOException e) {
-                // Gérer l'exception si la redirection échoue
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                errorAlert.setTitle("Erreur de redirection");
-                errorAlert.show();
+            } catch (Exception e) {
+                // Print or log the exception message
+                e.printStackTrace();
             }
         } else {
             // Afficher un message d'erreur si la réclamation est null
@@ -91,11 +85,9 @@ public class TacheController {
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
             currentStage.show();
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
+        } catch (Exception e) {
+            // Print or log the exception message
+            e.printStackTrace();
         }
     }
 

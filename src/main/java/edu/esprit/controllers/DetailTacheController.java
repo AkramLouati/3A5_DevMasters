@@ -78,8 +78,14 @@ public class DetailTacheController {
             TFdateFinDetail.setText(String.valueOf(taches.getDate_FT()));
             TFdescriptionDetail.setText(taches.getDesc_T());
             TFEtatDetail.setText(taches.getEtat_T().toString());
-            Image image = new Image(taches.getPieceJointe_T());
-            PieceJointedetail.setImage(image);
+            String pieceJointeUrl = taches.getPieceJointe_T();
+            if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
+                Image image = new Image(pieceJointeUrl);
+                PieceJointedetail.setImage(image);
+            } else {
+                // Handle case where piece jointe URL is empty or null
+            }
+
         }
     }
     @FXML

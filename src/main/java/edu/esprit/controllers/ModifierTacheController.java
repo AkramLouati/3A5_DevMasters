@@ -39,7 +39,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-
 public class ModifierTacheController {
     public BorderPane firstborderpane;
     @FXML
@@ -52,10 +51,12 @@ public class ModifierTacheController {
     ServiceUser serviceUser = new ServiceUser();
     EndUser user01 = serviceUser.getOneByID(14);
 
+    private ValidationSupport validationSupport;
+
     @FXML
     private ImageView PieceJointeImage;
     @FXML
-    private TextField titleField, attachmentField, descriptionField, RECRadioButton;
+    private TextField titleField, descriptionField, RECRadioButton;
     @FXML
     private ComboBox<String> categoryField;
     @FXML
@@ -162,7 +163,13 @@ public class ModifierTacheController {
         try {
             this.selectedTaskId = tache.getId_T();
             titleField.setText(tache.getTitre_T());
-            attachmentField.setText(tache.getPieceJointe_T());
+            String pieceJointeUrl = tache.getPieceJointe_T();
+            if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
+                Image image = new Image(pieceJointeUrl);
+                PieceJointeImage.setImage(image);
+            } else {
+                // Handle case where piece jointe URL is empty or null
+            }
             descriptionField.setText(tache.getDesc_T());
             // Convert java.sql.Date to java.util.Date
             Date startDateUtil = new Date(tache.getDate_DT().getTime());
@@ -212,38 +219,23 @@ public class ModifierTacheController {
 
     @FXML
     void ModifierTache(ActionEvent event) {
+        if (!validateFields()) {
+            return;
+        }
+        if (!toDoRadio.isSelected() && !doingRadio.isSelected() && !doneRadio.isSelected()) {
+            // Shake the RECRadioButton text field and return
+            shakeNode(RECRadioButton);
+            return;
+        }
         try {
-            // Check if any field is null or empty
-            boolean hasEmptyFields = false;
-            if (titleField.getText().isEmpty()) {
-                shakeNode(titleField);
-                hasEmptyFields = true;
-            }
-            if (categoryField.getValue() == null) {
-                shakeNode(categoryField);
-                hasEmptyFields = true;
-            }
-            if (startDatePicker.getValue() == null) {
-                shakeNode(startDatePicker);
-                hasEmptyFields = true;
-            }
-            if (endDatePicker.getValue() == null) {
-                shakeNode(endDatePicker);
-                hasEmptyFields = true;
-            }
-            if (!toDoRadio.isSelected() && !doingRadio.isSelected() && !doneRadio.isSelected()) {
-                shakeNode(RECRadioButton);
-                hasEmptyFields = true;
-            }
-
-            if (hasEmptyFields) {
-                return; // Stop further execution
-            }
-
             EtatTache etat;
             String categoryName = categoryField.getValue();
             String title = titleField.getText();
-            String attachment = attachmentField.getText();
+            String attachment = ""; // Initialize attachment as an empty string
+            Image image = PieceJointeImage.getImage();
+            if (image != null) {
+                attachment = image.getUrl();
+            }
             String description = descriptionField.getText();
 
             LocalDate startDate = startDatePicker.getValue();
@@ -293,15 +285,37 @@ public class ModifierTacheController {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
+    private boolean validateFields() {
+        ValidationResult validationResult = validationSupport.validationResultProperty().get();
+        boolean isValid = validationResult == null || validationResult.getErrors().isEmpty();
 
+        if (!isValid) {
+            clearShakeEffects();
+            for (Control control : validationSupport.getRegisteredControls()) {
+                if (validationResult.getMessages().stream().anyMatch(message -> message.getTarget() == control && message.getSeverity() == Severity.ERROR)) {
+                    shakeNode(control);
+                }
+            }
+        } else {
+            clearShakeEffects();
+        }
+        return isValid;
+    }
+    private void clearShakeEffects() {
+        titleField.setStyle("-fx-border-color: transparent;");
+        categoryField.setStyle("-fx-border-color: transparent;");
+        startDatePicker.setStyle("-fx-border-color: transparent;");
+        endDatePicker.setStyle("-fx-border-color: transparent;");
+        RECRadioButton.setStyle("-fx-border-color: transparent;");
+    }
     private void clearFields() {
         categoryField.getSelectionModel().clearSelection();
         titleField.clear();
-        attachmentField.clear();
+        PieceJointeImage.setImage(null);
         descriptionField.clear();
         startDatePicker.setValue(null);
         endDatePicker.setValue(null);
-        toDoRadio.setSelected(true);
+        toDoRadio.setSelected(false);
         doingRadio.setSelected(false);
         doneRadio.setSelected(false);
     }
@@ -325,6 +339,51 @@ public class ModifierTacheController {
         }
     }
 
+    @FXML
+    public void initialize() {
+        validationSupport = new ValidationSupport();
+
+        // Add validators for each field
+        validationSupport.registerValidator(titleField, (Control c, String newValue) -> {
+            if (newValue == null || newValue.trim().isEmpty()) {
+                return ValidationResult.fromMessageIf(c, "Title cannot be empty", Severity.ERROR, true);
+            } else if (newValue.matches(".*\\d+.*")) {
+                return ValidationResult.fromMessageIf(c, "Title cannot contain numbers", Severity.ERROR, true);
+            }
+            return null; // Return null if validation passes
+        });
+        validationSupport.registerValidator(categoryField, Validator.createEmptyValidator("Categorie obligatoire"));
+        validationSupport.registerValidator(startDatePicker, (Control c, LocalDate newValue) -> {
+            if (newValue == null) {
+                return ValidationResult.fromMessageIf(c, "Start date is required", Severity.ERROR, true);
+            } else if (endDatePicker.getValue() != null && newValue.isAfter(endDatePicker.getValue())) {
+                return ValidationResult.fromMessageIf(c, "Start date cannot be after end date", Severity.ERROR, true);
+            }
+            return null; // Return null if validation passes
+        });
+
+        // Custom validator for end date
+        validationSupport.registerValidator(endDatePicker, (Control c, LocalDate newValue) -> {
+            if (newValue == null) {
+                return ValidationResult.fromMessageIf(c, "End date is required", Severity.ERROR, true);
+            } else if (startDatePicker.getValue() != null && newValue.isBefore(startDatePicker.getValue())) {
+                return ValidationResult.fromMessageIf(c, "End date cannot be before start date", Severity.ERROR, true);
+            }
+            return null; // Return null if validation passes
+        });
+
+        populateCategoryComboBox();
+    }
+
+    private void populateCategoryComboBox() {
+        try {
+            List<String> categoryNames = serviceCategorieT.getAllCategoryNames();
+            ObservableList<String> observableCategoryNames = FXCollections.observableArrayList(categoryNames);
+            categoryField.setItems(observableCategoryNames);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void toDoRadioButton(ActionEvent actionEvent) {
         toDoRadio.setSelected(true);
         doingRadio.setSelected(false);
@@ -341,33 +400,5 @@ public class ModifierTacheController {
         doneRadio.setSelected(true);
         toDoRadio.setSelected(false);
         doingRadio.setSelected(false);
-    }
-
-    @FXML
-    public void initialize() {
-        ValidationSupport validationSupport = new ValidationSupport();
-
-        // Add validators for each field
-        validationSupport.registerValidator(titleField, Validator.createEmptyValidator("Titre obligatoire"));
-        validationSupport.registerValidator(categoryField, Validator.createEmptyValidator("Categorie obligatoire"));
-        validationSupport.registerValidator(startDatePicker, Validator.createEmptyValidator("Date debut obligatoire"));
-        validationSupport.registerValidator(endDatePicker, Validator.createEmptyValidator("Date fin obligatoire"));
-        // Custom validator for radio buttons
-        validationSupport.registerValidator(RECRadioButton, (Control c, String newValue) -> {
-            boolean isAnySelected = toDoRadio.isSelected() || doingRadio.isSelected() || doneRadio.isSelected();
-            return ValidationResult.fromMessageIf(c, "Etat Obligatoire", Severity.ERROR, !isAnySelected);
-        });
-
-        populateCategoryComboBox();
-    }
-
-    private void populateCategoryComboBox() {
-        try {
-            List<String> categoryNames = serviceCategorieT.getAllCategoryNames();
-            ObservableList<String> observableCategoryNames = FXCollections.observableArrayList(categoryNames);
-            categoryField.setItems(observableCategoryNames);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
