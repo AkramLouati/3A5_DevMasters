@@ -15,12 +15,12 @@ public class TacheFrontController {
     ServiceTache serviceTache = new ServiceTache();
 
     @FXML
-    private Text TFsujet_reclamationaff;
+    private Text TF_Titre_Tache;
     private Tache taches;
 
     public void setData(Tache taches) {
         this.taches = taches;
-        TFsujet_reclamationaff.setText(taches.getTitre_T());
+        TF_Titre_Tache.setText(taches.getTitre_T());
     }
 
     @FXML
@@ -30,7 +30,7 @@ public class TacheFrontController {
             Parent root = loader.load();
             DetailTacheFrontController controller = loader.getController();
             controller.setData(taches);
-            TFsujet_reclamationaff.getScene().setRoot(root);
+            TF_Titre_Tache.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");

@@ -42,6 +42,8 @@ import java.util.List;
 public class AjouterTacheController {
 
     public BorderPane firstborderpane;
+    ServiceUser serviceUser = new ServiceUser();
+    EndUser user01 = serviceUser.getOneByID(14);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -49,8 +51,6 @@ public class AjouterTacheController {
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-    ServiceUser serviceUser = new ServiceUser();
-    EndUser user01 = serviceUser.getOneByID(14);
     private ValidationSupport validationSupport;
 
     @FXML
@@ -76,6 +76,7 @@ public class AjouterTacheController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -231,6 +232,7 @@ public class AjouterTacheController {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
+
     private boolean validateFields() {
         ValidationResult validationResult = validationSupport.validationResultProperty().get();
         boolean isValid = validationResult == null || validationResult.getErrors().isEmpty();
@@ -247,6 +249,7 @@ public class AjouterTacheController {
         }
         return isValid;
     }
+
     private void clearShakeEffects() {
         titleField.setStyle("-fx-border-color: transparent;");
         categoryField.setStyle("-fx-border-color: transparent;");
@@ -254,6 +257,7 @@ public class AjouterTacheController {
         endDatePicker.setStyle("-fx-border-color: transparent;");
         RECRadioButton.setStyle("-fx-border-color: transparent;");
     }
+
     private void clearFields() {
         categoryField.getSelectionModel().clearSelection();
         titleField.clear();

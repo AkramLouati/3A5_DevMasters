@@ -88,6 +88,7 @@ public class DetailTacheController {
 
         }
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -138,6 +139,7 @@ public class DetailTacheController {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {

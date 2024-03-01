@@ -16,18 +16,18 @@ import java.util.Objects;
 public class TacheController {
     ServiceTache serviceTache = new ServiceTache();
     @FXML
-    private Text TFdate_reclamationaff;
+    private Text TF_DateTache;
     @FXML
-    private Text TFsujet_reclamationaff;
+    private Text TF_Titre_Tache;
     @FXML
-    private Text TFstatus_reclamationaff;
+    private Text TF_Etat_Tache;
     private Tache taches;
 
     public void setData(Tache taches) {
         this.taches = taches;
-        TFsujet_reclamationaff.setText(taches.getTitre_T());
-        TFdate_reclamationaff.setText(taches.getDate_DT().toString());
-        TFstatus_reclamationaff.setText(taches.getEtat_T().toString());
+        TF_Titre_Tache.setText(taches.getTitre_T());
+        TF_DateTache.setText(taches.getDate_DT().toString());
+        TF_Etat_Tache.setText(taches.getEtat_T().toString());
     }
 
     @FXML
@@ -37,7 +37,7 @@ public class TacheController {
             Parent root = loader.load();
             DetailTacheController controller = loader.getController();
             controller.setData(taches);
-            TFsujet_reclamationaff.getScene().setRoot(root);
+            TF_Titre_Tache.getScene().setRoot(root);
         } catch (Exception e) {
             // Print or log the exception message
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class TacheController {
             // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
-                TFsujet_reclamationaff.getScene().setRoot(root);
+                TF_Titre_Tache.getScene().setRoot(root);
             } catch (Exception e) {
                 // Print or log the exception message
                 e.printStackTrace();
@@ -80,7 +80,7 @@ public class TacheController {
             Parent root = loader.load();
             ModifierTacheController controller = loader.getController();
             controller.initModifier(taches); // Call initModifier and pass the necessary data
-            Stage currentStage = (Stage) TFsujet_reclamationaff.getScene().getWindow();
+            Stage currentStage = (Stage) TF_Titre_Tache.getScene().getWindow();
             controller.setStage(currentStage);
             Scene scene = new Scene(root);
             currentStage.setScene(scene);

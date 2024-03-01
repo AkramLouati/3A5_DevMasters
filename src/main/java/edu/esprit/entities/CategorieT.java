@@ -20,6 +20,10 @@ public class CategorieT {
         this.nom_Cat = nom_Cat;
     }
 
+    public CategorieT() {
+
+    }
+
     // Getters and Setters
     public int getId_Cat() {
         return id_Cat;

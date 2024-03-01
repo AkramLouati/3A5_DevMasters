@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="383.0" style="-fx-background-color: #012545;"
+            stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="edu.esprit.controllers.AfficherCategorieController">
+    <children>
+        <ListView fx:id="categoryListView" layoutX="14.0" layoutY="13.0" prefHeight="312.0" prefWidth="354.0"
+                  style="-fx-background-radius: 8;"/>
+        <GridPane alignment="CENTER" layoutX="80.0" layoutY="344.0" prefHeight="33.0" prefWidth="222.0"
+                  style="-fx-background-radius: 8; -fx-border-color: red; -fx-border-width: 4; -fx-border-radius: 8;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="77.999951171875" minWidth="10.0"
+                                   prefWidth="73.999951171875"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.40001220703125" minWidth="10.0"
+                                   prefWidth="68.79997558593752"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.79998779296874" minWidth="10.0"
+                                   prefWidth="66.4000244140625"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#addCategory" prefHeight="23.0"
+                        prefWidth="73.0" text="Add"/>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateCategory" prefHeight="23.0"
+                        prefWidth="85.0" text="Update" GridPane.columnIndex="2"/>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="23.0"
+                        prefWidth="85.0" text="Delete" GridPane.columnIndex="1"/>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

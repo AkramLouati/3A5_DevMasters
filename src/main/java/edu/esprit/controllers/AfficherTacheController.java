@@ -34,12 +34,14 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+
 public class AfficherTacheController implements Initializable {
 
 
+    public BorderPane firstborderpane;
+    EndUser user = new EndUser(12);
     @FXML
     private TextField searchbar;
-    public BorderPane firstborderpane;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -47,8 +49,6 @@ public class AfficherTacheController implements Initializable {
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-    EndUser user = new EndUser(12);
-
     @FXML
     private GridPane grid;
     @FXML
@@ -72,6 +72,7 @@ public class AfficherTacheController implements Initializable {
         });
         loadTasks();
     }
+
     private void loadTasks() {
         Set<Tache> tacheList = sr.getAll();
         try {
@@ -88,6 +89,7 @@ public class AfficherTacheController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -139,6 +141,7 @@ public class AfficherTacheController implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     public void ajouterButton(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
