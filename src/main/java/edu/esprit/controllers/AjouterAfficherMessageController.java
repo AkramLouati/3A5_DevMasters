@@ -220,6 +220,13 @@ public class AjouterAfficherMessageController implements Initializable {
             TFmessage.setStyle("-fx-border-color: red;");
             return; // Sortir de la méthode sans envoyer le message
         }
+        if (bad_words(messageContent)) {
+            // Afficher une alerte pour informer l'utilisateur que le message contient des mots inappropriés
+            showAlert(Alert.AlertType.WARNING, "Contenu inapproprié", "Votre message contient des mots inappropriés. Veuillez modifier le contenu.");
+            // Mettre la bordure du champ de texte en rouge pour indiquer qu'il contient des mots inappropriés
+            TFmessage.setStyle("-fx-border-color: red;");
+            return; // Sortir de la méthode sans envoyer le message
+        }
 
         // Envoyer le message
         serviceMessagerie.ajouter(new Messagerie(sqlDate, messageContent, reclamation.getUser(), userDirecteur, "text"));
@@ -249,7 +256,14 @@ public class AjouterAfficherMessageController implements Initializable {
         return textField.getText().trim().isEmpty();
     }
 
-
-
+    public boolean bad_words(String text) {
+        List<String> badListW = Arrays.asList("fuck", "din", "khra", "bhim", "hayawen", "kaleb", "putain");
+        for (String str : badListW) {
+            if (text.contains(str)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

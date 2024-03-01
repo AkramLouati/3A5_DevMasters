@@ -41,9 +41,9 @@ public class AfficherReclamationController implements Initializable {
     @FXML
     private ScrollPane scroll;
     Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(37,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    EndUser user = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
+    Set<Reclamation> reclamationSet = sr.getAll();
     List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
 
 
@@ -55,10 +55,10 @@ public class AfficherReclamationController implements Initializable {
         try {
             for (int i = 0; i < reclamationList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentMessagerieGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                ReclamationItemComponentController itemController = fxmlLoader.getController();
+                ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
                 itemController.setData(reclamationList.get(i));
 
                 if (column == 1) {
