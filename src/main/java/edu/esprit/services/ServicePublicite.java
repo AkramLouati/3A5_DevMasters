@@ -52,6 +52,7 @@ public class ServicePublicite implements IService<Publicite> {
                 publicite.getEndUser().getId() > 0 && // You may want to adjust this based on your requirements
                 publicite.getActualite().getId_a() > 0 && // You may want to adjust this based on your requirements
                 publicite.getOffre_pub() != null; // Check for offre_pub
+
     }
 
     @Override

@@ -132,6 +132,7 @@ public class ServiceActualite implements IService<Actualite>{
 
     @Override
     public Actualite getOneByID(int id) {
+        Actualite act =null;
         String req = "SELECT * FROM `actualite` WHERE `id_a`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -150,12 +151,12 @@ public class ServiceActualite implements IService<Actualite>{
                 ServiceUser serviceUser = new ServiceUser();
                 EndUser endUser = serviceUser.getOneByID(id_user);
 
-                Actualite act = new Actualite(id_a, titre_a, description_a, date_a, image_a, endUser);
+                act = new Actualite(id_a, titre_a, description_a, date_a, image_a, endUser);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return act;
     }
     private boolean actualiteExists(int id_a) {
         String req = "SELECT COUNT(*) FROM `actualite` WHERE `id_a`=?";

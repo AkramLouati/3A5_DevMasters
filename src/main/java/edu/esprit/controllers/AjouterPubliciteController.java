@@ -1,5 +1,9 @@
 package edu.esprit.controllers;
 
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.PaymentIntentCreateParams;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
@@ -92,6 +96,7 @@ public class AjouterPubliciteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        offrePubCombo.getItems().addAll("3 mois :50dt", "6 mois :90dt", "9 mois :130dt","12 mois :170dt");
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
@@ -188,6 +193,7 @@ public class AjouterPubliciteController implements Initializable {
 
     @FXML
     public void uploadimgP(ActionEvent actionEvent) {
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
         fileChooser.getExtensionFilters().addAll(
@@ -284,64 +290,62 @@ public class AjouterPubliciteController implements Initializable {
     @FXML
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
         Muni muni = new Muni(1);
-        EndUser user = new EndUser(12, muni);
-        Actualite actualite = new Actualite(102, user);
+        EndUser user = new EndUser(12,muni);
+        Actualite actualite = new Actualite(102,user);
+        String selectedOffer = offrePubCombo.getValue();
+        double amount = getAmountFromOffer(selectedOffer);
+        boolean paymentSuccessful = processPayment(amount);
 
-        // Check if an image is selected
-        if (imagePath == null || !new File(imagePath).isFile()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez télécharger une image.");
-            return;
-        }
-
-        // Validate contact
-        if (!validateContact(TFcontactpub.getText())) {
-            return;
-        }
-
-        // Validate offer
-        if (offrePubCombo.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez sélectionner une offre.");
-            return;
-        }
-
-        // Validate all fields are filled
-        if (TFtitrepub.getText().isEmpty() || TFdescriptionpub.getText().isEmpty() ||
-                TFlocalisationpub.getText().isEmpty() || TFcontactpub.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez remplir tous les champs.");
-            return;
-        }
-
-        // Check if the contact number already exists
-        if (sp.numeroExists(Integer.parseInt(TFcontactpub.getText()))) {
-            // Display the warning message
-            numeroexiste.setVisible(true);
-            return; // Exit the method to prevent further processing
+        if (paymentSuccessful) {
+            sp.ajouter(new Publicite(
+                    TFtitrepub.getText(),
+                    TFdescriptionpub.getText(),
+                    Integer.parseInt(TFcontactpub.getText()),
+                    TFlocalisationpub.getText(),
+                    imagePath,
+                    offrePubCombo.getValue(),
+                    user,
+                    actualite
+            ));
+            showAlert(Alert.AlertType.INFORMATION, "Publicité a été ajoutée", "Publicité ajoutée, merci pour votre confiance");
         } else {
-            // Hide the warning message if it was previously shown
-            numeroexiste.setVisible(false);
+            showAlert(Alert.AlertType.ERROR, "Erreur de paiement", "Le paiement a échoué. Veuillez réessayer.");
         }
-
-        // Check if the length conditions are met
-        if (TFtitrepub.getText().length() < 6 || TFdescriptionpub.getText().length() < 15) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez corriger les erreurs de saisie.");
-            return; // Exit the method to prevent further processing
-        }
-
-        // Create and add the Publicite object
-        sp.ajouter(new Publicite(
-                TFtitrepub.getText(),
-                TFdescriptionpub.getText(),
-                Integer.parseInt(TFcontactpub.getText()),
-                TFlocalisationpub.getText(),
-                imagePath,
-                offrePubCombo.getValue(),
-                user,
-                actualite
-        ));
-
-        // Display success message
-        showAlert(Alert.AlertType.INFORMATION, "Publicité a été ajoutée", "Publicité ajoutée, merci pour votre confiance");
     }
+
+    private double getAmountFromOffer(String offer) {
+        // Implement the logic to get the amount based on the selected offer
+        // For now, let's assume a simple mapping for demonstration purposes
+        switch (offer) {
+            case "3 mois :50dt":
+                return 16.0;
+            case "6 mois :90dt":
+                return 28.80;
+            case "9 mois :130dt":
+                return 41.60;
+            case "12 mois :170dt":
+                return 54.40;
+            default:
+                return 0.0;
+        }
+    }
+
+    private boolean processPayment(double amount) {
+        try {
+            Stripe.apiKey = "sk_test_51OpeMeI3VcdValufdQQI5nr0PLI1jmQ9YCCa6Xu4ozS5Qv9IBoaTSvqMtzZXaZf0edfdRkNVVLixMKfo8CtYx3PW00MLcbGNSd";
+            PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                    .setAmount((long) (amount * 100)) // Amount in cents
+                    .setCurrency("usd")
+                    .build();
+            PaymentIntent intent = PaymentIntent.create(params);
+            System.out.println("Payment successful. PaymentIntent ID: " + intent.getId());
+            return true;
+        } catch (StripeException e) {
+            System.out.println("Payment failed. Error: " + e.getMessage());
+            return false;
+        }
+    }
+
 
     public void buttonMain1(ActionEvent actionEvent) {
         try {

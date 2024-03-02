@@ -173,14 +173,7 @@
                   <TextField fx:id="TFlocalisationpub" layoutX="199.0" layoutY="423.0" prefHeight="42.0" prefWidth="222.0" promptText="localisation" stylesheets="@Actualite.css" />
                   <ImageView fx:id="imgView_pub" fitHeight="185.0" fitWidth="336.0" layoutX="488.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
                   <ComboBox fx:id="offrePubCombo" layoutX="592.0" layoutY="87.0" prefHeight="42.0" prefWidth="219.0" promptText="Sélectionnez une offre" stylesheets="@Actualite.css">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="3 mois : 50dt" />
-                           <String fx:value="6 mois : 90dt" />
-                           <String fx:value="9 mois : 130dt" />
-                           <String fx:value="12 mois : 170dt" />
-                        </FXCollections>
-                     </items>
+
                   </ComboBox>
                   <Text fill="#012545" layoutX="346.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Publicité" wrappingWidth="275.73670959472656">
                      <font>

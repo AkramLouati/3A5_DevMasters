@@ -1,6 +1,8 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Actualite;
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
 import javafx.animation.TranslateTransition;
@@ -23,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifierPubliciteController implements Initializable {
@@ -74,6 +77,8 @@ public class ModifierPubliciteController implements Initializable {
 
     @FXML
     private Button uploadbuttonPModif;
+    private EndUser user;
+    private Actualite a;
 
     private ServicePublicite servicePublicite;
     private Publicite publicite;
@@ -87,54 +92,65 @@ public class ModifierPubliciteController implements Initializable {
 
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
-        if (publicite != null && servicePublicite != null) {
-            String nouveauTitre = TFtitrepubModif.getText().trim();
-            String nouvelleDescription = TFdescriptionpubModif.getText().trim();
-            String contact = TFcontactpubModif.getText().trim();
 
-            // Validate titre, description, and contact
-            if (nouveauTitre.length() > 6 && nouvelleDescription.length() >= 15 && contact.matches("\\d{8}")) {
-                publicite.setTitre_pub(nouveauTitre);
-                publicite.setDescription_pub(nouvelleDescription);
-                publicite.setContact_pub(publicite.getContact_pub());
-                publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
-                publicite.setOffre_pub(offrePubComboModif.getValue());
-                publicite.setImage_pub(imagePath);
+            if (publicite != null && servicePublicite != null) {
+                // Créer une boîte de dialogue de confirmation
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette pub ?");
+                confirmationAlert.setTitle("Confirmation de modification");
 
-                try {
-                    servicePublicite.modifier(publicite);
+                // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+                Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setContentText("Publicité modifiée avec succès !");
-                    successAlert.setTitle("Modification réussie");
-                    successAlert.show();
-                } catch (Exception e) {
-                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setContentText("Erreur lors de la modification de la publicité : " + e.getMessage());
-                    errorAlert.setTitle("Erreur de modification");
-                    errorAlert.show();
+                // Vérifier si l'utilisateur a cliqué sur le bouton OK
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
+                    publicite.setTitre_pub(TFtitrepubModif.getText());
+                    publicite.setDescription_pub(TFdescriptionpubModif.getText());
+                    publicite.setContact_pub(Integer.parseInt(TFcontactpubModif.getText()));
+                    publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
+                    publicite.setOffre_pub(offrePubComboModif.getValue());
+                    publicite.setImage_pub(imagePath);
+                    publicite.setEndUser(user);
+                    publicite.setActualite(a);
+                   // imagePath peut être nul si aucune image n'est sélectionnée
+                    try {
+                        // Appeler la méthode de modification du service de réclamation
+                        servicePublicite.modifier(publicite);
+
+                        // Afficher un message de succès
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setContentText("pub modifiée avec succès !");
+                        successAlert.setTitle("Modification réussie");
+                        successAlert.show();
+
+                        // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
+                        try {
+                            Parent root = FXMLLoader.load(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+                            TFtitrepubModif.getScene().setRoot(root);
+                        } catch (IOException e) {
+                            // Gérer l'exception si la redirection échoue
+                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                            errorAlert.setTitle("Erreur de redirection");
+                            errorAlert.show();
+                        }
+                    } catch (Exception e) {
+                        // Afficher un message d'erreur en cas d'échec de la modification
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setContentText("Erreur lors de la modification de la pub : " + e.getMessage());
+                        errorAlert.setTitle("Erreur de modification");
+                        errorAlert.show();
+                    }
                 }
             } else {
-                // Show validation message for titre, description, and contact with a red background
-                if (nouveauTitre.length() <= 6) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Le titre doit avoir plus de 6 caractères.");
-                    TFtitrepubModif.requestFocus();
-                }
-                if (nouvelleDescription.length() < 15) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "La description doit avoir au moins 15 caractères.");
-                    TFdescriptionpubModif.requestFocus();
-                }
-                if (!contact.matches("\\d{8}")) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Le contact doit avoir exactement 8 chiffres.");
-                    TFcontactpubModif.requestFocus();
-                }
+                // Afficher un message d'erreur si la réclamation est null ou si le service de réclamation est null
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setContentText("Impossible de modifier la pub car aucune pub n'est sélectionnée ou le service de pub est null.");
+                errorAlert.setTitle("Erreur de modification");
+                errorAlert.show();
             }
-        } else {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setContentText("Impossible de modifier la publicité car aucune publicité n'est sélectionnée ");
-            errorAlert.setTitle("Erreur de modification");
-            errorAlert.show();
-        }
+
     }
 
 
@@ -151,13 +167,24 @@ public class ModifierPubliciteController implements Initializable {
         Stage stage = (Stage) uploadbuttonPModif.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
+            // Affiche le nom du fichier sélectionné
             labelPubModif.setText(selectedFile.getName());
+
+            // Récupère le chemin absolu du fichier
             String absolutePath = selectedFile.getAbsolutePath();
+            // Stocke le chemin absolu dans la variable de classe
             imagePath = absolutePath;
+
+            // Crée une URL à partir du chemin absolu du fichier
             String fileUrl = new File(absolutePath).toURI().toString();
+
+            // Crée une image à partir de l'URL du fichier
             Image image = new Image(fileUrl);
+
+            // Affiche l'image dans l'ImageView
             imgView_pubModif.setImage(image);
 
+            // Mettre à jour le chemin d'accès à l'image dans la réclamation
             if (publicite != null) {
                 publicite.setImage_pub(imagePath);
             }
@@ -169,30 +196,46 @@ public class ModifierPubliciteController implements Initializable {
         if (publicite != null) {
             TFtitrepubModif.setText(publicite.getTitre_pub());
             TFdescriptionpubModif.setText(publicite.getDescription_pub());
-
-            // Assuming TFcontactpubModif is your TextField for contact
             TFcontactpubModif.setText(String.valueOf(publicite.getContact_pub()));
-
+            TFlocalisationpubModif.setText(publicite.getLocalisation_pub());
+            offrePubComboModif.setValue(publicite.getOffre_pub());
             String imageUrl = publicite.getImage_pub();
+            user = publicite.getEndUser();
+            a = publicite.getActualite();
+            System.out.println(user);
+            System.out.println(a);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 try {
+                    // Créer une instance de File à partir du chemin d'accès à l'image
                     File file = new File(imageUrl);
+                    // Récupérer le nom du fichier
+                    String fileName = file.getName();
+                    // Mettre à jour le Label avec le nom du fichier
+                    labelPubModif.setText(fileName);
+
+                    // Convertir le chemin de fichier en URL
                     String fileUrl = file.toURI().toURL().toString();
+                    // Créer une instance d'Image à partir de l'URL de fichier
                     Image image = new Image(fileUrl);
+                    // Définir l'image dans l'ImageView
                     imgView_pubModif.setImage(image);
                 } catch (MalformedURLException e) {
+                    // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
                     e.printStackTrace();
                 }
             } else {
-                URL defaultImageUrl = getClass().getResource("/edu/esprit/img/imageblanche.png");
-                Image defaultImage = new Image(defaultImageUrl.toString());
-                imgView_pubModif.setImage(defaultImage);
+                // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
+                // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
+                // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
+                URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
+                if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
+                    Image defaultImage = new Image(defaultImageUrl.toString());
+                    imgView_pub.setImage(defaultImage);
+                } else {
+                    System.err.println("L'image par défaut n'a pas pu être chargée.");
+                }
             }
-
-            // Assuming offrePubComboModif is your ComboBox for offers
-            offrePubComboModif.setValue(publicite.getOffre_pub());
         }
-        TFlocalisationpubModif.setText(publicite.getLocalisation_pub());
     }
 
 
