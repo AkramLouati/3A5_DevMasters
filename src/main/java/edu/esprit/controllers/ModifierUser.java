@@ -46,6 +46,8 @@ public class ModifierUser implements Initializable {
     @FXML
     private ComboBox<String> roleSelectionComboBox;
 
+    File selectedFile;
+
     String role;
 
     private ServiceUser serviceUser = new ServiceUser();
@@ -99,7 +101,12 @@ public class ModifierUser implements Initializable {
             if (nom.isEmpty() || email.isEmpty() || phone.isEmpty() || localisation.isEmpty() || roleSelectionComboBox.getValue() == null) {
                 showAlert("Veuillez remplir tous les champs!");
             } else {
-                // Appeler le service pour mettre à jour l'événement dans la base de données
+                if(selectedFile == null){
+                    endUser.setImage(endUser.getImage());
+                } else {
+                    endUser.setImage(selectedFile.getAbsolutePath());
+                }
+                // Appeler le service pour mettre à jour le user dans la base de données
                 serviceUser.modifier(endUser);
 
                 // Afficher une alerte pour confirmer la modification
@@ -129,23 +136,15 @@ public class ModifierUser implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", ".png", ".jpg", "*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
 
-        // Afficher le FileChooser et récupérer le fichier sélectionné
-        File selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            try {
-                // Créer une image JavaFX à partir du fichier sélectionné
-                Image image = new Image(new FileInputStream(selectedFile));
-                // Afficher l'image dans l'ImageView
-                ImageM.setImage(image);
-                // Enregistrer le chemin de l'image dans l'événement
-                endUser.setImage(selectedFile.getAbsolutePath());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                // Gérer les exceptions liées à la lecture de l'image
-            }
+            // Handle the selected image file (e.g., display it, process it, etc.)
+            System.out.println("Selected image: " + selectedFile.getAbsolutePath());
+            Image image = new Image(selectedFile.toURI().toString());
+            ImageM.setImage(image);
         }
     }
 

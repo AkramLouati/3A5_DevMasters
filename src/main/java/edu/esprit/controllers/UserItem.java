@@ -107,7 +107,7 @@ public class UserItem implements Initializable {
             // Créer une nouvelle fenêtre (stage) pour afficher la vue de modification
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
-            stage.setTitle("Modifier municipalité");
+            stage.setTitle("Modifier utilisateur");
             stage.setScene(new Scene(root));
 
             // Afficher la fenêtre de modification
