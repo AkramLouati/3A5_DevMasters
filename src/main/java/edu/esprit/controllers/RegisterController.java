@@ -1,7 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
 import edu.esprit.services.ServiceUser;
 import javafx.collections.FXCollections;
@@ -57,7 +57,7 @@ public class RegisterController implements Initializable {
 
     File selectedFile = null;
 
-    Muni muni;
+    Municipality muni;
     ServiceUser serviceUser = new ServiceUser();
 
     ServiceMuni serviceMuni = new ServiceMuni();

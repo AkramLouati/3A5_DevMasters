@@ -1,7 +1,6 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,7 +31,7 @@ public class MuniItem implements Initializable {
 
     int muniId;
 
-    public void setData(Muni muni){
+    public void setData(Municipality muni){
 
         muniId = muni.getId_muni();
         muniButton.setText(muni.getNom_muni());
@@ -45,7 +41,7 @@ public class MuniItem implements Initializable {
     @FXML
     void editMuni(ActionEvent event) {
         try {
-            Muni muni = serviceMuni.getOneByID(muniId);
+            Municipality muni = serviceMuni.getOneByID(muniId);
             // Charger la vue de modification d'événement
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierMuni.fxml"));
             Parent root = loader.load();

@@ -1,9 +1,7 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
-import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,11 +40,11 @@ public class ModifierMunicipality implements Initializable {
 
     File selectedFile = null;
 
-    private Muni muni;
+    private Municipality muni;
 
     ServiceMuni serviceMuni = new ServiceMuni();
 
-    public void setData(Muni muni) {
+    public void setData(Municipality muni) {
         this.muni = muni;
         // Afficher les données de l'événement dans les champs de texte
         tfNom.setText(muni.getNom_muni());

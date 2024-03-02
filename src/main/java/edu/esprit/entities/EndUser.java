@@ -9,13 +9,13 @@ public class EndUser {
     private String password;
     private String type;
     private String phoneNumber;
-    private Muni muni;
+    private Municipality muni;
     private String location;
     private String image;
 
     public EndUser(){}
 
-    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Muni muni, String location,String image){
+    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image){
         this.nom = nom;
         this.email = email;
         this.password = password;
@@ -26,7 +26,7 @@ public class EndUser {
         this.image = image;
     }
 
-    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, Muni muni, String location,String image) {
+    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, Municipality muni, String location, String image) {
         this.id = id;
         this.email = email;
         this.nom = nom;
@@ -86,11 +86,11 @@ public class EndUser {
         this.phoneNumber = phoneNumber;
     }
 
-    public Muni getMuni() {
+    public Municipality getMuni() {
         return muni;
     }
 
-    public void setMuni(Muni muni) {
+    public void setMuni(Municipality muni) {
         this.muni = muni;
     }
 

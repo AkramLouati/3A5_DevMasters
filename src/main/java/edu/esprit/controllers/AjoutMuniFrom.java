@@ -1,6 +1,6 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +38,7 @@ public class AjoutMuniFrom {
 
     @FXML
     void ajouterMuniAction(ActionEvent event) {
-        serviceMuni.ajouter(new Muni(TFnom.getText(),TFemail.getText(),TFpassword.getText(),selectedFile.getAbsolutePath()));
+        serviceMuni.ajouter(new Municipality(TFnom.getText(),TFemail.getText(),TFpassword.getText(),selectedFile.getAbsolutePath()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setContentText("GG");

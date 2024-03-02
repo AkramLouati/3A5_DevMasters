@@ -2,25 +2,25 @@ package edu.esprit.entities;
 
 import java.util.Objects;
 
-public class Muni {
+public class Municipality {
     private int id_muni;
     private String nom_muni;
     private String email_muni;
     private String password_muni;
     private String image;
 
-    public Muni(int id_muni) {
+    public Municipality(int id_muni) {
         this.id_muni = id_muni;
     }
 
-    public Muni(String nom_muni, String email_muni, String password_muni, String image) {
+    public Municipality(String nom_muni, String email_muni, String password_muni, String image) {
         this.nom_muni = nom_muni;
         this.email_muni = email_muni;
         this.password_muni = password_muni;
         this.image = image;
     }
 
-    public Muni(int id_muni, String nom_muni, String email_muni, String password_muni, String image) {
+    public Municipality(int id_muni, String nom_muni, String email_muni, String password_muni, String image) {
         this.id_muni = id_muni;
         this.nom_muni = nom_muni;
         this.email_muni = email_muni;
@@ -82,7 +82,7 @@ public class Muni {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Muni muni = (Muni) o;
+        Municipality muni = (Municipality) o;
         return id_muni == muni.id_muni;
     }
 

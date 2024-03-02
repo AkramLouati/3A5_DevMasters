@@ -1,10 +1,9 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,7 +52,7 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
                 return new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image);
             }
         } catch (SQLException e) {
@@ -128,7 +127,7 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
                 EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image);
                 users.add(p);
             }
@@ -157,7 +156,7 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
                 endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image);
             }
         } catch (SQLException e) {
@@ -184,7 +183,7 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                Muni muni = new ServiceMuni().getOneByID(id_muni);
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
                 endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image);
             }
         } catch (SQLException e) {

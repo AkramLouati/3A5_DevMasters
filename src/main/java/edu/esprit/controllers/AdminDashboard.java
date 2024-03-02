@@ -1,7 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -72,8 +71,8 @@ public class AdminDashboard implements Initializable {
         }
 
         //Muni list
-        List<Muni> munis = new ArrayList<>(munis());
-        for (Muni muni : munis) {
+        List<Municipality> munis = new ArrayList<>(munis());
+        for (Municipality muni : munis) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL location = getClass().getResource("/MuniItem.fxml");
             fxmlLoader.setLocation(location);
@@ -109,15 +108,15 @@ public class AdminDashboard implements Initializable {
         return userList;
     }
 
-    private List<Muni> munis(){
-        List<Muni> muniList = new ArrayList<>();
+    private List<Municipality> munis(){
+        List<Municipality> muniList = new ArrayList<>();
 
         ServiceMuni serviceMuni = new ServiceMuni();
 //        Muni muni = serviceMuni.getOneByID(15);
-        Set<Muni> list = serviceMuni.getAll();
+        Set<Municipality> list = serviceMuni.getAll();
 
         // Utilisation de la boucle for-each
-        for (Muni muni1 : list) {
+        for (Municipality muni1 : list) {
             // Faire quelque chose avec chaque utilisateur (EndUser)
             itemMuni(muni1,muniList);
         }
@@ -134,7 +133,7 @@ public class AdminDashboard implements Initializable {
         userList.add(user);
     }
 
-    void itemMuni(Muni muni,List<Muni> muniList){
+    void itemMuni(Municipality muni, List<Municipality> muniList){
         muni.setNom_muni(muni.getNom_muni());
         muniList.add(muni);
     }

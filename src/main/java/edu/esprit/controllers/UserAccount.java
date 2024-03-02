@@ -1,7 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +64,7 @@ public class UserAccount {
         String numTel = tfNumTel.getText();
         String addresse = tfAddresse.getText();
         String type = serviceUser.getOneByID(currentUser.getId()).getType();
-        Muni muni = serviceUser.getOneByID(currentUser.getId()).getMuni();
+        Municipality muni = serviceUser.getOneByID(currentUser.getId()).getMuni();
 
         if(nom.isEmpty() || email.isEmpty() || password.isEmpty() || numTel.isEmpty() || addresse.isEmpty() || selectedFile == null){
             showAlert("Veuillez remplir tous les champs!");
