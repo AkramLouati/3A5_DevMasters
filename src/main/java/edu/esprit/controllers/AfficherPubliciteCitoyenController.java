@@ -2,6 +2,8 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
 
 public class AfficherPubliciteCitoyenController implements Initializable{
 
@@ -55,12 +58,51 @@ public class AfficherPubliciteCitoyenController implements Initializable{
     List<Publicite> publiciteList = new ArrayList<>(publiciteSet);
     private int actualiteId; // New variable to store the id_a
 
+    private int currentIndex = 0;
+    private final Duration scrollInterval = Duration.seconds(10);
+    private Timeline timeline;
 
     public void setActualiteId(int actualiteId) {
         this.actualiteId = actualiteId;
     }
+
+
+    private void updateDisplayedAdvertisement() {
+
+            gridPubC.getChildren().clear();
+            int column = 0;
+            int row = 1;
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/PubliciteItemCitoyen.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                PubliciteController itemController = fxmlLoader.getController();
+                itemController.setData(publiciteList.get(currentIndex));
+
+                gridPubC.add(anchorPane, column++, row);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateDisplayedAdvertisement();
+
+        // Start the timeline to switch advertisements every 30 seconds
+        timeline = new Timeline(
+                new KeyFrame(scrollInterval, event -> {
+                    // Increment the index to show the next advertisement
+                    currentIndex = (currentIndex + 1) % publiciteList.size();
+                    // Update the displayed advertisement
+                    updateDisplayedAdvertisement();
+                })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         int column = 0;
         int row = 1;
         try {
