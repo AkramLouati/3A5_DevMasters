@@ -3,6 +3,8 @@ package edu.esprit.controllers;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +86,35 @@ public class ReclamationEditController implements Initializable {
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+        TFmodifiersujet_reclamation.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Votre logique ici pour limiter les caractères et autoriser uniquement les lettres
+                // Par exemple :
+                if (!newValue.matches("^[a-zA-Z]*$")) {
+                    TFmodifiersujet_reclamation.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+                }
+                // Limiter la longueur du champ à un certain nombre de caractères
+                if (newValue.length() > 50) { // Par exemple, limitez à 50 caractères
+                    TFmodifiersujet_reclamation.setText(newValue.substring(0, 50));
+                }
+            }
+        });
+
+        // Ajoutez un ChangeListener pour le champ TAdescription_reclamation
+        TmodifierAdescription_reclamation.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("^[a-zA-Z]*$")) {
+                    TmodifierAdescription_reclamation.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+                }
+                // Par exemple :
+                // Limiter la longueur du champ à un certain nombre de caractères
+                if (newValue.length() > 200) { // Par exemple, limitez à 200 caractères
+                    TmodifierAdescription_reclamation.setText(newValue.substring(0, 200));
+                }
+            }
+        });
     }
     @FXML
     void BTNToggleSidebar(ActionEvent event) {

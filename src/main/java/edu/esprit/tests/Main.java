@@ -27,7 +27,8 @@ public class Main {
         //sm.supprimer(5);
         //System.out.println(sm.getAll());
         //System.out.println(sm.getOneByID(4));
-        System.out.println(sm.getAllMessagesByReciverAndSender(37,36));;
+        //System.out.println(sm.getAllMessagesByReciverAndSender(37,36));;
+        //System.out.println(sr.getReclamationsTraitees());
 
     }
 }

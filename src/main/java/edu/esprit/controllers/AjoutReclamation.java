@@ -5,6 +5,8 @@ import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,6 +64,11 @@ public class AjoutReclamation implements Initializable {
 
     @FXML
     private Label checktypereclamation;
+    @FXML
+    private Label sujetexist;
+
+    @FXML
+    private Label descriptionexist;
 
     private final ServiceReclamation sr = new ServiceReclamation();
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
@@ -107,7 +114,7 @@ public class AjoutReclamation implements Initializable {
 
         // Vérifier si tous les champs sont valides
         if (sujetValid && descriptionValid && adresseValid && typeValid) {
-            // Vérifier les bad words
+            // Vérifier les mots inappropriés
             boolean hasBadWords = checkForBadWords();
             if (hasBadWords) {
                 // Afficher un message d'erreur
@@ -117,33 +124,46 @@ public class AjoutReclamation implements Initializable {
                 alert.setContentText("Votre réclamation contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
                 alert.showAndWait();
             } else {
-                // Pas de bad words, ajouter la réclamation
-                try {
-                    // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-                    sr.ajouter(new Reclamation(user, muni, TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Reclamation a été ajoutée");
-                    alert.setContentText("GG");
-                    alert.show();
+                // Vérifier si une réclamation avec le même sujet et la même description existe déjà
+                if (sr.reclamationExists(TFsujet_reclamation.getText(), TAdescription_reclamation.getText())) {
+                    // Afficher un message d'avertissement
+                    sujetexist.setVisible(true);
+                    descriptionexist.setVisible(true);
+                    return; // Sortir de la méthode pour empêcher tout traitement supplémentaire
+                } else {
+                    // Masquer le message d'avertissement s'il a été précédemment affiché
+                    sujetexist.setVisible(false);
+                    descriptionexist.setVisible(false);
+
+                    // Pas de réclamation avec le même sujet et la même description, ajouter la réclamation
                     try {
-                        Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
-                        MainAnchorPaneBaladity.getScene().setRoot(root);
-                    } catch (IOException e) {
-                        // Gérer l'exception si la redirection échoue
-                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                        errorAlert.setTitle("Erreur de redirection");
-                        errorAlert.show();
+                        // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+                        sr.ajouter(new Reclamation(user, muni, TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Reclamation a été ajoutée");
+                        alert.setContentText("GG");
+                        alert.show();
+                        try {
+                            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+                            MainAnchorPaneBaladity.getScene().setRoot(root);
+                        } catch (IOException e) {
+                            // Gérer l'exception si la redirection échoue
+                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                            errorAlert.setTitle("Erreur de redirection");
+                            errorAlert.show();
+                        }
+                    } catch (SQLException e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Exception");
+                        alert.setContentText(e.getMessage());
+                        alert.showAndWait();
                     }
-                } catch (SQLException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Exception");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
                 }
             }
         }
     }
+
     @FXML
     void uploadimg(ActionEvent event) {
         uploadbutton.setOnAction(actionEvent -> {
@@ -188,6 +208,37 @@ public class AjoutReclamation implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Ajoutez un ChangeListener pour le champ TFsujet_reclamation
+        TFsujet_reclamation.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Votre logique ici pour limiter les caractères et autoriser uniquement les lettres
+                // Par exemple :
+                if (!newValue.matches("^[a-zA-Z]*$")) {
+                    TFsujet_reclamation.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+                }
+                // Limiter la longueur du champ à un certain nombre de caractères
+                if (newValue.length() > 50) { // Par exemple, limitez à 50 caractères
+                    TFsujet_reclamation.setText(newValue.substring(0, 50));
+                }
+            }
+        });
+
+        // Ajoutez un ChangeListener pour le champ TAdescription_reclamation
+        TAdescription_reclamation.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("^[a-zA-Z]*$")) {
+                    TAdescription_reclamation.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+                }
+                // Par exemple :
+                // Limiter la longueur du champ à un certain nombre de caractères
+                if (newValue.length() > 200) { // Par exemple, limitez à 200 caractères
+                    TAdescription_reclamation.setText(newValue.substring(0, 200));
+                }
+            }
+        });
+
 
     }
 

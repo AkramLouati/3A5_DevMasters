@@ -13,20 +13,17 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AfficherReclamationController implements Initializable {
+public class DirecteurAfficherReclamationECController implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -41,9 +38,9 @@ public class AfficherReclamationController implements Initializable {
     @FXML
     private ScrollPane scroll;
     Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(37,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    EndUser user = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
+    Set<Reclamation> reclamationSet = sr.getReclamationsEnCoursTraitees();
     List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
 
 
@@ -55,7 +52,7 @@ public class AfficherReclamationController implements Initializable {
         try {
             for (int i = 0; i < reclamationList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentMessagerieGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
@@ -150,7 +147,7 @@ public class AfficherReclamationController implements Initializable {
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationTypeGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -159,6 +156,7 @@ public class AfficherReclamationController implements Initializable {
             alert.show();
         }
     }
+
 
 }
 

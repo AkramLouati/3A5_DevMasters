@@ -45,9 +45,10 @@ public class ReclamationItemComponentMessagerieController {
     @FXML
     void viewDetailReclamationAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationDetailGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DirecteurConsulterReclamationGui.fxml"));
             Parent root = loader.load();
-            ReclamationDetailController controller = loader.getController();
+            DirecteurConsulterReclamationController controller = loader.getController();
+            controller.setServiceReclamation(serviceReclamation);
             controller.setData(reclamation);
             TFsujet_reclamationaff.getScene().setRoot(root);
         } catch (IOException e) {
