@@ -66,43 +66,87 @@ public class AfficherPubliciteCitoyenController implements Initializable{
         this.actualiteId = actualiteId;
     }
 
-
     private void updateDisplayedAdvertisement() {
+        currentIndex = (currentIndex + 1) % publiciteList.size();
 
-            gridPubC.getChildren().clear();
-            int column = 0;
-            int row = 1;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/PubliciteItemCitoyen.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
 
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/PubliciteItemCitoyen.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
+            PubliciteController itemController = fxmlLoader.getController();
+            itemController.setData(publiciteList.get(currentIndex));
 
-                PubliciteController itemController = fxmlLoader.getController();
-                itemController.setData(publiciteList.get(currentIndex));
+            MainAnchorPaneBaladity.getChildren().setAll(anchorPane); // Replace the content with the new advertisement
 
-                gridPubC.add(anchorPane, column++, row);
+            // Get the selected offer from your ComboBox or from the Publicite object
+            String selectedOffer = publiciteList.get(currentIndex).getOffre_pub();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Calculate the display duration based on the selected offer
+            int displayDuration = getDisplayDuration(selectedOffer);
+
+            // Start the timeline to switch advertisements after the calculated duration
+            Timeline displayTimeline = new Timeline(
+                    new KeyFrame(Duration.seconds(displayDuration))
+            );
+            displayTimeline.setOnFinished(event -> {
+                // Update the displayed advertisement
+                updateDisplayedAdvertisement();
+            });
+            displayTimeline.setCycleCount(1); // Make sure it runs only once
+            displayTimeline.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    private int getDisplayDuration(String selectedOffer) {
+        // Use the ServicePublicite to get the duration from the database
+        ServicePublicite servicePublicite = new ServicePublicite();
+        Set<Publicite> publicites = servicePublicite.getAll();
+
+        // Find the Publicite object with the selected offer
+        Publicite selectedPublicite = publicites.stream()
+                .filter(publicite -> publicite.getOffre_pub().equals(selectedOffer))
+                .findFirst()
+                .orElse(null);
+
+        // If the Publicite with the selected offer is found, return the duration; otherwise, use defaults
+        return (selectedPublicite != null) ? selectedPublicite.getDisplayDuration() : getDefaultDisplayDuration(selectedOffer);
+    }
+
+    // Add this method to handle default display duration
+    private int getDefaultDisplayDuration(String selectedOffer) {
+        // Set default display duration based on the value of "offre_pub" from the database
+        switch (selectedOffer) {
+            case "3 mois :50dt":
+            case "6 mois :90dt":
+                return 15; // 6 seconds
+            case "9 mois :130dt":
+                return 30; // 12 seconds
+
+            default:
+                return 15; // Default duration if offer not recognized
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updateDisplayedAdvertisement();
+            // Add the first advertisement during initialization
+            updateDisplayedAdvertisement();
 
-        // Start the timeline to switch advertisements every 30 seconds
-        timeline = new Timeline(
-                new KeyFrame(scrollInterval, event -> {
-                    // Increment the index to show the next advertisement
-                    currentIndex = (currentIndex + 1) % publiciteList.size();
-                    // Update the displayed advertisement
-                    updateDisplayedAdvertisement();
-                })
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+            // Start the timeline to switch advertisements every 30 seconds
+            timeline = new Timeline(
+                    new KeyFrame(scrollInterval, event -> {
+                        // Update the displayed advertisement
+                        updateDisplayedAdvertisement();
+                    })
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
+
         int column = 0;
         int row = 1;
         try {

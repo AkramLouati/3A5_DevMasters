@@ -157,6 +157,7 @@
             <DropShadow />
          </effect>
          <center>
+
             <AnchorPane fx:id="MainAnchorPaneBaladity" prefHeight="780.0" prefWidth="949.0" BorderPane.alignment="CENTER">
                <children>
                   <ScrollPane fx:id="scrollPubC" layoutX="75.0" layoutY="98.0" prefHeight="463.0" prefWidth="886.0" styleClass="transparent">
@@ -176,6 +177,7 @@
                   <Button fx:id="retoutActCitoyen" layoutX="783.0" layoutY="23.0" mnemonicParsing="false" onAction="#retoutActCitoyen" prefHeight="35.0" prefWidth="82.0" stylesheets="@Actualite.css" text="Retour">
                      <font>
                         <Font name="System Bold" size="16.0" />
+
                      </font></Button>
                </children>
             </AnchorPane>

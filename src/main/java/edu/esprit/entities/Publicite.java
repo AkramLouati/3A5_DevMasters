@@ -141,7 +141,18 @@ public class Publicite {
     public int hashCode() {
         return Objects.hash(id_pub);
     }
+    public int getDisplayDuration() {
+        switch (this.offre_pub) {
+            case "3 mois :50dt":
+            case "6 mois :90dt":
+                return 1; // 6 seconds
+            case "9 mois :130dt":
+                return 12; // 12 seconds
+            case "12 mois :170dt":
+                return 18; // 18 seconds
+            default:
+                return 1; // Default duration if offer not recognized
+        }
 
-
-
+    }
 }

@@ -54,6 +54,36 @@ public class ServicePublicite implements IService<Publicite> {
                 publicite.getOffre_pub() != null; // Check for offre_pub
 
     }
+    private int getDisplayDuration(String selectedOffer) {
+        // Use the ServicePublicite to get the duration from the database
+        ServicePublicite servicePublicite = new ServicePublicite();
+        Set<Publicite> publicites = servicePublicite.getAll();
+
+        // Find the Publicite object with the selected offer
+        Publicite selectedPublicite = publicites.stream()
+                .filter(publicite -> publicite.getOffre_pub().equals(selectedOffer))
+                .findFirst()
+                .orElse(null);
+
+        // If the Publicite with the selected offer is found, return the duration; otherwise, use defaults
+        return (selectedPublicite != null) ? selectedPublicite.getDisplayDuration() : getDefaultDisplayDuration(selectedOffer);
+    }
+
+    // Add this method to handle default display duration
+    private int getDefaultDisplayDuration(String selectedOffer) {
+        // Set default display duration based on the value of "offre_pub" from the database
+        switch (selectedOffer) {
+            case "3 mois :50dt":
+            case "6 mois :90dt":
+                return 1; // 6 seconds
+            case "9 mois :130dt":
+                return 5; // 12 seconds
+            case "12 mois :170dt":
+                return 25; // 18 seconds
+            default:
+                return 1; // Default duration if offer not recognized
+        }
+    }
 
     @Override
     public void modifier(Publicite publicite) {

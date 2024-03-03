@@ -96,7 +96,7 @@ public class AjouterPubliciteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        offrePubCombo.getItems().addAll("3 mois :50dt", "6 mois :90dt", "9 mois :130dt","12 mois :170dt");
+        offrePubCombo.getItems().addAll("3 mois :50dt", "6 mois :90dt", "9 mois :130dt");
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
@@ -323,8 +323,6 @@ public class AjouterPubliciteController implements Initializable {
                 return 28.80;
             case "9 mois :130dt":
                 return 41.60;
-            case "12 mois :170dt":
-                return 54.40;
             default:
                 return 0.0;
         }
