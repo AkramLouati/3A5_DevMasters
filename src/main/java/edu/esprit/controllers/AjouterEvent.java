@@ -1,5 +1,6 @@
 package edu.esprit.controllers;
 
+import edu.esprit.controllers.EventDashboard;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
@@ -68,6 +69,18 @@ public class AjouterEvent {
             // Vérifier si une image est sélectionnée
             if (imagePath == null || imagePath.isEmpty()) {
                 showAlert("Error", "Veuillez sélectionner une image.");
+                return;
+            }
+
+            // Vérifier si le nom de l'événement est une chaîne de caractères
+            if (!isString(TFnom.getText())) {
+                showAlert("Error", "Le nom de l'événement doit être une chaîne de caractères.");
+                return;
+            }
+
+            // Vérifier si la catégorie est une chaîne de caractères
+            if (!isString(TFcategorie.getText())) {
+                showAlert("Error", "La catégorie doit être une chaîne de caractères.");
                 return;
             }
 
@@ -141,11 +154,11 @@ public class AjouterEvent {
     }
 
     private void updateTextFieldStyles() {
-        setFieldStyle(TFnom, isFieldEmpty(TFnom));
+        setFieldStyle(TFnom, isFieldEmpty(TFnom) || !isString(TFnom.getText()));
         setFieldStyle(TFdateDeb, isFieldEmpty(TFdateDeb));
         setFieldStyle(TFdateFin, isFieldEmpty(TFdateFin) || !isDateFinValid());
         setFieldStyle(TFcapacite, !isCapaciteValid());
-        setFieldStyle(TFcategorie, isFieldEmpty(TFcategorie));
+        setFieldStyle(TFcategorie, isFieldEmpty(TFcategorie) || !isString(TFcategorie.getText()));
     }
 
     private boolean isFieldEmpty(TextField textField) {
@@ -181,6 +194,10 @@ public class AjouterEvent {
                 isFieldEmpty(TFcapacite) || isFieldEmpty(TFcategorie);
     }
 
+    private boolean isString(String text) {
+        return text.matches("^[a-zA-Z]*$");
+    }
+
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION); // Change to INFORMATION
         alert.setTitle(title);
@@ -194,5 +211,4 @@ public class AjouterEvent {
     public void setEventDashboardController(EventDashboard eventDashboardController) {
         this.eventDashboardController = eventDashboardController;
     }
-
 }

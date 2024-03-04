@@ -14,16 +14,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="907.0" style="-fx-background-color: #12314e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EventItem">
+<GridPane alignment="CENTER_LEFT" prefHeight="264.0" prefWidth="950.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EventItem">
     <children>
-        <ImageView fx:id="img" fitHeight="100.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="img" fitHeight="261.0" fitWidth="433.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
             <GridPane.margin>
                 <Insets right="100.0" />
             </GridPane.margin>
         </ImageView>
-        <Text fx:id="nomEventT" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evenement" wrappingWidth="202.01252937316895">
+        <Text fx:id="nomEventT" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evenement" textAlignment="CENTER" wrappingWidth="254.01255989074707">
             <font>
-                <Font name="Bell MT Bold" size="24.0" />
+                <Font name="Bell MT Bold" size="35.0" />
             </font>
             <GridPane.columnIndex>1</GridPane.columnIndex>
             <GridPane.rowIndex>0</GridPane.rowIndex>
@@ -47,40 +47,46 @@
             </LinearGradient>
          </fill>
         </Text>
-        <HBox alignment="CENTER" prefHeight="82.0" prefWidth="369.0">
+        <HBox alignment="CENTER" prefHeight="262.0" prefWidth="242.0">
             <children>
-            <Button mnemonicParsing="false" onAction="#ModifierEvenementClick" prefHeight="58.0" prefWidth="106.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#ModifierEvenementClick" prefHeight="54.0" prefWidth="70.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/modif.png" />
+                        <Image url="@assets/editFile.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#SupprimerEvenementClick" prefHeight="58.0" prefWidth="106.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#SupprimerEvenementClick" prefHeight="54.0" prefWidth="70.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/annuler.png" />
+                        <Image url="@assets/deleteFile.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#DetailsEvenementClick" prefHeight="58.0" prefWidth="106.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#DetailsEvenementClick" prefHeight="54.0" prefWidth="70.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/details.png" />
+                        <Image url="@assets/InfoFile.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -94,9 +100,9 @@
         <Insets left="5.0" />
     </padding>
    <columnConstraints>
-      <ColumnConstraints maxWidth="449.6000122070312" minWidth="357.8000244140625" prefWidth="387.1999877929687" />
-      <ColumnConstraints maxWidth="315.99997558593753" minWidth="227.80001220703122" prefWidth="227.80001220703122" />
-      <ColumnConstraints maxWidth="289.9999877929688" minWidth="239.5999633789063" prefWidth="284.8000244140625" />
+      <ColumnConstraints maxWidth="504.00001220703126" minWidth="357.8000244140625" prefWidth="433.600048828125" />
+      <ColumnConstraints maxWidth="315.99997558593753" minWidth="162.39998779296877" prefWidth="248.79996337890628" />
+      <ColumnConstraints maxWidth="289.9999877929688" minWidth="168.7999389648437" prefWidth="224.80003662109368" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #12314e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
    <children>
       <TextField fx:id="TFcapacite" layoutX="180.0" layoutY="211.0" promptText="Capacite Maximale" />
       <TextField fx:id="TFnom" layoutX="180.0" layoutY="73.0" promptText="Nom Event" />
@@ -119,22 +119,29 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Button alignment="CENTER" layoutX="231.0" layoutY="297.0" mnemonicParsing="false" onAction="#AjoutEventClick" prefHeight="30.0" prefWidth="108.0" stylesheets="@style.css" text="Ajouter" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="226.0" layoutY="297.0" mnemonicParsing="false" onAction="#AjoutEventClick" prefHeight="46.0" prefWidth="82.0" stylesheets="@css/TacheCss.css" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
-         </font></Button>
-      <Button layoutX="231.0" layoutY="342.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="30.0" prefWidth="108.0" styleClass="transparent" stylesheets="@style.css" textFill="#fffdfd">
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/addFile.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="241.0" layoutY="357.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="52.0" prefWidth="46.0" styleClass="transparent" stylesheets="@style.css" textFill="#fffdfd">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="38.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="43.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/fleche.png" />
+                  <Image url="@assets/left-arrow.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Label layoutX="386.0" layoutY="48.0" prefHeight="27.0" prefWidth="174.0" text="Affiche evenement">
+      <Label layoutX="386.0" layoutY="48.0" prefHeight="27.0" prefWidth="174.0" text="Affiche Evenement">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -154,14 +161,21 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <ImageView fx:id="imageID" fitHeight="181.0" fitWidth="244.0" layoutX="352.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="445.0" layoutY="263.0" mnemonicParsing="false" onAction="#browseOnClick" prefHeight="27.0" prefWidth="81.0" stylesheets="@style.css" text="Browse" textFill="#fffafa">
+      <ImageView fx:id="imageID" fitHeight="214.0" fitWidth="244.0" layoutX="351.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="432.0" layoutY="305.0" mnemonicParsing="false" onAction="#browseOnClick" prefHeight="36.0" prefWidth="82.0" textFill="#fffafa">
          <font>
             <Font name="Arial Bold" size="14.0" />
-         </font></Button>
-      <Text layoutX="159.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un evenement">
+         </font>
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/upload.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Text layoutX="152.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Evenement">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="27.0" />
          </font>
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -180,14 +194,9 @@
             </LinearGradient>
          </fill>
       </Text>
-      <ImageView fitHeight="77.0" fitWidth="81.0" layoutX="26.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="115.0" fitWidth="131.0" layoutX="14.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/LOGO.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="496.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/LOGO.png" />
+            <Image url="@assets/Baladia.png" />
          </image>
       </ImageView>
    </children>

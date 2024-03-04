@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="403.0" prefWidth="580.0" style="-fx-background-color: #12314e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailsEvent">
+<AnchorPane prefHeight="403.0" prefWidth="580.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DetailsEvent">
     <children>
-        <Text fx:id="nomTFF" layoutX="28.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom evnement" wrappingWidth="150.01252365112305">
+        <Text fx:id="nomTFF" layoutX="16.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evnement" wrappingWidth="150.01252365112305">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -32,7 +32,7 @@
                </stops>
             </LinearGradient>
          </fill></Text>
-        <Text fx:id="debTFF" layoutX="28.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date debut " wrappingWidth="108.4124870300293">
+        <Text fx:id="debTFF" layoutX="14.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut " wrappingWidth="108.4124870300293">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -57,7 +57,7 @@
                </stops>
             </LinearGradient>
          </fill></Text>
-        <Text fx:id="finTFF" layoutX="26.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="102.0124626159668">
+        <Text fx:id="finTFF" layoutX="14.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" wrappingWidth="102.0124626159668">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -77,7 +77,7 @@
                </stops>
             </LinearGradient>
          </fill></Text>
-        <Text fx:id="capTFF" layoutX="27.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite Max" wrappingWidth="129.212474822998">
+        <Text fx:id="capTFF" layoutX="16.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite Max" wrappingWidth="129.212474822998">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -97,7 +97,7 @@
                </stops>
             </LinearGradient>
          </fill></Text>
-        <Text fx:id="cateTFF" layoutX="28.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="150.01252365112316">
+        <Text fx:id="cateTFF" layoutX="16.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="150.01252365112316">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -117,24 +117,24 @@
                </stops>
             </LinearGradient>
          </fill></Text>
-        <ImageView fx:id="imageTFF" fitHeight="199.0" fitWidth="323.0" layoutX="193.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="backButton" layoutX="198.0" layoutY="306.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="67.0" prefWidth="184.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+        <ImageView fx:id="imageTFF" fitHeight="240.0" fitWidth="338.0" layoutX="228.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="backButton" layoutX="256.0" layoutY="325.0" mnemonicParsing="false" onAction="#retournerOnClick" prefHeight="41.0" prefWidth="59.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
          <graphic>
             <ImageView fitHeight="43.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/fleche.png" />
+                  <Image url="@assets/left-arrow.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="477.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="112.0" fitWidth="108.0" layoutX="464.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/LOGO.png" />
+            <Image url="@assets/Baladia.png" />
          </image>
       </ImageView>
-      <Text layoutX="269.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="184.4125480651855">
+      <Text layoutX="319.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="184.4125480651855">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
