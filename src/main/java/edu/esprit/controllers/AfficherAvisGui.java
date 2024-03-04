@@ -51,9 +51,9 @@ public class AfficherAvisGui implements Initializable {
     private ScrollPane scroll;
     Muni muni = new Muni(2);
     EndUser user = new EndUser(5, muni);
-    Equipement e;
+    Equipement e =new Equipement(29);
     private ServiceAvis sa = new ServiceAvis();
-    Set<Avis> avisSet = sa.getAll();
+    Set<Avis> avisSet = sa.getAvisByEquipement(e);
     List<Avis> avisList = new ArrayList<>(avisSet);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

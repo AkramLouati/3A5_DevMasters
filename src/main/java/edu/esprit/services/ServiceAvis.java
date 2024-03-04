@@ -4,10 +4,8 @@ import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Avis;
 import edu.esprit.entities.Muni;
 import edu.esprit.utils.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -140,6 +138,32 @@ public class ServiceAvis implements IService<Avis> {
             System.out.println("Erreur lors de la récupération de l'avis : " + e.getMessage());
         }
         return avis;
+    }
+    public Set<Avis> getAvisByEquipement(Equipement equipement) {
+        Set<Avis> equipementAvis = new HashSet<>();
+        String req = "SELECT * FROM `Avis` WHERE `id_equipement`=? ORDER BY date_avis ASC";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, equipement.getId_equipement());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id_avis = rs.getInt("id_avis");
+                int id_muni = rs.getInt("id_muni");
+                int id_user = rs.getInt("id_user");
+                int note_avis = rs.getInt("note_avis");
+                String commentaire_avis = rs.getString("commentaire_avis");
+                java.util.Date date_avis = rs.getDate("date_avis");
+
+                Muni muni = serviceMuni.getOneByID(id_muni);
+                EndUser user = serviceEndUser.getOneByID(id_user);
+
+                Avis avis = new Avis(id_avis, user, equipement, muni,note_avis, commentaire_avis, date_avis);
+                equipementAvis.add(avis);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return equipementAvis;
     }
 }
 
