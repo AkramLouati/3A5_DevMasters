@@ -38,26 +38,48 @@ public class ServiceEquipement implements IService<Equipement> {
             System.out.println("Erreur lors de l'ajout de l'équipement : " + e.getMessage());
         }
     }
-
-    @Override
-    public void modifier(Equipement equipement) {
-        String req = "UPDATE equipement SET `reference_eq`=?, `nom_eq`=?, `categorie_eq`=?, `date_ajouteq`=?, `quantite_eq`=?, `image_eq`=?, `description_eq`=?, `id_user`=?, `id_muni`=? WHERE `id_equipement`=?";
+    private boolean equipementExists(int id_equipement) {
+        String req = "SELECT COUNT(*) FROM `equipement` WHERE `id_equipement`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, equipement.getReference_eq());
-            ps.setString(2, equipement.getNom_eq());
-            ps.setString(3, equipement.getCategorie_eq());
-            ps.setString(4, String.valueOf(equipement.getDate_ajouteq()));
-            ps.setInt(5, equipement.getQuantite_eq());
-            ps.setString(6, equipement.getImage_eq());
-            ps.setString(7, equipement.getDescription_eq());
-            ps.setInt(8, equipement.getUser().getId());
-            ps.setInt(9, equipement.getMuni().getId());
-            ps.setInt(10, equipement.getId_equipement());
-            ps.executeUpdate();
-            System.out.println("Equipement modifié avec succès !");
+            ps.setInt(1, id_equipement);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0; // Retourne true si l'ID existe
+            }
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la modification de l'équipement : " + e.getMessage());
+            System.out.println(e.getMessage());
+        }
+        return false; // Par défaut, retourne false en cas d'exception
+    }
+    @Override
+    public void modifier(Equipement equipement) {
+        if (equipementExists(equipement.getId_equipement())) {
+            String req = "UPDATE equipement SET `reference_eq`=?, `nom_eq`=?, `categorie_eq`=?, `date_ajouteq`=?, `quantite_eq`=?, `image_eq`=?, `description_eq`=?, `id_user`=?, `id_muni`=? WHERE `id_equipement`=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setString(1, equipement.getReference_eq());
+                ps.setString(2, equipement.getNom_eq());
+                ps.setString(3, equipement.getCategorie_eq());
+                ps.setString(4, String.valueOf(equipement.getDate_ajouteq()));
+                ps.setInt(5, equipement.getQuantite_eq());
+                ps.setString(6, equipement.getImage_eq());
+                ps.setString(7, equipement.getDescription_eq());
+                ps.setInt(8, equipement.getUser().getId());
+                ps.setInt(9, equipement.getMuni().getId());
+                ps.setInt(10, equipement.getId_equipement());
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("equipement avec ID " + equipement.getId_equipement() + " modifiée avec succès !");
+                } else {
+                    System.out.println("Échec de la modification de l'equipemnt avec ID " + equipement.getId_equipement() + ". equipement non trouvée.");
+                }
+            } catch (SQLException e) {
+                System.out.println("Échec de la modification de l'equipement avec ID " + equipement.getId_equipement() + ". Erreur : " + e.getMessage());
+            }
+        } else {
+            System.out.println("Equipement avec ID " + equipement.getId_equipement()+ " n'existe pas.");
         }
     }
 

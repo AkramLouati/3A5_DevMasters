@@ -47,12 +47,17 @@ public class EquipementItemController {
 
     @FXML
     private Text referenceitemTF;
+    ServiceEquipement serviceEquipement = new ServiceEquipement();
+
 
     @FXML
     void modifierEquipementAction(ActionEvent event) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/ModifierEquipementGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/ModifierEquipementGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEquipementGui.fxml"));
+            Parent root = loader.load();
+            ModifierEquipementGui controller = loader.getController();
+            controller.setServiceEquipement(serviceEquipement);
+            controller.setData(equipement);
             editButton.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,7 +129,6 @@ public class EquipementItemController {
 
     }
     private Equipement equipement;
-    ServiceEquipement serviceEquipement = new ServiceEquipement();
 
     public void setData(Equipement equipement) {
         this.equipement = equipement;

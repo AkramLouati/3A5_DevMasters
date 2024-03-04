@@ -23,7 +23,10 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class ModifierEquipementGui {
@@ -76,7 +79,7 @@ public class ModifierEquipementGui {
     @FXML
     private Button telechargerimagemodif;
     private ServiceEquipement se;
-    private Equipement equipement = new Equipement();
+    private Equipement equipement ;
     private String imagePath;
     private Label label;
 
@@ -109,7 +112,6 @@ public class ModifierEquipementGui {
     void BTNGestionUser(ActionEvent event) {
 
     }
-
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -155,51 +157,66 @@ public class ModifierEquipementGui {
 
     @FXML
     void modifierEquipementAction(ActionEvent event) {
-        // Récupérer les valeurs des champs
-        String reference = referencemodifTF.getText();
-        String nom = nommodifTF.getText();
-        String categorie = categoriefixemodif.isSelected() ? "Fixe" : "Mobile";
-        String description = descriptionmodifTF.getText();
-        int quantite = quantitemodifCB.getValue();
-        String imagePath = this.imagePath; // Récupérer le chemin de l'image
-        Date dateAjoutModif = Date.valueOf(dateajoutmodif.getValue());
-        //if (equipement != null && se != null) {
-        // Créer une boîte de dialogue de confirmation
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette equipemnt ?");
-        confirmationAlert.setTitle("Confirmation de modification");
 
-        // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
-        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        // Vérifier si tous les champs sont valides
+            if (equipement != null && se != null) {
 
-        // Vérifier si l'utilisateur a cliqué sur le bouton OK
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Mettre à jour les données de l'equipement avec les valeurs des champs de texte
-            equipement.setReference_eq(reference);
-            equipement.setNom_eq(nom);
-            equipement.setCategorie_eq(categorie);
-            equipement.setDescription_eq(description);
-            equipement.setQuantite_eq(quantite);
-            equipement.setImage_eq(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
-            equipement.setDate_ajouteq(dateAjoutModif);
-            try {
-                // Appeler la méthode de modification du service de réclamation
-                se.modifier(equipement);
+                // Créer une boîte de dialogue de confirmation
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette equipement ?");
+                confirmationAlert.setTitle("Confirmation de modification");
 
-                // Afficher un message de succès
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setContentText("équipement modifiée avec succès !");
-                successAlert.setTitle("Modification réussie");
-                successAlert.show();
+                // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+                Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-            } catch (Exception e) {
-                // Afficher un message d'erreur en cas d'échec de la modification
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Erreur lors de la modification de l'equipement: " + e.getMessage());
-                errorAlert.setTitle("Erreur de modification");
-                errorAlert.show();
+                // Vérifier si l'utilisateur a cliqué sur le bouton OK
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
+                    equipement.setReference_eq(referencemodifTF.getText());
+                    equipement.setNom_eq(nommodifTF.getText());
+                    equipement.setQuantite_eq(quantitemodifCB.getValue());
+                    equipement.setDescription_eq(descriptionmodifTF.getText());
+                    LocalDate dateSelectionnee = dateajoutmodif.getValue();
+                    if (dateSelectionnee != null) {
+                        // Convertir LocalDate en java.sql.Date
+                        Date dateSQL = Date.valueOf(dateSelectionnee);
+                        equipement.setDate_ajouteq(dateSQL);
+                    } else {
+                        // Gérer le cas où aucune date n'a été sélectionnée
+                        showAlert(Alert.AlertType.WARNING, "Date non sélectionnée", "Veuillez sélectionner une date.");
+                        return; // Sortir de la méthode car la date est requise
+                    }
+                    equipement.setImage_eq(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
+                    try {
+                        // Appeler la méthode de modification du service de réclamation
+                        se.modifier(equipement);
+
+                        // Afficher un message de succès
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setContentText("equipement modifiée avec succès !");
+                        successAlert.setTitle("Modification réussie");
+                        successAlert.show();
+
+                        // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
+                        try {
+                            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGUi.fxml"));
+                            modifiquipementbtn.getScene().setRoot(root);
+                        } catch (IOException e) {
+                            // Gérer l'exception si la redirection échoue
+                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                            errorAlert.setTitle("Erreur de redirection");
+                            errorAlert.show();
+                        }
+                    } catch (Exception e) {
+                        // Afficher un message d'erreur en cas d'échec de la modification
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setContentText("Erreur lors de la modification de la réclamation : " + e.getMessage());
+                        errorAlert.setTitle("Erreur de modification");
+                        errorAlert.show();
+                    }
+                }
             }
-        }
     }
 
     //}
@@ -218,18 +235,59 @@ public class ModifierEquipementGui {
             } else {
                 categoriemobilemodif.setSelected(true);
             }
+            // Récupérer la date d'ajout de l'équipement
+            java.util.Date dateAjout = equipement.getDate_ajouteq();
 
+// Vérifier si la date d'ajout n'est pas null
+            if (dateAjout != null) {
+                // Convertir la date en java.sql.Date
+                java.sql.Date sqlDateAjout = new java.sql.Date(dateAjout.getTime());
+                // Convertir la date SQL en LocalDate pour le DatePicker
+                LocalDate localDateAjout = sqlDateAjout.toLocalDate();
+                dateajoutmodif.setValue(localDateAjout);
+            } else {
+                // Si la date est null, définissez la date actuelle comme valeur par défaut
+                dateajoutmodif.setValue(LocalDate.now());
+            }
+
+            String imageUrl = equipement.getImage_eq();
             // Chargez l'image associée à l'équipement dans l'ImageView
-            String imagePath = equipement.getImage_eq();
-            if (imagePath != null && !imagePath.isEmpty()) {
-                File file = new File(imagePath);
-                if (file.exists()) {
-                    Image image = new Image(file.toURI().toString());
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                try {
+                    // Créer une instance de File à partir du chemin d'accès à l'image
+                    File file = new File(imageUrl);
+                    // Récupérer le nom du fichier
+                    String fileName = file.getName();
+                    // Mettre à jour le Label avec le nom du fichier
+                    imageequipementmodfi.setText(fileName);
+
+                    // Convertir le chemin de fichier en URL
+                    String fileUrl = file.toURI().toURL().toString();
+                    // Créer une instance d'Image à partir de l'URL de fichier
+                    Image image = new Image(fileUrl);
+                    // Définir l'image dans l'ImageView
                     imagevieweqmodif.setImage(image);
+                } catch (MalformedURLException e) {
+                    // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                    e.printStackTrace();
+                }
+            } else {
+                // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
+                // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
+                // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
+                URL defaultImageUrl = getClass().getResource("/img/Baladia.png");
+                if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
+                    Image defaultImage = new Image(defaultImageUrl.toString());
+                    imagevieweqmodif.setImage(defaultImage);
+                } else {
+                    System.err.println("L'image par défaut n'a pas pu être chargée.");
                 }
             }
         }
+
     }
+
+
 
     @FXML
     void navigatetoAfficherEquipementAction(ActionEvent event) {
@@ -257,36 +315,45 @@ public class ModifierEquipementGui {
             list.add(i);
         }
         quantitemodifCB.setItems(list);
+        System.out.println(equipement);
     }
 
     @FXML
     void telechargerImageEquipemnt(ActionEvent event) {
-        telechargerimagemodif.setOnAction(actionEvent -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"), new FileChooser.ExtensionFilter("PNG Image", "*.png"), new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png"));
-            Stage stage = (Stage) telechargerimagemodif.getScene().getWindow();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
-                // Affiche le nom du fichier sélectionné
-                imageequipementmodfi.setText(selectedFile.getName());
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG Image", "*.png"),
+                new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png")
+        );
+        Stage stage = (Stage) telechargerimagemodif.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            // Affiche le nom du fichier sélectionné
+            imageequipementmodfi.setText(selectedFile.getName());
 
-                // Récupère le chemin absolu du fichier
-                String absolutePath = selectedFile.getAbsolutePath();
-                // Stocke le chemin absolu dans la variable de classe
-                imagePath = absolutePath;
+            // Récupère le chemin absolu du fichier
+            String absolutePath = selectedFile.getAbsolutePath();
+            // Stocke le chemin absolu dans la variable de classe
+            imagePath = absolutePath;
 
-                // Crée une URL à partir du chemin absolu du fichier
-                String fileUrl = new File(absolutePath).toURI().toString();
+            // Crée une URL à partir du chemin absolu du fichier
+            String fileUrl = new File(absolutePath).toURI().toString();
 
-                // Crée une image à partir de l'URL du fichier
-                Image image = new Image(fileUrl);
+            // Crée une image à partir de l'URL du fichier
+            Image image = new Image(fileUrl);
 
-                // Affiche l'image dans l'ImageView
-                imagevieweqmodif.setImage(image);
+            // Affiche l'image dans l'ImageView
+            imagevieweqmodif.setImage(image);
+
+            // Mettre à jour le chemin d'accès à l'image dans la réclamation
+            if (equipement != null) {
+                equipement.setImage_eq(imagePath);
             }
-        });
+        }
     }
+
 
     public void setServiceEquipement(ServiceEquipement se) {
         this.se = se;

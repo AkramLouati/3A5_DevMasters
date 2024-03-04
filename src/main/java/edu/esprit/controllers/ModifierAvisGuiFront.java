@@ -84,7 +84,7 @@ public class ModifierAvisGuiFront {
         ObservableList<Integer> list = FXCollections.observableArrayList();
         for (int i = 0; i <= 20; i++) {
             list.add(i);
-        }
+         }
         noteeqmodif.setItems(list);
     }
     @FXML
