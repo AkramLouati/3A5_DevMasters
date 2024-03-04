@@ -49,14 +49,14 @@
         </Text>
         <HBox alignment="CENTER" prefHeight="262.0" prefWidth="242.0">
             <children>
-            <Button mnemonicParsing="false" onAction="#ModifierEvenementClick" prefHeight="54.0" prefWidth="70.0" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#ModifierEvenementClick" prefHeight="37.0" prefWidth="36.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/editFile.png" />
+                        <Image url="@assets/edit.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -64,14 +64,14 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#SupprimerEvenementClick" prefHeight="54.0" prefWidth="70.0" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#SupprimerEvenementClick" prefHeight="36.0" prefWidth="37.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/deleteFile.png" />
+                        <Image url="@assets/delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -79,14 +79,14 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#DetailsEvenementClick" prefHeight="54.0" prefWidth="70.0" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#DetailsEvenementClick" prefHeight="36.0" prefWidth="37.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/InfoFile.png" />
+                        <Image url="@assets/detail.png" />
                      </image>
                   </ImageView>
                </graphic>
