@@ -20,9 +20,6 @@ public class UserAccount {
     private Label label;
 
     @FXML
-    private ImageView modifierimgView_reclamation;
-
-    @FXML
     private ImageView imageF;
 
     @FXML

@@ -45,7 +45,7 @@
             </ImageView>
             <Button layoutX="133.0" layoutY="318.0" mnemonicParsing="false" onAction="#loginButtonAction" styleClass="button-style" stylesheets="@css/style.css" text="Connecter" textFill="WHITE" />
             <Hyperlink layoutX="96.0" layoutY="443.0" onAction="#handleLabelClick" text="Vous n'avez pas un compte?" textFill="#003668" />
-            <Hyperlink fx:id="forgetPwd" layoutX="96.0" layoutY="419.0" text="Oubliez votre mot de passe?" textFill="#003668" />
+            <Hyperlink fx:id="forgetPwd" layoutX="96.0" layoutY="419.0" onAction="#ForgetPwd" text="Oubliez votre mot de passe?" textFill="#003668" />
             <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="145.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/group.png" />

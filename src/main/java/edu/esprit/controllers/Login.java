@@ -123,6 +123,41 @@ public class Login {
         }
     }
 
+
+    @FXML
+    void ForgetPwd(ActionEvent event) {
+        try {
+            if(tfEmail.getText().isEmpty()){
+                showAlert("Veuillez saisir votre email!");
+            }else {
+                if(serviceUser.getOneByEmail(tfEmail.getText()) == null){
+                    showAlert("L'email n'existe pas!");
+                } else {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForgetPwd.fxml"));
+                    Parent root = loader.load();
+
+                    // Access the controller
+                    ForgetPwd forgetPwdController = loader.getController();
+
+                    // Set the email
+                    forgetPwdController.setData(tfEmail.getText());
+
+                    // Show the scene
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.setTitle("Oubliez mot de passe");
+                    stage.show();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private boolean isValidCredentials(String email, String password) {
         // Replace this with your authentication logic (e.g., checking against a database)
         EndUser user = serviceUser.authenticateUser(email,password);
