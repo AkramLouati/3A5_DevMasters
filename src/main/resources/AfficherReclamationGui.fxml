@@ -204,13 +204,13 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField layoutX="589.0" layoutY="11.0" prefHeight="22.0" prefWidth="223.0" promptText="Search" stylesheets="@css/styles.css" />
+                  <TextField fx:id="Recherche" layoutX="589.0" layoutY="11.0" prefHeight="22.0" prefWidth="223.0" promptText="Search" stylesheets="@css/styles.css" />
                   <ImageView fitHeight="32.0" fitWidth="26.0" layoutX="827.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/search.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="477.0" layoutY="17.0" prefHeight="20.0" prefWidth="112.0" text="rechercher par :" textFill="#012545">
+                  <Label layoutX="477.0" layoutY="17.0" prefHeight="20.0" prefWidth="112.0" text="Rechercher par :" textFill="#012545">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

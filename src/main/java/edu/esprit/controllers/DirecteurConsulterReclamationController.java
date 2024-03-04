@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -144,9 +146,14 @@ public class DirecteurConsulterReclamationController implements Initializable {
 
                 // Appeler la méthode de modification du service de réclamation
                 serviceReclamation.modifier(reclamation);
-
-                // Afficher un message de succès
-                showAlert(Alert.AlertType.INFORMATION, "Modification réussie", "Réclamation traitée avec succès !");
+                Notifications.create()
+                        .title("Modification réussie")
+                        .text("Réclamation traitée avec succès !")
+                        .darkStyle() // Utilise un style sombre pour la notification
+                        .graphic(new ImageView("assets/done.png"))
+                        .hideAfter(Duration.seconds(5)) // Masque automatiquement la notification après 5 secondes
+                        .position(Pos.BOTTOM_RIGHT) // Positionne la notification en bas à droite de l'écran
+                        .showInformation();
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 Stage stage = (Stage) TFadresseReclamationDetail.getScene().getWindow();
@@ -189,9 +196,14 @@ public class DirecteurConsulterReclamationController implements Initializable {
 
                 // Appeler la méthode de modification du service de réclamation
                 serviceReclamation.modifier(reclamation);
-
-                // Afficher un message de succès
-                showAlert(Alert.AlertType.INFORMATION, "Modification réussie", "Réclamation traitée avec succès !");
+                Notifications.create()
+                        .title("Modification réussie")
+                        .text("Réclamation En cours de traitement !")
+                        .darkStyle() // Utilise un style sombre pour la notification
+                        .graphic(new ImageView("assets/done.png"))
+                        .hideAfter(Duration.seconds(5)) // Masque automatiquement la notification après 5 secondes
+                        .position(Pos.BOTTOM_RIGHT) // Positionne la notification en bas à droite de l'écran
+                        .showInformation();
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 Stage stage = (Stage) TFadresseReclamationDetail.getScene().getWindow();

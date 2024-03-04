@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DirecteurReclamationController">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DirecteurReclamationStatusController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -164,41 +164,65 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="537.0" fitWidth="621.0" layoutX="162.0" layoutY="74.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="537.0" fitWidth="589.0" layoutX="181.0" layoutY="76.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/Baladia.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#012545" layoutX="539.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistiques des Réclamations" wrappingWidth="296.53675842285156">
+                  <Text fill="#012545" layoutX="292.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consulter Les Réclamations :" wrappingWidth="298.1366729736328">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Text fill="#012545" layoutX="45.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consulter les Réclamations :" wrappingWidth="275.73670959472656">
-                     <font>
-                        <Font name="Arial Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <Button layoutX="89.0" layoutY="88.0" mnemonicParsing="false" onAction="#ConsulterReclamationAction" prefHeight="101.0" prefWidth="117.0" style="-fx-background-color: #FFFFFF; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <ImageView fitHeight="81.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/view.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="620.0" layoutY="85.0" mnemonicParsing="false" onAction="#AfficherStatsAction" prefHeight="101.0" prefWidth="117.0" style="-fx-background-color: #FFFFFF; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
+                  <Button layoutX="113.0" layoutY="117.0" mnemonicParsing="false" onAction="#AfficherReclamationNTAction" prefHeight="101.0" prefWidth="117.0" style="-fx-background-color: #FFFFFF; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/views.gif" />
+                              <Image url="@assets/cancel.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Text fill="#012545" layoutX="665.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" traitées :" textAlignment="CENTER" wrappingWidth="158.93678283691406">
+                     <font>
+                        <Font name="Arial Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="699.0" layoutY="126.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="84.0" styleClass="transparent-background" stylesheets="@css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/verified.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Text fill="#012545" layoutX="44.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="non traitées :" textAlignment="CENTER" wrappingWidth="275.73670959472656">
+                     <font>
+                        <Font name="Arial Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#012545" layoutX="320.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="en cours de traitement:" textAlignment="CENTER" wrappingWidth="275.73670959472656">
+                     <font>
+                        <Font name="Arial Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="404.0" layoutY="126.0" mnemonicParsing="false" onAction="#AfficherReclamationEncours" prefHeight="57.0" prefWidth="84.0" styleClass="transparent-background" stylesheets="@css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/work-in-progress.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="4.0" layoutY="545.0" mnemonicParsing="false" onAction="#buttonReturn" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;" stylesheets="@css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/left-arrow.png" />
                            </image>
                         </ImageView>
                      </graphic>

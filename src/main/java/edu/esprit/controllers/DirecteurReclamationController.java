@@ -29,7 +29,6 @@ public class DirecteurReclamationController implements Initializable {
 
     private boolean isSidebarVisible = true;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
@@ -101,11 +100,10 @@ public class DirecteurReclamationController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
-
     @FXML
-    void AfficherReclamationNTAction(ActionEvent event) {
+    void ConsulterReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurAfficherReclamationNTGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -115,9 +113,9 @@ public class DirecteurReclamationController implements Initializable {
         }
     }
     @FXML
-    void AfficherReclamationEncours(ActionEvent event) {
+    void AfficherStatsAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurAfficherReclamationEcGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationStatisticsGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

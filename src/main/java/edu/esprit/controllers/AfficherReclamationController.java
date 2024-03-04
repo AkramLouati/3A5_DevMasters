@@ -5,6 +5,7 @@ import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AfficherReclamationController implements Initializable {
     @FXML
@@ -40,6 +43,8 @@ public class AfficherReclamationController implements Initializable {
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
+    @FXML
+    private TextField Recherche;
     Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
     EndUser user = new EndUser(37,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private ServiceReclamation sr=new ServiceReclamation();
@@ -50,6 +55,12 @@ public class AfficherReclamationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProducts(newValue, reclamationList);
+        });
+        affichergrid(reclamationList);
+    }
+    private void affichergrid(List<Reclamation> reclamationList){
         int column = 0;
         int row = 1;
         try {
@@ -58,7 +69,7 @@ public class AfficherReclamationController implements Initializable {
                 fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
+                ReclamationItemComponentController itemController = fxmlLoader.getController(); // Utilisez ReclamationItemComponentController
                 itemController.setData(reclamationList.get(i));
 
                 if (column == 1) {
@@ -83,6 +94,7 @@ public class AfficherReclamationController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -158,6 +170,19 @@ public class AfficherReclamationController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+    private void filterProducts(String searchText, List<Reclamation> reclamationList ) {
+        // Filter the productList based on the searchText
+        List<Reclamation> filteredList = reclamationList.stream()
+                .filter(reclamation ->
+                        reclamation.getSujet_reclamation().toLowerCase().contains(searchText.toLowerCase()))
+                .collect(Collectors.toList());
+
+        // Clear the existing content in the grid
+        grid.getChildren().clear();
+
+        // Display the filtered results
+        affichergrid(filteredList);
     }
 
 }
