@@ -22,10 +22,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AfficherActualiteController implements Initializable {
@@ -210,4 +207,13 @@ public class AfficherActualiteController implements Initializable {
     }
 
 
+    @FXML
+    public void sortActualite(ActionEvent actionEvent) {
+        // Sort in alphabetical order based on titre_a
+        List<Actualite> sortedList = actualiteList.stream()
+                .sorted(Comparator.comparing(Actualite::getTitre_a))
+                .collect(Collectors.toList());
+
+        displayFilteredActualites(sortedList);
+    }
 }

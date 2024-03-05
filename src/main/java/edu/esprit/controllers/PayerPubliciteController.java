@@ -121,6 +121,7 @@ public class PayerPubliciteController implements Initializable {
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
 
     }
+
     public void BTNGestionUser(ActionEvent actionEvent) {
     }
 
@@ -288,6 +289,7 @@ public class PayerPubliciteController implements Initializable {
 
         sideBarTransition.play();
     }
+
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -318,18 +320,18 @@ public class PayerPubliciteController implements Initializable {
         }
 
     }
+
     @FXML
     public void exportPDFAction(ActionEvent actionEvent) {
         String nom = nompaiement.getText();
         String prenom = prenompaiement.getText();
-        String numCarteText = numCarte.getText(); // Get the card number as text
+        String numCarteText = numCarte.getText();
         int numCarteInt = 0;
 
         try {
             numCarteInt = Integer.parseInt(numCarteText);
         } catch (NumberFormatException e) {
-            // Handle the case where the card number is not a valid integer
-         //   showAlert(Alert.AlertType.WARNING, "Avertissement", "Le numéro de carte n'est pas un entier valide.");
+            showAlert(Alert.AlertType.WARNING, "Avertissement", "Le numéro de carte n'est pas un entier valide.");
         }
 
         String selectedOffer = offrePubCombo1.getValue();
@@ -352,28 +354,39 @@ public class PayerPubliciteController implements Initializable {
                 PdfWriter.getInstance(document, new FileOutputStream(file));
                 document.open();
 
-                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
-                Font contentFont = FontFactory.getFont(FontFactory.COURIER, 12);
-                Font boldFont = FontFactory.getFont(FontFactory.COURIER_BOLD, 12);
+                // Add logo
+                Image logoImage = new Image(getClass().getResource("/assets/BaladityTrans.png").toExternalForm());
+                com.itextpdf.text.Image itextLogoImage = com.itextpdf.text.Image.getInstance(logoImage.getUrl());
+                itextLogoImage.setAlignment(com.itextpdf.text.Image.ALIGN_LEFT);
+                itextLogoImage.scaleAbsolute(100, 100);
+                document.add(itextLogoImage);
 
                 // Add title
+                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
                 Paragraph title = new Paragraph("Vérification de Paiement", titleFont);
-                title.setAlignment(Element.ALIGN_CENTER);
+                title.setAlignment(Paragraph.ALIGN_CENTER);
                 document.add(title);
 
                 // Add space
                 document.add(Chunk.NEWLINE);
 
-                // Add payment information
+                // Add payment information with styles
+                Font boldFont = FontFactory.getFont(FontFactory.COURIER_BOLD, 12);
+                Font contentFont = FontFactory.getFont(FontFactory.COURIER, 12);
+
                 Paragraph paymentInfo = new Paragraph();
                 paymentInfo.add(new Chunk("Nom: ", boldFont));
-                paymentInfo.add(new Chunk(nom + "\n", contentFont));
+                paymentInfo.add(new Chunk(nom, contentFont));
+                paymentInfo.add(Chunk.NEWLINE);
                 paymentInfo.add(new Chunk("Prénom: ", boldFont));
-                paymentInfo.add(new Chunk(prenom + "\n", contentFont));
+                paymentInfo.add(new Chunk(prenom, contentFont));
+                paymentInfo.add(Chunk.NEWLINE);
                 paymentInfo.add(new Chunk("Numéro de carte: ", boldFont));
-                paymentInfo.add(new Chunk(numCarteText + "\n", contentFont)); // Use numCarteText directly
+                paymentInfo.add(new Chunk(numCarteText, contentFont));
+                paymentInfo.add(Chunk.NEWLINE);
                 paymentInfo.add(new Chunk("Offre sélectionnée: ", boldFont));
-                paymentInfo.add(new Chunk(selectedOffer + "\n\n", contentFont));
+                paymentInfo.add(new Chunk(selectedOffer, contentFont));
+                paymentInfo.add(Chunk.NEWLINE);
 
                 document.add(paymentInfo);
 
@@ -381,7 +394,6 @@ public class PayerPubliciteController implements Initializable {
                 Paragraph verificationInfo = new Paragraph();
                 verificationInfo.add(new Chunk("Paiement reçu avec succès.\n", contentFont));
                 verificationInfo.add(new Chunk("La vérification de paiement est confirmée.\n\n", contentFont));
-
                 document.add(verificationInfo);
 
                 showAlert(Alert.AlertType.INFORMATION, "Export PDF", "Les données ont été exportées avec succès en PDF.");
@@ -396,5 +408,9 @@ public class PayerPubliciteController implements Initializable {
             }
         }
     }
+
 }
+
+
+
 

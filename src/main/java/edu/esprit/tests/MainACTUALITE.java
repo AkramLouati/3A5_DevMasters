@@ -10,7 +10,7 @@ public class MainACTUALITE extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPubliciteGui.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PayerPubliciteGui.fxml"));
 
 
         Parent root = loader.load();

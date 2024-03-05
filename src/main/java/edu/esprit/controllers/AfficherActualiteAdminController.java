@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -21,15 +22,14 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AfficherActualiteAdminController implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
+    @FXML
+    private TextField RechercherActualiteAdmin;
     @FXML
     private BorderPane SecondBorderPane;
 
@@ -151,7 +151,52 @@ public class AfficherActualiteAdminController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+    private void displayFilteredActualites(List<Actualite> filteredList) {
+        // Clear the existing grid content
+        gridAdmin.getChildren().clear();
+
+        // Display the filtered actualites
+        int column = 0;
+        int row = 1;
+
+        try {
+            for (int i = 0; i < filteredList.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ActualiteController itemController = fxmlLoader.getController();
+                itemController.setData(filteredList.get(i));
+
+                if (column == 1) {
+                    column = 0;
+                    row++;
+                }
+
+                gridAdmin.add(anchorPane, column++, row);
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
+    public void RechercherActualiteAdmin(ActionEvent actionEvent) {
+        String searchQuery = RechercherActualiteAdmin.getText().toLowerCase();
 
+        List<Actualite> filteredList = actualiteList.stream()
+                .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchQuery))
+                .collect(Collectors.toList());
+
+        displayFilteredActualites(filteredList);
+    }
+
+    public void sortActualiteAdmin(ActionEvent actionEvent) {
+        List<Actualite> sortedList = actualiteList.stream()
+                .sorted(Comparator.comparing(Actualite::getTitre_a))
+                .collect(Collectors.toList());
+
+        displayFilteredActualites(sortedList);
+    }
 }
