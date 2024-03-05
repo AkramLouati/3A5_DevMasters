@@ -83,7 +83,7 @@ public class ReclamationItemComponentMessagerieController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
                     TFsujet_reclamationaff.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
@@ -118,5 +118,22 @@ public class ReclamationItemComponentMessagerieController {
             alert.show();
         }
     }
+    @FXML
+    void mailReclamationAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationMailGui.fxml"));
+            Parent root = loader.load();
+            ReclamationMailController controller = loader.getController();
+            controller.setServiceReclamation(serviceReclamation);
+            controller.setData(reclamation);
+            TFsujet_reclamationaff.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
 
 }

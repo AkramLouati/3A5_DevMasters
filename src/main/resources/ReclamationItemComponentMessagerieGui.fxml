@@ -46,7 +46,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="641.0" layoutY="13.0" mnemonicParsing="false" onAction="#viewDetailReclamationAction" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #E5E4E2; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
+                  <Button layoutX="599.0" layoutY="13.0" mnemonicParsing="false" onAction="#viewDetailReclamationAction" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #E5E4E2; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -54,6 +54,18 @@
                         <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/detail.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="648.0" layoutY="12.0" mnemonicParsing="false" onAction="#mailReclamationAction" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #E5E4E2; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 10; -fx-font-size: 13;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/mail.png" />
                            </image>
                         </ImageView>
                      </graphic>

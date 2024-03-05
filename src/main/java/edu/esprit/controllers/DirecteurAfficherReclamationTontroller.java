@@ -1,23 +1,29 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
+import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-public class DirecteurReclamationStatusController implements Initializable {
-
+public class DirecteurAfficherReclamationTontroller implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -26,15 +32,53 @@ public class DirecteurReclamationStatusController implements Initializable {
 
     @FXML
     private VBox MainLeftSidebar;
-
     private boolean isSidebarVisible = true;
+    @FXML
+    private GridPane grid;
+    @FXML
+    private ScrollPane scroll;
+    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
+    EndUser user = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    private ServiceReclamation sr=new ServiceReclamation();
+    Set<Reclamation> reclamationSet = sr.getReclamationsTraitees();
+    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
-        double sidebarWidth = MainLeftSidebar.getWidth();
-        SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+        int column = 0;
+        int row = 1;
+        try {
+            for (int i = 0; i < reclamationList.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentMessagerieGui.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
+                itemController.setData(reclamationList.get(i));
+
+                if (column == 1) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -100,12 +144,10 @@ public class DirecteurReclamationStatusController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
-
-
     @FXML
-    void AfficherReclamationNTAction(ActionEvent event) {
+    void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurAfficherReclamationNTGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -114,45 +156,8 @@ public class DirecteurReclamationStatusController implements Initializable {
             alert.show();
         }
     }
-    @FXML
-    void AfficherReclamationEncours(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurAfficherReclamationEcGui.fxml"));
-            MainAnchorPaneBaladity.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-
-    @FXML
-    void buttonReturn(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationGui.fxml"));
-            MainAnchorPaneBaladity.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-    @FXML
-    void TraitementReclamationAction(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurAfficherReclamationTGui.fxml"));
-            MainAnchorPaneBaladity.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-
-
 
 
 }
+
+
