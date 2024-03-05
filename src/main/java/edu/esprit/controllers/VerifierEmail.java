@@ -1,11 +1,11 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.Municipality;
+import edu.esprit.entities.EndUser;
 import edu.esprit.services.GMailer;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,50 +13,33 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
 import java.security.SecureRandom;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
-public class ForgetPwd implements Initializable {
-
-    String email;
-    private static final int OTP_LENGTH = 6;
-
-    String otp;
+public class VerifierEmail {
 
     @FXML
     private TextField OTPField;
 
+    ServiceUser serviceUser = new ServiceUser();
 
-    public void setData(String email) throws Exception {
-        this.email = email;
-        otp = generateOTP();
-        String content = String.format("""
-                Dear reader,
+    private static final int OTP_LENGTH = 6;
 
-                Your OTP : %s .
+    String otp;
 
-                Best regards,
-                Fadi
-                """,otp);
-        new GMailer(email).sendMail("Récupération du mot de passe", content);
+    EndUser user;
+
+    public void setData(String otp, EndUser user) {
+        this.otp = otp;
+        this.user = user;
     }
 
     @FXML
-    void VerifierOTPButton(ActionEvent event) {
-
+    void VerifierButton(ActionEvent event) {
         if(OTPField.getText().equals(otp)){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierPassword.fxml"));
+                serviceUser.ajouter(user);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
                 Parent root = loader.load();
-
-                // Access the controller
-                ModifierMdp modifierMdpController = loader.getController();
-
-                // Set the email
-                modifierMdpController.setData(email);
 
                 // Show the scene
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -67,14 +50,15 @@ public class ForgetPwd implements Initializable {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }else {
+        } else {
+            System.out.println(otp);
             showAlert("Veuillez vérifier votre code");
         }
     }
 
     @FXML
-    void reEnvoyerOTP(ActionEvent event) throws Exception {
-        String otp = generateOTP();
+    void reEnvoyerButton(ActionEvent event) throws Exception {
+        otp = generateOTP();
         String content = String.format("""
                 Dear reader,
                 
@@ -83,7 +67,7 @@ public class ForgetPwd implements Initializable {
                 Best regards,
                 Baladity.
                 """,otp);
-        new GMailer(email).sendMail("Récupération du mot de passe", content);
+        new GMailer(user.getEmail()).sendMail("Récupération du mot de passe", content);
     }
 
     public static String generateOTP() {
@@ -106,20 +90,4 @@ public class ForgetPwd implements Initializable {
         alert.showAndWait();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        System.out.println(email);
-//        try {
-//            new GMailer( "wertatanifadi@gmail.com").sendMail("My First Message", """
-//                    Dear reader,
-//
-//                    Nshallah yakhtef l mail.
-//
-//                    Best regards,
-//                    Fadi
-//                    """);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-    }
 }

@@ -2,6 +2,7 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
+import edu.esprit.services.GMailer;
 import edu.esprit.services.ServiceMuni;
 import edu.esprit.services.ServiceUser;
 import javafx.collections.FXCollections;
@@ -17,11 +18,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -64,8 +67,11 @@ public class RegisterController implements Initializable {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
 
+    private static final int OTP_LENGTH = 6;
+    String otp;
+
     @FXML
-    void registerAction(ActionEvent event) {
+    void registerAction(ActionEvent event) throws Exception {
         String nom = tfNom.getText();
         String email = tfEmail.getText();
         String motDePasse = pfMotDePasse.getText();
@@ -87,8 +93,18 @@ public class RegisterController implements Initializable {
         } else if (!motDePasse.equals(confirmMotDePasse)) {
             showAlert("Vérifier votre mot de passe!");
         } else {
-            serviceUser.ajouter(new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath()));
-            showAlert("Inscription réussie pour : " + nom);
+            otp = generateOTP();
+            String content = String.format("""
+                    Dear reader,
+
+                    Your OTP : %s .
+
+                    Best regards,
+                    Fadi
+                    """, otp);
+            new GMailer(email).sendMail("Récupération du mot de passe", content);
+            EndUser user = new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath());
+            openForm(event, user);
         }
     }
 
@@ -145,6 +161,39 @@ public class RegisterController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void openForm(ActionEvent event, EndUser user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VerifierEmail.fxml"));
+            Parent root = loader.load();
+
+            // Access the controller
+            VerifierEmail verifierEmailController = loader.getController();
+
+            // Set the email
+            verifierEmailController.setData(otp, user);
+
+            // Show the scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Vérifier Email");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String generateOTP() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder otp = new StringBuilder(OTP_LENGTH);
+
+        for (int i = 0; i < OTP_LENGTH; i++) {
+            otp.append(random.nextInt(10));
+        }
+
+        return otp.toString();
     }
 
     @Override
