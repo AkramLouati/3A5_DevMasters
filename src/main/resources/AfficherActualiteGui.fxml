@@ -198,7 +198,7 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
-                  <Text fill="#012545" layoutX="374.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La liste des Actualités:" wrappingWidth="349.3366241455078">
+                  <Text fill="#012545" layoutX="195.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La liste des Actualités:" wrappingWidth="349.3366241455078">
                      <font>
                         <Font name="Arial Bold" size="32.0" />
                      </font>

@@ -77,7 +77,23 @@ public class AfficherPubliciteCitoyenController implements Initializable{
             PubliciteController itemController = fxmlLoader.getController();
             itemController.setData(publiciteList.get(currentIndex));
 
-            MainAnchorPaneBaladity.getChildren().setAll(anchorPane); // Replace the content with the new advertisement
+            anchorPane.prefWidthProperty().bind(scrollPubC.widthProperty());
+            anchorPane.prefHeightProperty().bind(scrollPubC.heightProperty());
+
+            // Replace the content with the new advertisement
+            anchorPane.setOnMouseClicked(event -> {
+                // Handle click events on the advertisement if needed
+            });
+
+            anchorPane.setOnMouseEntered(event -> {
+                // Handle mouse hover events on the advertisement if needed
+            });
+
+            anchorPane.setOnMouseExited(event -> {
+                // Handle mouse exit events on the advertisement if needed
+            });
+
+            scrollPubC.setContent(anchorPane);
 
             // Get the selected offer from your ComboBox or from the Publicite object
             String selectedOffer = publiciteList.get(currentIndex).getOffre_pub();
@@ -101,6 +117,7 @@ public class AfficherPubliciteCitoyenController implements Initializable{
         }
     }
 
+
     private int getDisplayDuration(String selectedOffer) {
         // Use the ServicePublicite to get the duration from the database
         ServicePublicite servicePublicite = new ServicePublicite();
@@ -122,7 +139,7 @@ public class AfficherPubliciteCitoyenController implements Initializable{
         switch (selectedOffer) {
             case "3 mois :50dt":
             case "6 mois :90dt":
-                return 15; // 6 seconds
+                return 15;
             case "9 mois :130dt":
                 return 30; // 12 seconds
 
@@ -254,7 +271,7 @@ public class AfficherPubliciteCitoyenController implements Initializable{
         try {
             System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
-            gridPubC.getScene().setRoot(root);
+            retoutActCitoyen.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

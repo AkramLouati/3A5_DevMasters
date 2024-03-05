@@ -34,6 +34,11 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AjouterPubliciteController implements Initializable {
+    private PayerPubliciteController payerPubliciteController;
+
+    public void setPayerPubliciteController(PayerPubliciteController controller) {
+        this.payerPubliciteController = controller;
+    }
 
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
@@ -50,17 +55,24 @@ public class AjouterPubliciteController implements Initializable {
     @FXML
     private BorderPane SecondBorderPane;
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public Image getImage() {
+        return imgView_pub.getImage();
+    }
     @FXML
-    private TextField TFcontactpub;
+    TextField TFcontactpub;
 
     @FXML
-    private TextField TFdescriptionpub;
+    TextField TFdescriptionpub;
 
     @FXML
-    private TextField TFlocalisationpub;
+    TextField TFlocalisationpub;
 
     @FXML
-    private TextField TFtitrepub;
+    TextField TFtitrepub;
 
     @FXML
     private Button ajouterPubliciteAction;
@@ -80,7 +92,7 @@ public class AjouterPubliciteController implements Initializable {
     private Label contactAlerte;
 
     @FXML
-    private ComboBox<String> offrePubCombo;
+    ComboBox<String> offrePubCombo;
 
     @FXML
     private Button tolistActualite;
@@ -89,8 +101,8 @@ public class AjouterPubliciteController implements Initializable {
     private Button uploadbuttonP;
 
     private boolean isSidebarVisible = true;
-    private final ServicePublicite sp = new ServicePublicite();
-    private String imagePath;
+    final ServicePublicite sp = new ServicePublicite();
+    String imagePath;
 
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
 
@@ -184,7 +196,7 @@ public class AjouterPubliciteController implements Initializable {
 
 
 
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(content);
@@ -222,6 +234,7 @@ public class AjouterPubliciteController implements Initializable {
             imgView_pub.setImage(image);
         }
     }
+
 
     @FXML
     public void tolistActualite(ActionEvent actionEvent) {
@@ -268,7 +281,9 @@ public class AjouterPubliciteController implements Initializable {
 
         sideBarTransition.play();
     }
-
+    public void setSelectedOffer(String selectedOffer) {
+        offrePubCombo.setValue(selectedOffer);
+    }
     public void BTNGestionEvennement(ActionEvent actionEvent) {
     }
 
@@ -286,34 +301,56 @@ public class AjouterPubliciteController implements Initializable {
 
     public void BTNGestionTache(ActionEvent actionEvent) {
     }
+    public void setTextFieldValues(String titre, String description, String contact, String localisation, String imagePath) {
+        TFtitrepub.setText(titre);
+        TFdescriptionpub.setText(description);
+        TFcontactpub.setText(contact);
+        TFlocalisationpub.setText(localisation);
+        this.imagePath = imagePath;
 
+        // Load and display the image (assuming imgView_pub is the ImageView for the image)
+        Image image = new Image("file:" + imagePath);
+        imgView_pub.setImage(image);
+    }
     @FXML
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
         Muni muni = new Muni(1);
-        EndUser user = new EndUser(12,muni);
-        Actualite actualite = new Actualite(102,user);
+        EndUser user = new EndUser(12, muni);
+        Actualite actualite = new Actualite(102, user);
         String selectedOffer = offrePubCombo.getValue();
-        double amount = getAmountFromOffer(selectedOffer);
-        boolean paymentSuccessful = processPayment(amount);
 
-        if (paymentSuccessful) {
-            sp.ajouter(new Publicite(
-                    TFtitrepub.getText(),
-                    TFdescriptionpub.getText(),
-                    Integer.parseInt(TFcontactpub.getText()),
-                    TFlocalisationpub.getText(),
-                    imagePath,
-                    offrePubCombo.getValue(),
-                    user,
-                    actualite
-            ));
-            showAlert(Alert.AlertType.INFORMATION, "Publicité a été ajoutée", "Publicité ajoutée, merci pour votre confiance");
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Erreur de paiement", "Le paiement a échoué. Veuillez réessayer.");
+        // No payment processing check here
+
+        sp.ajouter(new Publicite(
+                TFtitrepub.getText(),
+                TFdescriptionpub.getText(),
+                Integer.parseInt(TFcontactpub.getText()),
+                TFlocalisationpub.getText(),
+                imagePath,
+                selectedOffer,
+                user,
+                actualite
+        ));
+
+        showAlert(Alert.AlertType.INFORMATION, "procéder au paiement ", "procéder au paiement ");
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/PayerPubliciteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/PayerPubliciteGui.fxml"));
+            TFtitrepub.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
         }
     }
 
-    private double getAmountFromOffer(String offer) {
+
+
+
+
+    double getAmountFromOffer(String offer) {
         // Implement the logic to get the amount based on the selected offer
         // For now, let's assume a simple mapping for demonstration purposes
         switch (offer) {
@@ -328,7 +365,7 @@ public class AjouterPubliciteController implements Initializable {
         }
     }
 
-    private boolean processPayment(double amount) {
+    boolean processPayment(double amount) {
         try {
             Stripe.apiKey = "sk_test_51OpeMeI3VcdValufdQQI5nr0PLI1jmQ9YCCa6Xu4ozS5Qv9IBoaTSvqMtzZXaZf0edfdRkNVVLixMKfo8CtYx3PW00MLcbGNSd";
             PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
@@ -349,6 +386,24 @@ public class AjouterPubliciteController implements Initializable {
         try {
             System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
             Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            TFtitrepub.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
+    public void paiement(ActionEvent actionEvent) {
+
+    }
+
+    public void TOpayment(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/PayerPubliciteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/PayerPubliciteGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
