@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
@@ -63,11 +65,11 @@ public class Login {
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Veuillez remplir tous les champs!");
         } else if (isValidEmail(email)) {
+            password = hashPassword(password);
             if (isValidCredentials(email, password)) {
                 // Successful login, you can navigate to another screen or perform other actions
 
                 EndUser currentUser = serviceUser.authenticateUser(email, password);
-
                 if (currentUser.getType().equals("Admin")) {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserGui.fxml"));
@@ -90,7 +92,8 @@ public class Login {
                         alert.setTitle("Error");
                         alert.show();
                     }
-                } else {
+                }
+                else {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
                         Parent root = loader.load();
@@ -113,9 +116,9 @@ public class Login {
                         alert.show();
                     }
                 }
-//            showAlert("Login Successful");
             } else {
                 // Invalid credentials, show an alert
+                System.out.println(hashPassword(password));
                 showAlert("Password invalid ");
             }
         }else{
@@ -163,8 +166,8 @@ public class Login {
         EndUser user = serviceUser.authenticateUser(email,password);
         if (user != null){
             String email1 = user.getEmail();
-            String password1 = user.getPassword();
-            return email1.equals(email) && password1.equals(password);
+            String storedHashedPassword = user.getPassword();
+            return email1.equals(email) && storedHashedPassword.equals(password);
         }else {
             return false;
         }
@@ -180,6 +183,24 @@ public class Login {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes());
+
+            // Convert the byte array to a hexadecimal string
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void setCurrentUser(int userId) {

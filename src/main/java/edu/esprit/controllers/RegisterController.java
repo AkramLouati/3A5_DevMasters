@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -102,8 +104,9 @@ public class RegisterController implements Initializable {
                     Best regards,
                     Fadi
                     """, otp);
+            String hashedPwd = hashPassword(motDePasse);
             new GMailer(email).sendMail("Récupération du mot de passe", content);
-            EndUser user = new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath());
+            EndUser user = new EndUser(nom, email, hashedPwd, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath());
             openForm(event, user);
         }
     }
@@ -194,6 +197,25 @@ public class RegisterController implements Initializable {
         }
 
         return otp.toString();
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes());
+
+            // Convert byte array to hexadecimal representation
+            StringBuilder stringBuilder = new StringBuilder();
+            for (byte b : hashedBytes) {
+                stringBuilder.append(String.format("%02x", b));
+            }
+
+            return stringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return null;
+        }
     }
 
     @Override
