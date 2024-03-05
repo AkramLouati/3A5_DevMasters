@@ -1,8 +1,9 @@
 package edu.esprit.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Muni {
+public class Muni implements Serializable {
     private int id;
 
     public Muni() {

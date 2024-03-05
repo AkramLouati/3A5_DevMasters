@@ -2,10 +2,11 @@ package edu.esprit.entities;
 
 import edu.esprit.services.EtatTache;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Tache {
+public class Tache implements Serializable {
     int id_T;
     private EndUser user;
     private String titre_T, pieceJointe_T, desc_T;
@@ -50,6 +51,14 @@ public class Tache {
         this.user = user;
     }
 
+    public Tache(String str) {
+    }
+
+    // Static method to create a Tache object from a string
+// Static method to create a Tache object from a string
+    public static Tache fromString(String str) {
+        return new Tache(str);
+    }
 
     public int getId_T() {
         return id_T;
@@ -66,7 +75,6 @@ public class Tache {
     public void setUser(EndUser user) {
         this.user = user;
     }
-
 
     public CategorieT getCategorie() {
         return categorie;
@@ -138,17 +146,7 @@ public class Tache {
 
     @Override
     public String toString() {
-        return "Tache{" +
-                "Categorie=" + categorie + "|" +
-                "Titre=" + titre_T + "|" +
-                "Piece Jointe=" + pieceJointe_T + "|" +
-                "Description=" + desc_T + "|" +
-                "Date Debut=" + date_DT + "|" +
-                "Date Fin=" + date_FT + "|" +
-                "Etat=" + etat_T + "|" +
-                '}' +
-                // Add this instead of the closing curly brace
-                System.lineSeparator();
+        return titre_T;
     }
 
 }

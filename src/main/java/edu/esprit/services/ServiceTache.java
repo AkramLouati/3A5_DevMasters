@@ -201,4 +201,31 @@ public class ServiceTache implements IService<Tache> {
         return false; // If an exception occurs or no result is found, return false
     }
 
+    public Set<Tache> getTachesByState(EtatTache etat) {
+        Set<Tache> taches = new HashSet<>();
+        String req = "SELECT * FROM tache WHERE etat_T = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, etat.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id_T");
+                int categorieId = rs.getInt("id_Cat");
+                CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                String titre = rs.getString("titre_T");
+                String pieceJointe = rs.getString("pieceJointe_T");
+                Date dateDT = rs.getDate("date_DT");
+                Date dateFT = rs.getDate("date_FT");
+                String desc = rs.getString("desc_T");
+                int id_user = rs.getInt("id_user");
+                EndUser user = serviceUser.getOneByID(id_user);
+                Tache tache = new Tache(id, categorie, titre, pieceJointe, dateDT, dateFT, desc, etat, user);
+                taches.add(tache);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return taches;
+    }
+
 }

@@ -9,7 +9,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="554.0" prefWidth="850.0" stylesheets="@css/TacheCss.css"
             xmlns="http://javafx.com/javafx/21" fx:controller="edu.esprit.controllers.DetailTacheFrontController">
     <children>
-        <Button layoutX="717.0" layoutY="11.0" mnemonicParsing="false" onAction="#buttonReturnListeTaches"
+        <Button layoutX="717.0" layoutY="11.0" mnemonicParsing="false" onAction="#Exit"
                 prefHeight="40.0" prefWidth="82.0" text="Exit">
             <graphic>
                 <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">

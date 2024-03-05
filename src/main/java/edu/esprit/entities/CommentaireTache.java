@@ -1,9 +1,10 @@
 package edu.esprit.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class CommentaireTache {
+public class CommentaireTache implements Serializable {
     private int id_Cmnt;
     private Tache tache;
     private EndUser user;

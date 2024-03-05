@@ -1,6 +1,5 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCategorieT;
 import edu.esprit.services.ServiceTache;
@@ -39,7 +38,7 @@ import java.util.Set;
 public class AfficherTacheController implements Initializable {
 
     public BorderPane firstborderpane;
-    EndUser user = new EndUser(12);
+    /*EndUser user = new EndUser(12);*/
     private ServiceCategorieT serviceCategorieT;
     @FXML
     private TextField searchbar;
@@ -54,13 +53,13 @@ public class AfficherTacheController implements Initializable {
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
-    private Tache taches = new Tache();
+    /*private Tache taches = new Tache();*/
     private Stage stage; // Define a stage variable
-    private ServiceTache sr = new ServiceTache();
+    private final ServiceTache sr = new ServiceTache();
 
-    public void setStage(Stage stage) {
+    /*public void setStage(Stage stage) {
         this.stage = stage;
-    }
+    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -185,8 +184,6 @@ public class AfficherTacheController implements Initializable {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Set font and position for writing
-            // Using a different font that supports the required characters
-            // For example, PDType1Font.HELVETICA
             contentStream.setFont(PDType1Font.HELVETICA, 12);
 
             // Set text color
@@ -240,8 +237,6 @@ public class AfficherTacheController implements Initializable {
             Parent root = loader.load();
             AfficherCategorieController controller = loader.getController();
 
-            // You might need to pass any necessary data or dependencies to the controller here
-
             // Create a new stage
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -262,7 +257,7 @@ public class AfficherTacheController implements Initializable {
         Set<Tache> filteredTasks = new HashSet<>();
 
         for (Tache task : allTasks) {
-            if (task.getTitre_T().toLowerCase().contains(searchText)) { // Assuming getType() returns the type of the task
+            if (task.getTitre_T().toLowerCase().contains(searchText)) {
                 filteredTasks.add(task);
             }
         }

@@ -1,8 +1,9 @@
 package edu.esprit.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CategorieT {
+public class CategorieT implements Serializable {
     private int id_Cat;
     private String nom_Cat;
 

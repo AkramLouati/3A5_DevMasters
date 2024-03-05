@@ -78,7 +78,7 @@ public class DetailTacheFrontController {
     }
 
     @FXML
-    void buttonReturnListeTaches(ActionEvent event) {
+    void Exit(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherTacheFront.fxml"));
             TFTitreDetail.getScene().setRoot(root);

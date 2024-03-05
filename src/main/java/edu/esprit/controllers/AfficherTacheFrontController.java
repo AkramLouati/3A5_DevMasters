@@ -1,6 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Tache;
+import edu.esprit.services.EtatTache;
 import edu.esprit.services.ServiceTache;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -18,27 +21,26 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-
 public class AfficherTacheFrontController implements Initializable {
 
+    private final ServiceTache ST = new ServiceTache();
     public TextField todoCount;
     public TextField doingCount;
     public TextField doneCount;
     @FXML
     private TextField searchTacheLabel;
     @FXML
-    private GridPane gridTodo;
-
+    private GridPane TO_DO;
     @FXML
-    private GridPane gridDoing;
-
+    private GridPane DOING;
     @FXML
-    private GridPane gridDone;
-
-    private ServiceTache sr = new ServiceTache();
+    private GridPane DONE;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        enableGridDropping(TO_DO);
+        enableGridDropping(DOING);
+        enableGridDropping(DONE);
         loadTasks();
         // Add listener to searchTextField
         searchTacheLabel.textProperty().addListener(new ChangeListener<String>() {
@@ -50,8 +52,15 @@ public class AfficherTacheFrontController implements Initializable {
         });
     }
 
+    private void refreshAllGrids() {
+        TO_DO.getChildren().clear();
+        DOING.getChildren().clear();
+        DONE.getChildren().clear();
+        loadTasks();
+    }
+
     private void loadTasks() {
-        Set<Tache> tacheList = sr.getAll();
+        Set<Tache> tacheList = ST.getAll();
         int todoCounter = 0;
         int doingCounter = 0;
         int doneCounter = 0;
@@ -65,15 +74,15 @@ public class AfficherTacheFrontController implements Initializable {
 
                 switch (tache.getEtat_T()) {
                     case TO_DO:
-                        gridTodo.addRow(gridTodo.getRowCount(), anchorPane);
+                        TO_DO.addRow(TO_DO.getRowCount(), anchorPane);
                         todoCounter++;
                         break;
                     case DOING:
-                        gridDoing.addRow(gridDoing.getRowCount(), anchorPane);
+                        DOING.addRow(DOING.getRowCount(), anchorPane);
                         doingCounter++;
                         break;
                     case DONE:
-                        gridDone.addRow(gridDone.getRowCount(), anchorPane);
+                        DONE.addRow(DONE.getRowCount(), anchorPane);
                         doneCounter++;
                         break;
                 }
@@ -94,19 +103,48 @@ public class AfficherTacheFrontController implements Initializable {
         alert.showAndWait();
     }
 
+    private void enableGridDropping(GridPane gridPane) {
+        gridPane.setOnDragOver(event -> {
+            if (event.getGestureSource() != gridPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        gridPane.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                int taskId = Integer.parseInt(db.getString());
+                Tache task = ST.getOneByID(taskId);
+                if (task != null) {
+                    // Assuming the grid's ID corresponds to the new state of the task
+                    EtatTache newState = EtatTache.valueOf(gridPane.getId());
+                    task.setEtat_T(newState);
+                    ST.modifier(task); // Update the task state in the database
+                    success = true;
+                }
+            }
+            event.setDropCompleted(success);
+            event.consume();
+            if (success) {
+                refreshAllGrids(); // Refresh all grids after successful drop
+            }
+        });
+    }
 
     @FXML
     void searchTacheLabel(ActionEvent event) {
         String query = searchTacheLabel.getText().trim().toLowerCase(); // Get search query
-        Set<Tache> tacheList = sr.getAll();
+        Set<Tache> tacheList = ST.getAll();
         int todoCounter = 0;
         int doingCounter = 0;
         int doneCounter = 0;
 
         try {
-            gridTodo.getChildren().clear(); // Clear existing rows
-            gridDoing.getChildren().clear();
-            gridDone.getChildren().clear();
+            TO_DO.getChildren().clear(); // Clear existing rows
+            DOING.getChildren().clear();
+            DONE.getChildren().clear();
 
             for (Tache tache : tacheList) {
                 // Check if task label contains the search query
@@ -118,15 +156,15 @@ public class AfficherTacheFrontController implements Initializable {
 
                     switch (tache.getEtat_T()) {
                         case TO_DO:
-                            gridTodo.addRow(gridTodo.getRowCount(), anchorPane);
+                            TO_DO.addRow(TO_DO.getRowCount(), anchorPane);
                             todoCounter++;
                             break;
                         case DOING:
-                            gridDoing.addRow(gridDoing.getRowCount(), anchorPane);
+                            DOING.addRow(DOING.getRowCount(), anchorPane);
                             doingCounter++;
                             break;
                         case DONE:
-                            gridDone.addRow(gridDone.getRowCount(), anchorPane);
+                            DONE.addRow(DONE.getRowCount(), anchorPane);
                             doneCounter++;
                             break;
                     }

@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -21,6 +24,15 @@ public class TacheFrontController {
     public void setData(Tache taches) {
         this.taches = taches;
         TF_Titre_Tache.setText(taches.getTitre_T());
+
+        // Enable drag functionality
+        TF_Titre_Tache.setOnDragDetected(event -> {
+            Dragboard dragboard = TF_Titre_Tache.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(String.valueOf(taches.getId_T())); // Assuming task ID is used for drag and drop
+            dragboard.setContent(content);
+            event.consume();
+        });
     }
 
     @FXML
