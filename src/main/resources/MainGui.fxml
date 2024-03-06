@@ -32,15 +32,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#BTNGestionTache" prefHeight="60.0" prefWidth="280.0" style="-fx-background-radius: 10;" text="Citoyen">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#BTNGestionEvennement" prefHeight="60.0" prefWidth="280.0" style="-fx-background-radius: 10;" text="Responsable Employé">
+            <Button fx:id="BTNGestionReclamation" mnemonicParsing="false" onAction="#BTNGestionReclamation" prefHeight="60.0" prefWidth="280.0" style="-fx-background-radius: 10;" text="Gestion réclamation">
                <font>
                   <Font name="Arial Bold" size="20.0" />
                </font>

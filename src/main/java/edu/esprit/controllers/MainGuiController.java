@@ -80,16 +80,9 @@ public class MainGuiController {
     }
 
     public void BTNGestionAct(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionEquipement(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionTache(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AjouterPubliciteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterPubliciteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
             BTNGestionAct.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,6 +92,13 @@ public class MainGuiController {
             alert.show();
         }
     }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
+
+    }
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -106,4 +106,7 @@ public class MainGuiController {
         alert.showAndWait();
     }
 
+    public void BTNGestionReclamation(ActionEvent actionEvent) {
+
+    }
 }
