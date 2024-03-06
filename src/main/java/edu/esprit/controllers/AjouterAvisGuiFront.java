@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.controlsfx.control.Rating;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -40,7 +41,7 @@ public class AjouterAvisGuiFront {
     private BorderPane firstborderpane;
 
     @FXML
-    private ComboBox<Integer> noteeq;
+    private Rating noteeq;
 
     @FXML
     private Button retourButton;
@@ -71,19 +72,7 @@ public class AjouterAvisGuiFront {
     void BTNGestionTache(ActionEvent event) {
 
     }
-    @FXML
-    void selectQuantite(ActionEvent event) {
-        Integer selectedQuantity = (Integer) noteeq.getSelectionModel().getSelectedItem();
 
-    }
-    @FXML
-    public void initialize() {
-        ObservableList<Integer> list = FXCollections.observableArrayList();
-        for (int i = 0; i <= 20; i++) {
-            list.add(i);
-        }
-        noteeq.setItems(list);
-    }
     private final ServiceAvis serviceAvis = new ServiceAvis();
     Muni muni = new Muni(1);
     EndUser user = new EndUser(1,muni);
@@ -103,7 +92,7 @@ public class AjouterAvisGuiFront {
         }
         try {
             // Récupérer les valeurs saisies par l'utilisateur
-            int note_avis = Integer.parseInt(noteeq.getValue().toString());
+            int note_avis = (int) noteeq.getRating();
 
             Date date_avis = Date.valueOf(dateaviseq.getValue()); // Convertissez la valeur du DatePicker en objet Date
             // Créer un nouvel objet Avis avec ces valeurs

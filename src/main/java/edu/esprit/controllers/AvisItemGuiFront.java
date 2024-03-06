@@ -13,12 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import org.controlsfx.control.Rating;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 public class AvisItemGuiFront {
     @FXML
@@ -31,7 +33,7 @@ public class AvisItemGuiFront {
     private Button modifierAvis;
 
     @FXML
-    private Text noteequipement;
+    private Rating noteequipement;
 
     @FXML
     private Button supprimerAvis;
@@ -39,8 +41,11 @@ public class AvisItemGuiFront {
     @FXML
     void modifierAvisAction(ActionEvent event) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/ModifierAvisGuiFront.fxml"));
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/ModifierAvisGuiFront.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierAvisGuiFront.fxml"));
+            Parent root = loader.load();
+            ModifierAvisGuiFront controller = loader.getController();
+            controller.setServiceAvis(serviceAvis);
+            controller.setData(avis);
             modifierAvis.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +54,6 @@ public class AvisItemGuiFront {
             alert.setTitle("Error");
             alert.show();
         }
-
     }
 
     @FXML
@@ -96,12 +100,15 @@ public class AvisItemGuiFront {
         }
 
     }
+
     private Avis avis;
-    ServiceAvis serviceAvis= new ServiceAvis();
+    ServiceAvis serviceAvis = new ServiceAvis();
+
     public void setData(Avis avis) {
         this.avis = avis;
         commentaireequipement.setText(avis.getCommentaire_avis());
-        noteequipement.setText(String.valueOf(avis.getNote_avis()));
+        noteequipement.setRating(avis.getNote_avis());
         dateequipement.setText(String.valueOf(avis.getDate_avis()));
+        Equipement equipement = avis.getEquipement();
     }
 }

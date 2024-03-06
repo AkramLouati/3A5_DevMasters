@@ -13,11 +13,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.controlsfx.control.Rating;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,12 +47,10 @@ public class ModifierAvisGuiFront {
     private Button modifierButton;
 
     @FXML
-    private ComboBox<Integer> noteeqmodif;
+    private Rating noteeqmodif;
 
     @FXML
     private Button retourButton;
-    Muni muni = new Muni(1);
-    EndUser user = new EndUser(1,muni);
     private ServiceEquipement se;
     private Equipement equipement;
     private ServiceAvis sa;
@@ -77,17 +81,6 @@ public class ModifierAvisGuiFront {
 
     }
     @FXML
-    void selectNote(ActionEvent event) {
-        Integer selectedQuantity = (Integer) noteeqmodif.getSelectionModel().getSelectedItem();
-    }
-    public void initialize() {
-        ObservableList<Integer> list = FXCollections.observableArrayList();
-        for (int i = 0; i <= 20; i++) {
-            list.add(i);
-         }
-        noteeqmodif.setItems(list);
-    }
-    @FXML
     void modifierAvisAction(ActionEvent event) {
         if (avis != null && sa!= null) {
             // Créer une boîte de dialogue de confirmation
@@ -102,7 +95,7 @@ public class ModifierAvisGuiFront {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Mettre à jour les données de l'avis  avec les valeurs des champs de texte
                 Date dateAvisModif = Date.valueOf(dateaviseqmodif.getValue());
-                avis.setNote_avis(noteeqmodif.getValue());
+                avis.setNote_avis((int) noteeqmodif.getRating());
                 avis.setCommentaire_avis(commentaireeqmodif.getText());
                 avis.setDate_avis(dateAvisModif);
                 try {
@@ -132,6 +125,35 @@ public class ModifierAvisGuiFront {
         }
 
     }
+    public void setServiceAvis(ServiceAvis sa) {
+        this.sa = sa;
+
+    }
+    public void setData(Avis avis) {
+        this.avis = avis;
+        // Assurez-vous que l'équipement n'est pas null
+        if (avis != null) {
+            // Initialisez les champs de l'interface utilisateur avec les valeurs de l'équipement
+            commentaireeqmodif.setText(avis.getCommentaire_avis());
+            noteeqmodif.setRating(avis.getNote_avis());
+            java.util.Date dateModif = avis.getDate_avis();
+
+        // Vérifier si la date d'ajout n'est pas null
+            if (dateModif != null) {
+                // Convertir la date en java.sql.Date
+                java.sql.Date sqlDateModifier = new java.sql.Date(dateModif.getTime());
+                // Convertir la date SQL en LocalDate pour le DatePicker
+                LocalDate localDateModifier = sqlDateModifier.toLocalDate();
+                dateaviseqmodif.setValue(localDateModifier);
+            } else {
+                // Si la date est null, définissez la date actuelle comme valeur par défaut
+                dateaviseqmodif.setValue(LocalDate.now());
+            }
+
+
+            }
+    }
+
 
     @FXML
     void retourAvisAction(ActionEvent event) {

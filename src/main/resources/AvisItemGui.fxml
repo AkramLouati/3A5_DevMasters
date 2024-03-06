@@ -3,27 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.Rating?>
 
 <AnchorPane prefHeight="97.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AvisItemGui">
    <children>
       <HBox prefHeight="121.0" prefWidth="810.0">
          <children>
-            <ImageView fitHeight="62.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@img/rating.png" />
-               </image>
-            </ImageView>
-            <VBox alignment="TOP_CENTER" prefHeight="121.0" prefWidth="145.0">
+            <VBox alignment="TOP_CENTER" prefHeight="121.0" prefWidth="199.0">
                <children>
                   <Label text="Note :" textFill="#012545">
                      <font>
@@ -39,14 +31,11 @@
                         <Insets right="50.0" top="10.0" />
                      </padding>
                   </Label>
-                  <Text fx:id="noteequipementB" opacity="0.3" strokeType="OUTSIDE" strokeWidth="0.0" text="Note" wrappingWidth="100.35897278785706">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Text>
+                  <Rating fx:id="noteequipementB" disable="true">
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Rating>
                </children>
             </VBox>
             <VBox prefHeight="121.0" prefWidth="317.0">
@@ -62,7 +51,7 @@
                         <Insets right="50.0" top="10.0" />
                      </padding>
                   </Label>
-                  <Text fx:id="commentaireequipementB" opacity="0.3" strokeType="OUTSIDE" strokeWidth="0.0" text="Commentaire">
+                  <Text fx:id="commentaireequipementB" opacity="0.3" strokeType="OUTSIDE" strokeWidth="0.0" text="Commentaire" wrappingWidth="128.0313720703125">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>

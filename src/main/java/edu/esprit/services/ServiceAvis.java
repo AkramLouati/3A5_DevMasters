@@ -150,6 +150,7 @@ public class ServiceAvis implements IService<Avis> {
                 int id_avis = rs.getInt("id_avis");
                 int id_muni = rs.getInt("id_muni");
                 int id_user = rs.getInt("id_user");
+                int id_equipement = rs.getInt("id_equipement");
                 int note_avis = rs.getInt("note_avis");
                 String commentaire_avis = rs.getString("commentaire_avis");
                 java.util.Date date_avis = rs.getDate("date_avis");
@@ -165,5 +166,37 @@ public class ServiceAvis implements IService<Avis> {
         }
         return equipementAvis;
     }
+   /*public Set<Avis> getAvisByEquipement(Equipement equipement) {
+       Set<Avis> equipementAvis = new HashSet<>();
+       if (equipement != null) { // Vérifier si l'objet Equipement est non null
+           String req = "SELECT * FROM `Avis` WHERE `id_equipement`=? ORDER BY date_avis ASC";
+           try {
+               PreparedStatement ps = cnx.prepareStatement(req);
+               ps.setInt(1, equipement.getId_equipement());
+               ResultSet rs = ps.executeQuery();
+               while (rs.next()) {
+                   int id_avis = rs.getInt("id_avis");
+                   int id_muni = rs.getInt("id_muni");
+                   int id_user = rs.getInt("id_user");
+                   int note_avis = rs.getInt("note_avis");
+                   int id_equipement = rs.getInt("id_equipement");
+                   String commentaire_avis = rs.getString("commentaire_avis");
+                   java.util.Date date_avis = rs.getDate("date_avis");
+
+                   Muni muni = serviceMuni.getOneByID(id_muni);
+                   EndUser user = serviceEndUser.getOneByID(id_user);
+
+                   Avis avis = new Avis(id_avis, user, equipement, muni, note_avis, commentaire_avis, date_avis);
+                   equipementAvis.add(avis);
+               }
+           } catch (SQLException e) {
+               System.out.println(e.getMessage());
+           }
+       } else {
+           System.out.println("L'objet Equipement passé en argument est null.");
+       }
+       return equipementAvis;
+   }
+*/
 }
 

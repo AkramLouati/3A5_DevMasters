@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
+import org.controlsfx.control.Rating;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public class AvisItemGui {
     private Text dateequipementB;
 
     @FXML
-    private Text noteequipementB;
+    private Rating noteequipementB;
 
     @FXML
     private Button supprimerAvisB;
@@ -74,7 +75,7 @@ public class AvisItemGui {
     public void setData(Avis avis) {
         this.avis = avis;
         commentaireequipementB.setText(avis.getCommentaire_avis());
-        noteequipementB.setText(String.valueOf(avis.getNote_avis()));
+        noteequipementB.setRating(avis.getNote_avis());
         dateequipementB.setText(String.valueOf(avis.getDate_avis()));
     }
 }
