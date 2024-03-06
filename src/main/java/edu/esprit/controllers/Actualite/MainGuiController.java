@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -61,8 +61,8 @@ public class MainGuiController {
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AjouterActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterActualiteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
             BTNGestionAct.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,8 +81,8 @@ public class MainGuiController {
 
     public void BTNGestionAct(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
             BTNGestionAct.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

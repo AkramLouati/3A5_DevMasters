@@ -1,8 +1,7 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 
 import edu.esprit.entities.Actualite;
-import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServiceActualite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +17,6 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ActualiteController {
 
@@ -73,7 +71,7 @@ public class ActualiteController {
 
             // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
                 TitreActualiteAff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Gérer l'exception si la redirection échoue
@@ -93,7 +91,7 @@ public class ActualiteController {
 
     public void modifierActualiteAction(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierActualiteGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/ModifierActualiteGui.fxml"));
             Parent root = loader.load();
             ModifierActualiteController controller = loader.getController();
             controller.setServiceActualite(serviceActualite);
@@ -109,7 +107,7 @@ public class ActualiteController {
 
     public void viewDetailActualiteAction(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/AfficherPubliciteGui.fxml"));
             Parent root = loader.load();
 
             // Passer l'id de l'actualité à AfficherPubliciteController
@@ -124,7 +122,7 @@ public class ActualiteController {
 
     public void viewDetailActualiteActionC(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/AfficherPubliciteCitoyenGui.fxml"));
             Parent root = loader.load();
 
             // Passer l'id de l'actualité à AfficherPubliciteController

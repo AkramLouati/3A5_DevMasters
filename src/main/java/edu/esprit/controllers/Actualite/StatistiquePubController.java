@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.services.ServicePublicite;
 import javafx.animation.*;
@@ -183,8 +183,8 @@ public class StatistiquePubController implements Initializable {
 
     public void retourtoRESSS(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
             StatistiquePub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
@@ -191,8 +191,8 @@ public class AjouterActualiteController implements Initializable {
 
     public void navigatetoAfficherActualiteAction(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
             TFtitre.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -263,8 +263,8 @@ public class AjouterActualiteController implements Initializable {
 
     public void buttonmain2(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/MainGui.fxml"));
             TFtitre.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

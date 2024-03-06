@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
@@ -126,7 +126,7 @@ public class ModifierPubliciteController implements Initializable {
 
                         // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+                            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherPubliciteCitoyenGui.fxml"));
                             TFtitrepubModif.getScene().setRoot(root);
                         } catch (IOException e) {
                             // Gérer l'exception si la redirection échoue
@@ -227,7 +227,7 @@ public class ModifierPubliciteController implements Initializable {
                 // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
                 // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
                 // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
+                URL defaultImageUrl = getClass().getResource("/ActualiteGui/assets/imageblanche.png");
                 if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
                     Image defaultImage = new Image(defaultImageUrl.toString());
                     imgView_pub.setImage(defaultImage);
@@ -246,7 +246,7 @@ public class ModifierPubliciteController implements Initializable {
     @FXML
     void retourToAfficherPub(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/AfficherPubliciteCitoyenGui.fxml"));
             Parent root = loader.load();
 
             // Update the scene to display the list of advertisements

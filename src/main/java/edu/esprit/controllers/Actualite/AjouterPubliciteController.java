@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -8,7 +8,6 @@ import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
 import edu.esprit.entities.Publicite;
-import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -239,8 +237,8 @@ public class AjouterPubliciteController implements Initializable {
     @FXML
     public void tolistActualite(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -334,8 +332,8 @@ public class AjouterPubliciteController implements Initializable {
 
         showAlert(Alert.AlertType.INFORMATION, "procéder au paiement ", "procéder au paiement ");
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/PayerPubliciteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/PayerPubliciteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/PayerPubliciteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/PayerPubliciteGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -384,8 +382,8 @@ public class AjouterPubliciteController implements Initializable {
 
     public void buttonMain1(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/MainGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -402,8 +400,8 @@ public class AjouterPubliciteController implements Initializable {
 
     public void TOpayment(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/PayerPubliciteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/PayerPubliciteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/PayerPubliciteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/PayerPubliciteGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

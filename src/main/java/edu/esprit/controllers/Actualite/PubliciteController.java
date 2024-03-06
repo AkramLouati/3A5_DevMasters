@@ -1,10 +1,9 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
 import edu.esprit.entities.Publicite;
-import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +17,6 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class PubliciteController {
 
@@ -83,7 +81,7 @@ public class PubliciteController {
 
             // Redirect the user to the previous view (e.g., the list of publicites)
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherPubliciteGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherPubliciteGui.fxml"));
                 TitrePubliciteAff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Handle the exception if the redirection fails
@@ -103,7 +101,7 @@ public class PubliciteController {
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierPubliciteGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/ModifierPubliciteGui.fxml"));
             Parent root = loader.load();
             ModifierPubliciteController controller = loader.getController();
             controller.setServicePublicite(servicePublicite);
@@ -134,7 +132,7 @@ public class PubliciteController {
 
             // Redirect the user to the previous view (e.g., the list of publicites)
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherPubliciteCitoyenGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherPubliciteCitoyenGui.fxml"));
                 TitrePubliciteAff.getScene().setRoot(root);
             } catch (IOException e) {
                 // Handle the exception if the redirection fails

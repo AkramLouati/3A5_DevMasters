@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
@@ -10,14 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -65,7 +62,7 @@ public class AfficherActualiteAdminController implements Initializable {
             try {
                 for (int i = 0; i < actualiteList.size(); i++) {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("/ActualiteGui/ActualiteItem.fxml"));
                     AnchorPane anchorPane = fxmlLoader.load();
 
                     ActualiteController itemController = fxmlLoader.getController();

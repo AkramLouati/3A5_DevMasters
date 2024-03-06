@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
@@ -71,7 +71,7 @@ public class AfficherPubliciteCitoyenController implements Initializable{
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/PubliciteItemCitoyen.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/ActualiteGui/PubliciteItemCitoyen.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
 
             PubliciteController itemController = fxmlLoader.getController();
@@ -169,7 +169,7 @@ public class AfficherPubliciteCitoyenController implements Initializable{
         try {
             for (int i = 0; i < publiciteList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/PubliciteItemCitoyen.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ActualiteGui/PubliciteItemCitoyen.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 PubliciteController itemController = fxmlLoader.getController();
@@ -269,8 +269,8 @@ public class AfficherPubliciteCitoyenController implements Initializable{
 
     public void retoutActCitoyen(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteCitoyenGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
             retoutActCitoyen.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

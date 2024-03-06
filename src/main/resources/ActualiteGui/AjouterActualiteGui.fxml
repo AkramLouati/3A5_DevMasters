@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,8 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.StatistiquePubController">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Actualite.AjouterActualiteController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -188,20 +190,81 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="StatistiquePub" layoutX="200.0" layoutY="68.0" prefHeight="445.0" prefWidth="552.0" stylesheets="@Actualite.css">
-                     <children>
-                        <ImageView fitHeight="59.0" fitWidth="93.0" layoutX="233.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/click.gif" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <Button fx:id="retourtoRESSS" layoutX="698.0" layoutY="25.0" mnemonicParsing="false" onAction="#retourtoRESSS" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="retour" textFill="WHITE">
+                  <ImageView fitHeight="438.0" fitWidth="426.0" layoutX="484.0" layoutY="74.0">
+                     <image>
+                        <Image url="@assets/baladia.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="TFtitre" layoutX="207.0" layoutY="91.0" prefHeight="38.0" prefWidth="223.0" promptText="titre" stylesheets="@Actualite.css" />
+                  <TextField fx:id="TFdescription" layoutX="207.0" layoutY="162.0" prefHeight="147.0" prefWidth="223.0" promptText="Description" stylesheets="@Actualite.css" />
+                  <Button fx:id="ajouterActualiteAction" layoutX="95.0" layoutY="522.0" mnemonicParsing="false" onAction="#ajouterActualiteAction" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Ajouter" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
-                  </Button>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Label layoutX="82.0" layoutY="96.0" prefHeight="26.0" prefWidth="62.0" text="Titre:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="82.0" layoutY="175.0" prefHeight="27.0" prefWidth="105.0" text="Description:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="282.0" layoutY="522.0" mnemonicParsing="false" onAction="#navigatetoAfficherActualiteAction" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Afficher" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/visible.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Text layoutX="82.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image:" wrappingWidth="71.20000000000005">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="imgView_actualite" fitHeight="106.0" fitWidth="228.0" layoutX="205.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelA" layoutX="207.0" layoutY="339.0" prefHeight="38.0" prefWidth="222.0" style="-fx-background-color: #f0f0f0;" stylesheets="@Actualite.css">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <Button fx:id="uploadbuttonA" mnemonicParsing="false" onAction="#uploadimgA" prefHeight="26.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/imageIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </graphic></Label>
+                  <Text fill="#012545" layoutX="207.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Actualité " wrappingWidth="275.73670959472656">
+                     <font>
+                        <Font name="Arial Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="verifierTitre" layoutX="215.0" layoutY="129.0" prefHeight="18.0" prefWidth="206.0" text="vérifier ce champ" textFill="RED" visible="false" />
+                  <Label fx:id="verifierDescription" layoutX="220.0" layoutY="320.0" prefHeight="18.0" prefWidth="224.0" text="vérifier ce champ" textFill="RED" visible="false" />
+                  <Button fx:id="buttonmain2" layoutX="806.0" layoutY="544.0" mnemonicParsing="false" onAction="#buttonmain2">
+                     <graphic>
+                        <ImageView fitHeight="64.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/cancel.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
             </AnchorPane>
             </center>

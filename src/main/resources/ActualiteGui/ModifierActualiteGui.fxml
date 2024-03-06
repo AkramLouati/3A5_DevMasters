@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -17,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterPubliciteController">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Actualite.ModifierActualiteController">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -29,7 +28,29 @@
                         <DropShadow />
                     </effect>
                 </ImageView>
+                <Button mnemonicParsing="false" onAction="#BTNGestionTache" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Tache" textFill="#012545">
+                    <font>
+                        <Font name="Arial Bold" size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
                 <Button mnemonicParsing="false" onAction="#BTNGestionEvennement" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Evénement" textFill="#012545">
+                    <font>
+                        <Font name="Arial Bold" size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#BTNGestionUser" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Utilisateur" textFill="#012545">
                     <font>
                         <Font name="Arial Bold" size="20.0" />
                     </font>
@@ -76,6 +97,17 @@
                   </ImageView>
                </graphic>
                 </Button>
+                <Button mnemonicParsing="false" onAction="#BTNGestionEquipement" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Equipement" textFill="#012545">
+                    <font>
+                        <Font name="Arial Bold" size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                    </VBox.margin>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
             </children>
             <BorderPane.margin>
                 <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
@@ -91,7 +123,7 @@
                 <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
             </BorderPane.margin>
             <top>
-                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="82.0" prefWidth="972.0" style="-fx-background-color: #012545; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="82.0" prefWidth="830.0" style="-fx-background-color: #012545; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
                     <children>
                         <ToggleButton mnemonicParsing="false" onAction="#BTNToggleSidebar" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 10;">
                             <graphic>
@@ -131,7 +163,7 @@
                         </Button>
                   <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="82.0" prefWidth="630.0">
                      <children>
-                        <Label layoutX="469.0" layoutY="26.0" prefHeight="30.0" prefWidth="162.0" text="Amine yahyaoui" textFill="WHITE">
+                        <Label layoutX="470.0" layoutY="26.0" text="Amine yahyaoui" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -155,72 +187,35 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="imgView_actualite" fitHeight="106.0" fitWidth="228.0" layoutX="205.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
-                  <TextField fx:id="TFtitrepub" layoutX="200.0" layoutY="93.0" prefHeight="46.0" prefWidth="222.0" promptText="titre" stylesheets="@Actualite.css" />
-                  <Label layoutX="72.0" layoutY="97.0" prefHeight="26.0" prefWidth="62.0" text="Titre:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="74.0" layoutY="166.0" prefHeight="27.0" prefWidth="107.0" text="Description:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="TFcontactpub" layoutX="199.0" layoutY="331.0" prefHeight="45.0" prefWidth="222.0" promptText="contact" stylesheets="@Actualite.css" />
-                  <TextField fx:id="TFlocalisationpub" layoutX="199.0" layoutY="423.0" prefHeight="42.0" prefWidth="222.0" promptText="localisation" stylesheets="@Actualite.css" />
-                  <ImageView fx:id="imgView_pub" fitHeight="185.0" fitWidth="336.0" layoutX="488.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
-                  <ComboBox fx:id="offrePubCombo" layoutX="592.0" layoutY="87.0" prefHeight="42.0" prefWidth="219.0" promptText="Sélectionnez une offre" stylesheets="@Actualite.css">
-
-                  </ComboBox>
-                  <Text fill="#012545" layoutX="346.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Publicité" wrappingWidth="275.73670959472656">
-                     <font>
-                        <Font name="Arial Bold" size="25.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="TFdescriptionpub" layoutX="197.0" layoutY="162.0" prefHeight="147.0" prefWidth="223.0" promptText="Description" stylesheets="@Actualite.css" />
-                  <Label layoutX="78.0" layoutY="336.0" prefHeight="27.0" prefWidth="107.0" text="Contact:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="77.0" layoutY="431.0" prefHeight="27.0" prefWidth="115.0" text="Localisation:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="486.0" layoutY="97.0" prefHeight="27.0" prefWidth="65.0" text="Offres:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="488.0" layoutY="197.0" prefHeight="27.0" prefWidth="65.0" text="Image:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="labelPub" layoutX="586.0" layoutY="190.0" prefHeight="45.0" prefWidth="230.0" style="-fx-background-color: #f0f0f0;" stylesheets="@Actualite.css">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                     <graphic>
-                        <Button fx:id="uploadbuttonP" mnemonicParsing="false" onAction="#uploadimgP" prefHeight="26.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@assets/imageIcon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </graphic>
-                  </Label>
-                  <Button fx:id="ajouterPubliciteAction" layoutX="103.0" layoutY="521.0" mnemonicParsing="false" onAction="#ajouterPubliciteAction" prefHeight="42.0" prefWidth="129.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="     Payer" textFill="WHITE">
+                  <ImageView fitHeight="438.0" fitWidth="426.0" layoutX="484.0" layoutY="74.0">
+                     <image>
+                        <Image url="@assets/baladia.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="TFtitreModifier" layoutX="207.0" layoutY="91.0" prefHeight="38.0" prefWidth="223.0" promptText="titre" stylesheets="@Actualite.css" />
+                  <TextField fx:id="TFdescriptionModifier" layoutX="207.0" layoutY="162.0" prefHeight="147.0" prefWidth="223.0" promptText="Description" stylesheets="@Actualite.css" />
+                  <Button fx:id="modifierActualiteAction" layoutX="95.0" layoutY="522.0" mnemonicParsing="false" onAction="#modifierActualiteAction" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="Modifier" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="tolistActualite" layoutX="281.0" layoutY="521.0" mnemonicParsing="false" onAction="#tolistActualite" prefHeight="43.0" prefWidth="123.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Afficher" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/edit1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Label layoutX="82.0" layoutY="96.0" prefHeight="26.0" prefWidth="62.0" text="Titre:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="82.0" layoutY="175.0" prefHeight="27.0" prefWidth="105.0" text="Description:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="282.0" layoutY="522.0" mnemonicParsing="false" onAction="#navigatetoAfficherActualiteModifierAction" prefHeight="43.0" prefWidth="162.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="   Afficher" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font>
@@ -230,27 +225,33 @@
                               <Image url="@assets/visible.png" />
                            </image>
                         </ImageView>
-                     </graphic>
-                  </Button>
-                  <Label fx:id="numeroexiste" layoutX="205.0" layoutY="385.0" prefHeight="18.0" prefWidth="207.0" text="le numéro déjà existe" textFill="RED" visible="false" />
-                  <Label fx:id="descriptionAlerte" layoutX="207.0" layoutY="139.0" prefHeight="18.0" prefWidth="205.0" text="il faut que longueur supérieur à 15 " textFill="RED" visible="false" />
-                  <Label fx:id="titreAlerte" layoutX="206.0" layoutY="78.0" prefHeight="18.0" prefWidth="205.0" text="il faut que longueur supérieur à 6 " textFill="RED" visible="false" />
-                  <Label fx:id="localisationAlerte" layoutX="206.0" layoutY="403.0" prefHeight="18.0" prefWidth="205.0" text="il faut que longueur supérieur à 3 " textFill="RED" visible="false" />
-                  <Label fx:id="contactAlerte" layoutX="217.0" layoutY="314.0" prefHeight="18.0" prefWidth="126.0" text="8 numéro !!!" textFill="RED" visible="false" />
-                  <Button fx:id="buttonMain1" layoutX="769.0" layoutY="543.0" mnemonicParsing="false" onAction="#buttonMain1">
+                     </graphic></Button>
+                  <Text layoutX="82.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image:" wrappingWidth="71.20000000000005">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="imgView_actualiteModifier" fitHeight="106.0" fitWidth="228.0" layoutX="205.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelAModifier" layoutX="207.0" layoutY="339.0" prefHeight="38.0" prefWidth="222.0" style="-fx-background-color: #f0f0f0;" stylesheets="@Actualite.css">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
                      <graphic>
-                        <ImageView fitHeight="66.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/cancel.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <ImageView fitHeight="22.0" fitWidth="35.0" layoutX="121.0" layoutY="532.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/debit-card.png" />
-                     </image>
-                  </ImageView>
+                        <Button fx:id="uploadbuttonAModifier" mnemonicParsing="false" onAction="#uploadimgAModifer" prefHeight="26.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/imageIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </graphic></Label>
+                  <Text fill="#012545" layoutX="207.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Actualité " wrappingWidth="275.73670959472656">
+                     <font>
+                        <Font name="Arial Bold" size="25.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
             </center>

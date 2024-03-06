@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
@@ -253,8 +253,8 @@ public class ModifierActualiteController implements Initializable {
 
     public void navigatetoAfficherActualiteModifierAction(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
             TFtitreModifier.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

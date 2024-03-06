@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.Actualite;
 
 import com.itextpdf.text.*;
 import com.stripe.Stripe;
@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 
@@ -152,7 +151,7 @@ public class PayerPubliciteController implements Initializable {
         }
 
         this.selectedOffer = offrePubCombo1.getValue();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPubliciteGui.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
         Parent root = loader.load();
 
 // Access the AjouterPubliciteController instance
@@ -308,8 +307,8 @@ public class PayerPubliciteController implements Initializable {
     @FXML
     public void toAdd(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AjouterPubliciteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterPubliciteGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
             numCarte.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -356,7 +355,7 @@ public class PayerPubliciteController implements Initializable {
                 document.open();
 
                 // Add logo
-                Image logoImage = new Image(getClass().getResource("/assets/BaladityTrans.png").toExternalForm());
+                Image logoImage = new Image(getClass().getResource("/ActualiteGui/assets/BaladityTrans.png").toExternalForm());
                 com.itextpdf.text.Image itextLogoImage = com.itextpdf.text.Image.getInstance(logoImage.getUrl());
                 itextLogoImage.setAlignment(com.itextpdf.text.Image.ALIGN_LEFT);
                 itextLogoImage.scaleAbsolute(100, 100);
