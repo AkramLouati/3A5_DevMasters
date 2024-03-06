@@ -51,12 +51,22 @@ public class AfficherAvisGui implements Initializable {
     private ScrollPane scroll;
     Muni muni = new Muni(2);
     EndUser user = new EndUser(5, muni);
-    Equipement equipement;
     private ServiceAvis sa = new ServiceAvis();
-    Set<Avis> avisSet = sa.getAll();
-    List<Avis> avisList = new ArrayList<>(avisSet);
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private ServiceEquipement serviceEquipement;
+    private Equipement equipement;
+    Set<Avis> avisSet;
+    List<Avis> avisList;
+
+    public void setData(Equipement equipement) {
+        this.equipement = equipement;
+        avisSet = sa.getAvisByEquipement(equipement);
+        avisList = new ArrayList<>(avisSet);
+        initializeAvisGrid(); // Call the method to initialize the grid with data
+    }
+    public void setServiceEquipement(ServiceEquipement serviceEquipement) {
+        this.serviceEquipement = serviceEquipement;
+    }
+    private void initializeAvisGrid() {
         int column = 0;
         int row = 1;
         try {
@@ -176,5 +186,9 @@ public class AfficherAvisGui implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

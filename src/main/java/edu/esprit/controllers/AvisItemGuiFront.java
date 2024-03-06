@@ -109,6 +109,5 @@ public class AvisItemGuiFront {
         commentaireequipement.setText(avis.getCommentaire_avis());
         noteequipement.setRating(avis.getNote_avis());
         dateequipement.setText(String.valueOf(avis.getDate_avis()));
-        Equipement equipement = avis.getEquipement();
     }
 }

@@ -1,5 +1,5 @@
 package edu.esprit.controllers;
-
+import edu.esprit.utils.OneSignalNotificationSender;
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
 import javafx.event.ActionEvent;
@@ -43,25 +43,52 @@ public class EquipementItemGuiFront {
 
     @FXML
     private Button useButton;
-
     @FXML
-    void avisFEquipementAction(ActionEvent event) {
-        try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherAvisGuiFront.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherAvisGuiFront.fxml"));
-            avisFButton.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
+    private Button rendreButton;
 
     @FXML
     void utiliserEquipementAction(ActionEvent event) {
-
+        // Vérifier si la quantité d'équipement est supérieure à zéro
+        if (equipement.getQuantite_eq() > 0) {
+            // Réduire la quantité d'équipement disponible
+            int nouvelleQuantite = equipement.getQuantite_eq() - 1;
+            // Mettre à jour la quantité dans la base de données
+            equipement.setQuantite_eq(nouvelleQuantite);
+            serviceEquipement.modifier(equipement); // Mettre à jour la quantité dans la base de données
+            // Mettre à jour l'affichage de la quantité
+            quantiteitemTFF.setText(String.valueOf(nouvelleQuantite));
+            // Vérifier si la quantité est devenue zéro
+            if (nouvelleQuantite == 0) {
+                // Envoyer une notification à l'administrateur
+                OneSignalNotificationSender.envoyerNotificationAdmin("Stock en rupture pour l'équipement : " + equipement.getNom_eq());
+                // Afficher une notification à l'administrateur
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Stock en rupture pour l'équipement : " + equipement.getNom_eq());
+                alert.setTitle("Stock épuisé");
+                alert.show();
+            }
+        } else {
+            // Afficher une notification si la quantité est déjà nulle
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Stock déjà épuisé pour l'équipement : " + equipement.getNom_eq());
+            alert.setTitle("Stock épuisé");
+            alert.show();
+        }
+    }
+    @FXML
+    void rendreEquipementAction(ActionEvent event) {
+        // Incrémenter la quantité d'équipement disponible
+        int nouvelleQuantite = equipement.getQuantite_eq() + 1;
+        // Mettre à jour la quantité dans la base de données
+        equipement.setQuantite_eq(nouvelleQuantite);
+        serviceEquipement.modifier(equipement); // Mettre à jour la quantité dans la base de données
+        // Mettre à jour l'affichage de la quantité
+        quantiteitemTFF.setText(String.valueOf(nouvelleQuantite));
+        // Afficher une notification à l'administrateur
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("L'équipement " + equipement.getNom_eq() + " a été rendu avec succès.");
+        alert.setTitle("Équipement rendu");
+        alert.show();
     }
     private Equipement equipement;
     ServiceEquipement serviceEquipement = new ServiceEquipement();
@@ -90,4 +117,31 @@ public class EquipementItemGuiFront {
             }
         }
     }
+    @FXML
+    void avisFEquipementAction(ActionEvent event) {
+        if (equipement != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherAvisGuiFront.fxml"));
+                Parent root = loader.load();
+                AfficherAvisGuiFront controller = loader.getController();
+                controller.setServiceEquipement(serviceEquipement);
+                controller.setData(equipement); // Set the data before loading the controller
+                nomitemTFF.getScene().setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Sorry");
+                alert.setTitle("Error");
+                alert.show();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("L'objet Equipement passé en argument est null.");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
+
 }
+

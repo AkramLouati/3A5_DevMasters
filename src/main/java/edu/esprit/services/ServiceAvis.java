@@ -6,6 +6,7 @@ import edu.esprit.entities.Muni;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -140,6 +141,11 @@ public class ServiceAvis implements IService<Avis> {
         return avis;
     }
     public Set<Avis> getAvisByEquipement(Equipement equipement) {
+        if (equipement == null) {
+            System.out.println("L'objet Equipement passé en argument est null.");
+            return Collections.emptySet(); // Return an empty set if the Equipement object is null
+        }
+
         Set<Avis> equipementAvis = new HashSet<>();
         String req = "SELECT * FROM `Avis` WHERE `id_equipement`=? ORDER BY date_avis ASC";
         try {
@@ -150,7 +156,6 @@ public class ServiceAvis implements IService<Avis> {
                 int id_avis = rs.getInt("id_avis");
                 int id_muni = rs.getInt("id_muni");
                 int id_user = rs.getInt("id_user");
-                int id_equipement = rs.getInt("id_equipement");
                 int note_avis = rs.getInt("note_avis");
                 String commentaire_avis = rs.getString("commentaire_avis");
                 java.util.Date date_avis = rs.getDate("date_avis");
@@ -166,6 +171,8 @@ public class ServiceAvis implements IService<Avis> {
         }
         return equipementAvis;
     }
+
+
    /*public Set<Avis> getAvisByEquipement(Equipement equipement) {
        Set<Avis> equipementAvis = new HashSet<>();
        if (equipement != null) { // Vérifier si l'objet Equipement est non null

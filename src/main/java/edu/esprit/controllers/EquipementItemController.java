@@ -115,18 +115,27 @@ public class EquipementItemController {
     }
     @FXML
     void avisEquipementAction(ActionEvent event) {
-        try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherAvisGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherAvisGui.fxml"));
-            editButton.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
+        if (equipement != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherAvisGui.fxml"));
+                Parent root = loader.load();
+                AfficherAvisGui controller = loader.getController();
+                controller.setServiceEquipement(serviceEquipement);
+                controller.setData(equipement); // Set the data before loading the controller
+                editButton.getScene().setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Sorry");
+                alert.setTitle("Error");
+                alert.show();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("L'objet Equipement passé en argument est null.");
             alert.setTitle("Error");
             alert.show();
         }
-
     }
     private Equipement equipement;
 
