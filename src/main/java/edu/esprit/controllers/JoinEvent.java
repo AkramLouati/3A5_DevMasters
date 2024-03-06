@@ -4,14 +4,15 @@ import edu.esprit.entities.Evenement;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.io.File;
 
 public class JoinEvent {
@@ -22,10 +23,6 @@ public class JoinEvent {
     private BorderPane SecondBorderPane;
     @FXML
     private VBox MainLeftSidebar;
-    @FXML
-    private TextField nomEvent;
-    @FXML
-    private TextField DateDeb;
 
     private boolean isSidebarVisible = true;
 
@@ -96,6 +93,8 @@ public class JoinEvent {
 
     @FXML
     private ImageView FFFF;
+    @FXML
+    private Button backButtonn;
 
     // Method to set event details
     public void setData(Evenement evenement) {
@@ -111,6 +110,21 @@ public class JoinEvent {
             FFFF.setImage(new javafx.scene.image.Image(new File(imagePath).toURI().toString()));
         }
     }
+    @FXML
+    void retournerOnClickk(ActionEvent event) {
+        try {
+            // Obtenir la scène actuelle à partir du bouton Retourner
+            Stage stage = (Stage) backButtonn.getScene().getWindow();
+
+            // Fermer la fenêtre du pop-up
+            stage.close();
+        } catch (Exception e) {
+            // Gérer les exceptions
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 }

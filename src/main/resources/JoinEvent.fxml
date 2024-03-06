@@ -177,7 +177,7 @@
                         <Font name="System Bold" size="27.0" />
                      </font>
                   </Text>
-                  <Text fx:id="NomF" layoutX="687.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evnement" wrappingWidth="150.01252365112305">
+                  <Text fx:id="NomF" layoutX="23.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evnement" wrappingWidth="150.01252365112305">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
@@ -198,7 +198,7 @@
                         </LinearGradient>
                      </fill>
                   </Text>
-                  <Text fx:id="DateDebF" layoutX="687.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut " wrappingWidth="108.4124870300293">
+                  <Text fx:id="DateDebF" layoutX="26.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut " wrappingWidth="108.4124870300293">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
@@ -224,7 +224,7 @@
                         </LinearGradient>
                      </fill>
                   </Text>
-                  <Text fx:id="DateFinF" layoutX="687.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" wrappingWidth="102.0124626159668">
+                  <Text fx:id="DateFinF" layoutX="29.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" wrappingWidth="102.0124626159668">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
@@ -245,7 +245,7 @@
                         </LinearGradient>
                      </fill>
                   </Text>
-                  <Text layoutX="390.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="184.4125480651855">
+                  <Text layoutX="496.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement" wrappingWidth="215.61256027221674">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -266,7 +266,7 @@
                         </LinearGradient>
                      </fill>
                   </Text>
-                  <Text fx:id="CapMaxF" layoutX="687.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite max" wrappingWidth="130.8126335144043">
+                  <Text fx:id="CapMaxF" layoutX="23.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacite max" wrappingWidth="130.8126335144043">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
@@ -287,7 +287,7 @@
                         </LinearGradient>
                      </fill>
                   </Text>
-                  <Text fx:id="CategorieF" layoutX="690.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="102.0124626159668">
+                  <Text fx:id="CategorieF" layoutX="29.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categorie" wrappingWidth="147.61249923706055">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
@@ -308,8 +308,19 @@
                         </LinearGradient>
                      </fill>
                   </Text>
-                  <ImageView fitHeight="294.0" fitWidth="367.0" layoutX="282.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="FFFF" fitHeight="294.0" fitWidth="367.0" layoutX="291.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="FFFF" fitHeight="344.0" fitWidth="532.0" layoutX="310.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="backButtonn" layoutX="413.0" layoutY="503.0" mnemonicParsing="false" onAction="#retournerOnClickk" prefHeight="41.0" prefWidth="59.0" styleClass="transparent" stylesheets="@css/style.css" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="43.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/left-arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children></AnchorPane>
             </center>
             <effect>

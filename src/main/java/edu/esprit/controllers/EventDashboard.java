@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -20,19 +22,26 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class EventDashboard implements Initializable {
     @FXML
     private VBox eventsLayout;
     private Scene currentScene;
+    @FXML
+    private TextField searchEvent;
+    private List<Evenement> evenementList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Evenement> evenements = new ArrayList<>(getEvenements());
-        for (Evenement evenement : evenements) {
+        evenementList = new ArrayList<>(getEvenements());
+
+        // Sort the evenementList alphabetically by ignoring case
+        Comparator<Evenement> comparator = Comparator.comparing(e -> e.getNomEvent().toLowerCase());
+        evenementList.sort(comparator);
+
+        for (Evenement evenement : evenementList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL location = getClass().getResource("/EventItem.fxml");
             fxmlLoader.setLocation(location);
@@ -150,22 +159,17 @@ public class EventDashboard implements Initializable {
     @FXML
     void PropositionsOnClick(ActionEvent event) {
         try {
-            // Load the FXML file for the VoteList interface
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/VoteList.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage
             Stage stage = new Stage();
             stage.setTitle("Vote List");
             stage.setScene(new Scene(root));
 
-            // Display the VoteList window
             stage.show();
 
-            // Close the current window
             closeCurrentWindow();
         } catch (IOException e) {
-            // Handle exceptions related to loading the interface
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Navigation Error");
             alert.setContentText("An error occurred while navigating to the VoteList interface.");
@@ -177,6 +181,7 @@ public class EventDashboard implements Initializable {
         Stage stage = (Stage) eventsLayout.getScene().getWindow();
         stage.close();
     }
+
 
     public BorderPane firstborderpane;
     @FXML
@@ -192,22 +197,16 @@ public class EventDashboard implements Initializable {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
         double sidebarWidth = MainLeftSidebar.getWidth();
         if (isSidebarVisible) {
-            // Hide sidebar
             sideBarTransition.setByX(-sidebarWidth);
             isSidebarVisible = false;
-            // Adjust the width of SecondBorderPane
             SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
-            // Translate SecondBorderPane to the left to take the extra space
             TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
             borderPaneTransition.setByX(-sidebarWidth);
             borderPaneTransition.play();
         } else {
-            // Show sidebar
             sideBarTransition.setByX(sidebarWidth);
             isSidebarVisible = true;
-            // Adjust the width of SecondBorderPane
             SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
-            // Reset the translation of SecondBorderPane to 0
             TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
             borderPaneTransition.setByX(sidebarWidth);
             borderPaneTransition.play();
@@ -215,6 +214,35 @@ public class EventDashboard implements Initializable {
 
         sideBarTransition.play();
     }
+    public void RechercherEvent(String searchText, List<Evenement> evenementList ) {
+        List<Evenement> filteredList = evenementList.stream()
+                .filter(evenement -> evenement.getNomEvent().toLowerCase().startsWith(searchText.toLowerCase()))
+                .collect(Collectors.toList());
+        eventsLayout.getChildren().clear();
+
+        for (Evenement evenement : filteredList) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL location = getClass().getResource("/EventItem.fxml");
+            fxmlLoader.setLocation(location);
+
+            try {
+                GridPane gridPane = fxmlLoader.load();
+                EventItem eventItemController = fxmlLoader.getController();
+                eventItemController.setData(evenement);
+                eventItemController.setEventDashboard(this);
+                eventsLayout.getChildren().add(gridPane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    void searchEventTextChanged(KeyEvent event) {
+        String searchText = searchEvent.getText();
+        RechercherEvent(searchText, getEvenements());
+    }
+
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
@@ -239,6 +267,5 @@ public class EventDashboard implements Initializable {
     }
 
 
+
 }
-
-
