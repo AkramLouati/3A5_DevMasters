@@ -74,7 +74,7 @@ public class ForgetPwd implements Initializable {
 
     @FXML
     void reEnvoyerOTP(ActionEvent event) throws Exception {
-        String otp = generateOTP();
+        otp = generateOTP();
         String content = String.format("""
                 Dear reader,
                 

@@ -72,6 +72,7 @@ public class Login {
                 EndUser currentUser = serviceUser.authenticateUser(email, password);
                 if (currentUser.getType().equals("Admin")) {
                     try {
+                        setCurrentUser(currentUser.getId());
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserGui.fxml"));
                         Parent root = loader.load();
 
@@ -95,13 +96,15 @@ public class Login {
                 }
                 else {
                     try {
+                        System.out.println(currentUser.getId());
+                        setCurrentUser(currentUser.getId());
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
                         Parent root = loader.load();
 
                         // Get the controller instance
-                        UserAccount userAccountController = loader.getController();
+//                        UserAccount userAccountController = loader.getController();
                         // Pass the current user to the UserAccount controller
-                        userAccountController.setCurrentUser(currentUser);
+//                        userAccountController.setCurrentUser(currentUser);
 
                         // Continue with your navigation code
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
