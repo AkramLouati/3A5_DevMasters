@@ -1,6 +1,6 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
 import java.sql.Connection;
@@ -10,17 +10,17 @@ import java.sql.SQLException;
 import java.util.Set;
 
 
-public class ServiceMuni implements IService<Muni> {
+public class ServiceMuni implements IService<Municipality> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(Muni muni) {
+    public void ajouter(Municipality municipality) {
 
     }
 
     @Override
-    public void modifier(Muni muni) {
+    public void modifier(Municipality municipality) {
 
     }
 
@@ -47,19 +47,19 @@ public class ServiceMuni implements IService<Muni> {
 
 
     @Override
-    public Set<Muni> getAll() {
+    public Set<Municipality> getAll() {
         return null;
     }
 
     @Override
-    public Muni getOneByID(int id) {
+    public Municipality getOneByID(int id) {
         String req = "SELECT * FROM `muni` WHERE `id_muni` = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new Muni(id); // Créer une instance Muni avec seulement l'ID
+                return new Municipality(id); // Créer une instance Muni avec seulement l'ID
             } else {
                 System.out.println("Muni with ID " + id + " not found.");
                 return null;

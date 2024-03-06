@@ -25,18 +25,25 @@ import javafx.util.Duration;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 public class AfficherTacheController implements Initializable {
-
+    private final ServiceTache sr = new ServiceTache();
     public BorderPane firstborderpane;
     /*EndUser user = new EndUser(12);*/
     private ServiceCategorieT serviceCategorieT;
@@ -55,7 +62,6 @@ public class AfficherTacheController implements Initializable {
     private ScrollPane scroll;
     /*private Tache taches = new Tache();*/
     private Stage stage; // Define a stage variable
-    private final ServiceTache sr = new ServiceTache();
 
     /*public void setStage(Stage stage) {
         this.stage = stage;
@@ -170,35 +176,95 @@ public class AfficherTacheController implements Initializable {
         alert.showAndWait();
     }
 
-    public void PDFTacheLabel(ActionEvent actionEvent) {
+
+    @FXML
+    void CategorieLabel(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCategorie.fxml"));
+            Parent root = loader.load();
+            AfficherCategorieController controller = loader.getController();
+
+            // Create a new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void MeilleurEmpTLabel(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChartContainer.fxml"));
+            Parent root = loader.load();
+            ChartContainerController controller = loader.getController(); // Get the controller instance
+
+            // Call the displayChart method
+            controller.displayChart();
+
+            // Create a new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void PDFTacheLabel(ActionEvent actionEvent) {
         // Get all tasks from the service
         Set<Tache> allTasks = sr.getAll();
 
         try {
             // Create a new PDF document
             PDDocument document = new PDDocument();
-            PDPage page = new PDPage();
+            PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
+
+            // Load the image
+            PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/img/Baladia.png", document);
 
             // Create a content stream for writing to the PDF
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Set font and position for writing
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.setFont(PDType1Font.COURIER_BOLD, 12);
 
             // Set text color
             contentStream.setNonStrokingColor(Color.BLACK);
 
+            // Add image to the top-left corner
+            // Add image to the top-left corner
+            float imageWidth = (float) pdImage.getWidth() / 4;
+            float imageHeight = (float) pdImage.getHeight() / 4;
+            // Add image closer to the top-left corner
+            float startX = 25; // Adjust as needed
+            float startY = page.getMediaBox().getHeight() - 25 - imageHeight; // Adjust as needed
+            contentStream.drawImage(pdImage, startX, startY, imageWidth, imageHeight);
+            // Write column headers
             // Starting position for writing
-            float yPosition = page.getMediaBox().getHeight() - 50; // Start from the top of the page
+            float yPosition = page.getMediaBox().getHeight() - imageHeight - 50; // Start below the image
             float margin = 50; // Left margin
+            contentStream.beginText();
+            contentStream.newLineAtOffset(margin, startY - 25); // Start below the image
+            contentStream.showText("Titre");
+            contentStream.newLineAtOffset(200, 0); // Move to the next column
+            contentStream.showText("Etat");
+            contentStream.endText();
+
+            // Move to the next line
+            yPosition -= 20;
 
             // Write tasks to the PDF
             for (Tache task : allTasks) {
                 // Write the task details
                 contentStream.beginText();
                 contentStream.newLineAtOffset(margin, yPosition);
-                contentStream.showText("Title: " + task.getTitre_T() + ", Etat Tache: " + task.getEtat_T());
+                contentStream.showText(task.getTitre_T());
+                contentStream.newLineAtOffset(200, 0); // Move to the next column
+                contentStream.showText(task.getEtat_T().toString());
                 contentStream.endText();
 
                 // Move to the next line for the next task
@@ -207,9 +273,15 @@ public class AfficherTacheController implements Initializable {
 
             contentStream.close();
 
+            // Default file name based on today's date and time
+            String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String defaultFileName = "tasks_" + timeStamp + ".pdf";
+
             // Prompt the user to choose where to save the PDF file
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save PDF File");
+            fileChooser.setInitialDirectory(new File("src/main/resources"));
+            fileChooser.setInitialFileName(defaultFileName);
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
                     new FileChooser.ExtensionFilter("All Files", "*.*"));
@@ -231,24 +303,68 @@ public class AfficherTacheController implements Initializable {
     }
 
     @FXML
-    void CategorieLabel(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCategorie.fxml"));
-            Parent root = loader.load();
-            AfficherCategorieController controller = loader.getController();
+    void EXCELTacheLabel(ActionEvent event) {
+        // Get all tasks from the service
+        Set<Tache> allTasks = sr.getAll();
 
-            // Create a new stage
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+        try {
+            // Create a new Excel workbook
+            Workbook workbook = new XSSFWorkbook();
+            CreationHelper createHelper = workbook.getCreationHelper();
+            Sheet sheet = workbook.createSheet("Tasks");
+
+            // Create a header row
+            Row headerRow = sheet.createRow(0);
+            String[] columns = {"Titre", "Etat"};
+            for (int i = 0; i < columns.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(columns[i]);
+            }
+
+            // Populate data rows
+            int rowNum = 1;
+            for (Tache task : allTasks) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(task.getTitre_T());
+                row.createCell(1).setCellValue(task.getEtat_T().toString());
+            }
+
+            // Autosize columns
+            for (int i = 0; i < columns.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            // Default file name based on today's date and time
+            String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String defaultFileName = "tasks_" + timeStamp + ".xlsx";
+
+            // Prompt the user to choose where to save the Excel file
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Excel File");
+            fileChooser.setInitialDirectory(new File("src/main/resources"));
+            fileChooser.setInitialFileName(defaultFileName);
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+            File selectedFile = fileChooser.showSaveDialog(stage);
+
+            if (selectedFile != null) {
+                // Write the workbook to the file
+                FileOutputStream fileOut = new FileOutputStream(selectedFile);
+                workbook.write(fileOut);
+                fileOut.close();
+                workbook.close();
+
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Tasks exported to Excel successfully!");
+            } else {
+                showAlert(Alert.AlertType.WARNING, "Warning", "No file selected. Excel export canceled.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to export tasks to Excel");
         }
     }
 
-    @FXML
-    public void MeilleurEmpTLabel(ActionEvent actionEvent) {
-    }
 
     @FXML
     void searchTacheLabel(ActionEvent actionEvent) {
