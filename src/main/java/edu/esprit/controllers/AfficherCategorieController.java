@@ -10,10 +10,9 @@ import javafx.scene.control.TextInputDialog;
 import java.util.Optional;
 
 public class AfficherCategorieController {
+    private final ServiceCategorieT serviceCategorieT;
     @FXML
     private ListView<CategorieT> categoryListView;
-
-    private ServiceCategorieT serviceCategorieT;
 
     public AfficherCategorieController() {
         serviceCategorieT = new ServiceCategorieT();
@@ -31,7 +30,7 @@ public class AfficherCategorieController {
     @FXML
     private void addCategory() {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add Category");
+        dialog.setTitle("Ajouter Category");
         dialog.setHeaderText(null);
         dialog.setContentText("Entrer Nom Categorie:");
 
@@ -49,7 +48,7 @@ public class AfficherCategorieController {
         CategorieT selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         if (selectedCategory != null) {
             TextInputDialog dialog = new TextInputDialog(selectedCategory.getNom_Cat());
-            dialog.setTitle("Update Categorie");
+            dialog.setTitle("Mise A Jour Categorie");
             dialog.setHeaderText(null);
             dialog.setContentText("Nom Categoriue:");
 
@@ -60,7 +59,7 @@ public class AfficherCategorieController {
                 refreshListView();
             });
         } else {
-            showAlert("Aucune Selection!", "Select Categorie.");
+            showAlert("Aucune Selection!", "Selectionner Categorie.");
         }
     }
 
@@ -71,7 +70,7 @@ public class AfficherCategorieController {
             serviceCategorieT.supprimer(selectedCategory.getId_Cat());
             categoryListView.getItems().remove(selectedCategory);
         } else {
-            showAlert("Aucune Selection!", "Select Categorie.");
+            showAlert("Aucune Selection!", "Selectionner Categorie.");
         }
     }
 

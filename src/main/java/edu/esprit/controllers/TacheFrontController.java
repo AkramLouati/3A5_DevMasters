@@ -16,7 +16,6 @@ import java.io.IOException;
 
 public class TacheFrontController {
     ServiceTache serviceTache = new ServiceTache();
-
     @FXML
     private Text TF_Titre_Tache;
     private Tache taches;
@@ -57,6 +56,4 @@ public class TacheFrontController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-
 }

@@ -14,9 +14,6 @@ public class ModifierCommentaireTacheController {
 
     @FXML
     private TextArea commentField;
-
-    private Tache tache;
-    private EndUser user;
     private CommentaireTache commentaireTache;
     private ServiceCommentaireTache serviceCommentaireTache;
 
@@ -30,8 +27,6 @@ public class ModifierCommentaireTacheController {
     }
 
     public void setUserAndTaskIds(Tache tache, EndUser user) {
-        this.tache = tache;
-        this.user = user;
     }
 
     @FXML
@@ -40,22 +35,17 @@ public class ModifierCommentaireTacheController {
             System.err.println("Service CommentaireTache not set.");
             return;
         }
-
         String newCommentText = commentField.getText();
-
         // Update the comment text
         commentaireTache.setText_C(newCommentText);
-
         // Modify the comment using the service
         serviceCommentaireTache.modifier(commentaireTache);
-
         // Show confirmation message
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Modification réussie");
         alert.setHeaderText(null);
         alert.setContentText("Le commentaire a été modifié avec succès.");
         alert.showAndWait();
-
         // Close the window
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();

@@ -11,17 +11,14 @@ import java.util.Set;
 
 
 public class ServiceMuni implements IService<Municipality> {
-
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public void ajouter(Municipality municipality) {
-
     }
 
     @Override
     public void modifier(Municipality municipality) {
-
     }
 
     @Override
@@ -44,7 +41,6 @@ public class ServiceMuni implements IService<Municipality> {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public Set<Municipality> getAll() {

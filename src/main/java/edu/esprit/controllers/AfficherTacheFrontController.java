@@ -92,7 +92,7 @@ public class AfficherTacheFrontController implements Initializable {
             doneCount.setText("DONE | " + doneCounter);
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load tasks.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Erreur Chargement Des Taches.");
         }
     }
 
@@ -110,7 +110,6 @@ public class AfficherTacheFrontController implements Initializable {
             }
             event.consume();
         });
-
         gridPane.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
@@ -133,58 +132,11 @@ public class AfficherTacheFrontController implements Initializable {
         });
     }
 
-    //    @FXML
-//    void searchTacheLabel(ActionEvent event) {
-//        String query = searchTacheLabel.getText().trim().toLowerCase(); // Get search query
-//        Set<Tache> tacheList = ST.getAll();
-//        int todoCounter = 0;
-//        int doingCounter = 0;
-//        int doneCounter = 0;
-//
-//        try {
-//            TO_DO.getChildren().clear(); // Clear existing rows
-//            DOING.getChildren().clear();
-//            DONE.getChildren().clear();
-//
-//            for (Tache tache : tacheList) {
-//                // Check if task label contains the search query
-//                if (tache.getTitre_T().toLowerCase().contains(query)) {
-//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TacheFront.fxml"));
-//                    AnchorPane anchorPane = fxmlLoader.load();
-//                    TacheFrontController itemController = fxmlLoader.getController();
-//                    itemController.setData(tache);
-//
-//                    switch (tache.getEtat_T()) {
-//                        case TO_DO:
-//                            TO_DO.addRow(TO_DO.getRowCount(), anchorPane);
-//                            todoCounter++;
-//                            break;
-//                        case DOING:
-//                            DOING.addRow(DOING.getRowCount(), anchorPane);
-//                            doingCounter++;
-//                            break;
-//                        case DONE:
-//                            DONE.addRow(DONE.getRowCount(), anchorPane);
-//                            doneCounter++;
-//                            break;
-//                    }
-//                }
-//            }
-//            // Update counts
-//            todoCount.setText("TO DO | " + todoCounter);
-//            doingCount.setText("DOING | " + doingCounter);
-//            doneCount.setText("DONE | " + doneCounter);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load tasks.");
-//        }
-//    }
     @FXML
     void searchTacheLabel(ActionEvent event) {
         String query = searchTacheLabel.getText().trim().toLowerCase(); // Get search query
         Set<Tache> tacheList = ST.getAll();
         int[] counters = new int[EtatTache.values().length];
-
         try {
             TO_DO.getChildren().clear(); // Clear existing rows
             DOING.getChildren().clear();
@@ -199,20 +151,12 @@ public class AfficherTacheFrontController implements Initializable {
                             TacheFrontController itemController = fxmlLoader.getController();
                             itemController.setData(tache);
 
-                            GridPane targetGrid;
-                            switch (tache.getEtat_T()) {
-                                case TO_DO:
-                                    targetGrid = TO_DO;
-                                    break;
-                                case DOING:
-                                    targetGrid = DOING;
-                                    break;
-                                case DONE:
-                                    targetGrid = DONE;
-                                    break;
-                                default:
-                                    targetGrid = null;
-                            }
+                            GridPane targetGrid = switch (tache.getEtat_T()) {
+                                case TO_DO -> TO_DO;
+                                case DOING -> DOING;
+                                case DONE -> DONE;
+                                default -> null;
+                            };
 
                             if (targetGrid != null) {
                                 targetGrid.addRow(targetGrid.getRowCount(), anchorPane);
@@ -220,10 +164,9 @@ public class AfficherTacheFrontController implements Initializable {
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
-                            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load tasks.");
+                            showAlert(Alert.AlertType.ERROR, "Error", "Erreur Chargement Des Taches.");
                         }
                     });
-
             // Update counts
             for (EtatTache etatTache : EtatTache.values()) {
                 int index = etatTache.ordinal();
@@ -244,5 +187,4 @@ public class AfficherTacheFrontController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load tasks.");
         }
     }
-
 }

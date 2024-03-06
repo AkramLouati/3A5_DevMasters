@@ -11,7 +11,6 @@ public class CommentaireTache implements Serializable {
     private Date date_C;
     private String text_C;
 
-
     public CommentaireTache() {
     }
 
@@ -34,7 +33,6 @@ public class CommentaireTache implements Serializable {
         this.date_C = date_C;
         this.text_C = text_C;
     }
-
 
     public int getId_Cmnt() {
         return id_Cmnt;

@@ -54,8 +54,6 @@ public class Tache implements Serializable {
     public Tache(String str) {
     }
 
-    // Static method to create a Tache object from a string
-// Static method to create a Tache object from a string
     public static Tache fromString(String str) {
         return new Tache(str);
     }

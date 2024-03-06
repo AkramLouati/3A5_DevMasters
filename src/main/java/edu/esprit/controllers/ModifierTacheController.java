@@ -39,11 +39,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class ModifierTacheController {
+    private final ServiceCategorieT serviceCategorieT;
+    private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
     ServiceUser serviceUser = new ServiceUser();
-    EndUser user01 = serviceUser.getOneByID(14);
+    EndUser user01 = serviceUser.getOneByID(16);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -52,7 +55,6 @@ public class ModifierTacheController {
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
     private ValidationSupport validationSupport;
-
     @FXML
     private ImageView PieceJointeImage;
     @FXML
@@ -63,8 +65,6 @@ public class ModifierTacheController {
     private RadioButton toDoRadio, doneRadio, doingRadio;
     @FXML
     private DatePicker startDatePicker, endDatePicker;
-    private ServiceCategorieT serviceCategorieT;
-    private ServiceTache serviceTache;
     private int selectedTaskId;
     private Stage stage;
 
@@ -102,41 +102,16 @@ public class ModifierTacheController {
             borderPaneTransition.setByX(sidebarWidth);
             borderPaneTransition.play();
         }
-
         sideBarTransition.play();
-    }
-
-    public void BTNGestionEvennement(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionUser(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionRec(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionAct(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionEquipement(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionTache(ActionEvent actionEvent) {
-
     }
 
     @FXML
     void browseForImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir Fichier");
-
         // Set initial directory
         String initialDirectory = "src/main/resources/img";
         File initialDirFile = new File(initialDirectory);
-
         // Check if the initial directory is valid
         if (initialDirFile.exists() && initialDirFile.isDirectory()) {
             fileChooser.setInitialDirectory(initialDirFile);
@@ -145,7 +120,6 @@ public class ModifierTacheController {
             // You might want to handle this error condition appropriately
             return;
         }
-
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             try {
@@ -170,20 +144,16 @@ public class ModifierTacheController {
                 Image image = new Image(pieceJointeUrl);
                 PieceJointeImage.setImage(image);
             } else {
-                // Handle case where piece jointe URL is empty or null
             }
             descriptionField.setText(tache.getDesc_T());
             // Convert java.sql.Date to java.util.Date
             Date startDateUtil = new Date(tache.getDate_DT().getTime());
             Date endDateUtil = new Date(tache.getDate_FT().getTime());
-
             // Convert java.util.Date to LocalDate
             LocalDate startDate = startDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate endDate = endDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
             startDatePicker.setValue(startDate);
             endDatePicker.setValue(endDate);
-
             switch (tache.getEtat_T()) {
                 case TO_DO:
                     toDoRadio.setSelected(true);
@@ -195,7 +165,6 @@ public class ModifierTacheController {
                     doneRadio.setSelected(true);
                     break;
             }
-
             // Get the category name associated with the Tache object
             String categoryName = tache.getCategorie().getNom_Cat();
             // Set the value of the ComboBox to the category name
@@ -239,14 +208,10 @@ public class ModifierTacheController {
                 attachment = image.getUrl();
             }
             String description = descriptionField.getText();
-
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
-
             Date startDateSql = java.sql.Date.valueOf(startDate);
             Date endDateSql = java.sql.Date.valueOf(endDate);
-
-
             if (toDoRadio.isSelected()) {
                 etat = EtatTache.TO_DO;
             } else if (doingRadio.isSelected()) {
@@ -256,16 +221,13 @@ public class ModifierTacheController {
             } else {
                 etat = null;
             }
-
             if (stage != null) {
                 Exit(new ActionEvent());
             } else {
-                System.out.println("Stage is null, cannot close.");
+                System.out.println("Stage null, impossible de fermer.");
             }
-
             // Retrieve the CategorieT object associated with the selected category name
             CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
-
             Tache existingTache = serviceTache.getOneByID(selectedTaskId);
             if (existingTache != null) {
                 existingTache.setId_T(existingTache.getId_T());
@@ -279,9 +241,9 @@ public class ModifierTacheController {
                 existingTache.setUser(user01);
                 serviceTache.modifier(existingTache);
                 clearFields();
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Tache modifiée avec succès.");
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Tache modifiee avec succes.");
             } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "La Tache à modifier n'a pas été trouvée.");
+                showAlert(Alert.AlertType.ERROR, "Error", "La Tache à modifier n'a pas ete trouvee.");
             }
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
@@ -334,7 +296,7 @@ public class ModifierTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -367,7 +329,6 @@ public class ModifierTacheController {
             }
             return null; // Return null if validation passes
         });
-
         // Custom validator for end date
         validationSupport.registerValidator(endDatePicker, (Control c, LocalDate newValue) -> {
             if (newValue == null) {
@@ -377,7 +338,6 @@ public class ModifierTacheController {
             }
             return null; // Return null if validation passes
         });
-
         populateCategoryComboBox();
     }
 
@@ -407,5 +367,23 @@ public class ModifierTacheController {
         doneRadio.setSelected(true);
         toDoRadio.setSelected(false);
         doingRadio.setSelected(false);
+    }
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
     }
 }

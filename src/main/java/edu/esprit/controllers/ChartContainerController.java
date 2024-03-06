@@ -19,7 +19,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ChartContainerController {
-
     private final ServiceTache sr = new ServiceTache();
     @FXML
     private AnchorPane chartContainer;
@@ -42,23 +41,19 @@ public class ChartContainerController {
                 true,
                 true,
                 false);
-
         // Customizations for chart
         chart.setBackgroundPaint(new Color(240, 240, 240)); // Background color
         chart.getTitle().setFont(new Font("Arial", Font.BOLD, 18)); // Title font
         chart.getTitle().setPaint(Color.DARK_GRAY); // Title color
         chart.getLegend().setItemFont(new Font("Arial", Font.PLAIN, 12)); // Legend font
         chart.getLegend().setBorder(0, 0, 0, 0); // Remove legend border
-
         // Adding the chart to SwingNode
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
         chartPanel.setBackground(Color.WHITE); // Chart panel background color
-
         SwingNode swingNode = new SwingNode();
         swingNode.setContent(chartPanel);
-
-// Clear existing content and add the new chart
+        // Clear existing content and add the new chart
         chartContainer.getChildren().clear();
         chartContainer.getChildren().add(swingNode);
     }

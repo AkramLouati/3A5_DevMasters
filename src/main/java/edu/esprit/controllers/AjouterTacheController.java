@@ -38,12 +38,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class AjouterTacheController {
 
+    private final ServiceCategorieT serviceCategorieT;
+    private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
     ServiceUser serviceUser = new ServiceUser();
-    EndUser user01 = serviceUser.getOneByID(14);
+    EndUser user01 = serviceUser.getOneByID(16);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -52,7 +55,6 @@ public class AjouterTacheController {
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
     private ValidationSupport validationSupport;
-
     @FXML
     private ImageView PieceJointeImage;
     @FXML
@@ -63,8 +65,6 @@ public class AjouterTacheController {
     private RadioButton toDoRadio, doneRadio, doingRadio;
     @FXML
     private DatePicker startDatePicker, endDatePicker;
-    private ServiceCategorieT serviceCategorieT;
-    private ServiceTache serviceTache;
     private int selectedTaskId;
     private Stage stage;
 
@@ -106,37 +106,13 @@ public class AjouterTacheController {
         sideBarTransition.play();
     }
 
-    public void BTNGestionEvennement(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionUser(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionRec(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionAct(ActionEvent actionEvent) {
-
-    }
-
-    public void BTNGestionEquipement(ActionEvent actionEvent) {
-    }
-
-    public void BTNGestionTache(ActionEvent actionEvent) {
-
-    }
-
     @FXML
     void browseForImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Attachment File");
-
         // Set initial directory
         String initialDirectory = "src/main/resources/img";
         File initialDirFile = new File(initialDirectory);
-
         // Check if the initial directory is valid
         if (initialDirFile.exists() && initialDirFile.isDirectory()) {
             fileChooser.setInitialDirectory(initialDirFile);
@@ -145,7 +121,6 @@ public class AjouterTacheController {
             // You might want to handle this error condition appropriately
             return;
         }
-
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             try {
@@ -195,13 +170,10 @@ public class AjouterTacheController {
                 attachment = image.getUrl();
             }
             String description = descriptionField.getText();
-
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
-
             Date startDateSql = java.sql.Date.valueOf(startDate);
             Date endDateSql = java.sql.Date.valueOf(endDate);
-
             if (toDoRadio.isSelected()) {
                 etat = EtatTache.TO_DO;
             } else if (doingRadio.isSelected()) {
@@ -211,10 +183,9 @@ public class AjouterTacheController {
             } else {
                 etat = null;
             }
-
             // Check if the title already exists in the database
             if (serviceTache.isTitleExist(title)) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Titre déjà existant, veuillez en choisir un autre.");
+                showAlert(Alert.AlertType.ERROR, "Error", "Titre deje existant, veuillez en choisir un autre.");
                 return;
             }
             if (stage != null) {
@@ -222,16 +193,12 @@ public class AjouterTacheController {
             } else {
                 System.out.println("Stage is null, cannot close.");
             }
-
             // Retrieve the CategorieT object associated with the selected category name
             CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
-
-
             Tache tache = new Tache(categorie, title, attachment, startDateSql, endDateSql, description, etat, user01);
-
             serviceTache.ajouter(tache);
             clearFields();
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutée avec succès.");
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutee avec succes.");
 
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
@@ -242,15 +209,13 @@ public class AjouterTacheController {
         ValidationResult validationResult = validationSupport.validationResultProperty().get();
         boolean isValid = validationResult == null || validationResult.getErrors().isEmpty();
 
+        clearShakeEffects();
         if (!isValid) {
-            clearShakeEffects();
             for (Control control : validationSupport.getRegisteredControls()) {
                 if (validationResult.getMessages().stream().anyMatch(message -> message.getTarget() == control && message.getSeverity() == Severity.ERROR)) {
                     shakeNode(control);
                 }
             }
-        } else {
-            clearShakeEffects();
         }
         return isValid;
     }
@@ -284,7 +249,7 @@ public class AjouterTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -318,7 +283,6 @@ public class AjouterTacheController {
             }
             return null; // Return null if validation passes
         });
-
         // Custom validator for end date
         validationSupport.registerValidator(endDatePicker, (Control c, LocalDate newValue) -> {
             if (newValue == null) {
@@ -328,7 +292,6 @@ public class AjouterTacheController {
             }
             return null; // Return null if validation passes
         });
-
         populateCategoryComboBox();
     }
 
@@ -358,5 +321,27 @@ public class AjouterTacheController {
         doneRadio.setSelected(true);
         toDoRadio.setSelected(false);
         doingRadio.setSelected(false);
+    }
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
+
     }
 }

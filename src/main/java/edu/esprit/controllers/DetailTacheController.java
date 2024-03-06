@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Set;
 
 public class DetailTacheController {
@@ -84,9 +85,7 @@ public class DetailTacheController {
                 Image image = new Image(pieceJointeUrl);
                 PieceJointedetail.setImage(image);
             } else {
-                // Handle case where piece jointe URL is empty or null
             }
-
         }
     }
 
@@ -115,14 +114,13 @@ public class DetailTacheController {
             borderPaneTransition.setByX(sidebarWidth);
             borderPaneTransition.play();
         }
-
         sideBarTransition.play();
     }
 
     @FXML
     void buttonReturnListeTaches(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTache.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
             TFTitreDetail.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -175,7 +173,6 @@ public class DetailTacheController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCommentaireTache.fxml"));
                 Parent root = loader.load();
                 ModifierCommentaireTacheController controller = loader.getController();
-
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
                 controller.setUserAndTaskIds(tache, tache.getUser());

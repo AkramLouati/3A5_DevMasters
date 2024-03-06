@@ -52,24 +52,20 @@ public class TacheController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirmation de suppression");
             confirmationAlert.setHeaderText("Supprimer la tâche");
-            confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette tâche ?");
-
+            confirmationAlert.setContentText("Etes-vous sur de vouloir supprimer cette tâche ?");
             // Set button types for confirmation dialog
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-
             // Show the confirmation dialog and wait for user response
             confirmationAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.YES) {
                     // If user confirms deletion, proceed with deletion
                     ServiceTache serviceReclamation = new ServiceTache();
                     serviceReclamation.supprimer(taches.getId_T());
-
                     // Afficher une alerte pour informer l'utilisateur que la réclamation a été supprimée avec succès
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Tache supprimée avec succès.");
-                    alert.setTitle("Tache supprimée");
+                    alert.setContentText("Tache supprimee avec succes.");
+                    alert.setTitle("Tache supprimee");
                     alert.show();
-
                     // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                     try {
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
@@ -113,6 +109,4 @@ public class TacheController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-
 }

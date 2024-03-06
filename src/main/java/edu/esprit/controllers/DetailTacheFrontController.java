@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Set;
 
 public class DetailTacheFrontController {
@@ -30,20 +31,15 @@ public class DetailTacheFrontController {
 
     @FXML
     private TextField txt_date_C, txt_text_C;
-
     private Tache tache;
-    private EndUser userId;
     private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
-    private ServiceTache serviceTache;
 
     public void setUserAndTaskIds(EndUser userId, Tache tache) {
-        this.userId = userId;
         this.tache = tache;
     }
 
     public void setServices(ServiceCommentaireTache serviceCommentaireTache, ServiceTache serviceTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
-        this.serviceTache = serviceTache;
     }
 
     public void setData(Tache tache) {
@@ -71,16 +67,14 @@ public class DetailTacheFrontController {
                 Image image = new Image(pieceJointeUrl);
                 PieceJointedetail.setImage(image);
             } else {
-                // Handle case where piece jointe URL is empty or null
             }
-
         }
     }
 
     @FXML
     void Exit(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherTacheFront.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTacheFront.fxml")));
             TFTitreDetail.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

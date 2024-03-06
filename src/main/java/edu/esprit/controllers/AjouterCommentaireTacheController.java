@@ -33,7 +33,6 @@ public class AjouterCommentaireTacheController {
     @FXML
     void ajouterCommentaire(javafx.event.ActionEvent event) {
         String commentaireText = commentField.getText();
-
         // Check if a comment already exists for the task
         Set<CommentaireTache> existingComment = serviceCommentaireTache.getCommentairesForTask(tache);
         if (!existingComment.isEmpty()) {
@@ -41,28 +40,24 @@ public class AjouterCommentaireTacheController {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Erreur");
             errorAlert.setHeaderText(null);
-            errorAlert.setContentText("Un commentaire existe déjà pour cette tâche.");
+            errorAlert.setContentText("commentaire existe deja pour cette tâche.");
             errorAlert.showAndWait();
             return; // Exit the method
         }
-
         // Creating the comment object
         CommentaireTache commentaireTache = new CommentaireTache();
         commentaireTache.setText_C(commentaireText);
         commentaireTache.setTache(tache); // Set the task ID
         commentaireTache.setUser(user); // Set the user
         commentaireTache.setDate_C(new Date()); // Set the current date
-
         // Call the service to add the comment
         serviceCommentaireTache.ajouter(commentaireTache);
-
         // Show alert if added successfully
         Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
         successAlert.setTitle("Ajout réussi");
         successAlert.setHeaderText(null);
-        successAlert.setContentText("Le commentaire a été ajouté avec succès.");
+        successAlert.setContentText("Commentaire ajoute avec succees.");
         successAlert.showAndWait();
-
         // Close the window
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();

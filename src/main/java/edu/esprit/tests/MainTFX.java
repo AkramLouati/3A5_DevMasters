@@ -25,8 +25,8 @@ public class MainTFX extends Application {
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }
-        // Set application icon
 
+        // Set application icon
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/logoicon.png"))));
         // Set the location of the FXML file in the loader
         Scene scene = new Scene(loader.load(fxmlStream));

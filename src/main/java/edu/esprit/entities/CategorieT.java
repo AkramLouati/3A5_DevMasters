@@ -49,14 +49,12 @@ public class CategorieT implements Serializable {
         return getId_Cat() == that.getId_Cat() && Objects.equals(getNom_Cat(), that.getNom_Cat());
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(getId_Cat(), getNom_Cat());
     }
 
     // toString method for easy debugging
-
     @Override
     public String toString() {
         return nom_Cat;
