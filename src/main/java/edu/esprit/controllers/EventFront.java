@@ -1,7 +1,9 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
+import edu.esprit.utils.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,17 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EventFront implements Initializable {
@@ -67,9 +66,60 @@ public class EventFront implements Initializable {
             errorAlert.show();
         }
     }
+
     @FXML
     void joinEventOnclick(ActionEvent event) {
+        // Récupérer l'événement choisi
+        Evenement evenementChoisi = this.evenement;
 
+        if (evenementChoisi == null) {
+            showAlert("Erreur", "Aucun événement choisi !");
+            return;
+        }
+
+        // Sauvegarder l'utilisateur actuel dans la session
+        EndUser currentUser = Session.getCurrentUser();
+        if (currentUser != null) {
+            Session.setCurrentUser(currentUser);
+        } else {
+            showAlert("Erreur", "Aucun utilisateur actuel trouvé !");
+            return;
+        }
+
+        // Afficher un message d'alerte pour indiquer que l'inscription à l'événement a réussi
+        showAlert("Succès", "Inscription à l'événement réussie !");
+
+        // Charger l'interface joinEvent.fxml
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/joinEvent.fxml"));
+            Parent root = loader.load();
+
+            // Passer l'événement choisi au contrôleur de l'interface joinEvent
+            JoinEvent joinEventController = loader.getController();
+            joinEventController.setData(evenementChoisi);
+
+            // Afficher l'interface joinEvent
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger l'interface joinEvent.");
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+    // Méthode pour sauvegarder l'utilisateur actuel (vous devez implémenter cette méthode selon votre logique)
+    private void saveCurrentUser(EndUser currentUser) {
+        // Implémentez votre logique de sauvegarde ici
     }
 
     @FXML

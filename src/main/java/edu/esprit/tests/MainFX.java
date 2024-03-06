@@ -1,8 +1,9 @@
 package edu.esprit.tests;
 
+import edu.esprit.services.ServiceUser;
+import edu.esprit.utils.Session;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -18,9 +19,12 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        ServiceUser user = new ServiceUser();
+        Session.setCurrentUser(user.getOneByID(13));
+        //        Session.setCurrentUser(user.getOneByID(13));
         stg = primaryStage;
         FXMLLoader loader = new FXMLLoader();
-        InputStream fxmlStream = getClass().getResourceAsStream("/EventShowFront.fxml");
+        InputStream fxmlStream = getClass().getResourceAsStream("/EventDashboard.fxml");
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }

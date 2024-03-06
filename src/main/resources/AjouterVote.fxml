@@ -91,7 +91,7 @@
             <Image url="@assets/Prop.png" />
          </image>
       </ImageView>
-      <Button layoutX="269.0" layoutY="334.0" mnemonicParsing="false" onAction="#returnOnclick" prefHeight="51.0" prefWidth="62.0" styleClass="transparent" stylesheets="@style.css" textFill="#fffdfd">
+      <Button layoutX="269.0" layoutY="334.0" mnemonicParsing="false" onAction="#returnOnclick" prefHeight="51.0" prefWidth="62.0" styleClass="transparent" stylesheets="@css/style.css" textFill="#fffdfd">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -30,7 +30,7 @@
         </Text>
         <HBox alignment="CENTER" prefHeight="82.0" prefWidth="369.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#joinEventOnclick" prefHeight="30.0" prefWidth="60.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+                <Button mnemonicParsing="false" onAction="#joinEventOnclick" prefHeight="30.0" prefWidth="60.0" styleClass="transparent" stylesheets="@css/style.css" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -45,7 +45,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
                 </Button>
-            <Button mnemonicParsing="false" onAction="#partagerOnClick" prefHeight="30.0" prefWidth="60.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#partagerOnClick" prefHeight="30.0" prefWidth="60.0" styleClass="transparent" stylesheets="@css/style.css" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="transparent" stylesheets="@style.css" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="transparent" stylesheets="@css/style.css" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

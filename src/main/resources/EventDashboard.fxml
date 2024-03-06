@@ -170,9 +170,9 @@
                     <children>
                         <BorderPane layoutX="-1.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="882.0">
                             <center>
-                                <VBox prefHeight="620.0" prefWidth="875.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                                <VBox prefHeight="620.0" prefWidth="875.0" styleClass="white-backgroung" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                                     <children>
-                                        <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="878.0" styleClass="white-backgroung" stylesheets="@style.css">
+                                        <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="878.0" styleClass="white-backgroung" stylesheets="@css/style.css">
                                             <children>
                                                 <Button mnemonicParsing="false" onAction="#AjouterEvenementClick" prefHeight="35.0" prefWidth="190.0" stylesheets="@css/TacheCss.css" text="Ajouter Evénement" textFill="WHITE">
                                                     <font>
@@ -221,11 +221,11 @@
                                         </Label>
                                         <HBox prefHeight="538.0" prefWidth="878.0" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <ScrollPane fx:id="scrollA" prefHeight="546.0" prefWidth="904.0" styleClass="transparent" stylesheets="@style.css">
+                                                <ScrollPane fx:id="scrollA" prefHeight="546.0" prefWidth="904.0" styleClass="transparent" stylesheets="@css/style.css">
                                                     <content>
-                                                        <VBox fx:id="eventsLayout" prefHeight="612.0" prefWidth="1015.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
+                                                        <VBox fx:id="eventsLayout" prefHeight="612.0" prefWidth="1015.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@css/style.css">
                                                             <children>
-                                                                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="2895.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@style.css">
+                                                                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="2895.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@css/style.css">
                                                                     <children>
                                                                         <GridPane prefHeight="55.0" prefWidth="679.0">
                                                                             <columnConstraints>

@@ -170,17 +170,17 @@
                <children>
                   <BorderPane layoutX="1.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="879.0">
                      <center>
-                        <VBox prefHeight="610.0" prefWidth="831.0" styleClass="white-backgroung" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="610.0" prefWidth="831.0" styleClass="white-backgroung" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="874.0" styleClass="white-backgroung" stylesheets="@css/TacheCss.css">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#AjouterPropClick" prefHeight="39.0" prefWidth="190.0" stylesheets="@style.css" text="Ajouter Proposition" textFill="WHITE">
+                                    <Button mnemonicParsing="false" onAction="#AjouterPropClick" prefHeight="39.0" prefWidth="190.0" stylesheets="@css/style.css" text="Ajouter Proposition" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="17.0" />
                                        </font>
                                     </Button>
                                     <Pane prefHeight="58.0" prefWidth="610.0" />
-                                    <Button mnemonicParsing="false" onAction="#retournerOnClickk" prefHeight="48.0" prefWidth="50.0" stylesheets="@style.css" textFill="WHITE">
+                                    <Button mnemonicParsing="false" onAction="#retournerOnClickk" prefHeight="48.0" prefWidth="50.0" stylesheets="@css/style.css" textFill="WHITE">
                                        <font>
                                           <Font name="Arial Bold" size="17.0" />
                                        </font>
@@ -204,11 +204,11 @@
                               </Label>
                               <HBox prefHeight="456.0" prefWidth="831.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ScrollPane fx:id="scrollA" prefHeight="462.0" prefWidth="1004.0" styleClass="transparent" stylesheets="@style.css">
+                                    <ScrollPane fx:id="scrollA" prefHeight="462.0" prefWidth="1004.0" styleClass="transparent" stylesheets="@css/style.css">
                                        <content>
-                                          <VBox fx:id="VoteLayout" prefHeight="499.0" prefWidth="1098.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@style.css">
+                                          <VBox fx:id="VoteLayout" prefHeight="499.0" prefWidth="1098.0" spacing="10.0" styleClass="white-backgroung" stylesheets="@css/style.css">
                                              <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="946.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@style.css">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="946.0" spacing="10.0" styleClass="light-grey-background" stylesheets="@css/style.css">
                                                    <children>
                                                       <GridPane prefHeight="55.0" prefWidth="568.0">
                                                          <columnConstraints>

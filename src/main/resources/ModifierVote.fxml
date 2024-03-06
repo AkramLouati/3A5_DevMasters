@@ -91,7 +91,7 @@
             </LinearGradient>
          </fill>
       </Text>
-      <Button layoutX="256.0" layoutY="334.0" mnemonicParsing="false" onAction="#returnnOnClick" prefHeight="51.0" prefWidth="64.0" styleClass="transparent" stylesheets="@style.css" textFill="#fffdfd">
+      <Button layoutX="256.0" layoutY="334.0" mnemonicParsing="false" onAction="#returnnOnClick" prefHeight="51.0" prefWidth="64.0" styleClass="transparent" stylesheets="@css/style.css" textFill="#fffdfd">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

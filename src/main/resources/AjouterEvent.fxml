@@ -130,7 +130,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="241.0" layoutY="357.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="52.0" prefWidth="46.0" styleClass="transparent" stylesheets="@style.css" textFill="#fffdfd">
+      <Button layoutX="241.0" layoutY="357.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="52.0" prefWidth="46.0" styleClass="transparent" stylesheets="@css/style.css" textFill="#fffdfd">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
