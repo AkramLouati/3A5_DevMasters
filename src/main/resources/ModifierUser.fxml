@@ -60,5 +60,14 @@
             <Image url="@assets/user-management.png" />
          </image>
       </ImageView>
+      <Button fx:id="banUserButton" layoutX="529.0" layoutY="14.0" mnemonicParsing="false" onAction="#banUser" styleClass="transparent" stylesheets="@css/style.css">
+         <graphic>
+            <ImageView fx:id="banStatus" fitHeight="32.0" fitWidth="32.0">
+               <image>
+                  <Image url="@assets/ban.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 </AnchorPane>

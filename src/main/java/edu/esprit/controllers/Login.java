@@ -70,7 +70,7 @@ public class Login {
                 // Successful login, you can navigate to another screen or perform other actions
                 EndUser currentUser = serviceUser.authenticateUser(email, password);
 
-                if(!currentUser.isBanned()){
+                if(currentUser.isBanned()){
                     showAlert("Vous n'a pas le droit de se connecter!");
                 }else {
                     if (currentUser.getType().equals("Admin")) {

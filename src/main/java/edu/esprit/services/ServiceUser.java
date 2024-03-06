@@ -88,6 +88,20 @@ public class ServiceUser implements IService<EndUser> {
 
     }
 
+    public void modifierUserToBanned(int userId, boolean ban) {
+        String req = "UPDATE `enduser` SET `isBanned`=? WHERE `id_user`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setBoolean(1, ban);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+            System.out.println("User status modified!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     @Override
     public void supprimer(int id) {
         if (id <= 0) {

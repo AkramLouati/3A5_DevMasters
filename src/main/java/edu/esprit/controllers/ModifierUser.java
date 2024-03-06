@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,6 +24,11 @@ public class ModifierUser implements Initializable {
 
     @FXML
     private ImageView ImageM;
+
+    @FXML
+    private ImageView banStatus;
+
+    @FXML Button banUserButton;
 
     @FXML
     private TextField tfAdresse;
@@ -46,10 +52,15 @@ public class ModifierUser implements Initializable {
 
     String role;
 
+    boolean isBanned;
+
     private ServiceUser serviceUser = new ServiceUser();
     private EndUser endUser;
 
     public void setData(EndUser endUser) {
+        this.isBanned = endUser.isBanned();
+        if(isBanned) banStatus.setImage(new Image("/assets/check.png"));
+        else banStatus.setImage(new Image("/assets/cross-sign.png"));
         this.endUser = endUser;
         // Afficher les données de l'événement dans les champs de texte
         tfNom.setText(endUser.getNom());
@@ -111,6 +122,26 @@ public class ModifierUser implements Initializable {
                 alert.setTitle("Événement modifié");
                 alert.show();
             }
+        }
+    }
+
+    @FXML
+    void banUser(ActionEvent event) {
+
+
+        isBanned = !isBanned;
+
+//        if(isBanned) {
+//
+//        }
+
+
+        if(isBanned){
+            serviceUser.modifierUserToBanned(endUser.getId(),false);
+            banStatus.setImage(new Image("/assets/cross-sign.png"));
+        } else {
+            serviceUser.modifierUserToBanned(endUser.getId(),true);
+            banStatus.setImage(new Image("/assets/check.png"));
         }
     }
 
