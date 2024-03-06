@@ -79,14 +79,25 @@ public class EventFront implements Initializable {
 
         // Sauvegarder l'utilisateur actuel dans la session
         EndUser currentUser = Session.getCurrentUser();
-        if (currentUser != null) {
-            Session.setCurrentUser(currentUser);
-        } else {
+        if (currentUser == null) {
             showAlert("Erreur", "Aucun utilisateur actuel trouvé !");
             return;
         }
 
-        // Afficher un message d'alerte pour indiquer que l'inscription à l'événement a réussi
+        // Vérifier si la capacité maximale est supérieure à 0
+        if (evenementChoisi.getCapaciteMax() <= 0) {
+            showAlert("Erreur", "L'événement est complet !");
+            return;
+        }
+
+        // Décrémenter la capacité maximale de l'événement
+        evenementChoisi.setCapaciteMax(evenementChoisi.getCapaciteMax() - 1);
+
+        // Mettre à jour l'événement dans la base de données
+        ServiceEvenement serviceEvenement = new ServiceEvenement();
+        serviceEvenement.modifier(evenementChoisi);
+
+        // Afficher un message de succès
         showAlert("Succès", "Inscription à l'événement réussie !");
 
         // Charger l'interface joinEvent.fxml
@@ -107,6 +118,8 @@ public class EventFront implements Initializable {
             showAlert("Erreur", "Impossible de charger l'interface joinEvent.");
         }
     }
+
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
