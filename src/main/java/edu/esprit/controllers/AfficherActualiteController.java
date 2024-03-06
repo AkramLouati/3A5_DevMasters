@@ -196,5 +196,17 @@ public class AfficherActualiteController implements Initializable {
     }
 
 
-
+    public void Tostats(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/StatistiqueGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/StatistiqueGui.fxml"));
+            scrollA.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }

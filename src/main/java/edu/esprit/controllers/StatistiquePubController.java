@@ -1,12 +1,14 @@
 package edu.esprit.controllers;
 
 import edu.esprit.services.ServicePublicite;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +20,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -49,7 +52,22 @@ public class StatistiquePubController implements Initializable {
         // Create SwingNode for pie chart
         SwingNode swingNode = new SwingNode();
         swingNode.setContent(createSwingContent());
+
+        // Fading animation for SwingNode
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(800), swingNode);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+
+
         StatistiquePub.getChildren().add(swingNode);
+
+        // Smooth transition for adjusting the width of SecondBorderPane
+        double currentWidth = SecondBorderPane.getWidth();
+        KeyValue keyValue = new KeyValue(SecondBorderPane.prefWidthProperty(), currentWidth + sidebarWidth, Interpolator.EASE_BOTH);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(800), keyValue);
+        Timeline timeline = new Timeline(keyFrame);
+        timeline.play();
     }
 
     @FXML
@@ -140,7 +158,7 @@ public class StatistiquePubController implements Initializable {
         dataset.setValue("offre3(" + String.format("%.2f", pourcentageNonTraitees) + "%)", countOffer9Months);
 
         return ChartFactory.createPieChart(
-                "Statistiques des publicites par statut",
+                "Statistiques des publicites par offre",
                 dataset,
                 true,
                 true,
@@ -163,10 +181,17 @@ public class StatistiquePubController implements Initializable {
     }
 
 
-
-
-
-
-
-
+    public void retourtoRESSS(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/AfficherActualiteGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherActualiteGui.fxml"));
+            StatistiquePub.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }

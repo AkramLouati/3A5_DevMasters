@@ -188,15 +188,20 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="StatistiquePub" layoutX="200.0" layoutY="142.0" prefHeight="308.0" prefWidth="403.0" stylesheets="@Actualite.css">
+                  <AnchorPane fx:id="StatistiquePub" layoutX="200.0" layoutY="68.0" prefHeight="445.0" prefWidth="552.0" stylesheets="@Actualite.css">
                      <children>
                         <ImageView fitHeight="59.0" fitWidth="93.0" layoutX="233.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../Downloads/baladity-GestionReclamation%20(2)/baladity-GestionReclamation/src/main/resources/assets/click.gif" />
+                              <Image url="@assets/click.gif" />
                            </image>
                         </ImageView>
                      </children>
                   </AnchorPane>
+                  <Button fx:id="retourtoRESSS" layoutX="698.0" layoutY="25.0" mnemonicParsing="false" onAction="#retourtoRESSS" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #012545;" stylesheets="@Actualite.css" text="retour" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             </center>

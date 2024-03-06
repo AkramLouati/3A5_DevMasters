@@ -53,40 +53,46 @@ public class AfficherActualiteAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        int column = 0;
-        int row = 1;
-        try {
-            for (int i = 0; i < actualiteList.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
+        RechercherActualiteAdmin.textProperty().addListener((observable, oldValue, newValue) -> {
+            RechercherActualiteAdmin(newValue, actualiteList);
+        });
 
-                ActualiteController itemController = fxmlLoader.getController();
-                itemController.setData(actualiteList.get(i));
-
-                if (column == 1) {
-                    column = 0;
-                    row++;
-                }
-
-                gridAdmin.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
-                gridAdmin.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridAdmin.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridAdmin.setMaxWidth(Region.USE_PREF_SIZE);
-
-                //set grid height
-                gridAdmin.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridAdmin.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridAdmin.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        affichergrid(actualiteList);
     }
+        void affichergrid(List<Actualite> actualiteList){
+            int column = 0;
+            int row = 1;
+            try {
+                for (int i = 0; i < actualiteList.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
+                    AnchorPane anchorPane = fxmlLoader.load();
 
+                    ActualiteController itemController = fxmlLoader.getController();
+                    itemController.setData(actualiteList.get(i));
+
+                    if (column == 1) {
+                        column = 0;
+                        row++;
+                    }
+
+                    gridAdmin.add(anchorPane, column++, row); //(child,column,row)
+                    //set grid width
+                    gridAdmin.setMinWidth(Region.USE_COMPUTED_SIZE);
+                    gridAdmin.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                    gridAdmin.setMaxWidth(Region.USE_PREF_SIZE);
+
+                    //set grid height
+                    gridAdmin.setMinHeight(Region.USE_COMPUTED_SIZE);
+                    gridAdmin.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                    gridAdmin.setMaxHeight(Region.USE_PREF_SIZE);
+
+                    GridPane.setMargin(anchorPane, new Insets(10));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -152,51 +158,31 @@ public class AfficherActualiteAdminController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
     private void displayFilteredActualites(List<Actualite> filteredList) {
-        // Clear the existing grid content
-        gridAdmin.getChildren().clear();
 
-        // Display the filtered actualites
-        int column = 0;
-        int row = 1;
 
-        try {
-            for (int i = 0; i < filteredList.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ActualiteController itemController = fxmlLoader.getController();
-                itemController.setData(filteredList.get(i));
-
-                if (column == 1) {
-                    column = 0;
-                    row++;
-                }
-
-                gridAdmin.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
-    public void RechercherActualiteAdmin(ActionEvent actionEvent) {
-        String searchQuery = RechercherActualiteAdmin.getText().toLowerCase();
-
+    public void RechercherActualiteAdmin(String searchText, List<Actualite> actualiteList ) {
         List<Actualite> filteredList = actualiteList.stream()
-                .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchQuery))
+                .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchText))
                 .collect(Collectors.toList());
+        gridAdmin.getChildren().clear();
 
-        displayFilteredActualites(filteredList);
+        affichergrid(filteredList);
     }
 
     public void sortActualiteAdmin(ActionEvent actionEvent) {
-        List<Actualite> sortedList = actualiteList.stream()
-                .sorted(Comparator.comparing(Actualite::getTitre_a))
-                .collect(Collectors.toList());
+        Comparator<Actualite> comparator = Comparator.comparing(Actualite::getTitre_a);
 
-        displayFilteredActualites(sortedList);
+        actualiteList.sort(comparator);
+
+        // Clear the grid and re-populate it with the sorted list
+        gridAdmin.getChildren().clear();
+        affichergrid(actualiteList);
+    }
+
+    public void RechercherActualiteAdmin(ActionEvent actionEvent) {
+
     }
 }

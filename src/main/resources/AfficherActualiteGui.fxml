@@ -216,7 +216,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="RechercherActualite" layoutX="526.0" layoutY="17.0" onAction="#RechercherActualite" prefHeight="36.0" prefWidth="244.0" promptText="Rechercher..." stylesheets="@Actualite.css" />
+                  <TextField fx:id="RechercherActualite" layoutX="526.0" layoutY="17.0" prefHeight="36.0" prefWidth="244.0" promptText="Rechercher..." stylesheets="@Actualite.css" />
                   <Button fx:id="sortActualite" layoutX="771.0" layoutY="3.0" mnemonicParsing="false" onAction="#sortActualite" prefHeight="69.0" prefWidth="66.0" style="-fx-background-color: #ffffff;" stylesheets="@Actualite.css" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
@@ -225,6 +225,15 @@
                         <ImageView fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@assets/sortActualite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="Tostats" layoutX="837.0" layoutY="11.0" mnemonicParsing="false" onAction="#Tostats" prefHeight="41.0" prefWidth="50.0" style="-fx-background-color: #ffffff;">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/stats%20(2).png" />
                            </image>
                         </ImageView>
                      </graphic>
