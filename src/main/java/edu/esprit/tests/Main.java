@@ -1,7 +1,5 @@
 package edu.esprit.tests;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 

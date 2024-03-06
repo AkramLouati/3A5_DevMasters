@@ -1,11 +1,7 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Muni;
-import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
-import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

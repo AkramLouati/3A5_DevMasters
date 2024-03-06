@@ -1,8 +1,6 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
@@ -24,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
 
 public class AjouterAfficherMessageController implements Initializable {

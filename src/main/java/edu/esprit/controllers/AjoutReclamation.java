@@ -1,7 +1,5 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
