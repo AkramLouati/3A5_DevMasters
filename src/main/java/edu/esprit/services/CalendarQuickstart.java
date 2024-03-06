@@ -26,10 +26,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CalendarQuickstart {
     private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
@@ -53,8 +50,7 @@ public class CalendarQuickstart {
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        Credential credential = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
-        return credential;
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
@@ -66,7 +62,7 @@ public class CalendarQuickstart {
         ServiceEvenement serviceEvenement = new ServiceEvenement();
         Set<Evenement> evenements = serviceEvenement.getAll();
 
-        Set<String> addedEventIds = new HashSet<>();
+        Map<String, String> addedEventIds = new HashMap<>();
 
         for (Evenement evenement : evenements) {
             if (evenement.getNomEvent() == null || evenement.getDateEtHeureDeb() == null || evenement.getDateEtHeureFin() == null) {
@@ -96,12 +92,17 @@ public class CalendarQuickstart {
             event.setEnd(endEventDateTime);
 
             try {
-                Event createdEvent = service.events().insert("primary", event).execute();
-                addedEventIds.add(createdEvent.getId());
+                if (addedEventIds.containsKey(evenement.getNomEvent())) {
+                    System.out.println("L'événement " + evenement.getNomEvent() + " existe déjà dans Google Calendar.");
+                    continue;
+                }
 
-                System.out.println("Event created: " + createdEvent.getHtmlLink());
+                Event createdEvent = service.events().insert("primary", event).execute();
+                addedEventIds.put(evenement.getNomEvent(), createdEvent.getId());
+
+                System.out.println("Événement créé : " + createdEvent.getHtmlLink());
             } catch (IOException e) {
-                System.err.println("Error inserting event: " + e.getMessage());
+                System.err.println("Erreur lors de l'insertion de l'événement : " + e.getMessage());
                 e.printStackTrace();
             }
         }
