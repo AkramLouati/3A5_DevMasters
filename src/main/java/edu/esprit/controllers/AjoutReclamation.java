@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -388,5 +389,40 @@ public class AjoutReclamation implements Initializable {
             }
         }
         return false;
+    }
+    private void openNewScene(String latitude, String longitude, AjoutReclamation controller) {
+        try {
+            if (latitude != null && longitude != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Map.fxml"));
+                Parent root = loader.load();
+                Maps mapController = loader.getController();
+                mapController.loadGoogleMaps(latitude, longitude);
+
+                // Mettre à jour le champ d'adresse dans le contrôleur AjoutReclamation
+                controller.setAddressFields(latitude, longitude);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                // Gérer le cas où les coordonnées sont nulles
+                System.err.println("Les coordonnées de latitude ou de longitude sont nulles.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    void onMapsClicked(ActionEvent event) {
+        String latitude = "36.8065"; // Latitude de San Francisco
+        String longitude = "10.1815"; // Longitude de San Francisco
+        // Ouvrir une nouvelle scène pour Google Maps avec les coordonnées fournies
+        openNewScene(latitude, longitude, this);
+    }
+    public void setAddressFields(String latitude, String longitude) {
+        TFadresse_reclamation.setText("Latitude: " + latitude + ", Longitude: " + longitude);
     }
 }
