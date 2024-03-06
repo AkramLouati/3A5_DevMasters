@@ -331,7 +331,7 @@ public class PayerPubliciteController implements Initializable {
         try {
             numCarteInt = Integer.parseInt(numCarteText);
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.WARNING, "Avertissement", "Le numéro de carte n'est pas un entier valide.");
+        //    showAlert(Alert.AlertType.WARNING, "Avertissement", "Le numéro de carte n'est pas un entier valide.");
         }
 
         String selectedOffer = offrePubCombo1.getValue();
@@ -347,11 +347,12 @@ public class PayerPubliciteController implements Initializable {
 
         // Show save file dialog
         File file = fileChooser.showSaveDialog(new Stage());
-
         if (file != null) {
             Document document = new Document();
+            PdfWriter writer = null;
+
             try {
-                PdfWriter.getInstance(document, new FileOutputStream(file));
+                writer = PdfWriter.getInstance(document, new FileOutputStream(file));
                 document.open();
 
                 // Add logo
@@ -362,7 +363,7 @@ public class PayerPubliciteController implements Initializable {
                 document.add(itextLogoImage);
 
                 // Add title
-                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
+                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
                 Paragraph title = new Paragraph("Vérification de Paiement", titleFont);
                 title.setAlignment(Paragraph.ALIGN_CENTER);
                 document.add(title);

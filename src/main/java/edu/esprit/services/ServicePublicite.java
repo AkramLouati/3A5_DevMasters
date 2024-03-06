@@ -212,6 +212,28 @@ public class ServicePublicite implements IService<Publicite> {
 
     }
 
+    public int getCountPubByOffer(String offer) {
+        int count = 0;
+
+        String req = "SELECT COUNT(*) FROM `publicite` WHERE `offre_pub` = ?";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, offer); // Set the value for the placeholder
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt(1); // Retrieve the count from the result set
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return count;
+    }
+
+
     @Override
     public Publicite getOneByID(int id) {
         String req = "SELECT * FROM `publicite` WHERE `id_pub`=?";

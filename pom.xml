@@ -40,6 +40,16 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version> <!-- Adjust the version as needed -->
         </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version> <!-- Use the latest version available -->
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>21</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class AfficherActualiteController implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
+    private boolean ascendingOrder = true;
     @FXML
     private BorderPane SecondBorderPane;
     @FXML
@@ -53,6 +53,14 @@ public class AfficherActualiteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        RechercherActualite.textProperty().addListener((observable, oldValue, newValue) -> {
+            RechercherActualite(newValue, actualiteList);
+        });
+        affichergrid(actualiteList);
+
+    }
+    void affichergrid(List<Actualite> actualiteList){
         int column = 0;
         int row = 1;
         try {
@@ -166,54 +174,27 @@ public class AfficherActualiteController implements Initializable {
         }
     }
 
-    public void RechercherActualite(ActionEvent actionEvent) {
-
-            String searchQuery = RechercherActualite.getText().toLowerCase();
-
+    public void RechercherActualite(String searchText, List<Actualite> actualiteList ) {
             List<Actualite> filteredList = actualiteList.stream()
-                    .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchQuery))
+                    .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchText))
                     .collect(Collectors.toList());
+            gridA.getChildren().clear();
 
-            displayFilteredActualites(filteredList);
+            affichergrid(filteredList);
         }
-    private void displayFilteredActualites(List<Actualite> filteredList) {
-        // Clear the existing grid content
-        gridA.getChildren().clear();
-
-        // Display the filtered actualites
-        int column = 0;
-        int row = 1;
-
-        try {
-            for (int i = 0; i < filteredList.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ActualiteItem.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ActualiteController itemController = fxmlLoader.getController();
-                itemController.setData(filteredList.get(i));
-
-                if (column == 1) {
-                    column = 0;
-                    row++;
-                }
-
-                gridA.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @FXML
     public void sortActualite(ActionEvent actionEvent) {
-        // Sort in alphabetical order based on titre_a
-        List<Actualite> sortedList = actualiteList.stream()
-                .sorted(Comparator.comparing(Actualite::getTitre_a))
-                .collect(Collectors.toList());
+        // Use a comparator to sort the actualiteList by titre_a in ascending order
+        Comparator<Actualite> comparator = Comparator.comparing(Actualite::getTitre_a);
 
-        displayFilteredActualites(sortedList);
+        actualiteList.sort(comparator);
+
+        // Clear the grid and re-populate it with the sorted list
+        gridA.getChildren().clear();
+        affichergrid(actualiteList);
     }
+
+
+
 }
