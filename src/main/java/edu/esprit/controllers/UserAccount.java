@@ -73,7 +73,7 @@ public class UserAccount {
             showAlert("Veuillez entrer un email valid!");
         } else {
             String hashedPassword = hashPassword(password);
-            serviceUser.modifier(new EndUser(currentUserId, email,nom,hashedPassword,type,numTel,muni,addresse,selectedFile.getAbsolutePath()));
+            serviceUser.modifier(new EndUser(currentUserId, email,nom,hashedPassword,type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("User Updated");
