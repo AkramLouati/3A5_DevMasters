@@ -26,8 +26,14 @@
 
 /* Text field styling */
 .text-field {
-    -fx-background-color: #012545;
-    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+    -fx-text-fill: black;
+    -fx-background-color: #fff;
+    -fx-border-color: #003668;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
 }
 
 /* Text area styling */
@@ -59,4 +65,15 @@ Text {
     -fx-min-height: 24px; /* Set minimum height to ensure icon is visible */
     -fx-max-width: 24px; /* Set maximum width to ensure icon doesn't exceed desired size */
     -fx-max-height: 24px; /* Set maximum height to ensure icon doesn't exceed desired size */
+
+    .text-input {
+        -fx-font-size: 14px;
+        -fx-prompt-text-fill: gray;
+        -fx-text-fill: black;
+        -fx-background-color: #fff;
+        -fx-border-color: #003668;
+        -fx-border-width: 1px;
+        -fx-border-radius: 10px;
+        -fx-padding: 5px;
+    }
 }

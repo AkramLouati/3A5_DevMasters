@@ -15,7 +15,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
    <children>
       <TextField fx:id="TFcapacite" layoutX="180.0" layoutY="211.0" promptText="Capacite Maximale" />
-      <TextField fx:id="TFnom" layoutX="180.0" layoutY="73.0" promptText="Nom Event" />
+      <TextField fx:id="TFnom" layoutX="180.0" layoutY="73.0" promptText="Nom Event" styleClass="text-field" stylesheets="@css/TacheCss.css" />
       <TextField fx:id="TFdateDeb" layoutX="180.0" layoutY="117.0" promptText="Date Debut" />
       <TextField fx:id="TFdateFin" layoutX="180.0" layoutY="164.0" promptText="Date Fin" />
       <TextField fx:id="TFcategorie" layoutX="180.0" layoutY="254.0" promptText="Categorie" />
@@ -173,7 +173,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Text layoutX="152.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Evenement">
+      <Text layoutX="151.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Evenement">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>

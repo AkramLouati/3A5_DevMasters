@@ -45,10 +45,6 @@ public class ServiceEvenement implements IService<Evenement> {
 
     @Override
     public void modifier(Evenement evenement) {
-        if (!validateEvenement(evenement)) {
-            System.out.println("Tous les champs doivent être remplis !");
-            return;
-        }
 
         String req = "UPDATE evenement SET id_user=?, nom_E=?, date_DHE=?, date_DHF=?, capacite_E=?, categorie_E=?, imageEvent=? WHERE id_E=?";
         try {
@@ -73,7 +69,6 @@ public class ServiceEvenement implements IService<Evenement> {
                 !evenement.getNomEvent().isEmpty() &&
                 !evenement.getDateEtHeureDeb().isEmpty() &&
                 !evenement.getDateEtHeureFin().isEmpty() &&
-                evenement.getCapaciteMax() > 0 &&
                 !evenement.getCategorie().isEmpty();
     }
 

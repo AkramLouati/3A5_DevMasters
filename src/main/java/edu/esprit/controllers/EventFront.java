@@ -85,7 +85,7 @@ public class EventFront implements Initializable {
         }
 
         // Vérifier si la capacité maximale est supérieure à 0
-        if (evenementChoisi.getCapaciteMax() <= 0) {
+        if (evenementChoisi.getCapaciteMax() == 0) {
             showAlert("Erreur", "L'événement est complet !");
             return;
         }

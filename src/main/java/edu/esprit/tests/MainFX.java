@@ -24,7 +24,7 @@ public class MainFX extends Application {
         //        Session.setCurrentUser(user.getOneByID(13));
         stg = primaryStage;
         FXMLLoader loader = new FXMLLoader();
-        InputStream fxmlStream = getClass().getResourceAsStream("/EventShowFront.fxml");
+        InputStream fxmlStream = getClass().getResourceAsStream("/EventDashboard.fxml");
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }
