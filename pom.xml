@@ -48,6 +48,12 @@
             <version>1.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.19.0</version> <!-- Check for the latest version on the Twilio website -->
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

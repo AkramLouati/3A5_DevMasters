@@ -130,4 +130,17 @@ public class UserItem implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    private void refreshScene(Scene scene) {
+        if (scene != null) {
+            // If you want to refresh the entire scene
+            scene.getRoot().requestLayout();
+
+            // If you want to refresh specific components, find them by ID or other means
+            // For example, if you have a TextField with the ID "textField"
+            // TextField textField = (TextField) scene.lookup("#textField");
+            // textField.setText("Updated Data");
+        }
+    }
+
 }

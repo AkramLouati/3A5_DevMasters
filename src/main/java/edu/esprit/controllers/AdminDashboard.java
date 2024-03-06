@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,10 +20,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class AdminDashboard implements Initializable {
@@ -44,14 +43,12 @@ public class AdminDashboard implements Initializable {
     @FXML
     private HBox muniButtonLayout;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    private TextField tfRecherche;
 
-        double sidebarWidth = MainLeftSidebar.getWidth();
-        SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
-
+    void userItem(List<EndUser> userList){
         //Users list
-        List<EndUser> users = new ArrayList<>(users());
+        List<EndUser> users = new ArrayList<>(userList);
         for (EndUser user : users) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL location = getClass().getResource("/UserItem.fxml");
@@ -69,6 +66,19 @@ public class AdminDashboard implements Initializable {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tfRecherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProducts(newValue, users());
+        });
+
+        double sidebarWidth = MainLeftSidebar.getWidth();
+        SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+
+        userItem(users());
 
         //Muni list
         List<Municipality> munis = new ArrayList<>(munis());
@@ -224,6 +234,29 @@ public class AdminDashboard implements Initializable {
 
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
+    }
+
+    private void filterProducts(String searchText, List<EndUser> userList ) {
+        // Filter the productList based on the searchText
+        List<EndUser> filteredList = userList.stream()
+                .filter(user ->
+                        user.getNom().toLowerCase().contains(searchText.toLowerCase()))
+                .collect(Collectors.toList());
+
+        // Clear the existing content in the grid
+        usersLayout.getChildren().clear();
+
+        // Display the filtered results
+        userItem(filteredList);
+    }
+    @FXML
+    void filterByName(ActionEvent event) {
+
+        // Tri de la liste de réclamations par date
+        users().sort(Comparator.comparing(EndUser::getEmail));
+
+        // Affichage des réclamations triées
+        userItem(users());
     }
 
 
