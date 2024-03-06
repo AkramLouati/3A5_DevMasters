@@ -215,6 +215,20 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
+                  <Button layoutX="422.0" layoutY="13.0" mnemonicParsing="false" onAction="#filtrerParDate" styleClass="transparent-background" stylesheets="@css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/filter.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="310.0" layoutY="17.0" prefHeight="20.0" prefWidth="112.0" text="Filtrer par Date:" textFill="#012545">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             </center>

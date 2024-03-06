@@ -184,6 +184,24 @@ public class AfficherReclamationController implements Initializable {
         // Display the filtered results
         affichergrid(filteredList);
     }
+    private boolean isSortedAscending = true;
+
+    @FXML
+    void filtrerParDate(ActionEvent event) {
+        // Inverser l'état du tri à chaque clic
+        isSortedAscending = !isSortedAscending;
+
+        // Tri de la liste de réclamations par date
+        if (isSortedAscending) {
+            reclamationList.sort((r1, r2) -> r1.getDate_reclamation().compareTo(r2.getDate_reclamation()));
+        } else {
+            reclamationList.sort((r1, r2) -> r2.getDate_reclamation().compareTo(r1.getDate_reclamation()));
+        }
+
+        // Affichage des réclamations triées
+        affichergrid(reclamationList);
+    }
+
 
 }
 
