@@ -22,11 +22,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
-import java.security.GeneralSecurityException;
 import java.util.Properties;
 import java.util.Set;
 
-import static com.google.api.client.json.gson.GsonFactory.getDefaultInstance;
 import static com.google.api.services.gmail.GmailScopes.GMAIL_SEND;
 import static javax.mail.Message.RecipientType.TO;
 
@@ -52,7 +50,7 @@ public class GMailer {
 //            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
 //        }
 //        GsonFactory jsonFactory = getDefaultInstance();
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(GMailer.class.getResourceAsStream("/client_secret_911099648307-g0u738e6vo25qf27t3cf3al8j3i5j8jc.apps.googleusercontent.com.json")));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(GMailer.class.getResourceAsStream("/user/client_secret_911099648307-g0u738e6vo25qf27t3cf3al8j3i5j8jc.apps.googleusercontent.com.json")));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(

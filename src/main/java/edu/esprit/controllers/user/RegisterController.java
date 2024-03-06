@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
@@ -18,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -143,7 +142,7 @@ public class RegisterController implements Initializable {
     @FXML
     void handleLabelClick(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/user/Login.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -168,7 +167,7 @@ public class RegisterController implements Initializable {
 
     public void openForm(ActionEvent event, EndUser user) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VerifierEmail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/VerifierEmail.fxml"));
             Parent root = loader.load();
 
             // Access the controller

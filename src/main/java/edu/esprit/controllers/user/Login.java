@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceUser;
@@ -41,7 +41,7 @@ public class Login {
         System.out.println("Label clicked!");
         // Add your label click logic here
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/RegisterUser.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/user/RegisterUser.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -76,7 +76,7 @@ public class Login {
                     if (currentUser.getType().equals("Admin")) {
                         try {
                             setCurrentUser(currentUser.getId());
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserGui.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/UserGui.fxml"));
                             Parent root = loader.load();
 
                             // Continue with your navigation code
@@ -101,7 +101,7 @@ public class Login {
                         try {
                             System.out.println(currentUser.getId());
                             setCurrentUser(currentUser.getId());
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/UserAccount.fxml"));
                             Parent root = loader.load();
 
                             // Get the controller instance
@@ -143,7 +143,7 @@ public class Login {
                 if(serviceUser.getOneByEmail(tfEmail.getText()) == null){
                     showAlert("L'email n'existe pas!");
                 } else {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForgetPwd.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/ForgetPwd.fxml"));
                     Parent root = loader.load();
 
                     // Access the controller

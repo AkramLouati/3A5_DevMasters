@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;

@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<HBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.MuniItem">
+<HBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.user.MuniItem">
    <children>
       <Pane>
          <children>
-            <Button fx:id="muniButton" alignment="CENTER" layoutY="8.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #003668;" styleClass="municipalite" stylesheets="@css/style.css" text="Ariana Ville" textFill="WHITE">
+            <Button fx:id="muniButton" alignment="CENTER" layoutY="8.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #003668;" styleClass="municipalite" stylesheets="@../css/style.css" text="Ariana Ville" textFill="WHITE">
                <font>
                   <Font name="Corbel" size="28.0" />
                </font>
@@ -20,7 +20,7 @@
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/more-information.png" />
+                        <Image url="@../assets/more-information.png" />
                      </image>
                   </ImageView>
                </graphic>

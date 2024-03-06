@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
@@ -51,7 +51,7 @@ public class AdminDashboard implements Initializable {
         List<EndUser> users = new ArrayList<>(userList);
         for (EndUser user : users) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/UserItem.fxml");
+            URL location = getClass().getResource("/user/UserItem.fxml");
             fxmlLoader.setLocation(location);
 //            fxmlLoader.setLocation(getClass().getResource("UserItem.fxml"));
 
@@ -84,7 +84,7 @@ public class AdminDashboard implements Initializable {
         List<Municipality> munis = new ArrayList<>(munis());
         for (Municipality muni : munis) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/MuniItem.fxml");
+            URL location = getClass().getResource("/user/MuniItem.fxml");
             fxmlLoader.setLocation(location);
 //            fxmlLoader.setLocation(getClass().getResource("UserItem.fxml"));
 
@@ -155,7 +155,7 @@ public class AdminDashboard implements Initializable {
 
     public void openForm() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutMuniFrom.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/AjoutMuniFrom.fxml"));
             Parent root = loader.load();
 
             Stage popupStage = new Stage();

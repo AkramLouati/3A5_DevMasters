@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.services.ServiceMuni;
 import javafx.fxml.FXML;

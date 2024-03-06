@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +38,7 @@ public class Acceuil {
     @FXML
     void adminRegisterNavigate(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjoutMuni.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/user/AjoutMuni.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);

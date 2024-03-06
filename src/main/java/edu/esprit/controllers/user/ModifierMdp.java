@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceUser;
@@ -63,7 +63,7 @@ public class ModifierMdp {
     void handleLabelClick(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/user/Login.fxml")));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);

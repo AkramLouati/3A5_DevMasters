@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
@@ -63,7 +63,7 @@ public class AjoutMuni {
 
     public void navigatetoAfficherMuniAction(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherMuni.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/user/AfficherMuni.fxml"));
             TFnom.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

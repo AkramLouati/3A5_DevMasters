@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceUser;
@@ -97,7 +97,7 @@ public class UserItem implements Initializable {
         try {
             EndUser endUser = serviceUser.getOneByID(userId);
             // Charger la vue de modification d'événement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/ModifierUser.fxml"));
             Parent root = loader.load();
 
             // Passer l'événement à modifier au contrôleur de modification

@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceMuni;
@@ -43,7 +43,7 @@ public class MuniItem implements Initializable {
         try {
             Municipality muni = serviceMuni.getOneByID(muniId);
             // Charger la vue de modification d'événement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierMuni.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/ModifierMuni.fxml"));
             Parent root = loader.load();
 
             // Passer l'événement à modifier au contrôleur de modification

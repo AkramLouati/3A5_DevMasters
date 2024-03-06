@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="949.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.UserItem">
+<HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="949.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.user.UserItem">
    <children>
       <ImageView fx:id="img" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/man.png" />
+            <Image url="@../assets/man.png" />
          </image>
          <HBox.margin>
             <Insets left="5.0" />
@@ -40,11 +40,11 @@
                   <Font name="Corbel" size="20.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#editUser" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button" stylesheets="@css/style.css">
+            <Button mnemonicParsing="false" onAction="#editUser" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button" stylesheets="@../css/style.css">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/document-editor.png" />
+                        <Image url="@../assets/document-editor.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -52,11 +52,11 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button layoutX="164.0" layoutY="25.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button" stylesheets="@css/style.css">
+            <Button layoutX="164.0" layoutY="25.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="40.0" prefWidth="40.0" styleClass="icon-button" stylesheets="@../css/style.css">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/delete.png" />
+                        <Image url="@../assets/delete.png" />
                      </image>
                   </ImageView>
                </graphic>
