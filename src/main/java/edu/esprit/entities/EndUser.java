@@ -9,36 +9,47 @@ public class EndUser {
     private String password;
     private String type;
     private String phoneNumber;
-    private String id_muni;
+    private Municipality muni;
     private String location;
     private String image;
+    private boolean isBanned;
 
-    public EndUser() {
-    }
+    public EndUser(){}
 
-    public EndUser(String email, String nom, String password, String type, String phoneNumber, String id_muni, String location, String image) {
-        this.email = email;
+    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image){
         this.nom = nom;
         this.email = email;
         this.password = password;
         this.type = type;
         this.phoneNumber = phoneNumber;
-        this.id_muni = id_muni;
+        this.muni = muni;
         this.location = location;
         this.image = image;
     }
 
-    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, String id_muni, String location, String image) {
+    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image, boolean isBanned){
+        this.nom = nom;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+        this.phoneNumber = phoneNumber;
+        this.muni = muni;
+        this.location = location;
+        this.image = image;
+        this.isBanned = isBanned();
+    }
+
+    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, Municipality muni, String location, String image, boolean isBanned) {
         this.id = id;
         this.email = email;
         this.nom = nom;
-        this.email = email;
         this.password = password;
         this.type = type;
         this.phoneNumber = phoneNumber;
-        this.id_muni = id_muni;
+        this.muni = muni;
         this.location = location;
         this.image = image;
+        this.isBanned = isBanned;
     }
 
     public int getId() {
@@ -89,12 +100,12 @@ public class EndUser {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId_muni() {
-        return id_muni;
+    public Municipality getMuni() {
+        return muni;
     }
 
-    public void setId_muni(String id_muni) {
-        this.id_muni = id_muni;
+    public void setMuni(Municipality muni) {
+        this.muni = muni;
     }
 
     public String getLocation() {
@@ -113,6 +124,13 @@ public class EndUser {
         this.image = image;
     }
 
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+    public boolean isBanned() {
+        return isBanned;
+    }
+
     @Override
     public String toString() {
         return "EndUser{" +
@@ -121,7 +139,7 @@ public class EndUser {
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", id_muni='" + id_muni + '\'' +
+                ", muni='" + muni + '\'' +
                 ", location='" + location + '\'' +
                 ", image='" + image + '\'' +
                 '}';

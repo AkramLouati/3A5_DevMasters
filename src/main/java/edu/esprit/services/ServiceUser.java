@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -14,7 +15,7 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public void ajouter(EndUser endUser) {
-        String req = "INSERT INTO `enduser`(`email_user`, `nom_user`, `type_user`, `phoneNumber_user`, `id_muni`, `location_user`, `image_user`,`password`) VALUES (?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `enduser`(`email_user`, `nom_user`, `type_user`, `phoneNumber_user`, `id_muni`, `location_user`, `image_user`,`password`,`isBanned`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, endUser.getEmail());
@@ -24,16 +25,42 @@ public class ServiceUser implements IService<EndUser> {
             ps.setString(2, endUser.getNom());
             ps.setString(3, endUser.getType());
             ps.setString(4, endUser.getPhoneNumber());
-            ps.setString(5, endUser.getId_muni());
+            ps.setInt(5, endUser.getMuni().getId_muni());
             ps.setString(6, endUser.getLocation());
             ps.setString(7, endUser.getImage());
             ps.setString(8, endUser.getPassword());
+            ps.setBoolean(9, false);
             ps.executeUpdate();
             System.out.printf("User added!!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public EndUser authenticateUser(String email, String password) {
+        String query = "SELECT * FROM `enduser` WHERE `email_user` = ? AND `password` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                int id_muni = rs.getInt("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
+                return new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image, isBanned);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null; // Authentication failed
     }
 
     @Override
@@ -48,13 +75,27 @@ public class ServiceUser implements IService<EndUser> {
             }
             ps.setString(3, endUser.getType());
             ps.setString(4, endUser.getPhoneNumber());
-            ps.setString(5, endUser.getId_muni());
+            ps.setInt(5, endUser.getMuni().getId_muni());
             ps.setString(6, endUser.getLocation());
             ps.setString(7, endUser.getImage());
             ps.setString(8, endUser.getPassword());
             ps.setInt(9, endUser.getId()); // Assuming `id_user` is the primary key
             ps.executeUpdate();
             System.out.println("User updated!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void modifierUserToBanned(int userId, boolean ban) {
+        String req = "UPDATE `enduser` SET `isBanned`=? WHERE `id_user`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setBoolean(1, ban);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+            System.out.println("User status modified!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -92,17 +133,19 @@ public class ServiceUser implements IService<EndUser> {
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
+            while(rs.next()){
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
                 String password = rs.getString("password");
                 String type = rs.getString("type_user");
                 String phoneNumber = rs.getString("phoneNumber_user");
-                String id_muni = rs.getString("id_muni");
+                int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
-                EndUser p = new EndUser(id, email, nom, password, type, phoneNumber, id_muni, location, image);
+                boolean isBanned = rs.getBoolean("isBanned");
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
+                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image, isBanned);
                 users.add(p);
             }
         } catch (SQLException e) {
@@ -114,32 +157,60 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public EndUser getOneByID(int userId) {
+        EndUser endUser = null;
         String query = "SELECT * FROM `enduser` WHERE `id_user` = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                // Créez un objet EndUser à partir des données du résultat
-                EndUser user = new EndUser();
-                user.setId(rs.getInt("id_user"));
-                user.setEmail(rs.getString("email_user"));
-                user.setNom(rs.getString("nom_user")); // Ajoutez d'autres attributs ici
-                user.setType(rs.getString("type_user"));
-                user.setPhoneNumber(rs.getString("phoneNumber_user"));
-                user.setId_muni(rs.getString("id_muni"));
-                user.setLocation(rs.getString("location_user"));
-                user.setImage(rs.getString("image_user"));
-                user.setPassword(rs.getString("password"));
-                return user;
-            } else {
-                System.out.println("Utilisateur introuvable pour l'ID : " + userId);
-                return null;
+            while(rs.next()){
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String email = rs.getString("email_user");
+                String password = rs.getString("password");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                int id_muni = rs.getInt("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
+                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image, isBanned);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return endUser;
     }
+
+
+    public EndUser getOneByEmail(String mail) {
+        EndUser endUser = null;
+        String query = "SELECT * FROM `enduser` WHERE `email_user` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setString(1, mail);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id_user");
+                String nom = rs.getString("nom_user");
+                String email = rs.getString("email_user");
+                String password = rs.getString("password");
+                String type = rs.getString("type_user");
+                String phoneNumber = rs.getString("phoneNumber_user");
+                int id_muni = rs.getInt("id_muni");
+                String location = rs.getString("location_user");
+                String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
+                Municipality muni = new ServiceMuni().getOneByID(id_muni);
+                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image,isBanned);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return endUser;
+    }
+
 
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";

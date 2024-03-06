@@ -1,6 +1,6 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -8,12 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class ServiceMuni implements IService<Muni> {
+public class ServiceMuni implements IService<Municipality>{
 
     Connection cnx = DataSource.getInstance().getCnx();
-
     @Override
-    public void ajouter(Muni muni) {
+    public void ajouter(Municipality muni) {
         String req = "INSERT INTO `muni`(`nom_muni`, `email_muni`, `password_muni`, `imagee_user`) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -32,7 +31,7 @@ public class ServiceMuni implements IService<Muni> {
     }
 
     @Override
-    public void modifier(Muni muni) {
+    public void modifier(Municipality muni) {
         String req = "UPDATE `muni` SET `nom_muni`=?, `email_muni`=?, `password_muni`=?, `imagee_user`=? WHERE `id_muni`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -73,21 +72,21 @@ public class ServiceMuni implements IService<Muni> {
     }
 
     @Override
-    public Set<Muni> getAll() {
-        Set<Muni> munis = new HashSet<>();
+    public Set<Municipality> getAll() {
+        Set<Municipality> munis = new HashSet<>();
         String req = "Select * from muni";
 
         Statement st = null;
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
+            while(rs.next()){
                 int id_muni = rs.getInt("id_muni");
                 String nom_muni = rs.getString("nom_muni");
                 String email_muni = rs.getString("email_muni");
                 String password_muni = rs.getString("password_muni");
                 String image = rs.getString("imagee_user");
-                Muni p = new Muni(id_muni, nom_muni, email_muni, password_muni, image);
+                Municipality p = new Municipality(id_muni,nom_muni,email_muni,password_muni,image);
                 munis.add(p);
             }
         } catch (SQLException e) {
@@ -98,7 +97,7 @@ public class ServiceMuni implements IService<Muni> {
     }
 
     @Override
-    public Muni getOneByID(int id) {
+    public Municipality getOneByID(int id) {
         String req = "SELECT * FROM `muni` WHERE `id_muni` = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -110,7 +109,7 @@ public class ServiceMuni implements IService<Muni> {
                 String email_muni = rs.getString("email_muni");
                 String password_muni = rs.getString("password_muni");
                 String image = rs.getString("imagee_user");
-                return new Muni(id_muni, nom_muni, email_muni, password_muni, image);
+                return new Municipality(id_muni, nom_muni, email_muni, password_muni, image);
             } else {
                 // Handle case where no Muni with the given ID exists
                 System.out.println("Muni with ID " + id + " not found.");
@@ -120,9 +119,31 @@ public class ServiceMuni implements IService<Muni> {
             throw new RuntimeException(e);
         }
     }
-
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.compile(regexPattern).matcher(email).matches();
+    }
+
+    public Municipality getOneByName(String nom) {
+        String req = "SELECT * FROM `muni` WHERE `nom_muni` = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, nom);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id_muni = rs.getInt("id_muni");
+                String nom_muni = rs.getString("nom_muni");
+                String email_muni = rs.getString("email_muni");
+                String password_muni = rs.getString("password_muni");
+                String image = rs.getString("imagee_user");
+                return new Municipality(id_muni, nom_muni, email_muni, password_muni, image);
+            } else {
+                // Handle case where no Muni with the given ID exists
+                System.out.println("Muni avec le nom " + nom + " n'existe pas.");
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
