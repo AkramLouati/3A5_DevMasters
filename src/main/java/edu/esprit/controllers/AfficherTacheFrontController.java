@@ -9,12 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,33 +108,87 @@ public class AfficherTacheFrontController implements Initializable {
     }
 
     private void enableGridDropping(GridPane gridPane) {
-        gridPane.setOnDragOver(event -> {
-            if (event.getGestureSource() != gridPane && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.MOVE);
-            }
-            event.consume();
-        });
-        gridPane.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasString()) {
-                int taskId = Integer.parseInt(db.getString());
-                Tache task = ST.getOneByID(taskId);
-                if (task != null) {
-                    // Assuming the grid's ID corresponds to the new state of the task
-                    EtatTache newState = EtatTache.valueOf(gridPane.getId());
-                    task.setEtat_T(newState);
-                    ST.modifier(task); // Update the task state in the database
-                    success = true;
+        final GridPane finalGridPane = gridPane; // Declare as effectively final
+
+        if (!gridPane.getId().equals("doneGrid")) {
+            gridPane.setOnDragOver(event -> {
+                if (event.getGestureSource() != finalGridPane && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
                 }
-            }
-            event.setDropCompleted(success);
-            event.consume();
-            if (success) {
-                refreshAllGrids(); // Refresh all grids after successful drop
-            }
-        });
+                event.consume();
+            });
+
+            gridPane.setOnDragEntered(event -> {
+                if (event.getGestureSource() != finalGridPane && event.getDragboard().hasString()) {
+                    finalGridPane.setStyle("-fx-background-color: red;");
+                }
+                event.consume();
+            });
+
+            gridPane.setOnDragExited(event -> {
+                finalGridPane.setStyle("-fx-background-color: transparent;");
+                event.consume();
+            });
+
+            gridPane.setOnDragDropped(event -> {
+                Dragboard db = event.getDragboard();
+                final boolean[] success = {false};
+                if (db.hasString()) {
+                    int taskId = Integer.parseInt(db.getString());
+                    Tache task = ST.getOneByID(taskId);
+                    if (task != null) {
+                        // Assuming the grid's ID corresponds to the new state of the task
+                        EtatTache newState = EtatTache.valueOf(finalGridPane.getId());
+                        if (newState == EtatTache.DOING || newState == EtatTache.TO_DO) {
+                            // Task is already in the "Done" state, prevent moving
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Warning");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Cette tâche est déjà dans l'état 'DONE' et ne peut pas être déplacée.");
+                            alert.showAndWait();
+                        } else {
+                            if (newState == EtatTache.DONE) {
+                                // Show confirmation dialog for irreversible action
+                                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                                confirmationAlert.setTitle("Confirmation");
+                                confirmationAlert.setHeaderText(null);
+                                confirmationAlert.setContentText("Êtes-vous sûr de vouloir déplacer cette tâche à 'DONE' ? Cette action est irréversible.");
+                                confirmationAlert.showAndWait().ifPresent(response -> {
+                                    if (response == ButtonType.OK) {
+                                        // Proceed with the action
+                                        task.setEtat_T(newState);
+                                        ST.modifier(task); // Update the task state in the database
+                                        success[0] = true;
+                                    }
+                                });
+                            } else {
+                                // For states other than DONE, proceed directly
+                                task.setEtat_T(newState);
+                                ST.modifier(task); // Update the task state in the database
+                                success[0] = true;
+                            }
+                        }
+                    }
+                }
+                event.setDropCompleted(success[0]);
+                event.consume();
+                if (success[0]) {
+                    refreshAllGrids(); // Refresh all grids after successful drop
+                }
+            });
+        } else {
+            gridPane.setOnDragOver(event -> {
+                event.acceptTransferModes(TransferMode.NONE); // Disable drag over
+                event.consume();
+            });
+            gridPane.setOnDragDropped(event -> {
+                // Do nothing, as dragging into this grid is disabled
+                event.setDropCompleted(false);
+                event.consume();
+            });
+        }
     }
+
 
     @FXML
     void searchTacheLabel(ActionEvent event) {
@@ -185,6 +243,20 @@ public class AfficherTacheFrontController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load tasks.");
+        }
+    }
+
+    public void chatBot(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatBotTache.fxml"));
+            Parent root = loader.load();
+            ChatBotTacheController controller = loader.getController();
+            // Create a new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -87,6 +87,13 @@
             <version>5.2.5</version>
         </dependency>
         <!--EXCEL-->
+        <!--CHATBOT-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.11.0</version>
+        </dependency>
+        <!--CHATBOT-->
     </dependencies>
 
     <build>

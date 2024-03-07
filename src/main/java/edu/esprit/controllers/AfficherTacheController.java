@@ -36,9 +36,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AfficherTacheController implements Initializable {
     private final ServiceTache sr = new ServiceTache();
@@ -307,13 +307,11 @@ public class AfficherTacheController implements Initializable {
     void searchTacheLabel(ActionEvent actionEvent) {
         String searchText = searchbar.getText().toLowerCase().trim();
         Set<Tache> allTasks = sr.getAll();
-        Set<Tache> filteredTasks = new HashSet<>();
 
-        for (Tache task : allTasks) {
-            if (task.getTitre_T().toLowerCase().contains(searchText)) {
-                filteredTasks.add(task);
-            }
-        }
+        Set<Tache> filteredTasks = allTasks.stream()
+                .filter(task -> task.getTitre_T().toLowerCase().contains(searchText))
+                .collect(Collectors.toSet());
+
         displayTasks(filteredTasks);
     }
 

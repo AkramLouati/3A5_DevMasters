@@ -315,8 +315,8 @@ public class ModifierTacheController {
                 return ValidationResult.fromMessageIf(c, "Titre Obligatoire", Severity.ERROR, true);
             } else if (newValue.matches(".*\\d+.*")) {
                 return ValidationResult.fromMessageIf(c, "Titre Ne Contient Pas Des Nombres", Severity.ERROR, true);
-            } else if (newValue.length() > 8) {
-                return ValidationResult.fromMessageIf(c, "Titre doit avoir au maximum 8 caractères", Severity.ERROR, true);
+            } else if (newValue.length() > 20) {
+                return ValidationResult.fromMessageIf(c, "Titre doit avoir au maximum 20 caractères", Severity.ERROR, true);
             }
             return null; // Return null if validation passes
         });
