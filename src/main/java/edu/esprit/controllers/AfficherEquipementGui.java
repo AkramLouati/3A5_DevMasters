@@ -1,8 +1,6 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceEquipement;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;

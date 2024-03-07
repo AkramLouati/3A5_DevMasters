@@ -1,13 +1,8 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Avis;
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceAvis;
-import edu.esprit.services.ServiceEquipement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

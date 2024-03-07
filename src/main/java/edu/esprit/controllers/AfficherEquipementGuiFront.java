@@ -1,8 +1,6 @@
 package edu.esprit.controllers;
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceEquipement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;

@@ -1,27 +1,19 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Avis;
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceAvis;
 import edu.esprit.services.ServiceEquipement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.Rating;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;

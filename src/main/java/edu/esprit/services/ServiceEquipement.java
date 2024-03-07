@@ -1,10 +1,7 @@
 package edu.esprit.services;
 
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
-import edu.esprit.entities.Muni;
-import edu.esprit.entities.EndUser;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;

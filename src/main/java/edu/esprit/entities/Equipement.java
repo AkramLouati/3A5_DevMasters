@@ -1,8 +1,5 @@
 package edu.esprit.entities;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
-
 import java.util.Date;
 import java.util.Objects;
 
