@@ -158,7 +158,7 @@ public class AfficherReclamationController implements Initializable {
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationTypeGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
