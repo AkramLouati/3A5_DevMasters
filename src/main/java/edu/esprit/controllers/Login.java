@@ -5,6 +5,7 @@ import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,12 +13,14 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class Login {
+public class Login implements Initializable {
 
     private static final String USER_PREF_KEY = "current_user";
     public Hyperlink forgetPwd;
@@ -221,4 +224,8 @@ public class Login {
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(getCurrentUser());
+    }
 }

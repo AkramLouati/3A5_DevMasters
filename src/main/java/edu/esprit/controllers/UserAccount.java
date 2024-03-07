@@ -120,7 +120,7 @@ public class UserAccount implements Initializable{
     void logoutButton(ActionEvent event) throws IOException {
         // Logging out
         Preferences preferences = Preferences.userNodeForPackage(UserAccount.class);
-        preferences.remove("username");
+        preferences.remove("current_user");
 
         // After logging out, show the login screen
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
