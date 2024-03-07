@@ -48,7 +48,7 @@
                   <Image url="@assets/mail.png" />
                </image>
             </ImageView>
-            <TextField fx:id="tfEmail"  layoutX="120.0" layoutY="91.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #003668; -fx-border-width: 0px 0px 2px 0px;" />
+            <TextField fx:id="tfEmail" layoutX="120.0" layoutY="91.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #003668; -fx-border-width: 0px 0px 2px 0px;" />
             <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="80.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/padlock.png" />
@@ -74,7 +74,7 @@
             </ImageView>
             <TextField fx:id="tfAddresse" layoutX="119.0" layoutY="250.0" promptText="Addresse" style="-fx-background-color: transparent; -fx-border-color: #003668; -fx-border-width: 0px 0px 2px 0px;" />
             <ComboBox fx:id="muniSelectionComboBox" layoutX="70.0" layoutY="300.0" onAction="#muniSelection" prefHeight="37.0" prefWidth="248.0" promptText="Sélectionnez votre municipalité" style="-fx-border-color: #003668;" styleClass="combo-box" stylesheets="@css/style.css" />
-            <Button fx:id="pickImageButton" layoutX="111.0" layoutY="359.0" mnemonicParsing="false" onAction="#pickImageAction" styleClass="transparent" stylesheets="@css/style.css">
+            <Button fx:id="pickImageButton" layoutX="91.0" layoutY="359.0" mnemonicParsing="false" onAction="#pickImageAction" styleClass="transparent" stylesheets="@css/style.css">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0">
                      <image>
@@ -84,7 +84,16 @@
                </graphic></Button>
             <Button layoutX="135.0" layoutY="415.0" mnemonicParsing="false" onAction="#registerAction" styleClass="button-style" stylesheets="@css/style.css" text="Inscrire" textFill="WHITE" />
             <Hyperlink layoutX="99.0" layoutY="462.0" onAction="#handleLabelClick" text="Vous avez déja un compte?" textFill="#003668" />
-            <ImageView fx:id="ImageF" fitHeight="50.0" fitWidth="50.0" layoutX="174.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="ImageF" fitHeight="50.0" fitWidth="50.0" layoutX="146.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="takePictureButton" layoutX="204.0" layoutY="359.0" mnemonicParsing="false" onAction="#takePictureAction" styleClass="transparent" stylesheets="@css/style.css">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0">
+                     <image>
+                        <Image url="@assets/camera.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </right>
