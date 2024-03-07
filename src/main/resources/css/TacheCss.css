@@ -1,0 +1,74 @@
+/* Root styling */
+.root {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #012545;
+    -fx-fill: #012545;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #012545;
+    -fx-border-color: #012545;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
+
+.button:hover {
+    -fx-background-color: #012545;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button:selected {
+    -fx-background-color: #012545;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Text field styling */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+    -fx-text-fill: black;
+    -fx-background-color: #fff;
+    -fx-border-color: #003668;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+}
+
+/* Text area styling */
+.text-area {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #012545;
+    -fx-border-color: #012545;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+}
+
+Label {
+    -fx-text-fill: #012545;
+    /*-fx-border-color: #012545;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;*/
+}
+
+Text {
+    -fx-fill: #012545;
+}
+
+    .text-input {
+        -fx-font-size: 14px;
+        -fx-prompt-text-fill: gray;
+        -fx-text-fill: black;
+        -fx-background-color: #fff;
+        -fx-border-color: #003668;
+        -fx-border-width: 1px;
+        -fx-border-radius: 10px;
+        -fx-padding: 5px;
+    }
+.main-container {
+    border-radius: 20px;
+    border: #063b85 6px solid;
+    background: linear-gradient(#ffffff, #ffffff) padding-box, color  border-box;
+}
+
