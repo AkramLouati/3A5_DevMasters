@@ -1,7 +1,6 @@
 package edu.esprit.tests;
 
 import edu.esprit.services.ServiceUser;
-import edu.esprit.utils.Session;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -3,7 +3,6 @@ package edu.esprit.controllers;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
-import edu.esprit.utils.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
