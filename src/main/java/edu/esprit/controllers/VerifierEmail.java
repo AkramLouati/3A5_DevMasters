@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.security.SecureRandom;
+import java.util.prefs.Preferences;
 
 public class VerifierEmail {
 
@@ -28,6 +29,8 @@ public class VerifierEmail {
 
     EndUser user;
 
+    private static final String USER_PREF_KEY = "current_user";
+
     public void setData(String otp, EndUser user) {
         this.otp = otp;
         this.user = user;
@@ -38,6 +41,7 @@ public class VerifierEmail {
         if(OTPField.getText().equals(otp)){
             try {
                 serviceUser.ajouter(user);
+                setCurrentUser(user.getId());
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
                 Parent root = loader.load();
 
@@ -79,6 +83,12 @@ public class VerifierEmail {
         }
 
         return otp.toString();
+    }
+
+    private void setCurrentUser(int userId) {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        preferences.put(USER_PREF_KEY, String.valueOf(userId));
+        System.out.println("Current User saved: " + userId);
     }
 
     private void showAlert(String message) {

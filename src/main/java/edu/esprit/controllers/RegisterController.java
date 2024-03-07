@@ -33,6 +33,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
@@ -68,7 +69,6 @@ public class RegisterController implements Initializable {
     private TextField tfTel;
 
     String imagePath;
-
 
     File selectedFile = null;
 

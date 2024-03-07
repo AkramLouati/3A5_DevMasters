@@ -1,11 +1,16 @@
 package edu.esprit.controllers;
 
+import com.twilio.rest.chat.v1.service.User;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,9 +18,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
@@ -107,6 +114,22 @@ public class UserAccount implements Initializable{
             Image image = new Image(selectedFile.toURI().toString());
             imageF.setImage(image);
         }
+    }
+
+    @FXML
+    void logoutButton(ActionEvent event) throws IOException {
+        // Logging out
+        Preferences preferences = Preferences.userNodeForPackage(UserAccount.class);
+        preferences.remove("username");
+
+        // After logging out, show the login screen
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Se connecter");
+        stage.show();
+
     }
 
     private String hashPassword(String password) {
