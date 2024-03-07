@@ -101,7 +101,7 @@ public class Login {
                         try {
                             System.out.println(currentUser.getId());
                             setCurrentUser(currentUser.getId());
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/UserAccount.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActualiteGui/MainGui.fxml"));
                             Parent root = loader.load();
 
                             // Get the controller instance

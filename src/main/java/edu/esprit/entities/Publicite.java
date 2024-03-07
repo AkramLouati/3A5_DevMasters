@@ -18,7 +18,14 @@ public class Publicite {
     public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, Object offre_pub, EndUser user, Actualite actualite) {
     }
 
-    ;
+    public Publicite(EndUser endUser, Actualite actualite) {
+        this.endUser = endUser;
+        this.actualite = actualite;
+    }
+
+    public Publicite(EndUser endUser) {
+        this.endUser = endUser;
+    }
 
     public Publicite(int id_pub, String titre_pub, String description_pub, int contact_pub, String localisation_pub, String image_pub, String offre_pub, EndUser endUser, Actualite actualite) {
         this.id_pub = id_pub;

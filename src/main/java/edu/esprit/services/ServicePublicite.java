@@ -2,7 +2,7 @@ package edu.esprit.services;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.entities.Publicite;
 import edu.esprit.utils.DataSource;
 

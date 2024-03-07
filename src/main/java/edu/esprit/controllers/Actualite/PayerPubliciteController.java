@@ -5,11 +5,13 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 
@@ -34,7 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import java.util.prefs.Preferences;
 
 
 import javafx.scene.control.Alert;
@@ -80,6 +82,12 @@ public class PayerPubliciteController implements Initializable {
     private boolean isSidebarVisible = true;
     private final ServicePublicite sp = new ServicePublicite();
     private String imagePath;
+
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    EndUser endUser = new EndUser();
 
     @FXML
     private Button buttonMain1;
@@ -184,6 +192,8 @@ public class PayerPubliciteController implements Initializable {
                 System.out.println("Localisation: " + nompaiement.getText());
                 System.out.println("Image Path: " + imagePath);
                 System.out.println("Selected Offer: " + selectedOffer);
+                int userId = Integer.parseInt(getCurrentUser());
+                endUser = serviceUser.getOneByID(userId);
 
                 // Attempt to add the publicite to the database
                 sp.ajouter(new Publicite(
@@ -193,8 +203,8 @@ public class PayerPubliciteController implements Initializable {
                         nompaiement.getText(),
                         imagePath,
                         selectedOffer,
-                        new EndUser(12, new Muni(1)),
-                        new Actualite(102, new EndUser(12, new Muni(1)))));
+                        endUser,
+                        new Actualite(102, endUser)));
 
                 // Additional logic for handling the contactText
                 if (!contactText.isEmpty()) {
@@ -407,6 +417,11 @@ public class PayerPubliciteController implements Initializable {
                 }
             }
         }
+    }
+
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
 }

@@ -1,5 +1,8 @@
 package edu.esprit.controllers.Actualite;
 
+import edu.esprit.controllers.user.Login;
+import edu.esprit.entities.EndUser;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class MainGuiController {
 
@@ -27,6 +31,14 @@ public class MainGuiController {
 
     @FXML
     private VBox MainLeftSidebar;
+
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId = Integer.parseInt(getCurrentUser());
+
+    EndUser endUser = serviceUser.getOneByID(userId);
 
     private boolean isSidebarVisible = true;
 
@@ -81,9 +93,15 @@ public class MainGuiController {
 
     public void BTNGestionAct(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
-            BTNGestionAct.getScene().setRoot(root);
+            if(endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé")){
+                System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            } else if (endUser.getType().equals("Responsable employé")) {
+                System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -109,4 +127,10 @@ public class MainGuiController {
     public void BTNGestionReclamation(ActionEvent actionEvent) {
 
     }
+
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+
 }

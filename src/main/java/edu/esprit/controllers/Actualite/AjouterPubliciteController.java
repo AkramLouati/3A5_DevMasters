@@ -4,11 +4,13 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class AjouterPubliciteController implements Initializable {
     private PayerPubliciteController payerPubliciteController;
@@ -60,6 +63,7 @@ public class AjouterPubliciteController implements Initializable {
     public Image getImage() {
         return imgView_pub.getImage();
     }
+
     @FXML
     TextField TFcontactpub;
 
@@ -103,6 +107,13 @@ public class AjouterPubliciteController implements Initializable {
     String imagePath;
 
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+  //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -193,7 +204,6 @@ public class AjouterPubliciteController implements Initializable {
     }
 
 
-
     void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -279,9 +289,11 @@ public class AjouterPubliciteController implements Initializable {
 
         sideBarTransition.play();
     }
+
     public void setSelectedOffer(String selectedOffer) {
         offrePubCombo.setValue(selectedOffer);
     }
+
     public void BTNGestionEvennement(ActionEvent actionEvent) {
     }
 
@@ -299,6 +311,7 @@ public class AjouterPubliciteController implements Initializable {
 
     public void BTNGestionTache(ActionEvent actionEvent) {
     }
+
     public void setTextFieldValues(String titre, String description, String contact, String localisation, String imagePath) {
         TFtitrepub.setText(titre);
         TFdescriptionpub.setText(description);
@@ -310,10 +323,11 @@ public class AjouterPubliciteController implements Initializable {
         Image image = new Image("file:" + imagePath);
         imgView_pub.setImage(image);
     }
+
     @FXML
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
-        Muni muni = new Muni(1);
-        EndUser user = new EndUser(12, muni);
+
+
         Actualite actualite = new Actualite(102, user);
         String selectedOffer = offrePubCombo.getValue();
 
@@ -343,9 +357,6 @@ public class AjouterPubliciteController implements Initializable {
             alert.show();
         }
     }
-
-
-
 
 
     double getAmountFromOffer(String offer) {
@@ -410,5 +421,10 @@ public class AjouterPubliciteController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

@@ -1,9 +1,11 @@
 package edu.esprit.controllers.Actualite;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+
 import edu.esprit.services.ServiceActualite;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class AjouterActualiteController implements Initializable {
 
@@ -68,7 +71,13 @@ public class AjouterActualiteController implements Initializable {
     @FXML
     private Label verifierTitre;
     private boolean isSidebarVisible = true;
+    private static final String USER_PREF_KEY = "current_user";
 
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
@@ -111,8 +120,8 @@ public class AjouterActualiteController implements Initializable {
 
     private final ServiceActualite sp = new ServiceActualite();
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-    Muni muni = new Muni(1);
-    EndUser user = new EndUser(12,muni);
+
+
     Actualite actualite = new Actualite(68,user);
     private String imagePath;
 
@@ -273,5 +282,9 @@ public class AjouterActualiteController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

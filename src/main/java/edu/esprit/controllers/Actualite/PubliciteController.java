@@ -1,10 +1,12 @@
 package edu.esprit.controllers.Actualite;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.prefs.Preferences;
 
 public class PubliciteController {
 
@@ -36,9 +39,16 @@ public class PubliciteController {
     private Publicite publicite;
     ServicePublicite servicePublicite = new ServicePublicite();
 
-    Muni muni = new Muni(1);
-    EndUser user = new EndUser(12,muni);
-    Actualite actualite = new Actualite(102,user);
+
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser endUser = serviceUser.getOneByID(userId);
+
+    Actualite actualite = new Actualite(102,endUser);
 
 
     public void setData(Publicite publicite) {
@@ -148,6 +158,10 @@ public class PubliciteController {
             errorAlert.setTitle("Erreur de suppression");
             errorAlert.show();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }
 
