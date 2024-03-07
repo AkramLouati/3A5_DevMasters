@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
@@ -172,7 +172,7 @@ public class EquipementItemGuiFront {
     void avisFEquipementAction(ActionEvent event) {
         if (equipement != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherAvisGuiFront.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipementGui/AfficherAvisGuiFront.fxml"));
                 Parent root = loader.load();
                 AfficherAvisGuiFront controller = loader.getController();
                 controller.setServiceEquipement(serviceEquipement);

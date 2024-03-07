@@ -1,13 +1,14 @@
 package edu.esprit.services;
 import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Avis;
+import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
+import edu.esprit.entities.EndUser;
 public class ServiceAvis implements IService<Avis> {
 
 
@@ -24,7 +25,7 @@ public class ServiceAvis implements IService<Avis> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, avis.getEquipement().getId_equipement());
             ps.setInt(2, avis.getUser().getId());
-            ps.setInt(3, avis.getMuni().getId());
+            ps.setInt(3, avis.getMuni().getId_muni());
             ps.setInt(4, avis.getNote_avis());
             ps.setString(5, avis.getCommentaire_avis());
             ps.setDate(6, new java.sql.Date(avis.getDate_avis().getTime()));
@@ -41,7 +42,7 @@ public class ServiceAvis implements IService<Avis> {
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, avis.getUser().getId());
-            ps.setInt(2, avis.getMuni().getId());
+            ps.setInt(2, avis.getMuni().getId_muni());
             ps.setInt(3, avis.getEquipement().getId_equipement());
             ps.setInt(4, avis.getNote_avis());
             ps.setString(5, avis.getCommentaire_avis());
@@ -91,7 +92,7 @@ public class ServiceAvis implements IService<Avis> {
 
                 // Récupération de l'utilisateur associé à l'avis
                 EndUser user = serviceEndUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 // Récupération de l'équipement associé à l'avis
                 Equipement equipement = serviceEquipement.getOneByID(id_equipement);
@@ -125,7 +126,7 @@ public class ServiceAvis implements IService<Avis> {
 
                 // Récupération de l'utilisateur associé à l'avis
                 EndUser user = serviceEndUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 // Récupération de l'équipement associé à l'avis
                 Equipement equipement = serviceEquipement.getOneByID(id_equipement);
@@ -158,7 +159,7 @@ public class ServiceAvis implements IService<Avis> {
                 String commentaire_avis = rs.getString("commentaire_avis");
                 java.util.Date date_avis = rs.getDate("date_avis");
 
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
                 EndUser user = serviceEndUser.getOneByID(id_user);
 
                 Avis avis = new Avis(id_avis, user, equipement, muni,note_avis, commentaire_avis, date_avis);

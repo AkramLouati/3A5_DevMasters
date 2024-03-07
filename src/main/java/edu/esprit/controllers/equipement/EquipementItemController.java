@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
 
 public class EquipementItemController {
@@ -53,7 +52,7 @@ public class EquipementItemController {
     @FXML
     void modifierEquipementAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEquipementGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipementGui/ModifierEquipementGui.fxml"));
             Parent root = loader.load();
             ModifierEquipementGui controller = loader.getController();
             controller.setServiceEquipement(serviceEquipement);
@@ -94,7 +93,7 @@ public class EquipementItemController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des équipement)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
                     editButton.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
@@ -117,9 +116,9 @@ public class EquipementItemController {
     void avisEquipementAction(ActionEvent event) {
         if (equipement != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherAvisGui.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipementGui/AfficherAvisGui.fxml"));
                 Parent root = loader.load();
-                AfficherAvisGui controller = loader.getController();
+                AjouterAvisGuiFront controller = loader.getController();
                 controller.setServiceEquipement(serviceEquipement);
                 controller.setData(equipement); // Set the data before loading the controller
                 editButton.getScene().setRoot(root);

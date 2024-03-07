@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="231.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EquipementItemGuiFront">
+<AnchorPane prefHeight="231.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.equipement.EquipementItemGuiFront">
    <children>
       <AnchorPane prefHeight="231.0" prefWidth="870.0">
          <children>
@@ -30,17 +30,17 @@
             </HBox>
             <VBox layoutX="734.0" layoutY="31.0">
                <children>
-                  <Button fx:id="useButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#utiliserEquipementAction" styleClass="light-button" stylesheets="@style.css" text="Utiliser">
+                  <Button fx:id="useButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#utiliserEquipementAction" styleClass="light-button" stylesheets="@../style.css" text="Utiliser">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="rendreButton" mnemonicParsing="false" onAction="#rendreEquipementAction" stylesheets="@style.css" text="Rendre">
+                  <Button fx:id="rendreButton" mnemonicParsing="false" onAction="#rendreEquipementAction" stylesheets="@../style.css" text="Rendre">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="avisFButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#avisFEquipementAction" prefHeight="29.0" prefWidth="53.0" stylesheets="@style.css" text="Avis">
+                  <Button fx:id="avisFButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#avisFEquipementAction" prefHeight="29.0" prefWidth="53.0" stylesheets="@../style.css" text="Avis">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>

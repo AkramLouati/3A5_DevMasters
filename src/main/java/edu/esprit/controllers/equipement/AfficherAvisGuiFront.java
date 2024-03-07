@@ -1,9 +1,12 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Avis;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceAvis;
 import edu.esprit.services.ServiceEquipement;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +25,15 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 public class AfficherAvisGuiFront implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -49,8 +59,8 @@ public class AfficherAvisGuiFront implements Initializable {
     private ScrollPane scroll;
 
 
-    Muni muni = new Muni(2);
-    EndUser user = new EndUser(5, muni);
+
+
     private ServiceAvis sa = new ServiceAvis();
     private ServiceEquipement serviceEquipement;
     private Equipement equipement;
@@ -92,8 +102,11 @@ public class AfficherAvisGuiFront implements Initializable {
     @FXML
     void ajouterAvisAction(ActionEvent event) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AjouterAvisGuiFront.fxml"));
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AjouterAvisGuiFront.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipementGui/AjouterAvisGuiFront.fxml"));
+            Parent root = loader.load();
+            AjouterAvisGuiFront controller = loader.getController();
+            controller.setServiceEquipement(serviceEquipement);
+            controller.setData(equipement); // Set the data before loading the controller
             retourEquipement.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,8 +120,8 @@ public class AfficherAvisGuiFront implements Initializable {
     @FXML
     void navigateAvisEquipement(ActionEvent event) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherEquipementGuiFront.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGuiFront.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AfficherEquipementGuiFront.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGuiFront.fxml"));
             retourEquipement.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,7 +141,7 @@ public class AfficherAvisGuiFront implements Initializable {
         try {
             for (int i = 0; i < avisList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/AvisItemGuiFront.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/equipementGui/AvisItemGuiFront.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 AvisItemGuiFront itemController = fxmlLoader.getController();
@@ -159,5 +172,9 @@ public class AfficherAvisGuiFront implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

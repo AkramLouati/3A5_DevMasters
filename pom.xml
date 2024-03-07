@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
-            <version>8.19.0</version> <!-- Check for the latest version on the Twilio website -->
+            <version>8.26.0</version> <!-- Check for the latest version on the Twilio website -->
         </dependency>
 
         <!-- actualite dependencies -->
@@ -128,6 +128,7 @@
             <artifactId>commons-text</artifactId>
             <version>1.10.0</version>
         </dependency>
+        <!-- Equipements dependencies -->
 
 
 

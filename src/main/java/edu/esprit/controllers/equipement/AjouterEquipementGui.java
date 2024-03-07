@@ -1,7 +1,10 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
+import edu.esprit.controllers.user.Login;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class AjouterEquipementGui implements Initializable{
     @FXML
@@ -77,8 +81,12 @@ public class AjouterEquipementGui implements Initializable{
     private boolean isSidebarVisible = true;
     private String imagePath;
     private final ServiceEquipement se = new ServiceEquipement();
-    Muni muni = new Muni(1);
-    EndUser user = new EndUser(1,muni);
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private Label referenceErrorLabel;
     @FXML
@@ -193,7 +201,7 @@ public class AjouterEquipementGui implements Initializable{
         } else {
             nomErrorLabel.setVisible(false);
         }
-        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, muni);
+        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, user.getMuni());
 
         se.ajouter(equipement); // Ajoutez l'équipement en utilisant votre service
 
@@ -206,7 +214,7 @@ public class AjouterEquipementGui implements Initializable{
     @FXML
     void navigatetoAfficherEquipementAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
             referenceTF.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -259,6 +267,9 @@ public class AjouterEquipementGui implements Initializable{
             }
         });
     }
-
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
 }
 

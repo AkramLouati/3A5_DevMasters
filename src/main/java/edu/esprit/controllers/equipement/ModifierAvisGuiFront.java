@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
 import edu.esprit.entities.Avis;
 import edu.esprit.entities.Equipement;
@@ -150,8 +150,8 @@ public class ModifierAvisGuiFront {
     @FXML
     void retourAvisAction(ActionEvent event) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherAvisGuiFront.fxml"));
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherAvisGuiFront.fxml")));
+            System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AfficherAvisGuiFront.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/equipementGui/AfficherAvisGuiFront.fxml")));
             retourButton.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

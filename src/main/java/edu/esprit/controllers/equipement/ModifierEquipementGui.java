@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
@@ -197,7 +197,7 @@ public class ModifierEquipementGui {
 
                         // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGUi.fxml"));
+                            Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
                             modifiquipementbtn.getScene().setRoot(root);
                         } catch (IOException e) {
                             // Gérer l'exception si la redirection échoue
@@ -273,7 +273,7 @@ public class ModifierEquipementGui {
                 // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
                 // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
                 // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/img/Baladia.png");
+                URL defaultImageUrl = getClass().getResource("/equipementGui/img/Baladia.png");
                 if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
                     Image defaultImage = new Image(defaultImageUrl.toString());
                     imagevieweqmodif.setImage(defaultImage);
@@ -290,7 +290,7 @@ public class ModifierEquipementGui {
     @FXML
     void navigatetoAfficherEquipementAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEquipementGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
             referencemodifTF.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

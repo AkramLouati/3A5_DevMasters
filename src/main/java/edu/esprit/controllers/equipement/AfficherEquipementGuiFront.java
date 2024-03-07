@@ -1,7 +1,10 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
+import edu.esprit.controllers.user.Login;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
+import edu.esprit.services.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 public class AfficherEquipementGuiFront implements Initializable {
@@ -44,8 +48,12 @@ public class AfficherEquipementGuiFront implements Initializable {
     private ComboBox<String> categoryComboBox;
     @FXML
     private TextField searchField;
-    Muni muni = new Muni(2);
-    EndUser user = new EndUser(5, muni);
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     private ServiceEquipement se = new ServiceEquipement();
     Set<Equipement> equipementSet = se.getAll();
     List<Equipement> equipementList = new ArrayList<>(equipementSet);
@@ -111,7 +119,7 @@ public class AfficherEquipementGuiFront implements Initializable {
         int row = 1;
         try {
             for (Equipement equipement : equipments) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EquipementItemGuiFront.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/equipementGui/EquipementItemGuiFront.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 EquipementItemGuiFront itemController = fxmlLoader.getController();
                 itemController.setData(equipement);
@@ -146,5 +154,9 @@ public class AfficherEquipementGuiFront implements Initializable {
         equipementList = new ArrayList<>(equipementSet);
         // Rafraîchissez la grille avec les équipements initiaux
         refreshGrid(equipementList);
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

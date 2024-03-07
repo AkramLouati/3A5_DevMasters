@@ -1,8 +1,12 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.equipement;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Avis;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceAvis;
+import edu.esprit.services.ServiceEquipement;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +19,7 @@ import org.controlsfx.control.Rating;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class AjouterAvisGuiFront {
     @FXML
@@ -69,9 +74,12 @@ public class AjouterAvisGuiFront {
     }
 
     private final ServiceAvis serviceAvis = new ServiceAvis();
-    Muni muni = new Muni(1);
-    EndUser user = new EndUser(1,muni);
-    Equipement e = new Equipement(29);
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
     @FXML
     void ajouterAvisAction(ActionEvent event) {
@@ -91,7 +99,7 @@ public class AjouterAvisGuiFront {
 
             Date date_avis = Date.valueOf(dateaviseq.getValue()); // Convertissez la valeur du DatePicker en objet Date
             // Créer un nouvel objet Avis avec ces valeurs
-            Avis nouvelAvis = new Avis(e,user, muni, note_avis, commentaireeq.getText(), date_avis);
+            Avis nouvelAvis = new Avis(equipement,user, user.getMuni(), note_avis, commentaireeq.getText(), date_avis);
 
             // Appeler la méthode de service appropriée pour ajouter cet avis
             serviceAvis.ajouter(nouvelAvis);
@@ -114,8 +122,8 @@ public class AjouterAvisGuiFront {
     @FXML
     void retourAvisAction(ActionEvent event) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/AfficherAvisGuiFront.fxml"));
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherAvisGuiFront.fxml")));
+            System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AfficherEquipementGuiFront.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/equipementGui/AfficherEquipementGuiFront.fxml")));
             retourButton.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,6 +134,19 @@ public class AjouterAvisGuiFront {
         }
 
     }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+     ServiceEquipement serviceEquipement= new ServiceEquipement();
+    Equipement equipement;
+    public void setServiceEquipement(ServiceEquipement serviceEquipement) {
+        this.serviceEquipement = serviceEquipement;
 
+    }
 
+    public void setData(Equipement equipement) {
+        this.equipement = equipement;
+        System.out.println(equipement);
+    }
 }

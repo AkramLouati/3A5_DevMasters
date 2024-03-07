@@ -151,4 +151,22 @@ public class MainGuiController {
         }
     }
 
-}
+    public void BTNGestionEquipements(ActionEvent actionEvent) {
+        try {
+            if( endUser.getType().equals("Responsable employé")|| endUser.getType().equals("Directeur")){
+                System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            } else if (endUser.getType().equals("Employé")) {
+                System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AfficherEquipementGuiFront.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGuiFront.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+}}

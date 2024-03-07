@@ -13,7 +13,7 @@ public class Equipement {
     private String image_eq;
     private String description_eq;
     private EndUser user;
-    private Muni muni;
+    private Municipality muni;
 
     public int getId_equipement() {
         return id_equipement;
@@ -87,11 +87,11 @@ public class Equipement {
         this.user = user;
     }
 
-    public Muni getMuni() {
+    public Municipality getMuni() {
         return muni;
     }
 
-    public void setMuni(Muni muni) {
+    public void setMuni(Municipality muni) {
         this.muni = muni;
     }
     public Equipement() {
@@ -99,7 +99,7 @@ public class Equipement {
     public Equipement(int id_equipement) {
         this.id_equipement = id_equipement;
     }
-    public Equipement(int id_equipement,String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq,EndUser user,Muni muni) {
+    public Equipement(int id_equipement,String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq,EndUser user,Municipality muni) {
         this.id_equipement = id_equipement;
         this.reference_eq = reference_eq;
         this.nom_eq = nom_eq;
@@ -112,7 +112,7 @@ public class Equipement {
         this.muni= muni;
     }
 
-    public Equipement(String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq,EndUser user,Muni muni) {
+    public Equipement(String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq,EndUser user,Municipality muni) {
         this.reference_eq = reference_eq;
         this.nom_eq = nom_eq;
         this.categorie_eq = categorie_eq;

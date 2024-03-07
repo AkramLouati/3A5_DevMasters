@@ -6,7 +6,7 @@ public class Avis {
     private int id_avis;
     private EndUser user;
     private Equipement equipement;
-    private Muni muni;
+    private Municipality muni;
     private int note_avis;
     private String commentaire_avis;
     private Date date_avis;
@@ -23,7 +23,7 @@ public class Avis {
         this.date_avis = date_avis;
     }
 
-    public Avis(Equipement equipement,EndUser user,Muni muni, int note_avis, String commentaire_avis, Date date_avis) {
+    public Avis(Equipement equipement,EndUser user,Municipality muni, int note_avis, String commentaire_avis, Date date_avis) {
         this.user = user;
         this.muni = muni;
         this.equipement = equipement;
@@ -32,7 +32,7 @@ public class Avis {
         this.date_avis = date_avis;
     }
 
-    public Avis(int id_avis, EndUser user, Equipement equipement, Muni muni, int note_avis, String commentaire_avis, Date date_avis) {
+    public Avis(int id_avis, EndUser user, Equipement equipement, Municipality muni, int note_avis, String commentaire_avis, Date date_avis) {
         this.id_avis = id_avis;
         this.user = user;
         this.equipement = equipement;
@@ -90,11 +90,11 @@ public class Avis {
         this.date_avis = date_avis;
     }
 
-    public Muni getMuni() {
+    public Municipality getMuni() {
         return muni;
     }
 
-    public void setMuni(Muni muni) {
+    public void setMuni(Municipality muni) {
         this.muni = muni;
     }
 

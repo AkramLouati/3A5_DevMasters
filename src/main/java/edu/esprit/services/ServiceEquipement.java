@@ -1,7 +1,9 @@
 package edu.esprit.services;
 
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Equipement;
+import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -27,7 +29,7 @@ public class ServiceEquipement implements IService<Equipement> {
             ps.setString(6, equipement.getImage_eq());
             ps.setString(7, equipement.getDescription_eq());
             ps.setInt(8, equipement.getUser().getId());
-            ps.setInt(9, equipement.getMuni().getId());
+            ps.setInt(9, equipement.getMuni().getId_muni());
 
             ps.executeUpdate();
             System.out.println("Equipement ajouté avec succès !");
@@ -64,7 +66,7 @@ public class ServiceEquipement implements IService<Equipement> {
                 ps.setString(6, equipement.getImage_eq());
                 ps.setString(7, equipement.getDescription_eq());
                 ps.setInt(8, equipement.getUser().getId());
-                ps.setInt(9, equipement.getMuni().getId());
+                ps.setInt(9, equipement.getMuni().getId_muni());
                 ps.setInt(10, equipement.getId_equipement());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
@@ -117,7 +119,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
                 // Récupération de l'utilisateur associé à l'équipement
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
 
                 // Création de l'équipement et ajout à la liste
@@ -154,7 +156,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
                 // Récupération de l'utilisateur associé à l'équipement
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 // Création de l'équipement
                 equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user,muni);
