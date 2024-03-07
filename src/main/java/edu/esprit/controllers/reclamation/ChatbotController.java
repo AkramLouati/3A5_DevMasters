@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.services.chatbot;
 import javafx.animation.TranslateTransition;

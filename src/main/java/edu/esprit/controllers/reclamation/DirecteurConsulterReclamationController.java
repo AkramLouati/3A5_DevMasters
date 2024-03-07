@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
@@ -157,7 +157,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 Stage stage = (Stage) TFadresseReclamationDetail.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
                 stage.setScene(new Scene(root));
 
             } catch (IOException e) {
@@ -177,7 +177,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
     @FXML
     void buttonReturnConsulterReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
             TFsujetReclamationDetail.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -207,7 +207,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 Stage stage = (Stage) TFadresseReclamationDetail.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("/DirecteurAfficherReclamationECGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurAfficherReclamationECGui.fxml"));
                 stage.setScene(new Scene(root));
 
             } catch (IOException e) {

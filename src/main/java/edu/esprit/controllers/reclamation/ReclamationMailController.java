@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
@@ -166,7 +166,7 @@ public class ReclamationMailController implements Initializable {
                 successAlert.setContentText("Le mail a été envoyé avec succès !");
                 successAlert.showAndWait();
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGUi.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
                     descriptionMail.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
@@ -182,7 +182,7 @@ public class ReclamationMailController implements Initializable {
     @FXML
     void cancelMailReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGUi.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
             descriptionMail.getScene().setRoot(root);
         } catch (IOException e) {
             // Gérer l'exception si la redirection échoue

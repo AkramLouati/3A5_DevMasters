@@ -1,5 +1,7 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
+import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,52 +11,39 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.util.Optional;
 
 
-public class ReclamationItemComponentController {
+public class AdminMessagerieItemComponentController {
 
     @FXML
-    private Label TFdate_reclamationaff;
+    private AnchorPane AnchoPaneMessage1111;
 
     @FXML
-    private Label TFstatus_reclamationaff;
-
-    @FXML
-    private Label TFsujet_reclamationaff;
+    private Label ReceiverName;
 
     @FXML
     private ImageView arrowrightimg;
 
-    private Reclamation reclamation;
-    ServiceReclamation serviceReclamation = new ServiceReclamation();
+    @FXML
+    private Label datemessagerie;
 
-    public void setData(Reclamation reclamation){
-        this.reclamation = reclamation;
-        TFsujet_reclamationaff.setText(reclamation.getSujet_reclamation());
-        TFdate_reclamationaff.setText(String.valueOf(reclamation.getDate_reclamation()));
-        TFstatus_reclamationaff.setText(reclamation.getStatus_reclamation());
-    }
     @FXML
-    void viewDetailReclamationAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationDetailGui.fxml"));
-            Parent root = loader.load();
-            ReclamationDetailController controller = loader.getController();
-            controller.setData(reclamation);
-            TFsujet_reclamationaff.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
+    private Label senderName;
+    private Messagerie messagerie;
+    ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
+
     @FXML
-    void deleteReclamationAction(ActionEvent event) {
-        if (reclamation != null) {
+    void MessageEditAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteMessageAction(ActionEvent event) {
+        if (messagerie != null) {
             // Créer une boîte de dialogue de confirmation
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette réclamation ?");
@@ -66,8 +55,8 @@ public class ReclamationItemComponentController {
             // Vérifier si l'utilisateur a cliqué sur le bouton OK
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Supprimer la réclamation
-                ServiceReclamation serviceReclamation = new ServiceReclamation();
-                serviceReclamation.supprimer(reclamation.getId_reclamation());
+                ServiceMessagerie serviceMessagerie1 = new ServiceMessagerie();
+                serviceMessagerie1.supprimer(messagerie.getId_message());
 
                 // Afficher une alerte pour informer l'utilisateur que la réclamation a été supprimée avec succès
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -77,8 +66,8 @@ public class ReclamationItemComponentController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
-                    TFsujet_reclamationaff.getScene().setRoot(root);
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AdminMessagerieAfficher.fxml"));
+                    senderName.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -97,19 +86,15 @@ public class ReclamationItemComponentController {
     }
 
     @FXML
-    void ReclamationEditAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationEditGui.fxml"));
-            Parent root = loader.load();
-            ReclamationEditController controller = loader.getController();
-            controller.setServiceReclamation(serviceReclamation);
-            controller.setData(reclamation);
-            TFsujet_reclamationaff.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
+    void viewDetailMessageAction(ActionEvent event) {
+
     }
+
+    public void setData(Messagerie messagerie){
+        this.messagerie = messagerie;
+        senderName.setText(messagerie.getSender_message().getNom());
+        ReceiverName.setText(messagerie.getReceiver_message().getNom());
+        datemessagerie.setText(String.valueOf(messagerie.getDate_message()));
+    }
+
 }

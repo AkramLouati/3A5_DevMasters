@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
@@ -52,7 +52,7 @@ public class DirecteurAfficherReclamationECController implements Initializable {
         try {
             for (int i = 0; i < reclamationList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentMessagerieGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/ReclamationItemComponentMessagerieGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
@@ -147,7 +147,7 @@ public class DirecteurAfficherReclamationECController implements Initializable {
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

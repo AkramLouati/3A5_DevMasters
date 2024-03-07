@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
@@ -218,7 +218,7 @@ public class ReclamationEditController implements Initializable {
 
                     // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                     try {
-                        Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
                         TFmodifiersujet_reclamation.getScene().setRoot(root);
                     } catch (IOException e) {
                         // Gérer l'exception si la redirection échoue
@@ -250,7 +250,7 @@ public class ReclamationEditController implements Initializable {
     @FXML
     void cancelModifierReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
             TFmodifiersujet_reclamation.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

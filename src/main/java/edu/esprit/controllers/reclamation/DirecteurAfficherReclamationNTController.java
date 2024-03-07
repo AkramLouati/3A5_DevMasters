@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
@@ -13,7 +13,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
@@ -23,9 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class AfficherReclamationController implements Initializable {
+public class DirecteurAfficherReclamationNTController implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -39,33 +37,25 @@ public class AfficherReclamationController implements Initializable {
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
-    @FXML
-    private TextField Recherche;
-    Muni muni = new Muni(13,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(48,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
+    EndUser user = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
+    Set<Reclamation> reclamationSet = sr.getReclamationsNonTraitees();
     List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterProducts(newValue, reclamationList);
-        });
-        affichergrid(reclamationList);
-    }
-    private void affichergrid(List<Reclamation> reclamationList){
         int column = 0;
         int row = 1;
         try {
             for (int i = 0; i < reclamationList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ReclamationItemComponentGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/ReclamationItemComponentMessagerieGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                ReclamationItemComponentController itemController = fxmlLoader.getController(); // Utilisez ReclamationItemComponentController
+                ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
                 itemController.setData(reclamationList.get(i));
 
                 if (column == 1) {
@@ -90,7 +80,6 @@ public class AfficherReclamationController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -158,7 +147,7 @@ public class AfficherReclamationController implements Initializable {
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -166,36 +155,6 @@ public class AfficherReclamationController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
-    }
-    private void filterProducts(String searchText, List<Reclamation> reclamationList ) {
-        // Filter the productList based on the searchText
-        List<Reclamation> filteredList = reclamationList.stream()
-                .filter(reclamation ->
-                        reclamation.getSujet_reclamation().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
-
-        // Clear the existing content in the grid
-        grid.getChildren().clear();
-
-        // Display the filtered results
-        affichergrid(filteredList);
-    }
-    private boolean isSortedAscending = true;
-
-    @FXML
-    void filtrerParDate(ActionEvent event) {
-        // Inverser l'état du tri à chaque clic
-        isSortedAscending = !isSortedAscending;
-
-        // Tri de la liste de réclamations par date
-        if (isSortedAscending) {
-            reclamationList.sort((r1, r2) -> r1.getDate_reclamation().compareTo(r2.getDate_reclamation()));
-        } else {
-            reclamationList.sort((r1, r2) -> r2.getDate_reclamation().compareTo(r1.getDate_reclamation()));
-        }
-
-        // Affichage des réclamations triées
-        affichergrid(reclamationList);
     }
 
 

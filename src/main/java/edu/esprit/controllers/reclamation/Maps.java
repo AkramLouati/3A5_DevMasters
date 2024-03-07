@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

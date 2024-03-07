@@ -1,7 +1,5 @@
-package edu.esprit.controllers;
-import edu.esprit.entities.Messagerie;
+package edu.esprit.controllers.reclamation;
 import edu.esprit.entities.Reclamation;
-import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,39 +9,41 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.util.Optional;
 
 
-public class AdminMessagerieItemComponentController {
+public class AdminReclamationItemComponentController {
 
     @FXML
-    private AnchorPane AnchoPaneMessage1111;
+    private Label TFdate_reclamationaff;
 
     @FXML
-    private Label ReceiverName;
+    private Label TFstatus_reclamationaff;
+
+    @FXML
+    private Label TFsujet_reclamationaff;
 
     @FXML
     private ImageView arrowrightimg;
 
-    @FXML
-    private Label datemessagerie;
+    private Reclamation reclamation;
+    ServiceReclamation serviceReclamation = new ServiceReclamation();
 
+    public void setData(Reclamation reclamation){
+        this.reclamation = reclamation;
+        TFsujet_reclamationaff.setText(reclamation.getSujet_reclamation());
+        TFdate_reclamationaff.setText(String.valueOf(reclamation.getDate_reclamation()));
+        TFstatus_reclamationaff.setText(reclamation.getStatus_reclamation());
+    }
     @FXML
-    private Label senderName;
-    private Messagerie messagerie;
-    ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
-
-    @FXML
-    void MessageEditAction(ActionEvent event) {
+    void viewDetailReclamationAction(ActionEvent event) {
 
     }
-
     @FXML
-    void deleteMessageAction(ActionEvent event) {
-        if (messagerie != null) {
+    void deleteReclamationAction(ActionEvent event) {
+        if (reclamation != null) {
             // Créer une boîte de dialogue de confirmation
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette réclamation ?");
@@ -55,8 +55,8 @@ public class AdminMessagerieItemComponentController {
             // Vérifier si l'utilisateur a cliqué sur le bouton OK
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Supprimer la réclamation
-                ServiceMessagerie serviceMessagerie1 = new ServiceMessagerie();
-                serviceMessagerie1.supprimer(messagerie.getId_message());
+                ServiceReclamation serviceReclamation = new ServiceReclamation();
+                serviceReclamation.supprimer(reclamation.getId_reclamation());
 
                 // Afficher une alerte pour informer l'utilisateur que la réclamation a été supprimée avec succès
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -66,8 +66,8 @@ public class AdminMessagerieItemComponentController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/AdminMessagerieAfficher.fxml"));
-                    senderName.getScene().setRoot(root);
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AdminReclamationAfficher.fxml"));
+                    TFsujet_reclamationaff.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -86,15 +86,7 @@ public class AdminMessagerieItemComponentController {
     }
 
     @FXML
-    void viewDetailMessageAction(ActionEvent event) {
+    void ReclamationEditAction(ActionEvent event) {
 
     }
-
-    public void setData(Messagerie messagerie){
-        this.messagerie = messagerie;
-        senderName.setText(messagerie.getSender_message().getNom());
-        ReceiverName.setText(messagerie.getReceiver_message().getNom());
-        datemessagerie.setText(String.valueOf(messagerie.getDate_message()));
-    }
-
 }

@@ -1,25 +1,29 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
+import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-public class ReclamationTypeController implements Initializable {
-
+public class DirecteurAfficherReclamationTontroller implements Initializable {
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -28,14 +32,53 @@ public class ReclamationTypeController implements Initializable {
 
     @FXML
     private VBox MainLeftSidebar;
-
     private boolean isSidebarVisible = true;
+    @FXML
+    private GridPane grid;
+    @FXML
+    private ScrollPane scroll;
+    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
+    EndUser user = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    private ServiceReclamation sr=new ServiceReclamation();
+    Set<Reclamation> reclamationSet = sr.getReclamationsTraitees();
+    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
-        double sidebarWidth = MainLeftSidebar.getWidth();
-        SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+        int column = 0;
+        int row = 1;
+        try {
+            for (int i = 0; i < reclamationList.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/ReclamationItemComponentMessagerieGui.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ReclamationItemComponentMessagerieController itemController = fxmlLoader.getController();
+                itemController.setData(reclamationList.get(i));
+
+                if (column == 1) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -102,62 +145,9 @@ public class ReclamationTypeController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
     @FXML
-    void BTNtypenonurgent(ActionEvent event) {
+    void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            // Charger le fichier FXML de la page AjoutReclamation.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutReclamationGui.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer le contrôleur de la page chargée
-            AjoutReclamation ajoutReclamationController = loader.getController();
-
-            // Appeler la méthode pour définir le contenu de la liste en fonction du cas non urgent
-            ajoutReclamationController.setTypesReclamation(false);
-
-            // Créer une nouvelle scène avec la racine chargée
-            Scene scene = new Scene(root);
-
-            // Récupérer la scène actuelle à partir de l'événement
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-            // Définir la nouvelle scène sur la fenêtre principale
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void BTNtypeurgent(ActionEvent event) {
-        try {
-            // Charger le fichier FXML de la page AjoutReclamation.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutReclamationGui.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer le contrôleur de la page chargée
-            AjoutReclamation ajoutReclamationController = loader.getController();
-
-            // Appeler la méthode pour définir le contenu de la liste en fonction du cas non urgent
-            ajoutReclamationController.setTypesReclamation(true);
-
-            // Créer une nouvelle scène avec la racine chargée
-            Scene scene = new Scene(root);
-
-            // Récupérer la scène actuelle à partir de l'événement
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-            // Définir la nouvelle scène sur la fenêtre principale
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    void buttonReturnTypeReclamation(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -166,4 +156,8 @@ public class ReclamationTypeController implements Initializable {
             alert.show();
         }
     }
+
+
 }
+
+

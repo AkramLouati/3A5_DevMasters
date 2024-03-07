@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -6,17 +6,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DirecteurReclamationController implements Initializable {
+public class ReclamationTypeController implements Initializable {
 
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
@@ -99,11 +101,63 @@ public class DirecteurReclamationController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+    @FXML
+    void BTNtypenonurgent(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AjoutReclamation.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/AjoutReclamationGui.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le contrôleur de la page chargée
+            AjoutReclamation ajoutReclamationController = loader.getController();
+
+            // Appeler la méthode pour définir le contenu de la liste en fonction du cas non urgent
+            ajoutReclamationController.setTypesReclamation(false);
+
+            // Créer une nouvelle scène avec la racine chargée
+            Scene scene = new Scene(root);
+
+            // Récupérer la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène sur la fenêtre principale
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
-    void ConsulterReclamationAction(ActionEvent event) {
+    void BTNtypeurgent(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
+            // Charger le fichier FXML de la page AjoutReclamation.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/AjoutReclamationGui.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le contrôleur de la page chargée
+            AjoutReclamation ajoutReclamationController = loader.getController();
+
+            // Appeler la méthode pour définir le contenu de la liste en fonction du cas non urgent
+            ajoutReclamationController.setTypesReclamation(true);
+
+            // Créer une nouvelle scène avec la racine chargée
+            Scene scene = new Scene(root);
+
+            // Récupérer la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène sur la fenêtre principale
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void buttonReturnTypeReclamation(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -112,20 +166,4 @@ public class DirecteurReclamationController implements Initializable {
             alert.show();
         }
     }
-    @FXML
-    void AfficherStatsAction(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationStatisticsGui.fxml"));
-            MainAnchorPaneBaladity.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-
-
-
-
 }

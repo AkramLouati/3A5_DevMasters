@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Muni;
@@ -149,7 +149,7 @@ public class AjoutReclamation implements Initializable {
                         alert.setContentText("GG");
                         alert.show();
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui.fxml"));
+                            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
                             MainAnchorPaneBaladity.getScene().setRoot(root);
                         } catch (IOException e) {
                             // Gérer l'exception si la redirection échoue
@@ -200,7 +200,7 @@ public class AjoutReclamation implements Initializable {
     @FXML
     void cancelReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationTypeGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationTypeGui.fxml"));
             TFsujet_reclamation.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -389,7 +389,7 @@ public class AjoutReclamation implements Initializable {
     private void openNewScene(String latitude, String longitude, AjoutReclamation controller) {
         try {
             if (latitude != null && longitude != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Map.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/Map.fxml"));
                 Parent root = loader.load();
                 Maps mapController = loader.getController();
                 mapController.loadGoogleMaps(latitude, longitude);

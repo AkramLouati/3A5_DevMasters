@@ -1,5 +1,7 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
+import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,12 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.util.Optional;
 
 
-public class AdminReclamationItemComponentController {
+public class ReclamationItemComponentMessagerieController {
 
     @FXML
     private Label TFdate_reclamationaff;
@@ -29,6 +33,7 @@ public class AdminReclamationItemComponentController {
     private ImageView arrowrightimg;
 
     private Reclamation reclamation;
+    private BorderPane SecondBorderPane;
     ServiceReclamation serviceReclamation = new ServiceReclamation();
 
     public void setData(Reclamation reclamation){
@@ -39,7 +44,19 @@ public class AdminReclamationItemComponentController {
     }
     @FXML
     void viewDetailReclamationAction(ActionEvent event) {
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/DirecteurConsulterReclamationGui.fxml"));
+            Parent root = loader.load();
+            DirecteurConsulterReclamationController controller = loader.getController();
+            controller.setServiceReclamation(serviceReclamation);
+            controller.setData(reclamation);
+            TFsujet_reclamationaff.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
     @FXML
     void deleteReclamationAction(ActionEvent event) {
@@ -66,7 +83,7 @@ public class AdminReclamationItemComponentController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/AdminReclamationAfficher.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
                     TFsujet_reclamationaff.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
@@ -86,7 +103,37 @@ public class AdminReclamationItemComponentController {
     }
 
     @FXML
-    void ReclamationEditAction(ActionEvent event) {
-
+    void ReclamationReplyAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/MessagerieGui.fxml"));
+            Parent root = loader.load();
+            AjouterAfficherMessageController controller = loader.getController();
+            controller.setServiceReclamation(serviceReclamation);
+            controller.setData(reclamation);
+            TFsujet_reclamationaff.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
+    @FXML
+    void mailReclamationAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/ReclamationMailGui.fxml"));
+            Parent root = loader.load();
+            ReclamationMailController controller = loader.getController();
+            controller.setServiceReclamation(serviceReclamation);
+            controller.setData(reclamation);
+            TFsujet_reclamationaff.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
+
 }

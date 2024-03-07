@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
@@ -98,7 +98,7 @@ public class MessageItemComponentController {
                 // Rafraîchir la vue pour refléter les changements
                 try {
                     // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des messages)
-                    Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
                     contenuReciver.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
@@ -153,7 +153,7 @@ public class MessageItemComponentController {
             // Update the chat messages
             try {
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des messages)
-                Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
                 contenuReciver.getScene().setRoot(root);
             } catch (IOException e) {
                 // Gérer l'exception si la redirection échoue

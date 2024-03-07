@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -6,19 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ReclamationController implements Initializable {
+public class DirecteurReclamationStatusController implements Initializable {
 
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
@@ -30,6 +28,7 @@ public class ReclamationController implements Initializable {
     private VBox MainLeftSidebar;
 
     private boolean isSidebarVisible = true;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,10 +101,11 @@ public class ReclamationController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
+
     @FXML
-    void sendReclamationAction(ActionEvent event) {
+    void AfficherReclamationNTAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationTypeGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurAfficherReclamationNTGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -115,9 +115,22 @@ public class ReclamationController implements Initializable {
         }
     }
     @FXML
-    void AfficherReclamationAction(ActionEvent event) {
+    void AfficherReclamationEncours(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurAfficherReclamationECGui.fxml"));
+            MainAnchorPaneBaladity.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
+    @FXML
+    void buttonReturn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -127,9 +140,9 @@ public class ReclamationController implements Initializable {
         }
     }
     @FXML
-    void chatbotAction(ActionEvent event) {
+    void TraitementReclamationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/chatbotGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurAfficherReclamationTGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

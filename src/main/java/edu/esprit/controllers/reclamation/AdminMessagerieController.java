@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
@@ -56,7 +56,7 @@ public class AdminMessagerieController implements Initializable {
         try {
             for (int i = 0; i < messagerieList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/AdminMessagerieItemComponentGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/AdminMessagerieItemComponentGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 AdminMessagerieItemComponentController itemController = fxmlLoader.getController();
@@ -87,7 +87,7 @@ public class AdminMessagerieController implements Initializable {
     @FXML
     void Navigatetoreclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AdminReclamationAfficher.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AdminReclamationAfficher.fxml"));
             receiverNameLabel211111.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

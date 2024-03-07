@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
@@ -100,7 +100,7 @@ public class AjouterAfficherMessageController implements Initializable {
         try {
             for (int i = 0; i < messagerieList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/MessageItemComponentGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/MessageItemComponentGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 MessageItemComponentController itemController = fxmlLoader.getController();
@@ -242,7 +242,7 @@ public class AjouterAfficherMessageController implements Initializable {
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

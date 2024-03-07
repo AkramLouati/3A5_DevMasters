@@ -1,7 +1,5 @@
-package edu.esprit.controllers;
-import edu.esprit.entities.Messagerie;
+package edu.esprit.controllers.reclamation;
 import edu.esprit.entities.Reclamation;
-import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.util.Optional;
 
 
-public class ReclamationItemComponentMessagerieController {
+public class ReclamationItemComponentController {
 
     @FXML
     private Label TFdate_reclamationaff;
@@ -33,7 +29,6 @@ public class ReclamationItemComponentMessagerieController {
     private ImageView arrowrightimg;
 
     private Reclamation reclamation;
-    private BorderPane SecondBorderPane;
     ServiceReclamation serviceReclamation = new ServiceReclamation();
 
     public void setData(Reclamation reclamation){
@@ -45,10 +40,9 @@ public class ReclamationItemComponentMessagerieController {
     @FXML
     void viewDetailReclamationAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DirecteurConsulterReclamationGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/ReclamationDetailGui.fxml"));
             Parent root = loader.load();
-            DirecteurConsulterReclamationController controller = loader.getController();
-            controller.setServiceReclamation(serviceReclamation);
+            ReclamationDetailController controller = loader.getController();
             controller.setData(reclamation);
             TFsujet_reclamationaff.getScene().setRoot(root);
         } catch (IOException e) {
@@ -83,7 +77,7 @@ public class ReclamationItemComponentMessagerieController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/DirecteurReclamationStatusGui.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
                     TFsujet_reclamationaff.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue
@@ -103,11 +97,11 @@ public class ReclamationItemComponentMessagerieController {
     }
 
     @FXML
-    void ReclamationReplyAction(ActionEvent event) {
+    void ReclamationEditAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MessagerieGui.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reclamationGui/ReclamationEditGui.fxml"));
             Parent root = loader.load();
-            AjouterAfficherMessageController controller = loader.getController();
+            ReclamationEditController controller = loader.getController();
             controller.setServiceReclamation(serviceReclamation);
             controller.setData(reclamation);
             TFsujet_reclamationaff.getScene().setRoot(root);
@@ -118,22 +112,4 @@ public class ReclamationItemComponentMessagerieController {
             alert.show();
         }
     }
-    @FXML
-    void mailReclamationAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationMailGui.fxml"));
-            Parent root = loader.load();
-            ReclamationMailController controller = loader.getController();
-            controller.setServiceReclamation(serviceReclamation);
-            controller.setData(reclamation);
-            TFsujet_reclamationaff.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-
-
 }
