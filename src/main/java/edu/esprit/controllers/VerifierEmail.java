@@ -38,12 +38,19 @@ public class VerifierEmail {
 
     @FXML
     void VerifierButton(ActionEvent event) {
-        if(OTPField.getText().equals(otp)){
+        if (OTPField.getText().equals(otp)) {
             try {
                 serviceUser.ajouter(user);
-                setCurrentUser(user.getId());
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
                 Parent root = loader.load();
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
+//                Parent root = loader.load();
+                //                // Access the controller
+//                UserAccount userAccountController = loader.getController();
+//
+//                // Set the id
+//                userAccountController.setData(serviceUser.getOneByID(user.getId()));
 
                 // Show the scene
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -64,14 +71,21 @@ public class VerifierEmail {
     void reEnvoyerButton(ActionEvent event) throws Exception {
         otp = generateOTP();
         String content = String.format("""
-                Dear reader,
-                
-                Your OTP : %s .
-                
-                Best regards,
-                Baladity.
-                """,otp);
-        new GMailer(user.getEmail()).sendMail("Récupération du mot de passe", content);
+                                
+                Cher(e) %s,
+                         
+                Merci de vous être inscrit(e) sur Baladity. Pour finaliser votre inscription, veuillez utiliser le code de validation ci-dessous:
+                         
+                Code de Validation : %s
+                         
+                Veuillez ne pas partager ce code avec d'autres personnes.
+                         
+                Si vous n'avez pas créé de compte sur Baladity, veuillez ignorer ce message.
+                         
+                Cordialement,
+                Baladity
+                """, user.getNom(), otp);
+        new GMailer(user.getEmail()).sendMail("Code de Validation", content);
     }
 
     public static String generateOTP() {

@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class Login implements Initializable {
+public class Login {
 
     private static final String USER_PREF_KEY = "current_user";
     public Hyperlink forgetPwd;
@@ -153,7 +153,8 @@ public class Login implements Initializable {
                     ForgetPwd forgetPwdController = loader.getController();
 
                     // Set the email
-                    forgetPwdController.setData(tfEmail.getText());
+                    String nom = serviceUser.getOneByEmail(tfEmail.getText()).getNom();
+                    forgetPwdController.setData(tfEmail.getText(),nom);
 
                     // Show the scene
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -222,10 +223,5 @@ public class Login implements Initializable {
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(getCurrentUser());
     }
 }
