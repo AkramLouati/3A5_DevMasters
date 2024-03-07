@@ -21,7 +21,8 @@ public class MainTFX extends Application {
     public void start(Stage primaryStage) throws IOException {
         stg = primaryStage;
         FXMLLoader loader = new FXMLLoader();
-        InputStream fxmlStream = getClass().getResourceAsStream("/AfficherTacheFront.fxml");
+        //InputStream fxmlStream = getClass().getResourceAsStream("/AfficherTacheFront.fxml");
+        InputStream fxmlStream = getClass().getResourceAsStream("/AfficherTache.fxml");
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }

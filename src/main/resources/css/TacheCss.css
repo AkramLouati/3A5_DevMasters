@@ -11,8 +11,10 @@
     -fx-text-fill: #012545;
     -fx-border-color: #012545;
     -fx-border-width: 2;
-    -fx-border-radius: 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 8;
 }
+
 
 .button:hover {
     -fx-background-color: #012545;
@@ -38,7 +40,9 @@
     -fx-border-radius: 10;
     -fx-border-width: 2;
 }
-
+.scroll-pane{
+    -fx-border-width: 4;
+}
 Label {
     -fx-text-fill: #012545;
     /*-fx-border-color: #012545;
@@ -47,7 +51,7 @@ Label {
 }
 
 Text {
-    -fx-fill: #012545;
+    -fx-fill:  #012545;
 }
 
 /* Validation icon styling */

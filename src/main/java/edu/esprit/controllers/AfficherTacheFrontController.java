@@ -5,6 +5,7 @@ import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
 import edu.esprit.services.ServiceTache;
 import edu.esprit.services.ServiceUser;
+import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,19 +20,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.prefs.Preferences;
-
 public class AfficherTacheFrontController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
-    int userId = 15;
+    int userId = 16;
     //    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
     private final ServiceTache ST = new ServiceTache();
@@ -46,6 +49,14 @@ public class AfficherTacheFrontController implements Initializable {
     private GridPane DOING;
     @FXML
     private GridPane DONE;
+    public BorderPane firstborderpane;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -149,7 +160,21 @@ public class AfficherTacheFrontController implements Initializable {
                     if (task != null) {
                         // Assuming the grid's ID corresponds to the new state of the task
                         EtatTache newState = EtatTache.valueOf(finalGridPane.getId());
-                        if (newState == EtatTache.DOING || newState == EtatTache.TO_DO) {
+                        if (newState == EtatTache.TO_DO && task.getEtat_T() == EtatTache.DONE ) {
+                            // Task is already in the "Done" state, prevent moving
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Warning");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Cette tâche est déjà dans l'état 'DONE' et ne peut pas être déplacée.");
+                            alert.showAndWait();
+                        } else if (newState == EtatTache.DOING && task.getEtat_T() == EtatTache.DONE) {
+                            // Task is already in the "Done" state, prevent moving
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Warning");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Cette tâche est déjà dans l'état 'DONE' et ne peut pas être déplacée.");
+                            alert.showAndWait();
+                        } else if (newState == EtatTache.DONE && task.getEtat_T() == EtatTache.DONE) {
                             // Task is already in the "Done" state, prevent moving
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Warning");
@@ -272,5 +297,55 @@ public class AfficherTacheFrontController implements Initializable {
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+    @FXML
+    void BTNToggleSidebar(ActionEvent event) {
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
+        double sidebarWidth = MainLeftSidebar.getWidth();
+        if (isSidebarVisible) {
+            // Hide sidebar
+            sideBarTransition.setByX(-sidebarWidth);
+            isSidebarVisible = false;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+            // Translate SecondBorderPane to the left to take the extra space
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(-sidebarWidth);
+            borderPaneTransition.play();
+        } else {
+            // Show sidebar
+            sideBarTransition.setByX(sidebarWidth);
+            isSidebarVisible = true;
+            // Adjust the width of SecondBorderPane
+            SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() - sidebarWidth);
+            // Reset the translation of SecondBorderPane to 0
+            TranslateTransition borderPaneTransition = new TranslateTransition(Duration.millis(250), SecondBorderPane);
+            borderPaneTransition.setByX(sidebarWidth);
+            borderPaneTransition.play();
+        }
+
+        sideBarTransition.play();
+    }
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
+
     }
 }

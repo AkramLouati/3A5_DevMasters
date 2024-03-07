@@ -7,17 +7,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 
 public class TacheFrontController {
     ServiceTache serviceTache = new ServiceTache();
     @FXML
-    private Text TF_Titre_Tache;
+    private TextField TF_Titre_Tache;
     private Tache taches;
 
     public void setData(Tache taches) {
