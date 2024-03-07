@@ -1,4 +1,4 @@
-package edu.esprit.controllers.Actualite;
+package edu.esprit.controllers;
 
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;

@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -272,8 +271,8 @@ public class AjouterActualiteController implements Initializable {
 
     public void buttonmain2(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/MainGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/MainGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
             TFtitre.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

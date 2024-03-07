@@ -328,7 +328,7 @@ public class AjouterPubliciteController implements Initializable {
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
 
 
-        Actualite actualite = new Actualite(102, user);
+        Actualite actualite = new Actualite(120, user);
         String selectedOffer = offrePubCombo.getValue();
 
         // No payment processing check here
@@ -393,8 +393,8 @@ public class AjouterPubliciteController implements Initializable {
 
     public void buttonMain1(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/MainGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/MainGui.fxml"));
+            System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
             TFtitrepub.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

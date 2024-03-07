@@ -10,7 +10,7 @@ public class MainA {
     public static void main(String[] args) {
         ServicePublicite sp1 = new ServicePublicite();
         ServiceActualite sp2 = new ServiceActualite();
-        sp1.ajouter(new Publicite(5, "aaaaaa", "bdann", 1263863963, "aa", "aaa", 12, 3));
+        //sp1.ajouter(new Publicite(5, "aaaaaa", "bdann", 1263863963, "aa", "aaa", 12, 3));
         //sp1.modifier(new Publicite(464,"aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbb", 00000, "la petite ariana","afzgzeg",1,24));
         // sp1.modifier(new Publicite(453,"amine", "yah", 4, "","",12,24));
         // sp1.supprimer(461);
