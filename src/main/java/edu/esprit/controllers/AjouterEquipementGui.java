@@ -178,6 +178,14 @@ public class AjouterEquipementGui implements Initializable{
         } else {
             referenceErrorLabel.setVisible(false);
         }
+        if (!se.isReferenceUnique(reference)) {
+            referenceErrorLabel.setText("La référence doit être unique.");
+            referenceErrorLabel.setVisible(true);
+            referenceTF.requestFocus();
+            return; // Arrêter la méthode si la référence n'est pas unique
+        } else {
+            referenceErrorLabel.setVisible(false);
+        }
         String nom=nomTF.getText();
         if (nom.isEmpty() || !nom.matches("[a-zA-Z]+")) {
             nomErrorLabel.setText("Le nom ne doit pas être vide et doit contenir uniquement des lettres.");

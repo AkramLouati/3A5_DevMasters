@@ -1,5 +1,8 @@
 package edu.esprit.controllers;
-import edu.esprit.utils.OneSignalNotificationSender;
+import com.twilio.Twilio;
+import com.twilio.exception.ApiException;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import edu.esprit.entities.Equipement;
 import edu.esprit.services.ServiceEquipement;
 import javafx.event.ActionEvent;
@@ -60,7 +63,7 @@ public class EquipementItemGuiFront {
             // Vérifier si la quantité est devenue zéro
             if (nouvelleQuantite == 0) {
                 // Envoyer une notification à l'administrateur
-                OneSignalNotificationSender.envoyerNotificationAdmin("Stock en rupture pour l'équipement : " + equipement.getNom_eq());
+                envoyerSmsAdmin();
                 // Afficher une notification à l'administrateur
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("Stock en rupture pour l'équipement : " + equipement.getNom_eq());
@@ -75,6 +78,40 @@ public class EquipementItemGuiFront {
             alert.show();
         }
     }
+    // Votre identifiant Twilio
+    private static final String ACCOUNT_SID = "ACc889cd2b52f6a09ca714c967c8c33cd1";
+    // Votre token d'authentification Twilio
+    private static final String AUTH_TOKEN = "03899d558cdf5574b4566b0f644c7781";
+    // Votre numéro Twilio (numéro de téléphone Twilio)
+    private static final String TWILIO_NUMBER = "+19284400733";
+
+    // Méthode pour envoyer un SMS à l'administrateur
+    public void envoyerSmsAdmin() {
+        try {
+            // Initialiser la connexion à l'API Twilio avec votre identifiant et token d'authentification
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+            // Numéro de téléphone de l'administrateur (à remplacer par le numéro de téléphone réel)
+            String adminPhoneNumber = "+21655907840";
+
+            // Message à envoyer à l'administrateur
+            String messageBody = "Stock en rupture pour l'équipement : " + equipement.getReference_eq();
+
+            // Envoyer le SMS à l'administrateur
+            Message message = Message.creator(
+                            new PhoneNumber(adminPhoneNumber), // Numéro de téléphone de l'administrateur
+                            new PhoneNumber(TWILIO_NUMBER), // Votre numéro Twilio
+                            messageBody)
+                    .create();
+
+            // Afficher le SID du message Twilio envoyé (facultatif)
+            System.out.println("Message SID: " + message.getSid());
+        } catch (ApiException e) {
+            e.printStackTrace();
+            // Gérer l'exception si l'API Twilio renvoie une erreur
+            // Afficher un message d'erreur ou effectuer une action appropriée
+        }
+    }
     @FXML
     void rendreEquipementAction(ActionEvent event) {
         // Incrémenter la quantité d'équipement disponible
@@ -86,7 +123,7 @@ public class EquipementItemGuiFront {
         quantiteitemTFF.setText(String.valueOf(nouvelleQuantite));
         // Afficher une notification à l'administrateur
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("L'équipement " + equipement.getNom_eq() + " a été rendu avec succès.");
+        alert.setContentText("L'équipement " + equipement.getReference_eq() + " a été rendu avec succès.");
         alert.setTitle("Équipement rendu");
         alert.show();
     }
@@ -116,6 +153,7 @@ public class EquipementItemGuiFront {
                 e.printStackTrace();
             }
         }
+        useButton.setDisable(equipement.getQuantite_eq() == 0);
     }
     @FXML
     void avisFEquipementAction(ActionEvent event) {

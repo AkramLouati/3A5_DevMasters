@@ -167,6 +167,60 @@ public class ServiceEquipement implements IService<Equipement> {
         }
         return equipement;
     }
+    public boolean isReferenceUnique(String reference) {
+        boolean isUnique = true;
+        String query = "SELECT COUNT(*) FROM equipement WHERE reference_eq = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, reference);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            isUnique = count == 0;
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification de l'unicité de la référence : " + e.getMessage());
+        }
+
+        return isUnique;
+    }
+    public Set<Equipement> searchEquipments(String searchTerm) {
+        Set<Equipement> matchingEquipments = new HashSet<>();
+
+        String req = "SELECT * FROM equipement WHERE reference_eq LIKE ? OR nom_eq LIKE ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, "%" + searchTerm + "%");
+            ps.setString(2, "%" + searchTerm + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // Récupérez les données de l'équipement depuis le ResultSet
+                // Créez un objet Equipement et ajoutez-le à l'ensemble matchingEquipments
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche des équipements : " + e.getMessage());
+        }
+
+        return matchingEquipments;
+    }
+
+    public Set<Equipement> sortEquipmentsByCategory(String category) {
+        Set<Equipement> sortedEquipments = new HashSet<>();
+
+        String req = "SELECT * FROM equipement WHERE categorie_eq = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, category);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // Récupérez les données de l'équipement depuis le ResultSet
+                // Créez un objet Equipement et ajoutez-le à l'ensemble sortedEquipments
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors du tri des équipements par catégorie : " + e.getMessage());
+        }
+
+        return sortedEquipments;
+    }
 
 }
 

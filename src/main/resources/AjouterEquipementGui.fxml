@@ -181,7 +181,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="referenceTF" prefHeight="52.0" prefWidth="454.0" />
-                              <Label fx:id="referenceErrorLabel" prefHeight="35.0" prefWidth="317.0" stylesheets="@style.css" text="La référence doit être en majuscules" textFill="RED" visible="false" />
+                              <Label fx:id="referenceErrorLabel" prefHeight="35.0" prefWidth="317.0" stylesheets="@style.css" text="La référence doit être unique et en majuscules" textFill="RED" visible="false" />
                               <Label text="  Nom :">
                                  <font>
                                     <Font name="Cambria" size="27.0" />
