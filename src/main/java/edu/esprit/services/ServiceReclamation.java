@@ -1,5 +1,7 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.utils.DataSource;
 

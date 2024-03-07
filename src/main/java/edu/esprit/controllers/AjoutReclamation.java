@@ -1,5 +1,7 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+import edu.esprit.services.HateSpeechChecker;
 
 public class AjoutReclamation implements Initializable {
     @FXML
@@ -71,8 +74,8 @@ public class AjoutReclamation implements Initializable {
 
     private final ServiceReclamation sr = new ServiceReclamation();
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(37,"amine@gmail.com","amine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    Muni muni = new Muni(13,"La Soukra","sokra@gmail.com","sokra123","fergha");
+    EndUser user = new EndUser(48,"amine@gmail.com","amine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private String imagePath;
     private boolean type_reclamation;
 
@@ -88,6 +91,11 @@ public class AjoutReclamation implements Initializable {
 
     public boolean getType_reclamation() {
         return type_reclamation;
+    }
+    private HateSpeechChecker hateSpeechChecker;
+
+    public AjoutReclamation() {
+        hateSpeechChecker = new HateSpeechChecker(); // Assurez-vous que vous initialisez correctement l'objet ici
     }
 
     public void setTypesReclamation(boolean isUrgent) {
@@ -108,15 +116,13 @@ public class AjoutReclamation implements Initializable {
         // Valider tous les champs et mettre à jour les messages dans les labels
         boolean sujetValid = validateTextField(TFsujet_reclamation, checksujetreclamation);
         boolean descriptionValid = validateTextArea(TAdescription_reclamation, checkdescriptionreclamation);
-        boolean adresseValid = validateTextField(TFadresse_reclamation, checkadressereclamation);
         boolean typeValid = validateComboBox(typeReclamationComboBox, checktypereclamation);
 
         // Vérifier si tous les champs sont valides
-        if (sujetValid && descriptionValid && adresseValid && typeValid) {
+        if (sujetValid && descriptionValid && typeValid) {
             // Vérifier les mots inappropriés
-            boolean hasBadWords = checkForBadWords();
+            boolean hasBadWords = checkForBadWords(TFsujet_reclamation.getText(), TAdescription_reclamation.getText());
             if (hasBadWords) {
-                // Afficher un message d'erreur
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setHeaderText("Contenu inapproprié");
@@ -316,7 +322,6 @@ public class AjoutReclamation implements Initializable {
 
     }
 
-    // Méthode pour valider le champ de texte et mettre à jour le label associé
     private boolean validateTextField(TextField textField, Label label) {
         // Vérifie si le champ de texte est vide
         if (textField.getText().isEmpty()) {
@@ -326,7 +331,7 @@ public class AjoutReclamation implements Initializable {
         }
 
         // Vérifie les mots inappropriés uniquement si le champ est non vide
-        if (bad_words(textField.getText())) {
+        if (hateSpeechChecker.containsBadWord(textField.getText())) {
             label.setText("Votre champ contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
             label.getStyleClass().add("warning-text");
             return false;
@@ -347,8 +352,7 @@ public class AjoutReclamation implements Initializable {
             return false;
         }
 
-        // Vérifie les mots inappropriés uniquement si la zone de texte est non vide
-        if (bad_words(textArea.getText())) {
+        if (hateSpeechChecker.containsBadWord(textArea.getText())) {
             label.setText("Votre champ contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
             label.getStyleClass().add("warning-text");
             return false;
@@ -360,25 +364,19 @@ public class AjoutReclamation implements Initializable {
         }
     }
 
-    private boolean checkForBadWords() {
+    private boolean checkForBadWords(String sujet, String description) {
         // Vérifier le sujet de la réclamation
-        if (bad_words(TFsujet_reclamation.getText())) {
+        if (hateSpeechChecker.containsBadWord(sujet)) {
             return true;
         }
 
         // Vérifier la description de la réclamation
-        if (bad_words(TAdescription_reclamation.getText())) {
-            return true;
-        }
-
-        // Vérifier l'adresse de la réclamation
-        if (bad_words(TFadresse_reclamation.getText())) {
+        if (hateSpeechChecker.containsBadWord(description)) {
             return true;
         }
 
         return false;
     }
-
     public boolean bad_words(String text) {
         List<String> badListW = Arrays.asList("fuck", "din", "khra", "bhim", "hayawen", "kaleb", "putain");
         for (String str : badListW) {

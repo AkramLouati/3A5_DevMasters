@@ -1,5 +1,7 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
@@ -39,8 +41,8 @@ public class AfficherReclamationController implements Initializable {
     private ScrollPane scroll;
     @FXML
     private TextField Recherche;
-    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(37,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
+    Muni muni = new Muni(13,"La Soukra","sokra@gmail.com","sokra123","fergha");
+    EndUser user = new EndUser(48,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private ServiceReclamation sr=new ServiceReclamation();
     Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
     List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
