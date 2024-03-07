@@ -5,6 +5,7 @@ import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
 import edu.esprit.services.ServiceTache;
 import edu.esprit.services.ServiceUser;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -58,7 +59,7 @@ public class ChatBotTacheController {
         keywordResponses.put("how's it going", "It's going well, thanks!");
         keywordResponses.put("how are you", "I'm just a bot, but I'm doing well, thanks for asking!");
         // Date and time
-        keywordResponses.put("time temp wa9t wakt", "The current time is " + LocalTime.now());
+        keywordResponses.put("time temp wa9t wakt heure hours minutes d9aye9", "The current time is " + LocalTime.now());
         keywordResponses.put("date", "Today's date is " + LocalDate.now());
         keywordResponses.put("day nhar lyoum", "Today is " + LocalDate.now().getDayOfWeek().toString());
         keywordResponses.put("tomorrow ghodwa", "Tomorrow's date is " + LocalDate.now().plusDays(1));
@@ -155,8 +156,8 @@ public class ChatBotTacheController {
         keywordResponses.put("devs membres developpeurs de baladity", "louati akram, zayane yassine, yahyaoui amine, sediri hadil et kaboubi amine.");
         keywordResponses.put("fine nikel mrigel", "great, how can i help");
         keywordResponses.put("ki zebi pas grave pas mal not bad just fine", "i hope i can change ur mood, how can i help");
-
-
+        keywordResponses.put("bb", "hobi rak");
+        keywordResponses.put("m3alem rak yre the bos t le patron", "thank you ya rayes");
         Set<Tache> allTasks = ST.getTachesByState(EtatTache.DONE);
         for (EndUser user : users) {
             int completedTasks = (int) allTasks.stream().filter(task -> task.getUser().equals(user)).count();
@@ -177,9 +178,26 @@ public class ChatBotTacheController {
         }
     }
 
-    public String processInput(String input) {
-        String response = guessResponse(input.toLowerCase());
-        return response != null ? response : "I'm sorry, I don't understand that.";
+    public void processInput(ActionEvent actionEvent) {
+        String inputText = userInput.getText();
+        chatArea.appendText("You: " + inputText + "\n");
+
+        // Simulate bot thinking with a delay
+        Task<Void> thinkingTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Thread.sleep(1000); // Adjust the delay time as needed
+                return null;
+            }
+        };
+
+        thinkingTask.setOnSucceeded(event -> {
+            String response = guessResponse(inputText);
+            chatArea.appendText("Baladity: " + response + "\n");
+            userInput.clear();
+        });
+
+        new Thread(thinkingTask).start();
     }
 
     private String guessResponse(String input) {
@@ -219,15 +237,6 @@ public class ChatBotTacheController {
 
         // Return the average similarity
         return (cosineSim + jaccardSim + levenshteinSim) / 3.0;
-    }
-
-    @FXML
-    public void processInput(ActionEvent actionEvent) {
-        String inputText = userInput.getText();
-        String response = processInput(inputText);
-        chatArea.appendText("You: " + inputText + "\n");
-        chatArea.appendText("Baladity: " + response + "\n");
-        userInput.clear();
     }
 
     @FXML
