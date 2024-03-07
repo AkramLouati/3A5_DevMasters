@@ -9,9 +9,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="843.0" style="-fx-border-color: #012545; -fx-border-width: 4;" stylesheets="@css/Actualite.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EventItem">
     <children>
-        <Text fx:id="nomEventT" fill="#171a71" layoutX="421.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evenement" wrappingWidth="254.13689613342285">
+        <Text fx:id="nomEventT" fill="#171a71" layoutX="530.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evenement" wrappingWidth="278.93694496154785">
             <font>
-                <Font name="System Bold" size="23.0" />
+                <Font name="System Bold" size="27.0" />
             </font>
         </Text>
         <ImageView fx:id="img" fitHeight="251.0" fitWidth="378.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />

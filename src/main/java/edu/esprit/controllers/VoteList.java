@@ -8,13 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -28,10 +27,14 @@ public class VoteList implements Initializable {
 
     @FXML
     private VBox VoteLayout;
+    @FXML
+    private Label countLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadVotes();
+        countPropositions(); // Call countPropositions() method
+
     }
 
     public void loadVotes() {
@@ -166,8 +169,11 @@ public class VoteList implements Initializable {
 
 
         }
-
-
+    }
+    private void countPropositions() {
+        List<Vote> votes = getVotes();
+        int propositionsCount = votes.size();
+        countLabel.setText("Nombre des Propositions: " + propositionsCount);
     }
 }
 

@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,8 +20,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,9 +36,12 @@ public class EventDashboard implements Initializable {
     @FXML
     private TextField searchEvent;
     private List<Evenement> evenementList;
+    @FXML
+    private Label CountLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        countEvents();
         evenementList = new ArrayList<>(getEvenements());
 
         // Sort the evenementList alphabetically by ignoring case
@@ -154,6 +162,18 @@ public class EventDashboard implements Initializable {
             }
         }
     }
+    @FXML
+    private void openWebPage() {
+        try {
+            // Specify the URL you want to open
+            String url = "https://calendar.google.com/calendar/u/2/r/day/2024/5/4";
+
+            // Open the URL in the default web browser
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void PropositionsOnClick(ActionEvent event) {
@@ -264,6 +284,12 @@ public class EventDashboard implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+    private void countEvents() {
+        List<Evenement> evenements = getEvenements();
+        int EventCount = evenements.size();
+        CountLabel.setText("Nombre des Evenements: " + EventCount);
+    }
+
 
 
 

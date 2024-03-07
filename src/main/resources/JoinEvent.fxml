@@ -172,7 +172,7 @@
                         <Image url="@assets/Baladia.png" />
                      </image>
                   </ImageView>
-                  <Text fill="#e6e7f0" layoutX="204.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voici les informations de l Evenement " wrappingWidth="557.7458610534668">
+                  <Text fill="#e6e7f0" layoutX="201.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voici les informations de l Evenement " wrappingWidth="557.7458610534668">
                      <font>
                         <Font name="System Bold" size="27.0" />
                      </font>

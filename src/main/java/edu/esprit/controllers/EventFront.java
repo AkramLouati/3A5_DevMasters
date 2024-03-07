@@ -144,4 +144,17 @@ public class EventFront implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+    @FXML
+    void closeClick(ActionEvent event) {
+        try {
+            // Obtenir la scène actuelle à partir du bouton Retourner
+            Stage stage = (Stage) nomEventTT.getScene().getWindow();
+
+            // Fermer la fenêtre du pop-up
+            stage.close();
+        } catch (Exception e) {
+            // Gérer les exceptions
+            e.printStackTrace();
+        }
+    }
 }

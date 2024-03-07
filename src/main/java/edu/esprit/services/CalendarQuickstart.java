@@ -10,7 +10,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.client.util.store.MemoryDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
@@ -46,7 +46,7 @@ public class CalendarQuickstart {
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(MemoryDataStoreFactory.getDefaultInstance()) // Utilisation de MemoryDataStoreFactory
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -97,6 +97,15 @@ public class CalendarQuickstart {
                     continue;
                 }
 
+                // Vérifier si un événement avec le même nom existe déjà dans le calendrier
+                String eventExists = checkEventExists(service, evenement.getNomEvent());
+                if (eventExists != null) {
+                    addedEventIds.put(evenement.getNomEvent(), eventExists);
+                    System.out.println("L'événement " + evenement.getNomEvent() + " existe déjà dans Google Calendar.");
+                    continue;
+                }
+
+                // Si l'événement n'existe pas, l'ajouter
                 Event createdEvent = service.events().insert("primary", event).execute();
                 addedEventIds.put(evenement.getNomEvent(), createdEvent.getId());
 
@@ -106,5 +115,25 @@ public class CalendarQuickstart {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Méthode pour vérifier si un événement avec le même nom existe déjà dans le calendrier
+    private static String checkEventExists(Calendar service, String eventName) throws IOException {
+        String pageToken = null;
+        do {
+            com.google.api.services.calendar.model.Events events = service.events().list("primary")
+                    .setQ(eventName)
+                    .setPageToken(pageToken)
+                    .execute();
+            for (Event event : events.getItems()) {
+                // Si un événement avec le même nom est trouvé, retourner son ID
+                if (event.getSummary().equals(eventName)) {
+                    return event.getId();
+                }
+            }
+            pageToken = events.getNextPageToken();
+        } while (pageToken != null);
+        // Si aucun événement avec le même nom n'est trouvé, retourner null
+        return null;
     }
 }
