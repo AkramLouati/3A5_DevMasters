@@ -48,36 +48,35 @@ public class EquipementItemGuiFront {
     private Button useButton;
     @FXML
     private Button rendreButton;
+    private int quantiteInitiale;
 
     @FXML
     void utiliserEquipementAction(ActionEvent event) {
         // Vérifier si la quantité d'équipement est supérieure à zéro
         if (equipement.getQuantite_eq() > 0) {
-            // Réduire la quantité d'équipement disponible
             int nouvelleQuantite = equipement.getQuantite_eq() - 1;
-            // Mettre à jour la quantité dans la base de données
             equipement.setQuantite_eq(nouvelleQuantite);
-            serviceEquipement.modifier(equipement); // Mettre à jour la quantité dans la base de données
-            // Mettre à jour l'affichage de la quantité
+            serviceEquipement.modifier(equipement);
             quantiteitemTFF.setText(String.valueOf(nouvelleQuantite));
-            // Vérifier si la quantité est devenue zéro
+
             if (nouvelleQuantite == 0) {
-                // Envoyer une notification à l'administrateur
                 envoyerSmsAdmin();
-                // Afficher une notification à l'administrateur
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("Stock en rupture pour l'équipement : " + equipement.getNom_eq());
                 alert.setTitle("Stock épuisé");
                 alert.show();
             }
+
+            // Désactiver le bouton si la quantité est nulle
+            useButton.setDisable(nouvelleQuantite == 0);
         } else {
-            // Afficher une notification si la quantité est déjà nulle
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Stock déjà épuisé pour l'équipement : " + equipement.getNom_eq());
             alert.setTitle("Stock épuisé");
             alert.show();
         }
     }
+
     // Votre identifiant Twilio
     private static final String ACCOUNT_SID = "ACc889cd2b52f6a09ca714c967c8c33cd1";
     // Votre token d'authentification Twilio
@@ -116,16 +115,30 @@ public class EquipementItemGuiFront {
     void rendreEquipementAction(ActionEvent event) {
         // Incrémenter la quantité d'équipement disponible
         int nouvelleQuantite = equipement.getQuantite_eq() + 1;
-        // Mettre à jour la quantité dans la base de données
-        equipement.setQuantite_eq(nouvelleQuantite);
-        serviceEquipement.modifier(equipement); // Mettre à jour la quantité dans la base de données
-        // Mettre à jour l'affichage de la quantité
-        quantiteitemTFF.setText(String.valueOf(nouvelleQuantite));
-        // Afficher une notification à l'administrateur
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("L'équipement " + equipement.getReference_eq() + " a été rendu avec succès.");
-        alert.setTitle("Équipement rendu");
-        alert.show();
+
+        // Vérifier si la quantité rendue ne dépasse pas la quantité initiale des équipements
+        if (nouvelleQuantite <= quantiteInitiale) {
+            // Mettre à jour la quantité dans la base de données
+            equipement.setQuantite_eq(nouvelleQuantite);
+            serviceEquipement.modifier(equipement);
+
+            // Mettre à jour l'affichage de la quantité
+            quantiteitemTFF.setText(String.valueOf(nouvelleQuantite));
+
+            // Activer le bouton 'useButton'
+            useButton.setDisable(false);
+
+            // Afficher une notification à l'administrateur
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("L'équipement " + equipement.getReference_eq() + " a été rendu avec succès.");
+            alert.setTitle("Équipement rendu");
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("La quantité rendue dépasse la quantité initiale des équipements.");
+            alert.setTitle("Quantité rendue excessive");
+            alert.show();
+        }
     }
     private Equipement equipement;
     ServiceEquipement serviceEquipement = new ServiceEquipement();
@@ -153,7 +166,7 @@ public class EquipementItemGuiFront {
                 e.printStackTrace();
             }
         }
-        useButton.setDisable(equipement.getQuantite_eq() == 0);
+        quantiteInitiale = equipement.getQuantite_eq();
     }
     @FXML
     void avisFEquipementAction(ActionEvent event) {
@@ -179,7 +192,5 @@ public class EquipementItemGuiFront {
             alert.show();
         }
     }
-
-
 }
 
