@@ -64,7 +64,7 @@ public class AjouterPubliciteController implements Initializable {
     TextField TFcontactpub;
 
     @FXML
-    TextField TFdescriptionpub;
+    TextArea TFdescriptionpub;
 
     @FXML
     TextField TFlocalisationpub;
@@ -312,9 +312,9 @@ public class AjouterPubliciteController implements Initializable {
     }
     @FXML
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
-        Muni muni = new Muni(1);
-        EndUser user = new EndUser(12, muni);
-        Actualite actualite = new Actualite(102, user);
+        Muni muni = new Muni(13);
+        EndUser user = new EndUser(48, muni);
+        Actualite actualite = new Actualite(120, user);
         String selectedOffer = offrePubCombo.getValue();
 
         // No payment processing check here
