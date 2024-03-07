@@ -1,7 +1,6 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.CommentaireTache;
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
 import javafx.animation.TranslateTransition;
@@ -48,15 +47,6 @@ public class DetailTacheController {
     private Tache tache;
 
     private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
-
-    public void setUserAndTaskIds(EndUser userId, Tache tache) {
-        // Variable to store the task ID
-        int tacheId = tache.getId_T();
-    }
-
-    public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
-        this.serviceCommentaireTache = serviceCommentaireTache;
-    }
 
     public void setData(Tache tache) {
         this.tache = tache;
@@ -173,7 +163,6 @@ public class DetailTacheController {
                 ModifierCommentaireTacheController controller = loader.getController();
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                //controller.setUserAndTaskIds(tache, tache.getUser());
                 controller.setData(commentaireTache);
                 // Create a new stage
                 Stage stage = new Stage();

@@ -1,10 +1,8 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.CommentaireTache;
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
-import edu.esprit.services.ServiceTache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,14 +31,6 @@ public class DetailTacheFrontController {
     private TextField txt_date_C, txt_text_C;
     private Tache tache;
     private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
-
-    public void setUserAndTaskIds(EndUser userId, Tache tache) {
-        this.tache = tache;
-    }
-
-    public void setServices(ServiceCommentaireTache serviceCommentaireTache, ServiceTache serviceTache) {
-        this.serviceCommentaireTache = serviceCommentaireTache;
-    }
 
     public void setData(Tache tache) {
         this.tache = tache;
@@ -86,16 +76,15 @@ public class DetailTacheFrontController {
 
     @FXML
     void BTNAjoutCMNT(ActionEvent event) {
-        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
-        if (commentairesTache.isEmpty()) {
+        if (tache != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
                 Parent root = loader.load();
                 AjouterCommentaireTacheController controller = loader.getController();
 
-                // Pass the service and user/task IDs to the controller
+                // Pass the service and the current tache to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-               // controller.setUserAndTaskIds(tache, tache.getUser());
+                controller.setTache(tache);
 
                 // Create a new stage
                 Stage stage = new Stage();
@@ -113,10 +102,11 @@ public class DetailTacheFrontController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Commentaire déjà existant !");
+            alert.setContentText("Sélectionnez une tâche pour ajouter un commentaire.");
             alert.showAndWait();
         }
     }
+
 
     @FXML
     void BTNModifCMNT(ActionEvent event) {
@@ -127,10 +117,8 @@ public class DetailTacheFrontController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCommentaireTache.fxml"));
                 Parent root = loader.load();
                 ModifierCommentaireTacheController controller = loader.getController();
-
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-               // controller.setUserAndTaskIds(tache, tache.getUser());
                 controller.setData(commentaireTache);
                 // Create a new stage
                 Stage stage = new Stage();
@@ -168,13 +156,5 @@ public class DetailTacheFrontController {
             alert.setContentText("Aucun commentaire à supprimer.");
             alert.showAndWait();
         }
-    }
-
-    private void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }
