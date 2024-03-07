@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AdminMessagerieController">
+    <left>
+        <VBox prefHeight="200.0" prefWidth="320.0" styleClass="white-backgroung" stylesheets="@css/styles.css" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" prefHeight="380.0" prefWidth="323.0" style="-fx-background-color: #012545;" styleClass="profile-layout">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/profile.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="label-styled" stylesheets="@css/styles.css" text="amine yahyaoui" textFill="WHITE">
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font name="Corbel Bold" size="28.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                    </VBox.margin>
+                </VBox>
+                <Pane layoutX="10.0" layoutY="717.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                <VBox alignment="CENTER" prefHeight="450.0" prefWidth="313.0" styleClass="label-styled" stylesheets="@css/styles.css">
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                    </VBox.margin>
+                    <children>
+                        <Label prefHeight="23.0" prefWidth="297.0" styleClass="label-styled" stylesheets="@css/styles.css" text="Numéro du télèphone">
+                            <font>
+                                <Font name="Corbel Bold" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="298.0" styleClass="label-styled" stylesheets="@css/styles.css" text="+216 xx-xxx-xxx" textFill="#9a9a9a">
+                            <font>
+                                <Font name="Corbel Bold" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="298.0" styleClass="label-styled" stylesheets="@css/styles.css" text="Work">
+                            <font>
+                                <Font name="Corbel Bold" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" top="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="33.0" prefHeight="23.0" prefWidth="296.0" styleClass="label-styled" stylesheets="@css/styles.css" text="+216 xx-xxx-xxx" textFill="#9a9a9a">
+                            <font>
+                                <Font name="Corbel Bold" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="76.0" prefHeight="23.0" prefWidth="297.0" styleClass="label-styled" stylesheets="@css/styles.css" text="Email">
+                            <font>
+                                <Font name="Corbel Bold" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" top="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="100.0" prefHeight="23.0" prefWidth="297.0" styleClass="label-styled" stylesheets="@css/styles.css" text="wertatanifadi@gmail.com" textFill="#9a9a9a">
+                            <font>
+                                <Font name="Corbel Bold" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #012545;" stylesheets="@css/styles.css" text="Modifier" textFill="WHITE">
+                            <VBox.margin>
+                                <Insets top="30.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+                <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="110.0" prefWidth="994.0" style="-fx-background-color: #012545;">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="100.0" prefWidth="123.0" />
+                        <VBox prefHeight="99.0" prefWidth="150.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#Navigatetoreclamation" prefHeight="99.0" prefWidth="108.0" stylesheets="@css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="67.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/claim.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="radius" />
+                                    <String fx:value="transparent" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="99.0" prefWidth="150.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="99.0" prefWidth="108.0" styleClass="radius" stylesheets="@css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="67.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/message.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children></VBox>
+                <VBox layoutX="-1.0" layoutY="740.0" prefHeight="110.0" prefWidth="994.0" style="-fx-background-color: #012545;" />
+            <Text fill="#012545" layoutX="20.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les Réclamations :" wrappingWidth="275.73670959472656">
+               <font>
+                  <Font name="Arial Bold" size="20.0" />
+               </font>
+            </Text>
+            <TextField layoutX="700.0" layoutY="160.0" prefHeight="22.0" prefWidth="223.0" promptText="Search" stylesheets="@css/styles.css" />
+            <ImageView fitHeight="32.0" fitWidth="26.0" layoutX="948.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/search.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="587.0" layoutY="166.0" prefHeight="20.0" prefWidth="112.0" text="rechercher par :" textFill="#012545">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <VBox layoutX="74.0" layoutY="211.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <HBox prefHeight="34.0" prefWidth="769.0" style="-fx-background-color: #D3D3D3;">
+                     <children>
+                        <Label prefHeight="34.0" prefWidth="71.0" />
+                        <Label fx:id="receiverNameLabel211111" prefHeight="27.0" prefWidth="199.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Sender" />
+                        <Label fx:id="receiverNameLabel2111111" prefHeight="27.0" prefWidth="204.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Receiver" />
+                        <Label fx:id="receiverNameLabel2111112" prefHeight="27.0" prefWidth="180.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Date" />
+                        <Label fx:id="receiverNameLabel21111131" prefHeight="27.0" prefWidth="157.0" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16;" text="Actions" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="scroll" prefHeight="460.0" prefWidth="834.0" styleClass="transparent">
+                     <content>
+                        <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                           </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

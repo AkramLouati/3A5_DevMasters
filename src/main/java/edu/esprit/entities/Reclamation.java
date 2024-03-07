@@ -1,26 +1,26 @@
 package edu.esprit.entities;
 
-import java.util.Date;
 import java.util.Objects;
+import java.util.Date;
+public class Reclamation{
 
-public class Reclamation {
     private int id_reclamation;
-    private int id_user;
-    private int id_muni;
+    private EndUser user;
+    private Muni muni;
+    private  String sujet_reclamation;
     private Date date_reclamation;
     private String type_reclamation;
     private String description_reclamation;
     private String status_reclamation;
     private String image_reclamation;
     private String adresse_reclamation;
-
-    public Reclamation(int idUser, int idMuni, int i, java.sql.Date sqlDate, String nonUrgent, String imageReclamation, String adresseReclamation) {
+    public Reclamation(EndUser user, Muni muni, int i, java.sql.Date sqlDate, String nonUrgent, String imageReclamation, String adresseReclamation){
 
     }
-
-    public Reclamation(int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
-        this.id_user = id_user;
-        this.id_muni = id_muni;
+    public Reclamation(EndUser user, Muni muni,String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
+        this.user = user;
+        this.muni = muni;
+        this.sujet_reclamation=sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
         this.description_reclamation = description_reclamation;
@@ -28,10 +28,11 @@ public class Reclamation {
         this.adresse_reclamation = adresse_reclamation;
     }
 
-    public Reclamation(int id_reclamation, int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
+    public Reclamation(int id_reclamation, EndUser user, Muni muni, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation,String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
-        this.id_user = id_user;
-        this.id_muni = id_muni;
+        this.user = user;
+        this.muni = muni;
+        this.sujet_reclamation=sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
         this.description_reclamation = description_reclamation;
@@ -39,11 +40,11 @@ public class Reclamation {
         this.image_reclamation = image_reclamation;
         this.adresse_reclamation = adresse_reclamation;
     }
-
-    public Reclamation(int id_reclamation, int id_user, int id_muni, Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
+    public Reclamation(int id_reclamation, EndUser user, Muni muni, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation,String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
-        this.id_user = id_user;
-        this.id_muni = id_muni;
+        this.user = user;
+        this.muni = muni;
+        this.sujet_reclamation=sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
         this.description_reclamation = description_reclamation;
@@ -59,20 +60,28 @@ public class Reclamation {
         this.id_reclamation = id_reclamation;
     }
 
-    public int getId_user() {
-        return id_user;
+    public EndUser getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 
-    public int getId_muni() {
-        return id_muni;
+    public Muni getMuni() {
+        return muni;
     }
 
-    public void setId_muni(int id_muni) {
-        this.id_muni = id_muni;
+    public void setMuni(Muni muni) {
+        this.muni = muni;
+    }
+
+    public String getSujet_reclamation() {
+        return sujet_reclamation;
+    }
+
+    public void setSujet_reclamation(String sujet_reclamation) {
+        this.sujet_reclamation = sujet_reclamation;
     }
 
     public java.sql.Date getDate_reclamation() {
@@ -126,9 +135,10 @@ public class Reclamation {
     @Override
     public String toString() {
         return "Reclamation{" +
-                "id_user=" + id_user +
-                ", id_muni=" + id_muni +
-                ", date_reclamation='" + date_reclamation + '\'' +
+                "user=" + user +
+                ", muni=" + muni +
+                ", sujet_reclamation='" + sujet_reclamation + '\'' +
+                ", date_reclamation=" + date_reclamation +
                 ", type_reclamation='" + type_reclamation + '\'' +
                 ", description_reclamation='" + description_reclamation + '\'' +
                 ", status_reclamation='" + status_reclamation + '\'' +
