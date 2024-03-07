@@ -1,9 +1,10 @@
 package edu.esprit.controllers.reclamation;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,8 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.prefs.Preferences;
 
 public class DirecteurAfficherReclamationNTController implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
 
@@ -37,8 +46,6 @@ public class DirecteurAfficherReclamationNTController implements Initializable {
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
-    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private ServiceReclamation sr=new ServiceReclamation();
     Set<Reclamation> reclamationSet = sr.getReclamationsNonTraitees();
     List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
@@ -155,6 +162,10 @@ public class DirecteurAfficherReclamationNTController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
 

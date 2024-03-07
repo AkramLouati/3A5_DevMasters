@@ -1,9 +1,10 @@
 package edu.esprit.controllers.reclamation;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceMessagerie;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.prefs.Preferences;
 
 public class AdminMessagerieController implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
 
     @FXML
     private GridPane grid;
@@ -43,8 +52,6 @@ public class AdminMessagerieController implements Initializable {
 
     @FXML
     private ScrollPane scroll;
-    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(38,"admin@gmail.com","admin","admin","admin","99999999",muni,"admin","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\man1.png");
 
     private ServiceMessagerie sm=new ServiceMessagerie();
     Set<Messagerie> messagerieSet = sm.getAll();
@@ -95,6 +102,10 @@ public class AdminMessagerieController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
 }

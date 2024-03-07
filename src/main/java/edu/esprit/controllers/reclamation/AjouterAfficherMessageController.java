@@ -1,11 +1,12 @@
 package edu.esprit.controllers.reclamation;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,8 +26,16 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 public class AjouterAfficherMessageController implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
 
 
     @FXML
@@ -59,8 +68,6 @@ public class AjouterAfficherMessageController implements Initializable {
 
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     private boolean isSidebarVisible = true;
-    Muni muni = new Muni(15,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser userDirecteur = new EndUser(36,"yassine@gmail.com","yassine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
 
     public void setData(Reclamation reclamation) {
         this.reclamation = reclamation;
@@ -93,7 +100,7 @@ public class AjouterAfficherMessageController implements Initializable {
             }
         }
         ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
-        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(reclamation.getUser().getId(),userDirecteur.getId());
+        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(reclamation.getUser().getId(),user.getId());
         List<Messagerie> messagerieList = new ArrayList<>(messages);
         int column = 0;
         int row = 1;
@@ -228,7 +235,7 @@ public class AjouterAfficherMessageController implements Initializable {
         }
 
         // Envoyer le message
-        serviceMessagerie.ajouter(new Messagerie(sqlDate, messageContent, reclamation.getUser(), userDirecteur, "text"));
+        serviceMessagerie.ajouter(new Messagerie(sqlDate, messageContent, reclamation.getUser(), user, "text"));
         // Réinitialiser le style du champ de texte à sa valeur par défaut
         TFmessage.setStyle(null);
         // Effacer le contenu du champ de texte après l'envoi du message avec succès
@@ -263,6 +270,10 @@ public class AjouterAfficherMessageController implements Initializable {
             }
         }
         return false;
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
 }

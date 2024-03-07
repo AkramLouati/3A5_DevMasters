@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutReclamation">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.reclamation.AjoutReclamation">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
@@ -42,18 +42,7 @@
                         <DropShadow />
                     </effect>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#BTNGestionEvennement" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Evennement" textFill="#012545">
-                    <font>
-                        <Font name="Arial Bold" size="20.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                    <effect>
-                        <DropShadow />
-                    </effect>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#BTNGestionUser" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Utilisateur" textFill="#012545">
+                <Button mnemonicParsing="false" onAction="#BTNGestionEvennement" prefHeight="54.0" prefWidth="193.0" style="-fx-background-radius: 10;" text="Evenement" textFill="#012545">
                     <font>
                         <Font name="Arial Bold" size="20.0" />
                     </font>

@@ -1,7 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
+import edu.esprit.entities.Municipality;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.utils.DataSource;
 
@@ -18,7 +18,7 @@ public class ServiceReclamation implements IService<Reclamation> {
 
     public boolean validateReclamation(Reclamation reclamation) {
         return reclamation.getUser() != null &&
-                reclamation.getMuni() != null &&
+                reclamation.getMunicipality() != null &&
                 !reclamation.getSujet_reclamation().isEmpty() &&
                 reclamation.getDate_reclamation() != null &&
                 !reclamation.getType_reclamation().isEmpty() &&
@@ -26,15 +26,12 @@ public class ServiceReclamation implements IService<Reclamation> {
                 !reclamation.getAdresse_reclamation().isEmpty();
     }
     @Override
-    public void ajouter(Reclamation reclamation) throws SQLException {
-        if (!validateReclamation(reclamation)) {
-            throw new SQLException("Certains champs requis sont vides. Veuillez remplir tous les champs obligatoires.");
-        }
+    public void ajouter(Reclamation reclamation) {
         String req = "INSERT INTO `reclamation`(`id_user`, `id_muni`, `sujet_reclamation`,`date_reclamation`, `type_reclamation`, `description_reclamation`, `status_reclamation`, `image_reclamation`, `adresse_reclamation`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, reclamation.getUser().getId());
-            ps.setInt(2, reclamation.getMuni().getId_muni());
+            ps.setInt(2, reclamation.getMunicipality().getId_muni());
             ps.setString(3, reclamation.getSujet_reclamation());
             ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
             ps.setString(5, reclamation.getType_reclamation());
@@ -71,7 +68,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setInt(1, reclamation.getUser().getId());
-                ps.setInt(2, reclamation.getMuni().getId_muni());
+                ps.setInt(2, reclamation.getMunicipality().getId_muni());
                 ps.setString(3, reclamation.getSujet_reclamation());
                 ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
                 ps.setString(5, reclamation.getType_reclamation());
@@ -137,7 +134,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String adresse_reclamation = rs.getString("adresse_reclamation");
 
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation,date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamations.add(r);
@@ -169,7 +166,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String adresse_reclamation = rs.getString("adresse_reclamation");
 
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 reclamation = new Reclamation(id_reclamation, user, muni, sujet_reclamation,date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
             }
@@ -196,7 +193,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String image_reclamation = rs.getString("image_reclamation");
                 String adresse_reclamation = rs.getString("adresse_reclamation");
 
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 userReclamations.add(r);
@@ -242,7 +239,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String adresse_reclamation = rs.getString("adresse_reclamation");
 
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamationsNonTraitees.add(r);
@@ -272,7 +269,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String adresse_reclamation = rs.getString("adresse_reclamation");
 
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamationsTraitees.add(r);
@@ -302,7 +299,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 String adresse_reclamation = rs.getString("adresse_reclamation");
 
                 EndUser user = serviceUser.getOneByID(id_user);
-                Muni muni = serviceMuni.getOneByID(id_muni);
+                Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamationsEnCoursTraitees.add(r);

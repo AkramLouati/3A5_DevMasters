@@ -1,5 +1,8 @@
-package edu.esprit.controllers.reclamation;
+package edu.esprit.controllers;
 
+import edu.esprit.controllers.user.Login;
+import edu.esprit.entities.EndUser;
+import edu.esprit.services.ServiceUser;
 import edu.esprit.services.chatbot;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
@@ -24,6 +27,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class ChatbotController implements Initializable {
 
@@ -157,7 +161,7 @@ public class ChatbotController implements Initializable {
         // Ajouter une nouvelle ligne pour le message du chatbot
         if (sender.equals("Chatbot")) {
             // Charger l'image du chatbot
-            ImageView chatbotImage = new ImageView(new Image(getClass().getResourceAsStream("/assets/chatbot.png")));
+            ImageView chatbotImage = new ImageView(new Image(getClass().getResourceAsStream("/reclamationGui/assets/chatbot.png")));
             // Redimensionner l'image
             chatbotImage.setFitWidth(50); // Définir la largeur souhaitée
             chatbotImage.setFitHeight(50); // Définir la hauteur souhaitée
@@ -170,7 +174,19 @@ public class ChatbotController implements Initializable {
         // Ajoutez le label au contenu actuel de la zone de chat
         chatContent.add(messageLabel);
     }
-}
+
+    public void tothemain(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            MainAnchorPaneBaladity.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+    }
 
 
 

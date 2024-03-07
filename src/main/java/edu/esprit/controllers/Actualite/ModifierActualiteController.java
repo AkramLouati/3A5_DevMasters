@@ -2,7 +2,6 @@ package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
 import edu.esprit.services.ServiceActualite;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;

@@ -24,7 +24,7 @@
             <children>
                 <ImageView fitHeight="224.0" fitWidth="258.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@assets/LOGO66.png" />
+                        <Image url="@reclamationGui/assets/LOGO66.png" />
                     </image>
                     <effect>
                         <DropShadow />
@@ -76,7 +76,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@assets/complain.png" />
+                                <Image url="@reclamationGui/assets/complain.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -124,7 +124,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/toggle.png" />
+                                        <Image url="@reclamationGui/assets/toggle.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -142,7 +142,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/settings.png" />
+                                        <Image url="@reclamationGui/assets/settings.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -168,9 +168,9 @@
             <center>
                 <AnchorPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="207.0" fitWidth="161.0" layoutX="698.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="95.0" fitWidth="98.0" layoutX="750.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/chatbot.gif" />
+                        <Image url="@reclamationGui/assets/chatbot.gif" />
                      </image>
                   </ImageView>
                   <Text fill="#012545" layoutX="45.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BaladityBot :" wrappingWidth="275.73670959472656">
@@ -178,13 +178,13 @@
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Text>
-                  <VBox layoutX="36.0" layoutY="99.0" prefHeight="470.0" prefWidth="694.0">
+                  <VBox layoutX="92.0" layoutY="113.0" prefHeight="470.0" prefWidth="694.0">
                      <children>
                         <HBox prefHeight="70.0" prefWidth="514.0" style="-fx-background-color: #C0C0C0;">
                            <children>
                               <ImageView fitHeight="67.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@assets/chatbot.png" />
+                                    <Image url="@reclamationGui/assets/chatbot.png" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER" prefHeight="67.0" prefWidth="525.0" text="Baladity Assistant">
@@ -197,7 +197,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <ScrollPane fx:id="chatVbox" prefHeight="494.0" prefWidth="596.0" stylesheets="@css/styles.css">
+                        <ScrollPane fx:id="chatVbox" prefHeight="494.0" prefWidth="596.0" stylesheets="@reclamationGui/css/styles.css">
                            <styleClass>
                               <String fx:value="message" />
                               <String fx:value="label-styled" />
@@ -205,7 +205,7 @@
                         <HBox prefHeight="34.0" prefWidth="523.0">
                            <children>
                               <TextField fx:id="TFmessage" prefHeight="26.0" prefWidth="560.0" promptText="Ecrivez Votre Message ...." />
-                              <Button mnemonicParsing="false" onAction="#sendMessage" prefHeight="26.0" prefWidth="136.0" stylesheets="@css/styles.css" text="envoyer">
+                              <Button mnemonicParsing="false" onAction="#sendMessage" prefHeight="26.0" prefWidth="136.0" stylesheets="@reclamationGui/css/styles.css" text="envoyer">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -214,6 +214,15 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Button fx:id="tothemain" layoutX="5.0" layoutY="538.0" mnemonicParsing="false" onAction="#tothemain" prefHeight="54.0" prefWidth="79.0" styleClass="transparent-background" stylesheets="@reclamationGui/css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@reclamationGui/assets/left-arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
             </center>

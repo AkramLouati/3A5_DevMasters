@@ -6,7 +6,7 @@ public class Reclamation{
 
     private int id_reclamation;
     private EndUser user;
-    private Muni muni;
+    private Municipality Municipality;
     private  String sujet_reclamation;
     private Date date_reclamation;
     private String type_reclamation;
@@ -14,12 +14,12 @@ public class Reclamation{
     private String status_reclamation;
     private String image_reclamation;
     private String adresse_reclamation;
-    public Reclamation(EndUser user, Muni muni, int i, java.sql.Date sqlDate, String nonUrgent, String imageReclamation, String adresseReclamation){
+    public Reclamation(EndUser user, Municipality Municipality, int i, java.sql.Date sqlDate, String nonUrgent, String imageReclamation, String adresseReclamation){
 
     }
-    public Reclamation(EndUser user, Muni muni,String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
+    public Reclamation(EndUser user, Municipality Municipality,String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
         this.user = user;
-        this.muni = muni;
+        this.Municipality = Municipality;
         this.sujet_reclamation=sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
@@ -28,10 +28,10 @@ public class Reclamation{
         this.adresse_reclamation = adresse_reclamation;
     }
 
-    public Reclamation(int id_reclamation, EndUser user, Muni muni, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation,String adresse_reclamation) {
+    public Reclamation(int id_reclamation, EndUser user, Municipality Municipality, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation,String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
         this.user = user;
-        this.muni = muni;
+        this.Municipality = Municipality;
         this.sujet_reclamation=sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
@@ -40,10 +40,10 @@ public class Reclamation{
         this.image_reclamation = image_reclamation;
         this.adresse_reclamation = adresse_reclamation;
     }
-    public Reclamation(int id_reclamation, EndUser user, Muni muni, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation,String adresse_reclamation) {
+    public Reclamation(int id_reclamation, EndUser user, Municipality Municipality, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation,String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
         this.user = user;
-        this.muni = muni;
+        this.Municipality = Municipality;
         this.sujet_reclamation=sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
@@ -68,12 +68,12 @@ public class Reclamation{
         this.user = user;
     }
 
-    public Muni getMuni() {
-        return muni;
+    public Municipality getMunicipality() {
+        return Municipality;
     }
 
-    public void setMuni(Muni muni) {
-        this.muni = muni;
+    public void setMunicipality(Municipality Municipality) {
+        this.Municipality = Municipality;
     }
 
     public String getSujet_reclamation() {
@@ -136,7 +136,7 @@ public class Reclamation{
     public String toString() {
         return "Reclamation{" +
                 "user=" + user +
-                ", muni=" + muni +
+                ", Municipality=" + Municipality +
                 ", sujet_reclamation='" + sujet_reclamation + '\'' +
                 ", date_reclamation=" + date_reclamation +
                 ", type_reclamation='" + type_reclamation + '\'' +

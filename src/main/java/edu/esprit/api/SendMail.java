@@ -30,10 +30,10 @@ public class SendMail {
             message.setText(body);
 
             // Send the email
-            try (Transport transport = session.getTransport("smtp")) {
-                transport.connect();
-                transport.sendMessage(message, message.getAllRecipients());
-            }
+            Transport transport = session.getTransport("smtp");
+            transport.connect();
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close(); // Closing the transport manually
 
             System.out.println("Email sent successfully!");
 

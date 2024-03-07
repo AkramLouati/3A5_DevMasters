@@ -72,17 +72,7 @@ public class MainGuiController {
 
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
-        try {
-            System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
-            BTNGestionAct.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
+
     }
 
     public void BTNGestionUser(ActionEvent actionEvent) {
@@ -93,13 +83,13 @@ public class MainGuiController {
 
     public void BTNGestionAct(ActionEvent actionEvent) {
         try {
-            if(endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé")){
-                System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
-                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterPubliciteGui.fxml"));
+            if(endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé")|| endUser.getType().equals("Directeur")){
+                    System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
             } else if (endUser.getType().equals("Responsable employé")) {
-                System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
-                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AjouterActualiteGui.fxml"));
+                System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteGui.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
             }
         } catch (IOException e) {
@@ -125,12 +115,40 @@ public class MainGuiController {
     }
 
     public void BTNGestionReclamation(ActionEvent actionEvent) {
-
+        try {
+            if(endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé")|| endUser.getType().equals("Responsable employé")){
+                System.out.println("Resource URL: " + getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            } else if (endUser.getType().equals("Directeur")) {
+                System.out.println("Resource URL: " + getClass().getResource("/reclamationGui/DirecteurReclamationGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationGui.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
 
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+    @FXML
+    void chatbotAction(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ChatbotGui.fxml"));
+            MainAnchorPaneBaladity.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
 
 }

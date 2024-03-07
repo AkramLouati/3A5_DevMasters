@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="70.0" prefWidth="781.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AdminMessagerieItemComponentController">
+<AnchorPane prefHeight="70.0" prefWidth="781.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.reclamation.AdminMessagerieItemComponentController">
    <children>
       <HBox prefHeight="71.0" prefWidth="805.0">
          <children>

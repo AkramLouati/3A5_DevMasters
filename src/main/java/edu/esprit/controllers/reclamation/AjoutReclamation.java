@@ -1,9 +1,10 @@
 package edu.esprit.controllers.reclamation;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Muni;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,9 +31,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.prefs.Preferences;
+
 import edu.esprit.services.HateSpeechChecker;
 
 public class AjoutReclamation implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private TextArea TAdescription_reclamation;
 
@@ -74,8 +84,6 @@ public class AjoutReclamation implements Initializable {
 
     private final ServiceReclamation sr = new ServiceReclamation();
     java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-    Muni muni = new Muni(13,"La Soukra","sokra@gmail.com","sokra123","fergha");
-    EndUser user = new EndUser(48,"amine@gmail.com","amine","yassine123","directeur","97404777",muni,"soukra","C:\\Users\\MSI\\Desktop\\pidev\\3A5_DevMasters\\src\\main\\resources\\assets\\profile.png");
     private String imagePath;
     private boolean type_reclamation;
 
@@ -141,28 +149,21 @@ public class AjoutReclamation implements Initializable {
                     descriptionexist.setVisible(false);
 
                     // Pas de réclamation avec le même sujet et la même description, ajouter la réclamation
+                    // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+                    sr.ajouter(new Reclamation(user, user.getMuni(), TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Reclamation a été ajoutée");
+                    alert.setContentText("GG");
+                    alert.show();
                     try {
-                        // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-                        sr.ajouter(new Reclamation(user, muni, TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Reclamation a été ajoutée");
-                        alert.setContentText("GG");
-                        alert.show();
-                        try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
-                            MainAnchorPaneBaladity.getScene().setRoot(root);
-                        } catch (IOException e) {
-                            // Gérer l'exception si la redirection échoue
-                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                            errorAlert.setTitle("Erreur de redirection");
-                            errorAlert.show();
-                        }
-                    } catch (SQLException e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Exception");
-                        alert.setContentText(e.getMessage());
-                        alert.showAndWait();
+                        Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
+                        MainAnchorPaneBaladity.getScene().setRoot(root);
+                    } catch (IOException e) {
+                        // Gérer l'exception si la redirection échoue
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                        errorAlert.setTitle("Erreur de redirection");
+                        errorAlert.show();
                     }
                 }
             }
@@ -420,5 +421,9 @@ public class AjoutReclamation implements Initializable {
     }
     public void setAddressFields(String latitude, String longitude) {
         TFadresse_reclamation.setText("Latitude: " + latitude + ", Longitude: " + longitude);
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

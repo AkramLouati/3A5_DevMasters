@@ -104,7 +104,22 @@
                         <Font name="System Bold" size="55.0" />
                      </font>
                   </Label>
-               </center></BorderPane>
+               </center>
+               <bottom>
+                  <Label prefHeight="126.0" prefWidth="226.0" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <graphic>
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#chatbotAction" prefHeight="98.0" prefWidth="134.0" styleClass="transparent-background" stylesheets="@reclamationGui/css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="109.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@reclamationGui/assets/chat-bot.gif" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </graphic>
+                  </Label>
+               </bottom></BorderPane>
          </center></BorderPane>
    </center>
 </BorderPane>
