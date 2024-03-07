@@ -119,12 +119,12 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-        <Button layoutX="220.0" layoutY="271.0" mnemonicParsing="false" onAction="#ModifierEventClick" prefHeight="47.0" prefWidth="82.0" textFill="#fffbfb">
+        <Button layoutX="219.0" layoutY="273.0" mnemonicParsing="false" onAction="#ModifierEventClick" prefHeight="22.0" prefWidth="82.0" textFill="#fffbfb">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="34.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/editer.png" />
                </image>
@@ -141,7 +141,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-        <ImageView fx:id="imageM" fitHeight="209.0" fitWidth="267.0" layoutX="321.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="imageM" fitHeight="209.0" fitWidth="245.0" layoutX="343.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
         <Button alignment="CENTER" layoutX="423.0" layoutY="284.0" mnemonicParsing="false" onAction="#browseMOnClick" prefHeight="54.0" prefWidth="50.0" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />

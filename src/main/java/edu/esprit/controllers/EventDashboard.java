@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,12 +46,12 @@ public class EventDashboard implements Initializable {
             fxmlLoader.setLocation(location);
 
             try {
-                GridPane gridPane = fxmlLoader.load();
+                AnchorPane anchorPane = fxmlLoader.load();
                 EventItem eventItemController = fxmlLoader.getController();
                 eventItemController.setData(evenement);
                 // Set the EventDashboard instance to the EventItem controller
                 eventItemController.setEventDashboard(this);
-                eventsLayout.getChildren().add(gridPane);
+                eventsLayout.getChildren().add(anchorPane);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -146,10 +145,10 @@ public class EventDashboard implements Initializable {
             fxmlLoader.setLocation(location);
 
             try {
-                GridPane gridPane = fxmlLoader.load();
+                AnchorPane anchorPane = fxmlLoader.load();
                 EventItem eventItemController = fxmlLoader.getController();
                 eventItemController.setData(evenement);
-                eventsLayout.getChildren().add(gridPane);
+                eventsLayout.getChildren().add(anchorPane);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -226,11 +225,11 @@ public class EventDashboard implements Initializable {
             fxmlLoader.setLocation(location);
 
             try {
-                GridPane gridPane = fxmlLoader.load();
+                AnchorPane anchorPane = fxmlLoader.load();
                 EventItem eventItemController = fxmlLoader.getController();
                 eventItemController.setData(evenement);
                 eventItemController.setEventDashboard(this);
-                eventsLayout.getChildren().add(gridPane);
+                eventsLayout.getChildren().add(anchorPane);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

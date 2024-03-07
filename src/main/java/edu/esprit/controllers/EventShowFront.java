@@ -7,44 +7,46 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class EventShowFront implements Initializable {
     @FXML
     private VBox eventsLayout;
     private Scene currentScene;
+    private List<Evenement> evenementList;
+    @FXML
+    private TextField searchEvenement;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Evenement> evenements = new ArrayList<>(getEvenements());
-        for (Evenement evenement : evenements) {
+        evenementList = new ArrayList<>(getEvenements());
+        Comparator<Evenement> comparator = Comparator.comparing(e -> e.getNomEvent().toLowerCase());
+        evenementList.sort(comparator);
+        for (Evenement evenement : evenementList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL location = getClass().getResource("/EventFront.fxml");
             fxmlLoader.setLocation(location);
 
             try {
-                GridPane gridPane = fxmlLoader.load();
+                AnchorPane anchorPane = fxmlLoader.load();
                 EventFront eventItemController = fxmlLoader.getController();
                 eventItemController.setData(evenement);
                 // Set the EventDashboard instance to the EventItem controller
                 eventItemController.setEventShowFront(this);
-                eventsLayout.getChildren().add(gridPane);
+                eventsLayout.getChildren().add(anchorPane);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -70,6 +72,34 @@ public class EventShowFront implements Initializable {
         evenement.setCapaciteMax(evenement.getCapaciteMax());
         evenement.setCategorie(evenement.getCategorie());
         evenementList.add(evenement);
+    }
+    public void RechercherEvent(String searchEvenement, List<Evenement> evenementList ) {
+        List<Evenement> filteredList = evenementList.stream()
+                .filter(evenement -> evenement.getNomEvent().toLowerCase().startsWith(searchEvenement.toLowerCase()))
+                .collect(Collectors.toList());
+        eventsLayout.getChildren().clear();
+
+        for (Evenement evenement : filteredList) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL location = getClass().getResource("/EventFront.fxml");
+            fxmlLoader.setLocation(location);
+
+            try {
+                AnchorPane anchorPane = fxmlLoader.load();
+                EventFront eventFront = fxmlLoader.getController();
+                eventFront.setData(evenement);
+                eventFront.setEventShowFront(this);
+                eventsLayout.getChildren().add(anchorPane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    void searchEventTextChanged(KeyEvent event) {
+        String searchText = searchEvenement.getText();
+        RechercherEvent(searchText, getEvenements());
     }
 
 

@@ -1,110 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="CENTER_LEFT" prefHeight="264.0" prefWidth="950.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EventItem">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="843.0" style="-fx-border-color: #012545; -fx-border-width: 4;" stylesheets="@css/Actualite.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.EventItem">
     <children>
-        <ImageView fx:id="img" fitHeight="261.0" fitWidth="433.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-            <GridPane.margin>
-                <Insets right="100.0" />
-            </GridPane.margin>
-        </ImageView>
-        <Text fx:id="nomEventT" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evenement" textAlignment="CENTER" wrappingWidth="254.01255989074707">
+        <Text fx:id="nomEventT" fill="#171a71" layoutX="421.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Evenement" wrappingWidth="254.13689613342285">
             <font>
-                <Font name="Bell MT Bold" size="35.0" />
+                <Font name="System Bold" size="23.0" />
             </font>
-            <GridPane.columnIndex>1</GridPane.columnIndex>
-            <GridPane.rowIndex>0</GridPane.rowIndex>
-            <GridPane.margin>
-                <Insets right="50.0" />
-            </GridPane.margin>
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.8842105269432068" green="0.03602339327335358" blue="0.03602339327335358" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
         </Text>
-        <HBox alignment="CENTER" prefHeight="262.0" prefWidth="242.0">
-            <children>
-            <Button mnemonicParsing="false" onAction="#ModifierEvenementClick" prefHeight="37.0" prefWidth="36.0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#SupprimerEvenementClick" prefHeight="36.0" prefWidth="37.0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#DetailsEvenementClick" prefHeight="36.0" prefWidth="37.0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/detail.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            </children>
-            <GridPane.columnIndex>2</GridPane.columnIndex>
-            <GridPane.rowIndex>0</GridPane.rowIndex>
-        </HBox>
+        <ImageView fx:id="img" fitHeight="251.0" fitWidth="378.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="569.0" layoutY="210.0" mnemonicParsing="false" onAction="#ModifierEvenementClick" prefHeight="37.0" prefWidth="36.0" stylesheets="@css/TacheCss.css" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/edit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="650.0" layoutY="210.0" mnemonicParsing="false" onAction="#SupprimerEvenementClick" prefHeight="36.0" prefWidth="37.0" stylesheets="@css/TacheCss.css" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="732.0" layoutY="210.0" mnemonicParsing="false" onAction="#DetailsEvenementClick" prefHeight="36.0" prefWidth="37.0" stylesheets="@css/TacheCss.css" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/detail.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
     </children>
-    <padding>
-        <Insets left="5.0" />
-    </padding>
-   <columnConstraints>
-      <ColumnConstraints maxWidth="504.00001220703126" minWidth="357.8000244140625" prefWidth="433.600048828125" />
-      <ColumnConstraints maxWidth="315.99997558593753" minWidth="162.39998779296877" prefWidth="248.79996337890628" />
-      <ColumnConstraints maxWidth="289.9999877929688" minWidth="168.7999389648437" prefWidth="224.80003662109368" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+</AnchorPane>
