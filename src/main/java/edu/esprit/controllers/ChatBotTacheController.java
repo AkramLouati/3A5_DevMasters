@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class ChatBotTacheController {
     private final Map<String, String> keywordResponses;
-    private final ServiceTache sr = new ServiceTache();
+    private final ServiceTache ST = new ServiceTache();
     @FXML
     public VBox chatContainer;
     @FXML
@@ -157,7 +157,7 @@ public class ChatBotTacheController {
         keywordResponses.put("ki zebi pas grave pas mal not bad just fine", "i hope i can change ur mood, how can i help");
 
 
-        Set<Tache> allTasks = sr.getTachesByState(EtatTache.DONE);
+        Set<Tache> allTasks = ST.getTachesByState(EtatTache.DONE);
         for (EndUser user : users) {
             int completedTasks = (int) allTasks.stream().filter(task -> task.getUser().equals(user)).count();
             completedTasksMap.put(user, completedTasks);

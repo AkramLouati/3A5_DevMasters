@@ -1,8 +1,10 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
 import edu.esprit.services.ServiceTache;
+import edu.esprit.services.ServiceUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -24,9 +26,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.prefs.Preferences;
 
 public class AfficherTacheFrontController implements Initializable {
-
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = 15;
+    //    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
     private final ServiceTache ST = new ServiceTache();
     public TextField todoCount;
     public TextField doingCount;
@@ -71,24 +78,27 @@ public class AfficherTacheFrontController implements Initializable {
 
         try {
             for (Tache tache : tacheList) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TacheFront.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-                TacheFrontController itemController = fxmlLoader.getController();
-                itemController.setData(tache);
+                // Check if the task belongs to the category type of the current user
+                if (tache.getCategorie().getNom_Cat().equals(user.getType())) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TacheFront.fxml"));
+                    AnchorPane anchorPane = fxmlLoader.load();
+                    TacheFrontController itemController = fxmlLoader.getController();
+                    itemController.setData(tache);
 
-                switch (tache.getEtat_T()) {
-                    case TO_DO:
-                        TO_DO.addRow(TO_DO.getRowCount(), anchorPane);
-                        todoCounter++;
-                        break;
-                    case DOING:
-                        DOING.addRow(DOING.getRowCount(), anchorPane);
-                        doingCounter++;
-                        break;
-                    case DONE:
-                        DONE.addRow(DONE.getRowCount(), anchorPane);
-                        doneCounter++;
-                        break;
+                    switch (tache.getEtat_T()) {
+                        case TO_DO:
+                            TO_DO.addRow(TO_DO.getRowCount(), anchorPane);
+                            todoCounter++;
+                            break;
+                        case DOING:
+                            DOING.addRow(DOING.getRowCount(), anchorPane);
+                            doingCounter++;
+                            break;
+                        case DONE:
+                            DONE.addRow(DONE.getRowCount(), anchorPane);
+                            doneCounter++;
+                            break;
+                    }
                 }
             }
             todoCount.setText("TO DO | " + todoCounter);
@@ -258,5 +268,9 @@ public class AfficherTacheFrontController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

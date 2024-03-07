@@ -4,6 +4,7 @@ import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
+import edu.esprit.services.ServiceUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
@@ -11,20 +12,22 @@ import javafx.stage.Stage;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.prefs.Preferences;
 
 public class AjouterCommentaireTacheController {
 
     @FXML
     private TextArea commentField;
-
+    public void setTache(Tache tache) {
+        this.tache = tache;
+    }
     private ServiceCommentaireTache serviceCommentaireTache;
     private Tache tache;
-    private EndUser user;
-
-    public void setUserAndTaskIds(Tache tache, EndUser user) {
-        this.tache = tache;
-        this.user = user;
-    }
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = 16;
+    //    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
 
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
@@ -40,7 +43,7 @@ public class AjouterCommentaireTacheController {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Erreur");
             errorAlert.setHeaderText(null);
-            errorAlert.setContentText("commentaire existe deja pour cette tâche.");
+            errorAlert.setContentText("commentaire existe deja pour cette tache.");
             errorAlert.showAndWait();
             return; // Exit the method
         }
@@ -61,5 +64,9 @@ public class AjouterCommentaireTacheController {
         // Close the window
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

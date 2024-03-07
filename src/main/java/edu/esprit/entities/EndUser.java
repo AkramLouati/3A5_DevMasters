@@ -12,11 +12,11 @@ public class EndUser {
     private Municipality muni;
     private String location;
     private String image;
+    private boolean isBanned;
 
-    public EndUser() {
-    }
+    public EndUser(){}
 
-    public EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image) {
+    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image){
         this.nom = nom;
         this.email = email;
         this.password = password;
@@ -27,7 +27,19 @@ public class EndUser {
         this.image = image;
     }
 
-    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, Municipality muni, String location, String image) {
+    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image, boolean isBanned){
+        this.nom = nom;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+        this.phoneNumber = phoneNumber;
+        this.muni = muni;
+        this.location = location;
+        this.image = image;
+        this.isBanned = isBanned();
+    }
+
+    public EndUser(int id, String email, String nom, String password, String type, String phoneNumber, Municipality muni, String location, String image, boolean isBanned) {
         this.id = id;
         this.email = email;
         this.nom = nom;
@@ -37,6 +49,7 @@ public class EndUser {
         this.muni = muni;
         this.location = location;
         this.image = image;
+        this.isBanned = isBanned;
     }
 
     public int getId() {
@@ -109,6 +122,13 @@ public class EndUser {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+    public boolean isBanned() {
+        return isBanned;
     }
 
     @Override

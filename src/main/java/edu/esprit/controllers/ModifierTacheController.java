@@ -40,13 +40,17 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class ModifierTacheController {
     private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
     ServiceUser serviceUser = new ServiceUser();
-    EndUser user01 = serviceUser.getOneByID(16);
+    private static final String USER_PREF_KEY = "current_user";
+    int userId = 16;
+    //    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -238,7 +242,7 @@ public class ModifierTacheController {
                 existingTache.setDate_DT(startDateSql);
                 existingTache.setDate_FT(endDateSql);
                 existingTache.setEtat_T(etat);
-                existingTache.setUser(user01);
+                existingTache.setUser(user);
                 serviceTache.modifier(existingTache);
                 clearFields();
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Tache modifiee avec succes.");
@@ -385,5 +389,9 @@ public class ModifierTacheController {
     }
 
     public void BTNGestionTache(ActionEvent actionEvent) {
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

@@ -46,14 +46,12 @@ public class DetailTacheController {
     private TextField txt_date_C, txt_text_C;
 
     private Tache tache;
-    private EndUser userId;
-    private int tacheId; // Variable to store the task ID
 
     private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
 
     public void setUserAndTaskIds(EndUser userId, Tache tache) {
-        this.userId = userId;
-        this.tacheId = tache.getId_T();
+        // Variable to store the task ID
+        int tacheId = tache.getId_T();
     }
 
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
@@ -132,16 +130,15 @@ public class DetailTacheController {
 
     @FXML
     void BTNAjoutCMNT(ActionEvent event) {
-        Set<CommentaireTache> commentairesTache = serviceCommentaireTache.getCommentairesForTask(tache);
-        if (commentairesTache.isEmpty()) {
+        if (tache != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCommentaireTache.fxml"));
                 Parent root = loader.load();
                 AjouterCommentaireTacheController controller = loader.getController();
 
-                // Pass the service and user/task IDs to the controller
+                // Pass the service and the current tache to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(tache, tache.getUser());
+                controller.setTache(tache);
 
                 // Create a new stage
                 Stage stage = new Stage();
@@ -159,10 +156,11 @@ public class DetailTacheController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Commentaire déjà existant !");
+            alert.setContentText("Sélectionnez une tâche pour ajouter un commentaire.");
             alert.showAndWait();
         }
     }
+
 
     @FXML
     void BTNModifCMNT(ActionEvent event) {
@@ -175,7 +173,7 @@ public class DetailTacheController {
                 ModifierCommentaireTacheController controller = loader.getController();
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(tache, tache.getUser());
+                //controller.setUserAndTaskIds(tache, tache.getUser());
                 controller.setData(commentaireTache);
                 // Create a new stage
                 Stage stage = new Stage();

@@ -158,10 +158,13 @@ public class AfficherTacheController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChartContainer.fxml"));
             Parent root = loader.load();
-            ChartContainerController controller = loader.getController(); // Get the controller instance
-            // Call the displayChart method
-            controller.displayChart();
-            // Create a new stage
+            ChartContainerController controller = loader.getController();
+            // Retrieve an EndUser object representing the user
+            // Get the tasks assigned to the user
+            Set<Tache> userTasks = sr.getAll();
+            // Pass the tasks to the controller
+            controller.displayChart(userTasks);
+            // Show the stage
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();

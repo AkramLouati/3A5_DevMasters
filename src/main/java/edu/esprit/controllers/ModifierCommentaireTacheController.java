@@ -4,11 +4,14 @@ import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceCommentaireTache;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
+import java.util.prefs.Preferences;
 
 public class ModifierCommentaireTacheController {
 
@@ -16,6 +19,12 @@ public class ModifierCommentaireTacheController {
     private TextArea commentField;
     private CommentaireTache commentaireTache;
     private ServiceCommentaireTache serviceCommentaireTache;
+    private Tache tache;
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = 16;
+    //    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
 
     public void setData(CommentaireTache commentaireTache) {
         this.commentaireTache = commentaireTache;
@@ -26,13 +35,10 @@ public class ModifierCommentaireTacheController {
         this.serviceCommentaireTache = serviceCommentaireTache;
     }
 
-    public void setUserAndTaskIds(Tache tache, EndUser user) {
-    }
-
     @FXML
     void modifierCommentaire(ActionEvent event) {
         if (serviceCommentaireTache == null) {
-            System.err.println("Service CommentaireTache not set.");
+            System.err.println("Service CommentaireTache pas definie.");
             return;
         }
         String newCommentText = commentField.getText();
@@ -42,12 +48,16 @@ public class ModifierCommentaireTacheController {
         serviceCommentaireTache.modifier(commentaireTache);
         // Show confirmation message
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Modification réussie");
+        alert.setTitle("Modification reussie");
         alert.setHeaderText(null);
-        alert.setContentText("Le commentaire a été modifié avec succès.");
+        alert.setContentText("Commentaire modifie avec succees.");
         alert.showAndWait();
         // Close the window
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

@@ -15,7 +15,7 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public void ajouter(EndUser endUser) {
-        String req = "INSERT INTO `enduser`(`email_user`, `nom_user`, `type_user`, `phoneNumber_user`, `id_muni`, `location_user`, `image_user`,`password`) VALUES (?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `enduser`(`email_user`, `nom_user`, `type_user`, `phoneNumber_user`, `id_muni`, `location_user`, `image_user`,`password`,`isBanned`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, endUser.getEmail());
@@ -29,6 +29,7 @@ public class ServiceUser implements IService<EndUser> {
             ps.setString(6, endUser.getLocation());
             ps.setString(7, endUser.getImage());
             ps.setString(8, endUser.getPassword());
+            ps.setBoolean(9, false);
             ps.executeUpdate();
             System.out.printf("User added!!");
         } catch (SQLException e) {
@@ -52,8 +53,9 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                return new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image);
+                return new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image, isBanned);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,6 +82,20 @@ public class ServiceUser implements IService<EndUser> {
             ps.setInt(9, endUser.getId()); // Assuming `id_user` is the primary key
             ps.executeUpdate();
             System.out.println("User updated!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void modifierUserToBanned(int userId, boolean ban) {
+        String req = "UPDATE `enduser` SET `isBanned`=? WHERE `id_user`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setBoolean(1, ban);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+            System.out.println("User status modified!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +133,7 @@ public class ServiceUser implements IService<EndUser> {
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
+            while(rs.next()){
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -127,8 +143,9 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                EndUser p = new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image);
+                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image, isBanned);
                 users.add(p);
             }
         } catch (SQLException e) {
@@ -146,7 +163,7 @@ public class ServiceUser implements IService<EndUser> {
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -156,8 +173,9 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                endUser = new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image);
+                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image, isBanned);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -173,7 +191,7 @@ public class ServiceUser implements IService<EndUser> {
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setString(1, mail);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -183,8 +201,9 @@ public class ServiceUser implements IService<EndUser> {
                 int id_muni = rs.getInt("id_muni");
                 String location = rs.getString("location_user");
                 String image = rs.getString("image_user");
+                boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                endUser = new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image);
+                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image,isBanned);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

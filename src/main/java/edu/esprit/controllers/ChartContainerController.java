@@ -19,12 +19,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ChartContainerController {
-    private final ServiceTache sr = new ServiceTache();
+    private final ServiceTache ST = new ServiceTache();
     @FXML
     private AnchorPane chartContainer;
 
-    public void displayChart() {
-        Set<Tache> allTasks = sr.getTachesByState(EtatTache.DONE);
+    public void displayChart(Set<Tache> userTasks) {
+        Set<Tache> allTasks = ST.getTachesByState(EtatTache.DONE);
         Map<EndUser, Long> userTaskCounts = allTasks.stream()
                 .collect(Collectors.groupingBy(Tache::getUser, Collectors.counting()));
         Map<EndUser, Long> sortedUserTaskCounts = userTaskCounts.entrySet().stream()

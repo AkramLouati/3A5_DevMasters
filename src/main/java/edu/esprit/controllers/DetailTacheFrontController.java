@@ -95,7 +95,7 @@ public class DetailTacheFrontController {
 
                 // Pass the service and user/task IDs to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(tache, tache.getUser());
+               // controller.setUserAndTaskIds(tache, tache.getUser());
 
                 // Create a new stage
                 Stage stage = new Stage();
@@ -130,7 +130,7 @@ public class DetailTacheFrontController {
 
                 // Pass the service, current comment, and task ID to the controller
                 controller.setServiceCommentaireTache(serviceCommentaireTache);
-                controller.setUserAndTaskIds(tache, tache.getUser());
+               // controller.setUserAndTaskIds(tache, tache.getUser());
                 controller.setData(commentaireTache);
                 // Create a new stage
                 Stage stage = new Stage();

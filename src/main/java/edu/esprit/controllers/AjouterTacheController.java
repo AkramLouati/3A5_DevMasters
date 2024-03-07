@@ -39,14 +39,20 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class AjouterTacheController {
 
     private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
+
+    private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
-    EndUser user01 = serviceUser.getOneByID(16);
+    int userId = 16;
+//    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
+
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -195,7 +201,7 @@ public class AjouterTacheController {
             }
             // Retrieve the CategorieT object associated with the selected category name
             CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
-            Tache tache = new Tache(categorie, title, attachment, startDateSql, endDateSql, description, etat, user01);
+            Tache tache = new Tache(categorie, title, attachment, startDateSql, endDateSql, description, etat, user);
             serviceTache.ajouter(tache);
             clearFields();
             showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutee avec succes.");
@@ -343,5 +349,9 @@ public class AjouterTacheController {
 
     public void BTNGestionTache(ActionEvent actionEvent) {
 
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }
