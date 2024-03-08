@@ -66,7 +66,7 @@ public class AdminReclamationItemComponentController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AdminReclamationAfficher.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/amine.fxml"));
                     TFsujet_reclamationaff.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue

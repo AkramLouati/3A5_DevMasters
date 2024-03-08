@@ -183,49 +183,72 @@ public class AfficherTacheController implements Initializable {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
+
             // Load the image
-            PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/assets/BaladiaT.png", document);
+            PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/assets/logoiconT.png", document);
+
             // Create a content stream for writing to the PDF
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
             // Set font and position for writing
             contentStream.setFont(PDType1Font.COURIER_BOLD, 12);
+
             // Set text color
             contentStream.setNonStrokingColor(Color.BLACK);
+
             // Add image to the top-left corner
             float imageWidth = (float) pdImage.getWidth() / 4;
             float imageHeight = (float) pdImage.getHeight() / 4;
-            // Add image closer to the top-left corner
             float startX = 25; // Adjust as needed
             float startY = page.getMediaBox().getHeight() - 25 - imageHeight; // Adjust as needed
             contentStream.drawImage(pdImage, startX, startY, imageWidth, imageHeight);
+
             // Write column headers
-            // Starting position for writing
             float yPosition = page.getMediaBox().getHeight() - imageHeight - 50; // Start below the image
             float margin = 50; // Left margin
             contentStream.beginText();
             contentStream.newLineAtOffset(margin, startY - 25); // Start below the image
             contentStream.showText("Titre");
-            contentStream.newLineAtOffset(200, 0); // Move to the next column
+            contentStream.newLineAtOffset(100, 0); // Move to the next column
+            contentStream.showText("Date Debut");
+            contentStream.newLineAtOffset(100, 1); // Move to the next column
+            contentStream.showText("DateFin");
+            contentStream.newLineAtOffset(100, 2); // Move to the next column
             contentStream.showText("Etat");
+            contentStream.newLineAtOffset(100, 3); // Move to the next column
             contentStream.endText();
+
             // Move to the next line
-            yPosition -= 20;
+            yPosition -= 30; // Increased spacing between lines
+
             // Write tasks to the PDF
             for (Tache task : allTasks) {
-                // Write the task details
                 contentStream.beginText();
                 contentStream.newLineAtOffset(margin, yPosition);
                 contentStream.showText(task.getTitre_T());
-                contentStream.newLineAtOffset(200, 0); // Move to the next column
+                contentStream.newLineAtOffset(100, 0); // Move to the next column
+                contentStream.showText(task.getDate_DT().toString());
+                contentStream.newLineAtOffset(100, 1); // Move to the next column
+                contentStream.showText(task.getDate_FT().toString());
+                contentStream.newLineAtOffset(100, 2); // Move to the next column
                 contentStream.showText(task.getEtat_T().toString());
                 contentStream.endText();
+
+                // Draw borders between elements
+                contentStream.moveTo(margin, yPosition - 5); // Move to the starting point
+                contentStream.lineTo(margin + 400, yPosition - 5); // Draw a line to create a border between columns
+                contentStream.stroke();
+
                 // Move to the next line for the next task
                 yPosition -= 20; // Adjust line spacing as needed
             }
+
             contentStream.close();
+
             // Default file name based on today's date and time
             String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String defaultFileName = "tache_" + timeStamp + ".pdf";
+
             // Prompt the user to choose where to save the PDF file
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Enregistrer Fichier PDF");
@@ -235,6 +258,7 @@ public class AfficherTacheController implements Initializable {
                     new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
                     new FileChooser.ExtensionFilter("All Files", "*.*"));
             File selectedFile = fileChooser.showSaveDialog(stage);
+
             if (selectedFile != null) {
                 // Save the document
                 document.save(selectedFile);
@@ -249,6 +273,8 @@ public class AfficherTacheController implements Initializable {
         }
     }
 
+
+
     @FXML
     void EXCELTacheLabel(ActionEvent event) {
         // Get all tasks from the service
@@ -261,7 +287,7 @@ public class AfficherTacheController implements Initializable {
 
             // Create a header row
             Row headerRow = sheet.createRow(0);
-            String[] columns = {"Titre", "Etat"};
+            String[] columns = {"Titre", "Date Debut","Date Fin", "Etat"};
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(columns[i]);
@@ -271,7 +297,19 @@ public class AfficherTacheController implements Initializable {
             for (Tache task : allTasks) {
                 Row row = sheet.createRow(rowNum++);
                 row.createCell(0).setCellValue(task.getTitre_T());
-                row.createCell(1).setCellValue(task.getEtat_T().toString());
+                row.createCell(1).setCellValue(task.getDate_DT().toString());
+                row.createCell(2).setCellValue(task.getDate_FT().toString());
+                row.createCell(3).setCellValue(task.getEtat_T().toString());
+
+                // Apply borders to the cells
+                CellStyle style = workbook.createCellStyle();
+                style.setBorderBottom(BorderStyle.THIN);
+                style.setBorderLeft(BorderStyle.THIN);
+                style.setBorderRight(BorderStyle.THIN);
+                style.setBorderTop(BorderStyle.THIN);
+                for (int i = 0; i < columns.length; i++) {
+                    row.getCell(i).setCellStyle(style);
+                }
             }
             // Autosize columns
             for (int i = 0; i < columns.length; i++) {
@@ -280,6 +318,9 @@ public class AfficherTacheController implements Initializable {
             // Default file name based on today's date and time
             String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String defaultFileName = "tache_" + timeStamp + ".xlsx";
+
+            // Initialize the stage
+            Stage stage = (Stage) grid.getScene().getWindow();
 
             // Prompt the user to choose where to save the Excel file
             FileChooser fileChooser = new FileChooser();

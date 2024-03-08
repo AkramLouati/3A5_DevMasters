@@ -173,7 +173,7 @@
                               <Font name="Arial Bold" size="36.0" />
                            </font>
                         </Text>
-                        <ScrollPane fx:id="scroll" layoutX="15.0" layoutY="54.0" prefHeight="539.0" prefWidth="847.0" styleClass="transparent">
+                        <ScrollPane fx:id="scroll" layoutX="15.0" layoutY="54.0" prefHeight="509.0" prefWidth="847.0" styleClass="transparent">
                            <content>
                               <GridPane fx:id="grid" prefHeight="53.0" prefWidth="5.0">
                                  <rowConstraints>
@@ -182,7 +182,7 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <Button fx:id="addequipement" layoutX="732.0" layoutY="4.0" mnemonicParsing="false" onAction="#ajouterEquipementAction" prefHeight="39.0" prefWidth="128.0" stylesheets="@../style.css" text="Ajouter" textFill="#012545">
+                        <Button fx:id="addequipement" layoutX="732.0" layoutY="4.0" mnemonicParsing="false" onAction="#ajouterEquipementAction" prefHeight="39.0" prefWidth="128.0" stylesheets="" text="Ajouter" textFill="#012545">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
@@ -193,6 +193,11 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                        </Button>
+                        <Button fx:id="retourbutton" layoutX="37.0" layoutY="567.0" mnemonicParsing="false" onAction="#retourbutton" prefHeight="9.0" prefWidth="86.0" stylesheets="@../ActualiteGui/Actualite.css" text="Retour">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
                         </Button>
                      </children>
                   </AnchorPane>

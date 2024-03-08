@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.util.Objects;
 
@@ -66,6 +68,12 @@ public class TacheController {
                     alert.setContentText("Tache supprimee avec succes.");
                     alert.setTitle("Tache supprimee");
                     alert.show();
+
+                    Notifications.create()
+                            .title("Success")
+                            .text("Tache Supprimer avec succes.")
+                            .hideAfter(Duration.seconds(5))
+                            .showInformation();
                     // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                     try {
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/tacheGui/AfficherTache.fxml")));

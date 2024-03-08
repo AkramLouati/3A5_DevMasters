@@ -1,9 +1,11 @@
-package edu.esprit.controllers.equipement;
+package edu.esprit.controllers.reclamation;
 
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Equipement;
-import edu.esprit.services.ServiceEquipement;
+import edu.esprit.entities.Messagerie;
+import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceMessagerie;
+import edu.esprit.services.ServiceReclamation;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -13,8 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
@@ -26,51 +28,44 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.prefs.Preferences;
 
-public class AfficherEquipementGui implements Initializable {
+public class AdminAfficherMessagerieController implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
-    @FXML
-    private VBox MainLeftSidebar;
-    private boolean isSidebarVisible = true;
 
     @FXML
     private BorderPane SecondBorderPane;
 
     @FXML
-    private BorderPane firstborderpane;
-
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
     @FXML
     private GridPane grid;
-
     @FXML
     private ScrollPane scroll;
     @FXML
-    private Button addequipement;
-
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
-    private ServiceEquipement se = new ServiceEquipement();
-    Set<Equipement> equipementSet = se.getAll();
-    List<Equipement> equipementList = new ArrayList<>(equipementSet);
-
-
+    private TextField Recherche;
+    private ServiceMessagerie sm=new ServiceMessagerie();
+    Set<Messagerie> messagerieSet = sm.getAll();
+    List<Messagerie> messagerieList = new ArrayList<>(messagerieSet);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int column = 0;
         int row = 1;
         try {
-            for (int i = 0; i < equipementList.size(); i++) {
+            for (int i = 0; i < messagerieList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/equipementGui/Equipementitem.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/AdminMessagerieItemComponentGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                EquipementItemController itemController = fxmlLoader.getController();
-                itemController.setData(equipementList.get(i));
+                AdminMessagerieItemComponentController itemController = fxmlLoader.getController();
+                itemController.setData(messagerieList.get(i));
 
                 if (column == 1) {
                     column = 0;
@@ -93,36 +88,6 @@ public class AfficherEquipementGui implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    void BTNGestionAct(ActionEvent event) {
-
-    }
-
-    @FXML
-    void BTNGestionEquipement(ActionEvent event) {
-
-    }
-
-    @FXML
-    void BTNGestionEvennement(ActionEvent event) {
-
-    }
-
-    @FXML
-    void BTNGestionRec(ActionEvent event) {
-
-    }
-
-    @FXML
-    void BTNGestionTache(ActionEvent event) {
-
-    }
-
-    @FXML
-    void BTNGestionUser(ActionEvent event) {
-
     }
 
     @FXML
@@ -154,6 +119,28 @@ public class AfficherEquipementGui implements Initializable {
         }
 
         sideBarTransition.play();
+    }
+
+
+    public void BTNGestionEvennement(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionUser(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionRec(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionAct(ActionEvent actionEvent) {
+
+    }
+
+    public void BTNGestionEquipement(ActionEvent actionEvent) {
+    }
+
+    public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
 
@@ -167,44 +154,29 @@ public class AfficherEquipementGui implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
-
     @FXML
-    void ajouterEquipementAction(ActionEvent event) {
+    public void buttonReturnAfficherReclamationBacK(ActionEvent actionEvent) {
         try {
-            System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AjouterEquipementGui.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AjouterEquipementGui.fxml"));
-            addequipement.getScene().setRoot(root);
+            Parent root = FXMLLoader.load(getClass().getResource("/ReclamationGui/AdminAfficherReclamationGui.fxml"));
+            MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
             alert.setTitle("Error");
             alert.show();
         }
-
-}
+    }
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
-    public void retourbutton(ActionEvent actionEvent) {
-        try {
-            if( user.getType().equals("Responsable employé")|| user.getType().equals("Directeur")){
-                System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
-                Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
-                scroll.getScene().setRoot(root);
-            } else {
-                System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
-                Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
-                scroll.getScene().setRoot(root);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
+    public void filtrerParDate(ActionEvent actionEvent) {
+    }
+
+
+    public void goToMessagerie(ActionEvent actionEvent) {
     }
 }
+
+

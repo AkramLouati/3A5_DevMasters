@@ -1,8 +1,6 @@
 package edu.esprit.controllers.reclamation;
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
-import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +64,7 @@ public class AdminMessagerieItemComponentController {
 
                 // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AdminMessagerieAfficher.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/121321.fxml"));
                     senderName.getScene().setRoot(root);
                 } catch (IOException e) {
                     // Gérer l'exception si la redirection échoue

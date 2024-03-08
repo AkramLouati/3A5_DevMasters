@@ -79,7 +79,7 @@ public class Login {
                     if (currentUser.getType().equals("Admin")) {
                         try {
                             setCurrentUser(currentUser.getId());
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/UserGui.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainGuiBack.fxml"));
                             Parent root = loader.load();
 
                             // Continue with your navigation code
@@ -135,7 +135,6 @@ public class Login {
             showAlert("Email est invalid!");
         }
     }
-
 
     @FXML
     void ForgetPwd(ActionEvent event) {

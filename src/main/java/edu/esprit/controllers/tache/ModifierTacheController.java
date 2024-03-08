@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -247,9 +248,17 @@ public class ModifierTacheController {
                 serviceTache.modifier(existingTache);
                 clearFields();
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Tache modifiee avec succes.");
-            } else {
+                Notifications.create()
+                        .title("Success")
+                        .text("Tache Modifier avec succes.")
+                        .hideAfter(Duration.seconds(5))
+                        .showInformation();
+            }
+            else {
                 showAlert(Alert.AlertType.ERROR, "Error", "La Tache à modifier n'a pas ete trouvee.");
             }
+
+
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }

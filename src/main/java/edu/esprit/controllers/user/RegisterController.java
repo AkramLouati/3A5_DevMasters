@@ -168,7 +168,7 @@ public class RegisterController implements Initializable {
     void takePictureAction(ActionEvent event) {
 
         // Load OpenCV DLL
-        System.load("C:/Users/werta/Documents/GitHub/baladity/src/main/java/edu/esprit/services/opencv_java490.dll");
+        System.load("C:/Users/amine/Desktop/PiDev/3A5_DevMasters/src/main/java/edu/esprit/services/opencv_java490.dll");
 
         // Run camera in the Event Dispatch Thread
         EventQueue.invokeLater(() -> {

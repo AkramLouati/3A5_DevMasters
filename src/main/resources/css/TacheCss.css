@@ -11,8 +11,10 @@
     -fx-text-fill: #012545;
     -fx-border-color: #012545;
     -fx-border-width: 2;
-    -fx-border-radius: 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 8;
 }
+
 
 .button:hover {
     -fx-background-color: #012545;
@@ -26,14 +28,8 @@
 
 /* Text field styling */
 .text-field {
-    -fx-font-size: 14px;
-    -fx-prompt-text-fill: gray;
-    -fx-text-fill: black;
-    -fx-background-color: #fff;
-    -fx-border-color: #003668;
-    -fx-border-width: 1px;
-    -fx-border-radius: 10px;
-    -fx-padding: 5px;
+    -fx-background-color: #012545;
+    -fx-text-fill: #FFFFFF;
 }
 
 /* Text area styling */
@@ -44,7 +40,9 @@
     -fx-border-radius: 10;
     -fx-border-width: 2;
 }
-
+.scroll-pane{
+    -fx-border-width: 4;
+}
 Label {
     -fx-text-fill: #012545;
     /*-fx-border-color: #012545;
@@ -53,22 +51,16 @@ Label {
 }
 
 Text {
-    -fx-fill: #012545;
+    -fx-fill:  #012545;
 }
 
-    .text-input {
-        -fx-font-size: 14px;
-        -fx-prompt-text-fill: gray;
-        -fx-text-fill: black;
-        -fx-background-color: #fff;
-        -fx-border-color: #003668;
-        -fx-border-width: 1px;
-        -fx-border-radius: 10px;
-        -fx-padding: 5px;
-    }
-.main-container {
-    border-radius: 20px;
-    border: #063b85 6px solid;
-    background: linear-gradient(#ffffff, #ffffff) padding-box, color  border-box;
+/* Validation icon styling */
+.validation-error .graphic,
+.validation-warning .graphic,
+.validation-info .graphic {
+    -fx-font-size: 24px; /* Increase the font size for validation icons */
+    -fx-min-width: 24px; /* Set minimum width to ensure icon is visible */
+    -fx-min-height: 24px; /* Set minimum height to ensure icon is visible */
+    -fx-max-width: 24px; /* Set maximum width to ensure icon doesn't exceed desired size */
+    -fx-max-height: 24px; /* Set maximum height to ensure icon doesn't exceed desired size */
 }
-
