@@ -22,13 +22,13 @@ public class MainTFX extends Application {
         stg = primaryStage;
         FXMLLoader loader = new FXMLLoader();
         //InputStream fxmlStream = getClass().getResourceAsStream("/AfficherTacheFront.fxml");
-        InputStream fxmlStream = getClass().getResourceAsStream("/AfficherTache.fxml");
+        InputStream fxmlStream = getClass().getResourceAsStream("/tacheGui/AfficherTache.fxml");
         if (fxmlStream == null) {
             throw new IOException("FXML file not found");
         }
 
         // Set application icon
-        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/logoiconT.png"))));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/logoiconT.png"))));
         // Set the location of the FXML file in the loader
         Scene scene = new Scene(loader.load(fxmlStream));
 

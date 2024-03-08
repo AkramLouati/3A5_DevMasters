@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
@@ -37,7 +37,7 @@ public class TacheFrontController {
     @FXML
     void viewDetailTache(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailTacheFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/DetailTacheFront.fxml"));
             Parent root = loader.load();
             DetailTacheFrontController controller = loader.getController();
             controller.setData(taches);

@@ -1,5 +1,6 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
+import edu.esprit.controllers.ChartContainerController;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
 import javafx.animation.TranslateTransition;
@@ -72,7 +73,7 @@ public class AfficherTacheController implements Initializable {
         Set<Tache> tacheList = sr.getAll();
         try {
             for (Tache tache : tacheList) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Tache.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tacheGui/Tache.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 TacheController itemController = fxmlLoader.getController();
                 itemController.setData(tache);
@@ -115,7 +116,7 @@ public class AfficherTacheController implements Initializable {
 
     public void ajouterButton(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterTache.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/AjouterTache.fxml"));
             Parent root = loader.load();
             AjouterTacheController controller = loader.getController();
             // Get the stage of the current scene
@@ -141,7 +142,7 @@ public class AfficherTacheController implements Initializable {
     @FXML
     void CategorieLabel(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCategorie.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/AfficherCategorie.fxml"));
             Parent root = loader.load();
             AfficherCategorieController controller = loader.getController();
             // Create a new stage
@@ -156,7 +157,7 @@ public class AfficherTacheController implements Initializable {
     @FXML
     public void MeilleurEmpTLabel(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChartContainer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/ChartContainer.fxml"));
             Parent root = loader.load();
             ChartContainerController controller = loader.getController();
             // Retrieve an EndUser object representing the user
@@ -322,7 +323,7 @@ public class AfficherTacheController implements Initializable {
         grid.getChildren().clear(); // Clear existing tasks
         try {
             for (Tache tache : tasks) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Tache.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tacheGui/Tache.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 TacheController itemController = fxmlLoader.getController();
                 itemController.setData(tache);

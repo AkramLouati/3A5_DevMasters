@@ -8,7 +8,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
             prefHeight="109.0"
             prefWidth="847.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="edu.esprit.controllers.TacheController">
+            fx:controller="edu.esprit.controllers.tache.TacheController">
     <children>
         <HBox alignment="CENTER" layoutX="13.0" layoutY="9.0" prefHeight="90.0" prefWidth="819.0"
               style="-fx-border-color: #012545; -fx-border-radius: 8; -fx-border-width: 2; -fx-background-color: white;">
@@ -51,7 +51,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/detailT.png"/>
+                                <Image url="@../assets/detailT.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -68,7 +68,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/deleteT.png"/>
+                                <Image url="@../assets/deleteT.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -84,7 +84,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/editT.png"/>
+                                <Image url="@../assets/editT.png"/>
                             </image>
                         </ImageView>
                     </graphic>

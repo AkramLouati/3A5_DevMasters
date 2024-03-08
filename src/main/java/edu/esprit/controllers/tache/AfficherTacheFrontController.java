@@ -1,5 +1,6 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
@@ -34,8 +35,8 @@ import java.util.prefs.Preferences;
 public class AfficherTacheFrontController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
-    int userId = 16;
-    //    int userId = Integer.parseInt(getCurrentUser());
+
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
     private final ServiceTache ST = new ServiceTache();
     public TextField todoCount;
@@ -91,7 +92,7 @@ public class AfficherTacheFrontController implements Initializable {
             for (Tache tache : tacheList) {
                 // Check if the task belongs to the category type of the current user
                 if (tache.getCategorie().getNom_Cat().equals(user.getType())) {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TacheFront.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tacheGui/TacheFront.fxml"));
                     AnchorPane anchorPane = fxmlLoader.load();
                     TacheFrontController itemController = fxmlLoader.getController();
                     itemController.setData(tache);
@@ -239,7 +240,7 @@ public class AfficherTacheFrontController implements Initializable {
                     .filter(tache -> tache.getTitre_T().toLowerCase().contains(query))
                     .forEach(tache -> {
                         try {
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TacheFront.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tacheGui/TacheFront.fxml"));
                             AnchorPane anchorPane = fxmlLoader.load();
                             TacheFrontController itemController = fxmlLoader.getController();
                             itemController.setData(tache);
@@ -283,7 +284,7 @@ public class AfficherTacheFrontController implements Initializable {
 
     public void chatBot(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatBotTache.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/ChatBotTache.fxml"));
             Parent root = loader.load();
             ChatBotTacheController controller = loader.getController();
             // Create a new stage

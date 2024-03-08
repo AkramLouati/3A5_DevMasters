@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
@@ -34,7 +34,7 @@ public class TacheController {
     @FXML
     void viewDetailTache(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailTache.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/DetailTache.fxml"));
             Parent root = loader.load();
             DetailTacheController controller = loader.getController();
             controller.setData(taches);
@@ -68,7 +68,7 @@ public class TacheController {
                     alert.show();
                     // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                     try {
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/tacheGui/AfficherTache.fxml")));
                         TF_Titre_Tache.getScene().setRoot(root);
                     } catch (Exception e) {
                         // Print or log the exception message
@@ -88,7 +88,7 @@ public class TacheController {
     @FXML
     void modifierTache(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierTache.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/ModifierTache.fxml"));
             Parent root = loader.load();
             ModifierTacheController controller = loader.getController();
             controller.initModifier(taches); // Call initModifier and pass the necessary data

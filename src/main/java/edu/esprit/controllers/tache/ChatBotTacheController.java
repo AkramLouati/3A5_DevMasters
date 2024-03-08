@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;

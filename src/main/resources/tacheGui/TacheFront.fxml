@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="93.0" prefWidth="257.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.TacheFrontController">
+<AnchorPane prefHeight="93.0" prefWidth="257.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.tache.TacheFrontController">
     <children>
         <HBox alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="74.0" prefWidth="243.0" style="-fx-background-color: #012545; -fx-background-radius: 8; -fx-border-radius: 5;">
             <children>
@@ -31,7 +31,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/detailT.gif" />
+                                <Image url="@../assets/detailT.gif" />
                             </image>
                         </ImageView>
                     </graphic>

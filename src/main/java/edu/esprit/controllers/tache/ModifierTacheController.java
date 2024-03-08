@@ -1,5 +1,6 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
@@ -36,23 +37,21 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
-public class AjouterTacheController {
-
+public class ModifierTacheController {
     private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
-
-    private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
-    int userId = 16;
-//    int userId = Integer.parseInt(getCurrentUser());
-    EndUser user = serviceUser.getOneByID(userId);
+    private static final String USER_PREF_KEY = "current_user";
 
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -74,7 +73,7 @@ public class AjouterTacheController {
     private int selectedTaskId;
     private Stage stage;
 
-    public AjouterTacheController() {
+    public ModifierTacheController() {
         this.serviceCategorieT = new ServiceCategorieT();
         this.serviceTache = new ServiceTache();
     }
@@ -108,14 +107,13 @@ public class AjouterTacheController {
             borderPaneTransition.setByX(sidebarWidth);
             borderPaneTransition.play();
         }
-
         sideBarTransition.play();
     }
 
     @FXML
     void browseForImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose Attachment File");
+        fileChooser.setTitle("Choisir Fichier");
         // Set initial directory
         String initialDirectory = "src/main/resources/img";
         File initialDirFile = new File(initialDirectory);
@@ -142,6 +140,45 @@ public class AjouterTacheController {
         }
     }
 
+    public void initModifier(Tache tache) {
+        try {
+            this.selectedTaskId = tache.getId_T();
+            titleField.setText(tache.getTitre_T());
+            String pieceJointeUrl = tache.getPieceJointe_T();
+            if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
+                Image image = new Image(pieceJointeUrl);
+                PieceJointeImage.setImage(image);
+            } else {
+            }
+            descriptionField.setText(tache.getDesc_T());
+            // Convert java.sql.Date to java.util.Date
+            Date startDateUtil = new Date(tache.getDate_DT().getTime());
+            Date endDateUtil = new Date(tache.getDate_FT().getTime());
+            // Convert java.util.Date to LocalDate
+            LocalDate startDate = startDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate endDate = endDateUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            startDatePicker.setValue(startDate);
+            endDatePicker.setValue(endDate);
+            switch (tache.getEtat_T()) {
+                case TO_DO:
+                    toDoRadio.setSelected(true);
+                    break;
+                case DOING:
+                    doingRadio.setSelected(true);
+                    break;
+                case DONE:
+                    doneRadio.setSelected(true);
+                    break;
+            }
+            // Get the category name associated with the Tache object
+            String categoryName = tache.getCategorie().getNom_Cat();
+            // Set the value of the ComboBox to the category name
+            categoryField.setValue(categoryName);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
+    }
+
     private void shakeNode(Node node) {
         String redBorder = "-fx-border-color: red;";
         String blackBorder = "-fx-border-color: black;";
@@ -157,7 +194,7 @@ public class AjouterTacheController {
     }
 
     @FXML
-    void AjouterTache(ActionEvent event) {
+    void ModifierTache(ActionEvent event) {
         if (!validateFields()) {
             return;
         }
@@ -189,23 +226,30 @@ public class AjouterTacheController {
             } else {
                 etat = null;
             }
-            // Check if the title already exists in the database
-            if (serviceTache.isTitleExist(title)) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Titre deje existant, veuillez en choisir un autre.");
-                return;
-            }
             if (stage != null) {
                 Exit(new ActionEvent());
             } else {
-                System.out.println("Stage is null, cannot close.");
+                System.out.println("Stage null, impossible de fermer.");
             }
             // Retrieve the CategorieT object associated with the selected category name
             CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
-            Tache tache = new Tache(categorie, title, attachment, startDateSql, endDateSql, description, etat, user);
-            serviceTache.ajouter(tache);
-            clearFields();
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutee avec succes.");
-
+            Tache existingTache = serviceTache.getOneByID(selectedTaskId);
+            if (existingTache != null) {
+                existingTache.setId_T(existingTache.getId_T());
+                existingTache.setCategorie(categorie);
+                existingTache.setTitre_T(title);
+                existingTache.setPieceJointe_T(attachment);
+                existingTache.setDesc_T(description);
+                existingTache.setDate_DT(startDateSql);
+                existingTache.setDate_FT(endDateSql);
+                existingTache.setEtat_T(etat);
+                existingTache.setUser(user);
+                serviceTache.modifier(existingTache);
+                clearFields();
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Tache modifiee avec succes.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "La Tache à modifier n'a pas ete trouvee.");
+            }
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
@@ -215,13 +259,15 @@ public class AjouterTacheController {
         ValidationResult validationResult = validationSupport.validationResultProperty().get();
         boolean isValid = validationResult == null || validationResult.getErrors().isEmpty();
 
-        clearShakeEffects();
         if (!isValid) {
+            clearShakeEffects();
             for (Control control : validationSupport.getRegisteredControls()) {
                 if (validationResult.getMessages().stream().anyMatch(message -> message.getTarget() == control && message.getSeverity() == Severity.ERROR)) {
                     shakeNode(control);
                 }
             }
+        } else {
+            clearShakeEffects();
         }
         return isValid;
     }
@@ -255,7 +301,7 @@ public class AjouterTacheController {
 
     public void Exit(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherTache.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/tacheGui/AfficherTache.fxml")));
             titleField.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -269,7 +315,6 @@ public class AjouterTacheController {
     public void initialize() {
         validationSupport = new ValidationSupport();
 
-        // Add validators for each field
         validationSupport.registerValidator(titleField, (Control c, String newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
                 return ValidationResult.fromMessageIf(c, "Titre Obligatoire", Severity.ERROR, true);
@@ -330,25 +375,21 @@ public class AjouterTacheController {
     }
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
-
     }
 
     public void BTNGestionUser(ActionEvent actionEvent) {
     }
 
     public void BTNGestionRec(ActionEvent actionEvent) {
-
     }
 
     public void BTNGestionAct(ActionEvent actionEvent) {
-
     }
 
     public void BTNGestionEquipement(ActionEvent actionEvent) {
     }
 
     public void BTNGestionTache(ActionEvent actionEvent) {
-
     }
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);

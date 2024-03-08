@@ -1,5 +1,6 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
@@ -25,8 +26,8 @@ public class AjouterCommentaireTacheController {
     private Tache tache;
     private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
-    int userId = 16;
-    //    int userId = Integer.parseInt(getCurrentUser());
+
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
 
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {

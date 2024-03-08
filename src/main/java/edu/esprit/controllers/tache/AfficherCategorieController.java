@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.tache;
 
 import edu.esprit.entities.CategorieT;
 import edu.esprit.services.ServiceCategorieT;
