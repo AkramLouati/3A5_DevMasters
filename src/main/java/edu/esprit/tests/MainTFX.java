@@ -28,7 +28,7 @@ public class MainTFX extends Application {
         }
 
         // Set application icon
-        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/logoicon.png"))));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/logoiconT.png"))));
         // Set the location of the FXML file in the loader
         Scene scene = new Scene(loader.load(fxmlStream));
 

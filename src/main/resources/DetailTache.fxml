@@ -20,7 +20,7 @@
             <children>
                 <ImageView fitHeight="224.0" fitWidth="258.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/LOGO24.png"/>
+                        <Image url="@img/LOGO24T.png"/>
                     </image>
                     <effect>
                         <DropShadow/>
@@ -41,7 +41,7 @@
                     <graphic>
                         <ImageView fitHeight="37.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/GTacheWhite.png"/>
+                                <Image url="@img/GTacheWhiteT.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -132,7 +132,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/toggle.png"/>
+                                        <Image url="@img/toggleT.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -151,7 +151,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/settings.png"/>
+                                        <Image url="@img/settingsT.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -173,7 +173,7 @@
                             <graphic>
                                 <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/left-arrow.png"/>
+                                        <Image url="@img/left-arrowT.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -356,7 +356,7 @@
                                                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
                                                            preserveRatio="true">
                                                     <image>
-                                                        <Image url="@img/add-file.png"/>
+                                                        <Image url="@img/add-fileT.png"/>
                                                     </image>
                                                 </ImageView>
                                             </graphic>
@@ -367,7 +367,7 @@
                                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
                                                            preserveRatio="true">
                                                     <image>
-                                                        <Image url="@img/edit.png"/>
+                                                        <Image url="@img/editT.png"/>
                                                     </image>
                                                 </ImageView>
                                             </graphic>
@@ -381,7 +381,7 @@
                                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
                                                            preserveRatio="true">
                                                     <image>
-                                                        <Image url="@img/delete.png"/>
+                                                        <Image url="@img/deleteT.png"/>
                                                     </image>
                                                 </ImageView>
                                             </graphic>
