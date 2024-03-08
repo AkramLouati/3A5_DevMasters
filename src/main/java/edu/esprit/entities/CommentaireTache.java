@@ -1,49 +1,61 @@
 package edu.esprit.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class CommentaireTache {
-    int id_C, id_user, id_T;
-    String text_C;
-    Date date_C;
+public class CommentaireTache implements Serializable {
+    private int id_Cmnt;
+    private Tache tache;
+    private EndUser user;
+    private Date date_C;
+    private String text_C;
 
     public CommentaireTache() {
     }
 
-    public CommentaireTache(int id_C, int id_user, int id_T, String text_C, Date date_C, Date date_FT) {
-        this.id_C = id_C;
-        this.id_user = id_user;
-        this.id_T = id_T;
-        this.text_C = text_C;
+    public CommentaireTache(EndUser user, Tache tache, Date date_C, String text_C) {
+        this.user = user;
+        this.tache = tache;
         this.date_C = date_C;
+        this.text_C = text_C;
     }
 
-    public CommentaireTache(int id, int idUser, int idT, java.sql.Date dateC, String texteC) {
+    public CommentaireTache(int id_Cmnt, String text_C) {
+        this.id_Cmnt = id_Cmnt;
+        this.text_C = text_C;
     }
 
-    public int getId_C() {
-        return id_C;
+    public CommentaireTache(int id_Cmnt, EndUser user, Tache tache, Date date_C, String text_C) {
+        this.id_Cmnt = id_Cmnt;
+        this.user = user;
+        this.tache = tache;
+        this.date_C = date_C;
+        this.text_C = text_C;
     }
 
-    public void setId_C(int id_C) {
-        this.id_C = id_C;
+    public int getId_Cmnt() {
+        return id_Cmnt;
     }
 
-    public int getId_user() {
-        return id_user;
+    public void setId_Cmnt(int id_Cmnt) {
+        this.id_Cmnt = id_Cmnt;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public EndUser getUser() {
+        return user;
     }
 
-    public int getId_T() {
-        return id_T;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 
-    public void setId_T(int id_T) {
-        this.id_T = id_T;
+    public Tache getTache() {
+        return tache;
+    }
+
+    public void setTache(Tache tache) {
+        this.tache = tache;
     }
 
     public String getText_C() {
@@ -66,19 +78,21 @@ public class CommentaireTache {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CommentaireTache that)) return false;
-        return getId_C() == that.getId_C();
+        return getId_Cmnt() == that.getId_Cmnt();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_C());
+        return Objects.hash(getId_Cmnt());
     }
 
     @Override
     public String toString() {
         return "CommentaireTache{" +
-                "text_C='" + text_C + '\'' +
-                '}';
+                "date_C=" + date_C + "|" +
+                "text_C='" + text_C + "|" +
+                '}' +
+                System.lineSeparator();
     }
 }
 

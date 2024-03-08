@@ -2,41 +2,61 @@ package edu.esprit.entities;
 
 import edu.esprit.services.EtatTache;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Tache {
-    int id_T, id_user;
-    String categorie_T, titre_T, pieceJointe_T, desc_T;
-    Date date_DT, date_FT;
-    EtatTache etat_T;
+public class Tache implements Serializable {
+    int id_T;
+    private EndUser user;
+    private String titre_T, pieceJointe_T, desc_T;
+    private Date date_DT, date_FT;
+    private EtatTache etat_T;
+    private CategorieT categorie;
 
     public Tache() {
     }
 
-    public Tache(int id_T, String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, int id_user) {
+    public Tache(int id_T, CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
         this.id_T = id_T;
-        this.categorie_T = categorie_T;
+        this.categorie = categorie;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
         this.date_DT = date_DT;
         this.date_FT = date_FT;
         this.desc_T = desc_T;
         this.etat_T = etat_T;
-        this.id_user = id_user;
+        this.user = user;
     }
 
-    public Tache(String categorie_T, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, int id_user) {
-        this.categorie_T = categorie_T;
+    public Tache(CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
+        this.categorie = categorie;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
         this.date_DT = date_DT;
         this.date_FT = date_FT;
         this.desc_T = desc_T;
         this.etat_T = etat_T;
-        this.id_user = id_user;
+        this.user = user;
     }
 
+    public Tache(EndUser user, CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T) {
+        this.categorie = categorie;
+        this.titre_T = titre_T;
+        this.pieceJointe_T = pieceJointe_T;
+        this.date_DT = date_DT;
+        this.date_FT = date_FT;
+        this.desc_T = desc_T;
+        this.etat_T = etat_T;
+        this.user = user;
+    }
+
+    public Tache(String str) {
+    }
+
+    public static Tache fromString(String str) {
+        return new Tache(str);
+    }
 
     public int getId_T() {
         return id_T;
@@ -46,20 +66,20 @@ public class Tache {
         this.id_T = id_T;
     }
 
-    public int getId_user() {
-        return id_user;
+    public EndUser getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(EndUser user) {
+        this.user = user;
     }
 
-    public String getCategorie_T() {
-        return categorie_T;
+    public CategorieT getCategorie() {
+        return categorie;
     }
 
-    public void setCategorie_T(String categorie_T) {
-        this.categorie_T = categorie_T;
+    public void setCategorie(CategorieT categorie) {
+        this.categorie = categorie;
     }
 
     public String getTitre_T() {
@@ -124,15 +144,7 @@ public class Tache {
 
     @Override
     public String toString() {
-        return "Tache{" +
-                "categorie_T='" + categorie_T + '\'' +
-                ", titre_T='" + titre_T + '\'' +
-                ", pieceJointe_T='" + pieceJointe_T + '\'' +
-                ", desc_T='" + desc_T + '\'' +
-                ", date_DT=" + date_DT +
-                ", date_FT=" + date_FT +
-                ", etat_T=" + etat_T +
-                '}';
+        return titre_T;
     }
 
 }
