@@ -22,7 +22,7 @@
             <children>
                 <ImageView fitHeight="224.0" fitWidth="258.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/LOGO24T.png" />
+                        <Image url="@assets/LOGO24T.png" />
                     </image>
                     <effect>
                         <DropShadow />
@@ -41,7 +41,7 @@
                     <graphic>
                         <ImageView fitHeight="37.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/GTacheWhiteT.png" />
+                                <Image url="@assets/GTacheWhiteT.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -122,7 +122,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/toggleT.png" />
+                                        <Image url="@assets/toggleT.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -140,7 +140,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/settingsT.png" />
+                                        <Image url="@assets/settingsT.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -170,7 +170,7 @@
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/left-arrowT.png" />
+                              <Image url="@assets/left-arrowT.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -292,7 +292,7 @@
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@img/add-fileT.gif" />
+                                          <Image url="@assets/add-fileT.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -304,7 +304,7 @@
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@img/editT.gif" />
+                                          <Image url="@assets/editT.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -313,7 +313,7 @@
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@img/deleteT.gif" />
+                                          <Image url="@assets/deleteT.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>

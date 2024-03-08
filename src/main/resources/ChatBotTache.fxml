@@ -41,7 +41,7 @@
                     <Insets right="15.0"/>
                 </HBox.margin>
                 <image>
-                    <Image url="@img/chat-botT.gif"/>
+                    <Image url="@assets/chat-botT.gif"/>
                 </image>
             </ImageView>
             <Button onAction="#clearConversation" prefHeight="26.0" prefWidth="14.0">
@@ -51,7 +51,7 @@
                 <graphic>
                     <ImageView fitHeight="44.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@img/deleteT.png"/>
+                            <Image url="@assets/deleteT.png"/>
                         </image>
                     </ImageView>
                 </graphic>

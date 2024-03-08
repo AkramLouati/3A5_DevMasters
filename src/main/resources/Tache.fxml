@@ -51,7 +51,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/detailT.png"/>
+                                <Image url="@assets/detailT.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -68,7 +68,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/deleteT.png"/>
+                                <Image url="@assets/deleteT.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -84,7 +84,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/editT.png"/>
+                                <Image url="@assets/editT.png"/>
                             </image>
                         </ImageView>
                     </graphic>

@@ -31,7 +31,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/detailT.gif" />
+                                <Image url="@assets/detailT.gif" />
                             </image>
                         </ImageView>
                     </graphic>
