@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -117,7 +118,7 @@ public class AjouterTacheController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Attachment File");
         // Set initial directory
-        String initialDirectory = "src/main/resources/img";
+        String initialDirectory = "src/main/resources/assets";
         File initialDirFile = new File(initialDirectory);
         // Check if the initial directory is valid
         if (initialDirFile.exists() && initialDirFile.isDirectory()) {
@@ -205,7 +206,11 @@ public class AjouterTacheController {
             serviceTache.ajouter(tache);
             clearFields();
             showAlert(Alert.AlertType.INFORMATION, "Success", "Tache ajoutee avec succes.");
-
+            Notifications.create()
+                    .title("Success")
+                    .text("Tache ajoutee avec succes.")
+                    .hideAfter(Duration.seconds(5))
+                    .showInformation();
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
