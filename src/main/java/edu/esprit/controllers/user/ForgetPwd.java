@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 public class ForgetPwd implements Initializable {
 
     String email;
+    String nom;
     private static final int OTP_LENGTH = 6;
 
     String otp;
@@ -27,24 +28,30 @@ public class ForgetPwd implements Initializable {
     private TextField OTPField;
 
 
-    public void setData(String email) throws Exception {
+    public void setData(String email, String nom) throws Exception {
         this.email = email;
+        this.nom = nom;
         otp = generateOTP();
         String content = String.format("""
-                Dear reader,
-
-                Your OTP : %s .
-
-                Best regards,
-                Fadi
-                """,otp);
-        new GMailer(email).sendMail("Récupération du mot de passe", content);
+                                
+                Cher(e) %s,
+                                
+                Vous avez récemment demandé la réinitialisation de votre mot de passe. Pour procéder à cette réinitialisation, veuillez utiliser le code de vérification ci-dessous :
+                                
+                Code de Vérification : %s
+                                
+                Si vous n'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer ce message.
+                                
+                Cordialement,
+                Baladity
+                """,nom, otp);
+        new GMailer(email).sendMail("Code de Vérification", content);
     }
 
     @FXML
     void VerifierOTPButton(ActionEvent event) {
 
-        if(OTPField.getText().equals(otp)){
+        if (OTPField.getText().equals(otp)) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/modifierPassword.fxml"));
                 Parent root = loader.load();
@@ -64,7 +71,7 @@ public class ForgetPwd implements Initializable {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }else {
+        } else {
             showAlert("Veuillez vérifier votre code");
         }
     }
@@ -73,14 +80,19 @@ public class ForgetPwd implements Initializable {
     void reEnvoyerOTP(ActionEvent event) throws Exception {
         otp = generateOTP();
         String content = String.format("""
-                Dear reader,
-                
-                Your OTP : %s .
-                
-                Best regards,
-                Baladity.
-                """,otp);
-        new GMailer(email).sendMail("Récupération du mot de passe", content);
+                                
+                Cher(e) %s,
+                                
+                Vous avez récemment demandé la réinitialisation de votre mot de passe. Pour procéder à cette réinitialisation, veuillez utiliser le code de vérification ci-dessous :
+                                
+                Code de Vérification : %s
+                                
+                Si vous n'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer ce message.
+                                
+                Cordialement,
+                Baladity
+                """,nom, otp);
+        new GMailer(email).sendMail("Code de Vérification", content);
     }
 
     public static String generateOTP() {

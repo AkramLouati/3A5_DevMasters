@@ -1,5 +1,6 @@
 package edu.esprit.controllers.user;
 
+import edu.esprit.controllers.camera.Camera;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.GMailer;
@@ -15,11 +16,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -28,12 +32,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
 
     @FXML
-    private ImageView ImageF;
+    private ImageView ImageF = null;
 
     @FXML
     private ComboBox<String> muniSelectionComboBox;
@@ -48,6 +53,9 @@ public class RegisterController implements Initializable {
     private Button pickImageButton;
 
     @FXML
+    private Button takePictureButton;
+
+    @FXML
     private TextField tfAddresse;
 
     @FXML
@@ -59,6 +67,8 @@ public class RegisterController implements Initializable {
     @FXML
     private TextField tfTel;
 
+    String imagePath;
+
     File selectedFile = null;
 
     Municipality muni;
@@ -67,6 +77,8 @@ public class RegisterController implements Initializable {
     ServiceMuni serviceMuni = new ServiceMuni();
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
+
+    private static final Pattern PHONE_PATTERN = Pattern.compile("[0-9]");
 
     private static final int OTP_LENGTH = 6;
     String otp;
@@ -85,27 +97,39 @@ public class RegisterController implements Initializable {
         // Vous pouvez appeler votre service pour enregistrer l'utilisateur, par exemple
         if (nom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirmMotDePasse.isEmpty() || numTel.isEmpty() || location.isEmpty() || selectedMuni == null) {
             showAlert("Veuillez remplir tous les champs!");
-        } else if (selectedFile == null) {
+        } else if (ImageF == null) {
             showAlert("Veuillez entrer une image!");
         } else if (!EMAIL_PATTERN.matcher(email).matches()) {
             showAlert("Veuillez entrer un email valid!");
         } else if (serviceUser.getOneByEmail(email) != null) {
             showAlert("Email existe déjà!");
+        } else if (numTel.length() != 8 && !PHONE_PATTERN.matcher(numTel).matches()) {
+            showAlert("Le numéro de téléphone doit être composé de 8 chiffres");
         } else if (!motDePasse.equals(confirmMotDePasse)) {
             showAlert("Vérifier votre mot de passe!");
         } else {
             otp = generateOTP();
             String content = String.format("""
-                    Dear reader,
-
-                    Your OTP : %s .
-
-                    Best regards,
-                    Fadi
-                    """, otp);
+                
+                Cher(e) %s,
+                         
+                Merci de vous être inscrit(e) sur Baladity. Pour finaliser votre inscription, veuillez utiliser le code de validation ci-dessous:
+                         
+                Code de Validation : %s
+                         
+                Veuillez ne pas partager ce code avec d'autres personnes.
+                         
+                Si vous n'avez pas créé de compte sur Baladity, veuillez ignorer ce message.
+                         
+                Cordialement,
+                Baladity
+                """,nom,otp);
             String hashedPwd = hashPassword(motDePasse);
-            new GMailer(email).sendMail("Récupération du mot de passe", content);
-            EndUser user = new EndUser(nom, email, hashedPwd, "Citoyen", numTel, muni, location, selectedFile.getAbsolutePath());
+            if(selectedFile != null){
+                imagePath = selectedFile.getAbsolutePath();
+            }
+            new GMailer(email).sendMail("Code de Validation", content);
+            EndUser user = new EndUser(nom, email, hashedPwd, "Citoyen", numTel, muni, location, imagePath);
             openForm(event, user);
         }
     }
@@ -137,6 +161,38 @@ public class RegisterController implements Initializable {
             Image image = new Image(selectedFile.toURI().toString());
             ImageF.setImage(image);
         }
+    }
+
+    Camera camera;
+    @FXML
+    void takePictureAction(ActionEvent event) {
+
+        // Load OpenCV DLL
+        System.load("C:/Users/werta/Documents/GitHub/baladity/src/main/java/edu/esprit/services/opencv_java490.dll");
+
+        // Run camera in the Event Dispatch Thread
+        EventQueue.invokeLater(() -> {
+            Camera camera = new Camera();
+
+            // Set the callback to handle the image URL
+            camera.setCallback(imageUrl -> {
+                // Handle the image URL (e.g., update UI, use it in further logic)
+                System.out.println("Image captured: " + imageUrl);
+                imagePath = imageUrl;
+                // Load the image and set it to ImageF
+                File imageFile = new File(imageUrl);
+                Image image = new Image(imageFile.toURI().toString());
+                ImageF.setImage(image);
+
+                // If needed, you can trigger additional actions or UI updates here
+            });
+
+            // Start camera in a new thread
+            new Thread(() -> camera.startCamera()).start();
+            camera.isCameraOpen = true;
+
+
+        });
     }
 
     @FXML

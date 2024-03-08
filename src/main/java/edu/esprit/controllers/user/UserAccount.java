@@ -1,10 +1,16 @@
-package edu.esprit.controllers.user;
+package edu.esprit.controllers;
 
+import com.twilio.rest.chat.v1.service.User;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,12 +18,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
 
-public class UserAccount {
+public class UserAccount implements Initializable{
 
     @FXML
     private Label label;
@@ -27,6 +37,9 @@ public class UserAccount {
 
     @FXML
     private PasswordField pfMotDePasse;
+
+    @FXML
+    private PasswordField pfConfirmMotDePasse;
 
     @FXML
     private TextField tfAddresse;
@@ -47,36 +60,42 @@ public class UserAccount {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
 
-    File selectedFile = null;
+    File selectedFile;
 
     ServiceUser serviceUser = new ServiceUser();
+    private final int userId = Integer.parseInt(getCurrentUser());
 
-    private int currentUserId;
+    EndUser user = serviceUser.getOneByID(userId);
 
     @FXML
     void modifierUser(ActionEvent event) {
-        currentUserId = Integer.parseInt(getCurrentUser());
         String nom = tfNom.getText();
         String email = tfEmail.getText();
         String password = pfMotDePasse.getText();
+        String confirmPassword = pfConfirmMotDePasse.getText();
         String numTel = tfNumTel.getText();
         String addresse = tfAddresse.getText();
-        String type = serviceUser.getOneByID(currentUserId).getType();
-        Municipality muni = serviceUser.getOneByID(currentUserId).getMuni();
+        String type = user.getType();
+        Municipality muni = user.getMuni();
 
-        if(nom.isEmpty() || email.isEmpty() || password.isEmpty() || numTel.isEmpty() || addresse.isEmpty() || selectedFile == null){
+        if(nom.isEmpty() || email.isEmpty() || numTel.isEmpty() || addresse.isEmpty() || imageF == null){
+            System.out.println(selectedFile.getAbsolutePath());
             showAlert("Veuillez remplir tous les champs!");
         } else if (!EMAIL_PATTERN.matcher(email).matches()) {
             showAlert("Veuillez entrer un email valid!");
-        } else {
-            String hashedPassword = hashPassword(password);
-            serviceUser.modifier(new EndUser(currentUserId, email,nom,hashedPassword,type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("User Updated");
-            alert.show();
+        }if(!password.isEmpty() || !confirmPassword.isEmpty()){
+            if(!password.isEmpty() && !confirmPassword.isEmpty()){
+                if(password.equals(confirmPassword)){
+                    String hashedPassword = hashPassword(password);
+                    serviceUser.modifier(new EndUser(userId, email,nom,hashedPassword,type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false));
+                    showAlert("User Updated");
+                } else showAlert("Vérifier votre mot de passe!");
+            } else showAlert("Veuillez remplir les deux champs");
+        }  else {
+            EndUser endUser = new EndUser(userId, email,nom,user.getPassword(),type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false);
+            serviceUser.modifier(endUser);
+            showAlert("User Updated");
         }
-
 
     }
 
@@ -95,6 +114,22 @@ public class UserAccount {
             Image image = new Image(selectedFile.toURI().toString());
             imageF.setImage(image);
         }
+    }
+
+    @FXML
+    void logoutButton(ActionEvent event) throws IOException {
+        // Logging out
+        Preferences preferences = Preferences.userNodeForPackage(UserAccount.class);
+        preferences.remove("current_user");
+
+        // After logging out, show the login screen
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Se connecter");
+        stage.show();
+
     }
 
     private String hashPassword(String password) {
@@ -127,5 +162,28 @@ public class UserAccount {
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tfNom.setText(user.getNom());
+        tfEmail.setText(user.getEmail());
+//        pfMotDePasse.setText(user.getPassword());
+//        pfConfirmMotDePasse.setText(user.getPassword());
+        tfNumTel.setText(user.getPhoneNumber());
+        tfAddresse.setText(user.getLocation());
+
+        // Afficher l'image de l'événement
+        String imagePath = user.getImage();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File file = new File(imagePath);
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                imageF.setImage(image);
+                selectedFile = file;
+            }
+        }
+
     }
 }

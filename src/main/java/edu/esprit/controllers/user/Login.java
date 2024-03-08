@@ -5,6 +5,7 @@ import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,9 +13,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 public class Login {
@@ -150,7 +153,8 @@ public class Login {
                     ForgetPwd forgetPwdController = loader.getController();
 
                     // Set the email
-                    forgetPwdController.setData(tfEmail.getText());
+                    String nom = serviceUser.getOneByEmail(tfEmail.getText()).getNom();
+                    forgetPwdController.setData(tfEmail.getText(),nom);
 
                     // Show the scene
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -220,5 +224,4 @@ public class Login {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
-
 }
