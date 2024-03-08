@@ -58,6 +58,17 @@
             <version>8.26.0</version> <!-- Check for the latest version on the Twilio website -->
         </dependency>
 
+        <!-- Camera recognition -->
+
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.9.0-0</version>
+        </dependency>
+
         <!-- actualite dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>

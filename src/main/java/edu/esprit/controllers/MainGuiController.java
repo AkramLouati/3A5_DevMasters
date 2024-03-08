@@ -8,27 +8,33 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import static edu.esprit.api.Qrcode.displayQRCode;
 import static edu.esprit.api.Qrcode.generateQRCode;
 
-public class MainGuiController {
+public class MainGuiController implements Initializable {
 
     @FXML
     private Button BTNGestionAct;
@@ -40,6 +46,12 @@ public class MainGuiController {
 
     @FXML
     private VBox MainLeftSidebar;
+
+    @FXML
+    private Label userName;
+
+    @FXML
+    private ImageView imageProfil;
 
     private static final String USER_PREF_KEY = "current_user";
 
@@ -261,5 +273,53 @@ public class MainGuiController {
             alert.setTitle("Error");
             alert.show();
         }
+    }
+
+    @FXML
+    public void modifyUser(ActionEvent event) throws IOException {
+        openForm(event,endUser);
+    }
+
+    public void openForm(ActionEvent event, EndUser user) throws IOException {
+        try {
+            // Charger la vue de modification d'événement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/UserAccount.fxml"));
+            Parent root = loader.load();
+
+//            // Passer l'événement à modifier au contrôleur de modification
+//            ModifierUser controller = loader.getController();
+//            controller.setData(endUser);
+
+            // Créer une nouvelle fenêtre (stage) pour afficher la vue de modification
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+            stage.setTitle("Modifier utilisateur");
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre de modification
+            stage.showAndWait();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement de la vue de modification
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Erreur lors de la modification de l'événement.");
+            alert.setTitle("Erreur de modification");
+            alert.show();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        userName.setText(endUser.getNom());
+
+        // Afficher l'image de l'événement
+        String imagePath = endUser.getImage();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File file = new File(imagePath);
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                imageProfil.setImage(image);
+            }
+        }
+
     }
 }

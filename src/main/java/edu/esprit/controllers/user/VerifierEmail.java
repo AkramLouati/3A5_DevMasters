@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import edu.esprit.entities.EndUser;
 import edu.esprit.services.GMailer;
@@ -42,7 +42,7 @@ public class VerifierEmail {
             try {
                 serviceUser.ajouter(user);
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/Login.fxml"));
                 Parent root = loader.load();
 //                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAccount.fxml"));
 //                Parent root = loader.load();

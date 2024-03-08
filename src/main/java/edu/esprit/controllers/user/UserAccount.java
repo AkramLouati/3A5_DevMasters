@@ -1,6 +1,7 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.user;
 
 import com.twilio.rest.chat.v1.service.User;
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceUser;
@@ -123,7 +124,7 @@ public class UserAccount implements Initializable{
         preferences.remove("current_user");
 
         // After logging out, show the login screen
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/user/Login.fxml")));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
