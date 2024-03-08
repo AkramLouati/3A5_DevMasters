@@ -118,7 +118,7 @@ public class AjouterTacheController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Attachment File");
         // Set initial directory
-        String initialDirectory = "src/main/resources/img";
+        String initialDirectory = "src/main/resources/assets";
         File initialDirFile = new File(initialDirectory);
         // Check if the initial directory is valid
         if (initialDirFile.exists() && initialDirFile.isDirectory()) {

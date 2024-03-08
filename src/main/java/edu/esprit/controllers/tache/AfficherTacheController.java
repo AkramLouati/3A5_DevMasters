@@ -184,7 +184,7 @@ public class AfficherTacheController implements Initializable {
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
             // Load the image
-            PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/img/BaladiaT.png", document);
+            PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/assets/BaladiaT.png", document);
             // Create a content stream for writing to the PDF
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             // Set font and position for writing

@@ -121,11 +121,7 @@
             <artifactId>velocity-tools</artifactId>
             <version>2.0</version> <!-- or the latest version available -->
         </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.3</version>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
@@ -167,6 +163,11 @@
             <version>2.0.24</version>
         </dependency>
         <!--PDF-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
         <!--NOTIFICATION-->
         <dependency>
             <groupId>junit</groupId>
@@ -175,45 +176,12 @@
             <scope>test</scope>
         </dependency>
         <!--NOTIFICATION-->
-        <!--CHART-->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>17</version>
-        </dependency>
-        <dependency>
-            <groupId>jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.13</version>
-        </dependency>
-        <!--CHART-->
         <!--MAIL-->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
             <version>2.0.0</version>
         </dependency>
-        <!--MAIL-->
-        <!--EXCEL-->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>5.2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.5</version>
-        </dependency>
-        <!--EXCEL-->
-        <!--CHATBOT-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.11.0</version>
-        </dependency>
-        <!--CHATBOT-->
-
 
     </dependencies>
     <build>

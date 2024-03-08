@@ -242,4 +242,24 @@ public class MainGuiController {
             alert.show();
         }
     }
+
+    public void BtnGestionTache(ActionEvent actionEvent) {
+        try {
+            if( endUser.getType().equals("Responsable employé") || endUser.getType().equals("Employé") ){
+                System.out.println("Resource URL: " + getClass().getResource("/tacheGui/AfficherTacheFront.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/tacheGui/AfficherTacheFront.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            } else if (endUser.getType().equals("Directeur")) {
+                System.out.println("Resource URL: " + getClass().getResource("/tacheGui/AfficherTache.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/tacheGui/AfficherTache.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }
