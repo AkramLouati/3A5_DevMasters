@@ -79,6 +79,8 @@ public class RegisterController implements Initializable {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
 
+    private static final Pattern PHONE_PATTERN = Pattern.compile("[0-9]");
+
     private static final int OTP_LENGTH = 6;
     String otp;
 
@@ -102,6 +104,8 @@ public class RegisterController implements Initializable {
             showAlert("Veuillez entrer un email valid!");
         } else if (serviceUser.getOneByEmail(email) != null) {
             showAlert("Email existe déjà!");
+        } else if (numTel.length() != 8 && !PHONE_PATTERN.matcher(numTel).matches()) {
+            showAlert("Le numéro de téléphone doit être composé de 8 chiffres");
         } else if (!motDePasse.equals(confirmMotDePasse)) {
             showAlert("Vérifier votre mot de passe!");
         } else {
