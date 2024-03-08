@@ -2,7 +2,9 @@ package edu.esprit.controllers.reclamation;
 
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
@@ -13,21 +15,19 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.prefs.Preferences;
-import java.util.stream.Collectors;
 
-public class AfficherReclamationController implements Initializable {
+public class AjouterAfficherMessageAutreController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
 
     ServiceUser serviceUser = new ServiceUser();
@@ -35,45 +35,63 @@ public class AfficherReclamationController implements Initializable {
     int userId  = Integer.parseInt(getCurrentUser());
 
     EndUser user = serviceUser.getOneByID(userId);
+
+
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
+
+    @FXML
+    private VBox MainLeftSidebar;
+
+    @FXML
+    private Label Nameuser;
 
     @FXML
     private BorderPane SecondBorderPane;
 
     @FXML
-    private VBox MainLeftSidebar;
-    private boolean isSidebarVisible = true;
+    private TextField TFmessage;
+
+    @FXML
+    private ScrollPane chatVbox;
+
+    @FXML
+    private BorderPane firstborderpane;
+
     @FXML
     private GridPane grid;
     @FXML
-    private ScrollPane scroll;
-    @FXML
-    private TextField Recherche;
-    private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
-    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
+    private ImageView userphoto;
+    ServiceReclamation serviceReclamation = new ServiceReclamation();
+    ServiceMessagerie serviceMessagerie= new ServiceMessagerie();
 
-
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+    private boolean isSidebarVisible = true;
+    EndUser userDirecteur = new EndUser(51);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterProducts(newValue, reclamationList);
-        });
-        affichergrid(reclamationList);
+        // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
+        double sidebarWidth = MainLeftSidebar.getWidth();
+        SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
+        affichergrid();
+
+
     }
-    private void affichergrid(List<Reclamation> reclamationList){
+    private void affichergrid(){
+        ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
+        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(51,user.getId());
+        List<Messagerie> messagerieList = new ArrayList<>(messages);
         int column = 0;
         int row = 1;
         try {
-            for (int i = 0; i < reclamationList.size(); i++) {
+            for (int i = 0; i < messagerieList.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/ReclamationItemComponentGui.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/reclamationGui/MessageItemComponentGui.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                ReclamationItemComponentController itemController = fxmlLoader.getController(); // Utilisez ReclamationItemComponentController
-                itemController.setData(reclamationList.get(i));
+                MessageItemComponentController itemController = fxmlLoader.getController();
+                itemController.setData(messagerieList.get(i));
 
                 if (column == 1) {
                     column = 0;
@@ -97,7 +115,6 @@ public class AfficherReclamationController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -162,10 +179,48 @@ public class AfficherReclamationController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
+    private Reclamation reclamation;
+
+
+
+
+    @FXML
+    void sendMessage(ActionEvent event) {
+        String messageContent = TFmessage.getText();
+        // Vérifier si le champ de texte est vide
+        if (isTextFieldEmpty(TFmessage)) {
+            // Afficher une alerte pour informer l'utilisateur que le champ de texte est vide
+            showAlert(Alert.AlertType.WARNING, "Champ vide", "Veuillez saisir un message.");
+            // Mettre la bordure du champ de texte en rouge pour indiquer qu'il est vide
+            TFmessage.setStyle("-fx-border-color: red;");
+            return; // Sortir de la méthode sans envoyer le message
+        }
+        if (bad_words(messageContent)) {
+            // Afficher une alerte pour informer l'utilisateur que le message contient des mots inappropriés
+            showAlert(Alert.AlertType.WARNING, "Contenu inapproprié", "Votre message contient des mots inappropriés. Veuillez modifier le contenu.");
+            // Mettre la bordure du champ de texte en rouge pour indiquer qu'il contient des mots inappropriés
+            TFmessage.setStyle("-fx-border-color: red;");
+            return; // Sortir de la méthode sans envoyer le message
+        }
+
+        // Envoyer le message
+        serviceMessagerie.ajouter(new Messagerie(sqlDate, messageContent, userDirecteur, user, "text"));
+        // Réinitialiser le style du champ de texte à sa valeur par défaut
+        TFmessage.setStyle(null);
+        // Effacer le contenu du champ de texte après l'envoi du message avec succès
+        TFmessage.clear();
+        affichergrid();
+
+    }
+
+    public void setServiceReclamation(ServiceReclamation serviceReclamation) {
+        this.serviceReclamation = serviceReclamation;
+    }
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -174,53 +229,22 @@ public class AfficherReclamationController implements Initializable {
             alert.show();
         }
     }
-    private void filterProducts(String searchText, List<Reclamation> reclamationList ) {
-        // Filter the productList based on the searchText
-        List<Reclamation> filteredList = reclamationList.stream()
-                .filter(reclamation ->
-                        reclamation.getSujet_reclamation().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
-
-        // Clear the existing content in the grid
-        grid.getChildren().clear();
-
-        // Display the filtered results
-        affichergrid(filteredList);
+    private boolean isTextFieldEmpty(TextField textField) {
+        return textField.getText().trim().isEmpty();
     }
-    private boolean isSortedAscending = true;
 
-    @FXML
-    void filtrerParDate(ActionEvent event) {
-        // Inverser l'état du tri à chaque clic
-        isSortedAscending = !isSortedAscending;
-
-        // Tri de la liste de réclamations par date
-        if (isSortedAscending) {
-            reclamationList.sort((r1, r2) -> r1.getDate_reclamation().compareTo(r2.getDate_reclamation()));
-        } else {
-            reclamationList.sort((r1, r2) -> r2.getDate_reclamation().compareTo(r1.getDate_reclamation()));
+    public boolean bad_words(String text) {
+        List<String> badListW = Arrays.asList("fuck", "din", "khra", "bhim", "hayawen", "kaleb", "putain");
+        for (String str : badListW) {
+            if (text.contains(str)) {
+                return true;
+            }
         }
-
-        // Affichage des réclamations triées
-        affichergrid(reclamationList);
+        return false;
     }
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
-
-    public void goToMessagerie(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/MessagerieAutreGui.fxml"));
-            MainAnchorPaneBaladity.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
 }
-
-

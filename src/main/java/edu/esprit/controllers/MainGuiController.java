@@ -1,5 +1,6 @@
 package edu.esprit.controllers;
 
+import com.google.zxing.WriterException;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceUser;
@@ -8,16 +9,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
+
+import static edu.esprit.api.Qrcode.displayQRCode;
+import static edu.esprit.api.Qrcode.generateQRCode;
 
 public class MainGuiController {
 
@@ -187,6 +196,49 @@ public class MainGuiController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
             alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
+    public void scan(ActionEvent actionEvent) {
+         // Remplacez par le chemin de votre image
+        String data = "https://me-qr.com/link-list/dppVOGFb/show";  // Your data to be encoded in the QR code
+
+        try {
+            displayQRCode(generateQRCode(data));
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        String imagePath = "qrcode.png";
+        try {
+            File file = new File(imagePath);
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.setTitle("Image");
+
+                ImageView imageView = new ImageView(image);
+
+                AnchorPane root = new AnchorPane();
+                root.getChildren().add(imageView);
+
+                Scene scene = new Scene(root);
+                popupStage.setScene(scene);
+
+                popupStage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Le fichier image spécifié n'existe pas !");
+                alert.setTitle("Erreur");
+                alert.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Erreur lors du chargement de l'image !");
+            alert.setTitle("Erreur");
             alert.show();
         }
     }

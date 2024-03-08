@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -108,7 +109,7 @@
          <center>
             <BorderPane fx:id="MainAnchorPaneBaladity" BorderPane.alignment="CENTER">
                <center>
-                  <Label alignment="CENTER" prefHeight="158.0" prefWidth="375.0" stylesheets="@ActualiteGui/Actualite.css" text="Bienvenue" textAlignment="CENTER" textFill="#003668" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
+                  <Label alignment="CENTER" prefHeight="108.0" prefWidth="391.0" stylesheets="@ActualiteGui/Actualite.css" text="Bienvenue" textAlignment="CENTER" textFill="#003668" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="System Bold" size="55.0" />
                      </font>
@@ -135,7 +136,22 @@
                         <Image url="@assets/Baladia.png" />
                      </image>
                   </ImageView>
-               </top></BorderPane>
+               </top>
+               <right>
+                  <Pane prefHeight="108.0" prefWidth="168.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button layoutX="58.0" layoutY="7.0" mnemonicParsing="false" onAction="#scan" prefHeight="97.0" prefWidth="104.0" styleClass="transparent-background" stylesheets="@reclamationGui/css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="84.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/scan.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </Pane>
+               </right></BorderPane>
          </center></BorderPane>
    </center>
 </BorderPane>

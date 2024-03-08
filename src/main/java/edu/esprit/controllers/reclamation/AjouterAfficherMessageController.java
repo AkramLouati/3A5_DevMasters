@@ -249,7 +249,7 @@ public class AjouterAfficherMessageController implements Initializable {
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/DirecteurReclamationStatusGui.fxml"));
             MainAnchorPaneBaladity.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

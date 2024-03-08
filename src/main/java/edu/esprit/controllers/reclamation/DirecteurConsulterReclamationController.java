@@ -136,6 +136,38 @@ public class DirecteurConsulterReclamationController implements Initializable {
 
     public void setData(Reclamation reclamation) {
         this.reclamation = reclamation;
+        TFsujetReclamationDetail.setText(reclamation.getSujet_reclamation());
+        TFtypeReclamationDetail.setText(reclamation.getType_reclamation());
+        TFdateReclamationDetail.setText(String.valueOf(reclamation.getDate_reclamation()));
+        TFdescriptionReclamationDetail.setText(reclamation.getDescription_reclamation());
+        TFadresseReclamationDetail.setText(reclamation.getAdresse_reclamation());
+        String imageUrl = reclamation.getImage_reclamation();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            try {
+                // Créer une instance de File à partir du chemin d'accès à l'image
+                File file = new File(imageUrl);
+                // Convertir le chemin de fichier en URL
+                String fileUrl = file.toURI().toURL().toString();
+                // Créer une instance d'Image à partir de l'URL de fichier
+                Image image = new Image(fileUrl);
+                // Définir l'image dans l'ImageView
+                Imagedetail.setImage(image);
+            } catch (MalformedURLException e) {
+                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                e.printStackTrace();
+            }
+        } else {
+            // Si l'URL de l'image est vide ou null, afficher une image par défaut
+            // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
+            // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
+            URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
+            if (defaultImageUrl != null) {
+                Image defaultImage = new Image(defaultImageUrl.toString());
+                Imagedetail.setImage(defaultImage);
+            } else {
+                System.err.println("L'image par défaut n'a pas été trouvée !");
+            }
+        }
     }
     @FXML
     void modifytraitereclamation(ActionEvent event) {

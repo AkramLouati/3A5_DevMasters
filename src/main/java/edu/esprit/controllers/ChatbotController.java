@@ -18,6 +18,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import javafx.scene.input.KeyCode;
 
 public class ChatbotController implements Initializable {
 
@@ -128,14 +131,22 @@ public class ChatbotController implements Initializable {
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
         chatbot = new chatbot(); // Instanciation de la classe Chatbot
 
-
         // Ajouter cette ligne pour initialiser le contenu de la ScrollPane
         chatVbox.setContent(new VBox());
 
         // Commencer la conversation avec le premier texte
         String firstMessage = chatbot.firstText();
         addMessageToChat("Baladity", firstMessage);
+
+        // Ajouter un event filter pour capturer la touche "Enter" pressée dans le champ de texte
+        TFmessage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                sendMessage(new ActionEvent());
+                event.consume(); // Consommer l'événement pour éviter qu'il soit traité à nouveau par d'autres écouteurs
+            }
+        });
     }
+
 
     @FXML
     void sendMessage(ActionEvent event) {
@@ -186,7 +197,9 @@ public class ChatbotController implements Initializable {
             alert.show();
         }
     }
-    }
+
+
+}
 
 
 

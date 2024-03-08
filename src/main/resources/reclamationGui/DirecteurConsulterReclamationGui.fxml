@@ -172,7 +172,7 @@
                                     <Font size="21.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="TFtypeReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="263.7367362976074">
+                              <Text fx:id="TFtypeReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="263.7367362976074">
                                  <font>
                                     <Font size="21.0" />
                                  </font>
@@ -186,7 +186,7 @@
                                     <Font size="21.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="TFdateReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="255.20335006713867">
+                              <Text fx:id="TFdateReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="255.20335006713867">
                                  <font>
                                     <Font size="21.0" />
                                  </font>
@@ -200,7 +200,7 @@
                                     <Font size="21.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="TFdescriptionReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="380.27013778686523">
+                              <Text fx:id="TFdescriptionReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="380.27013778686523">
                                  <font>
                                     <Font size="21.0" />
                                  </font>
@@ -214,7 +214,7 @@
                                     <Font size="21.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="TFadresseReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse" wrappingWidth="258.403377532959">
+                              <Text fx:id="TFadresseReclamationDetail" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="258.403377532959">
                                  <font>
                                     <Font size="21.0" />
                                  </font>
@@ -248,7 +248,7 @@
                               <Font name="Arial Bold" size="21.0" />
                            </font>
                         </Text>
-                        <Text fx:id="TFsujetReclamationDetail" fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="167.73669052124023">
+                        <Text fx:id="TFsujetReclamationDetail" fill="#012545" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.73669052124023">
                            <font>
                               <Font size="21.0" />
                            </font>

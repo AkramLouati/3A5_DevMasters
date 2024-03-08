@@ -15,6 +15,9 @@ public class EndUser {
     private boolean isBanned;
 
     public EndUser(){}
+    public EndUser(int id){
+        this.id=id;
+    }
 
     public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image){
         this.nom = nom;
