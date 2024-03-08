@@ -1,5 +1,6 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Vote;
 import edu.esprit.services.ServiceUser;
@@ -11,8 +12,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.prefs.Preferences;
 
 public class AjouterVote {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
 
     private VoteList voteListController;
 
@@ -31,30 +40,25 @@ public class AjouterVote {
     @FXML
     void AjouterVoteOnClick(ActionEvent event) {
         if (validateFields()) {
-            try {
-                // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
-                ServiceUser serviceUser = new ServiceUser();
-                EndUser user = serviceUser.getOneByID(12); // Exemple : suppose que l'utilisateur actuel a l'ID 1
 
-                // Création du vote
-                Vote vote = new Vote(
-                        user,
-                        TDdesc.getText(),
-                        TFdateS.getText()
-                );
+            // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
+             // Exemple : suppose que l'utilisateur actuel a l'ID 1
 
-                // Ajout du vote via le service
-                serviceVote.ajouter(vote);
+            // Création du vote
+            Vote vote = new Vote(
+                    user,
+                    TDdesc.getText(),
+                    TFdateS.getText()
+            );
 
-                // Affichage d'une notification de succès
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Vote ajouté avec succès !");
+            // Ajout du vote via le service
+            serviceVote.ajouter(vote);
 
-                // Refresh the VoteList
-                refreshVoteList();
-            } catch (SQLException e) {
-                // En cas d'erreur lors de l'ajout du vote
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ajout du vote : " + e.getMessage());
-            }
+            // Affichage d'une notification de succès
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Vote ajouté avec succès !");
+
+            // Refresh the VoteList
+            refreshVoteList();
         } else {
             // Affichage d'une notification d'erreur si les champs ne sont pas valides
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs correctement !");
@@ -106,5 +110,9 @@ public class AjouterVote {
         if (voteListController != null) {
             voteListController.loadVotes();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

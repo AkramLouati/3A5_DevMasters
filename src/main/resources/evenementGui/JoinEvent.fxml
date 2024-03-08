@@ -16,13 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.JoinEvent">
+<BorderPane fx:id="firstborderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #012545;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.evenement.JoinEvent">
     <left>
         <VBox fx:id="MainLeftSidebar" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: white;" translateX="0" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="224.0" fitWidth="258.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@assets/LOGO.png" />
+                        <Image url="@../assets/LOGO.png" />
                     </image>
                     <effect>
                         <DropShadow />
@@ -52,7 +52,7 @@
                     <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@assets/addEvent.png" />
+                                <Image url="@../assets/addEvent.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -122,7 +122,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/toggle.png" />
+                                        <Image url="@../assets/toggle.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -140,7 +140,7 @@
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/settings.png" />
+                                        <Image url="@../assets/settings.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -165,11 +165,11 @@
                 </HBox>
             </top>
             <center>
-                <AnchorPane fx:id="MainAnchorPaneBaladity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@css/TacheCss.css" BorderPane.alignment="CENTER">
+                <AnchorPane fx:id="MainAnchorPaneBaladity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../css/TacheCss.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="125.0" fitWidth="171.0" layoutX="9.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/Baladia.png" />
+                        <Image url="@../assets/Baladia.png" />
                      </image>
                   </ImageView>
                   <Text fill="#e6e7f0" layoutX="201.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Voici les informations de l Evenement " wrappingWidth="557.7458610534668">
@@ -309,14 +309,14 @@
                      </fill>
                   </Text>
                   <ImageView fx:id="FFFF" fitHeight="344.0" fitWidth="532.0" layoutX="310.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button fx:id="backButtonn" layoutX="413.0" layoutY="503.0" mnemonicParsing="false" onAction="#retournerOnClickk" prefHeight="41.0" prefWidth="59.0" styleClass="transparent" stylesheets="@css/style.css" textFill="WHITE">
+                  <Button fx:id="backButtonn" layoutX="413.0" layoutY="503.0" mnemonicParsing="false" onAction="#retournerOnClickk" prefHeight="41.0" prefWidth="59.0" styleClass="transparent" stylesheets="@../css/style.css" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@assets/left-arrow.png" />
+                              <Image url="@../assets/left-arrow.png" />
                            </image>
                         </ImageView>
                      </graphic>

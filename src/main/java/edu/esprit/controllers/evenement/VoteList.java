@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Vote;
 import edu.esprit.services.ServiceVote;
@@ -42,7 +42,7 @@ public class VoteList implements Initializable {
         List<Vote> votes = new ArrayList<>(getVotes());
         for (Vote vote : votes) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/VoteItem.fxml");
+            URL location = getClass().getResource("/evenementGui/VoteItem.fxml");
             fxmlLoader.setLocation(location);
 
             try {
@@ -78,7 +78,7 @@ public class VoteList implements Initializable {
     void AjouterPropClick(ActionEvent event) {
         try {
             // Charger le fichier FXML de l'interface d'ajout d'événement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterVote.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/AjouterVote.fxml"));
             javafx.scene.Parent root = loader.load();
 
             // Créer une nouvelle scène
@@ -163,7 +163,7 @@ public class VoteList implements Initializable {
     void retournerOnClickk(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/EventDashboard.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/evenementGui/EventDashboard.fxml"));
             VoteLayout.getScene().setRoot(root);
         } catch (IOException e) {
 

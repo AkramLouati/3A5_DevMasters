@@ -12,23 +12,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterEvent">
-   <children>
-      <TextField fx:id="TFcapacite" layoutX="180.0" layoutY="211.0" promptText="Capacite Maximale" />
-      <TextField fx:id="TFnom" layoutX="180.0" layoutY="73.0" promptText="Nom Event" styleClass="text-field" stylesheets="@css/TacheCss.css" />
-      <TextField fx:id="TFdateDeb" layoutX="180.0" layoutY="117.0" promptText="Date Debut" />
-      <TextField fx:id="TFdateFin" layoutX="180.0" layoutY="164.0" promptText="Date Fin" />
-      <TextField fx:id="TFcategorie" layoutX="180.0" layoutY="254.0" promptText="Categorie" />
-      <Label layoutX="57.0" layoutY="73.0" prefHeight="22.0" prefWidth="45.0" text="Nom">
+<AnchorPane prefHeight="375.0" prefWidth="591.0" stylesheets="@../css/TacheCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.evenement.ModifierEvent">
+    <children>
+        <TextField fx:id="TFcapaciteM" layoutX="166.0" layoutY="186.0" promptText="Capacite Maximale" />
+        <TextField fx:id="TFnomM" layoutX="166.0" layoutY="57.0" promptText="Nom Event" />
+        <TextField fx:id="TFdateDebM" layoutX="166.0" layoutY="98.0" promptText="Date Debut" />
+        <TextField fx:id="TFdateFinM" layoutX="166.0" layoutY="145.0" promptText="Date Fin" />
+        <TextField fx:id="TFcategorieM" layoutX="166.0" layoutY="234.0" promptText="Categorie" styleClass="text-field" stylesheets="@../css/TacheCss.css" />
+        <Label layoutX="36.0" layoutY="61.0" prefHeight="22.0" prefWidth="89.0" text="Nom ">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.9368420839309692" green="0.06939571350812912" blue="0.06939571350812912" />
+                        <Color red="0.8736842274665833" green="0.04206627607345581" blue="0.04206627607345581" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -39,16 +39,16 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Label layoutX="32.0" layoutY="117.0" text="Date Debut">
+        <Label layoutX="33.0" layoutY="101.0" text="Date Debut">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.9368420839309692" green="0.06939571350812912" blue="0.06939571350812912" />
+                        <Color red="0.8736842274665833" green="0.04206627607345581" blue="0.04206627607345581" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -59,16 +59,16 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Label layoutX="46.0" layoutY="164.0" text="Date fin">
+        <Label layoutX="31.0" layoutY="147.0" prefHeight="22.0" prefWidth="89.0" text="Date Fin">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.9368420839309692" green="0.06939571350812912" blue="0.06939571350812912" />
+                        <Color red="0.8736842274665833" green="0.04206627607345581" blue="0.04206627607345581" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -79,16 +79,16 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Label layoutX="23.0" layoutY="211.0" text="Capacite Max">
+        <Label layoutX="31.0" layoutY="189.0" text="Capacite Max">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.9368420839309692" green="0.06939571350812912" blue="0.06939571350812912" />
+                        <Color red="0.8736842274665833" green="0.04206627607345581" blue="0.04206627607345581" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -99,7 +99,7 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Label layoutX="39.0" layoutY="254.0" text="Categorie">
+        <Label layoutX="34.0" layoutY="234.0" text="Categorie">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -108,7 +108,7 @@
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.9368420839309692" green="0.06939571350812912" blue="0.06939571350812912" />
+                        <Color red="0.8736842274665833" green="0.04206627607345581" blue="0.04206627607345581" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -119,70 +119,50 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Button alignment="CENTER" layoutX="226.0" layoutY="297.0" mnemonicParsing="false" onAction="#AjoutEventClick" prefHeight="46.0" prefWidth="82.0" stylesheets="@css/TacheCss.css" textFill="WHITE">
-         <font>
-            <Font name="Arial Bold" size="14.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="33.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/addFile.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button layoutX="241.0" layoutY="357.0" mnemonicParsing="false" onAction="#navigateOnClickk" prefHeight="52.0" prefWidth="46.0" styleClass="transparent" stylesheets="@css/style.css" textFill="#fffdfd">
+        <Button layoutX="219.0" layoutY="273.0" mnemonicParsing="false" onAction="#ModifierEventClick" prefHeight="22.0" prefWidth="82.0" textFill="#fffbfb">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="43.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/left-arrow.png" />
+                  <Image url="@../assets/editer.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Label layoutX="386.0" layoutY="48.0" prefHeight="27.0" prefWidth="174.0" text="Affiche Evenement">
+        <Button layoutX="229.0" layoutY="326.0" mnemonicParsing="false" onAction="#navigateOnClick" styleClass="transparent" stylesheets="@../css/style.css" textFill="#fff5f5">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.7684210538864136" green="0.05976608023047447" blue="0.05976608023047447" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill></Label>
-      <ImageView fx:id="imageID" fitHeight="214.0" fitWidth="244.0" layoutX="351.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="432.0" layoutY="305.0" mnemonicParsing="false" onAction="#browseOnClick" prefHeight="36.0" prefWidth="82.0" textFill="#fffafa">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/left-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+        <ImageView fx:id="imageM" fitHeight="209.0" fitWidth="245.0" layoutX="343.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+        <Button alignment="CENTER" layoutX="423.0" layoutY="284.0" mnemonicParsing="false" onAction="#browseMOnClick" prefHeight="54.0" prefWidth="50.0" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="41.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/upload.png" />
+                  <Image url="@../assets/upload.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Text layoutX="151.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Evenement">
+      <Text layoutX="165.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Evenement">
          <font>
-            <Font name="System Bold" size="27.0" />
+            <Font name="Arial Bold" size="27.0" />
          </font>
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.7684210538864136" green="0.05976608023047447" blue="0.05976608023047447" />
+                        <Color red="0.8947368264198303" green="0.05633528158068657" blue="0.05633528158068657" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -194,10 +174,31 @@
             </LinearGradient>
          </fill>
       </Text>
-      <ImageView fitHeight="115.0" fitWidth="131.0" layoutX="14.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+      <Text layoutX="387.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affiche Evenement">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8947368264198303" green="0.05633528158068657" blue="0.05633528158068657" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+      <ImageView fitHeight="109.0" fitWidth="123.0" layoutX="14.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/Baladia.png" />
+            <Image url="@../assets/Baladia.png" />
          </image>
       </ImageView>
-   </children>
+    </children>
 </AnchorPane>

@@ -1,6 +1,6 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
-import edu.esprit.controllers.EventDashboard;
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
@@ -18,8 +18,16 @@ import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.prefs.Preferences;
 
 public class AjouterEvent {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
     private EventDashboard eventDashboardController;
 
     @FXML
@@ -85,8 +93,7 @@ public class AjouterEvent {
             }
 
             // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
-            ServiceUser serviceUser = new ServiceUser();
-            EndUser user = serviceUser.getOneByID(12); // Exemple : suppose que l'utilisateur actuel a l'ID 1
+            // Exemple : suppose que l'utilisateur actuel a l'ID 1
 
             // Création de l'événement
             Evenement evenement = new Evenement(
@@ -108,9 +115,6 @@ public class AjouterEvent {
 
             // Affichage d'une notification de succès après l'ajout de l'événement
             showAlert("Success", "Événement ajouté avec succès !");
-        } catch (SQLException e) {
-            // En cas d'erreur lors de l'ajout de l'événement
-            showAlert("Error", "Erreur lors de l'ajout de l'événement : " + e.getMessage());
         } catch (NumberFormatException e) {
             // En cas d'erreur de formatage du nombre pour la capacité
             showAlert("Error", "Le champ Capacite Max doit être un entier.");
@@ -210,5 +214,9 @@ public class AjouterEvent {
     }
     public void setEventDashboardController(EventDashboard eventDashboardController) {
         this.eventDashboardController = eventDashboardController;
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
@@ -45,7 +45,7 @@ public class EventShowFront implements Initializable {
         evenementList.sort(comparator);
         for (Evenement evenement : evenementList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/EventFront.fxml");
+            URL location = getClass().getResource("/evenementGui/EventFront.fxml");
             fxmlLoader.setLocation(location);
 
             try {
@@ -89,7 +89,7 @@ public class EventShowFront implements Initializable {
 
         for (Evenement evenement : filteredList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/EventFront.fxml");
+            URL location = getClass().getResource("/evenementGui/EventFront.fxml");
             fxmlLoader.setLocation(location);
 
             try {
@@ -120,7 +120,7 @@ public class EventShowFront implements Initializable {
         List<Evenement> evenements = new ArrayList<>(getEvenements());
         for (Evenement evenement : evenements) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/EventFront.fxml");
+            URL location = getClass().getResource("/evenementGui/EventFront.fxml");
             fxmlLoader.setLocation(location);
 
             try {

@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Evenement;
 import javafx.fxml.FXML;

@@ -33,7 +33,7 @@ public class CalendarQuickstart {
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Arrays.asList(CalendarScopes.CALENDAR_READONLY, CalendarScopes.CALENDAR_EVENTS);
-    private static final String CREDENTIALS_FILE_PATH = "/client_secret_911099648307-6odh40p2fvq34jnmeskras2ecqcq8ho1.apps.googleusercontent.com.json";
+    private static final String CREDENTIALS_FILE_PATH = "/evenementGui/client_secret_911099648307-6odh40p2fvq34jnmeskras2ecqcq8ho1.apps.googleusercontent.com.json";
 
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
             throws IOException {

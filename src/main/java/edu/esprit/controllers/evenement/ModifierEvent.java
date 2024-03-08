@@ -1,6 +1,5 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
-import edu.esprit.controllers.EventDashboard;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
 import javafx.event.ActionEvent;

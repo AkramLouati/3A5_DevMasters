@@ -15,7 +15,7 @@ import java.util.Set;
 public class ServiceEvenement implements IService<Evenement> {
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
-    public void ajouter(Evenement evenement) throws SQLException {
+    public void ajouter(Evenement evenement) {
         if (!validateEvenement(evenement)) {
             System.out.println("Tous les champs doivent être remplis !");
             return;

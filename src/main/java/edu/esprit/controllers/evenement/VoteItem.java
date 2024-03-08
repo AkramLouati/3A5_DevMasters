@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Vote;
 import edu.esprit.services.ServiceVote;
@@ -70,7 +70,7 @@ public class VoteItem {
     void ModifierVoteClick(ActionEvent event) {
         try {
             // Charger la vue de modification de vote
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierVote.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/ModifierVote.fxml"));
             Parent root = loader.load();
 
             // Passer le vote à modifier au contrôleur de modification
@@ -115,7 +115,7 @@ public class VoteItem {
     private void actualiserVueVotes() {
         // Redirection vers la vue précédente (par exemple, la liste des votes)
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/VoteList.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/VoteList.fxml"));
             DescTT.getScene().setRoot(root);
         } catch (IOException e) {
             // Gérer l'exception si la redirection échoue

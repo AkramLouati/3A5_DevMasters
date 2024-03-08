@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Vote;
 import edu.esprit.services.ServiceVote;

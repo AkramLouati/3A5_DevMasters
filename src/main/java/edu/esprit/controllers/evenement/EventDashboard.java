@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
@@ -50,7 +50,7 @@ public class EventDashboard implements Initializable {
 
         for (Evenement evenement : evenementList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/EventItem.fxml");
+            URL location = getClass().getResource("/evenementGui/EventItem.fxml");
             fxmlLoader.setLocation(location);
 
             try {
@@ -91,7 +91,7 @@ public class EventDashboard implements Initializable {
     void AjouterEvenementClick(ActionEvent event) {
         try {
             // Charger le fichier FXML de l'interface d'ajout d'événement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/AjouterEvent.fxml"));
             Parent root = loader.load();
 
             // Créer une nouvelle scène
@@ -119,7 +119,7 @@ public class EventDashboard implements Initializable {
     void AjouterVoteClick(ActionEvent event) {
         try {
             // Charger le fichier FXML de l'interface d'ajout d'événement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterVote.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/AjouterVote.fxml"));
             Parent root = loader.load();
 
             AjouterVote controller = loader.getController();
@@ -149,7 +149,7 @@ public class EventDashboard implements Initializable {
         List<Evenement> evenements = new ArrayList<>(getEvenements());
         for (Evenement evenement : evenements) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/EventItem.fxml");
+            URL location = getClass().getResource("/evenementGui/EventItem.fxml");
             fxmlLoader.setLocation(location);
 
             try {
@@ -178,7 +178,7 @@ public class EventDashboard implements Initializable {
     @FXML
     void PropositionsOnClick(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VoteList.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/VoteList.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -241,7 +241,7 @@ public class EventDashboard implements Initializable {
 
         for (Evenement evenement : filteredList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL location = getClass().getResource("/EventItem.fxml");
+            URL location = getClass().getResource("/evenementGui/EventItem.fxml");
             fxmlLoader.setLocation(location);
 
             try {

@@ -169,4 +169,25 @@ public class MainGuiController {
             alert.setTitle("Error");
             alert.show();
         }
-}}
+}
+
+    public void BTNGestionEvent(ActionEvent actionEvent) {
+        try {
+            if( endUser.getType().equals("Responsable employé")){
+                System.out.println("Resource URL: " + getClass().getResource("/evenementGui/EventDashboard.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/EventDashboard.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            } else if (endUser.getType().equals("Citoyen")||endUser.getType().equals("Directeur")||endUser.getType().equals("Employé")) {
+                System.out.println("Resource URL: " + getClass().getResource("/evenementGui/EventShowFront.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/EventShowFront.fxml"));
+                BTNGestionAct.getScene().setRoot(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+}

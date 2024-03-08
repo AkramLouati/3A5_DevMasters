@@ -1,8 +1,10 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
+import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +21,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class EventFront implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+
+    int userId  = Integer.parseInt(getCurrentUser());
+
+    EndUser user = serviceUser.getOneByID(userId);
 
     private EventShowFront eventShowFront;
 
@@ -55,7 +65,7 @@ public class EventFront implements Initializable {
     private void actualiserVueEvenements() {
         // Redirection vers la vue précédente (par exemple, la liste des événements)
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/EventShowFront.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/EventShowFront.fxml"));
             nomEventTT.getScene().setRoot(root);
         } catch (IOException e) {
             // Gérer l'exception si la redirection échoue
@@ -77,8 +87,8 @@ public class EventFront implements Initializable {
         }
 
         // Sauvegarder l'utilisateur actuel dans la session
-        EndUser currentUser = Session.getCurrentUser();
-        if (currentUser == null) {
+
+        if (user == null) {
             showAlert("Erreur", "Aucun utilisateur actuel trouvé !");
             return;
         }
@@ -101,7 +111,7 @@ public class EventFront implements Initializable {
 
         // Charger l'interface joinEvent.fxml
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/joinEvent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/JoinEvent.fxml"));
             Parent root = loader.load();
 
             // Passer l'événement choisi au contrôleur de l'interface joinEvent
@@ -155,5 +165,9 @@ public class EventFront implements Initializable {
             // Gérer les exceptions
             e.printStackTrace();
         }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

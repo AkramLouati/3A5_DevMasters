@@ -1,4 +1,4 @@
-package edu.esprit.controllers;
+package edu.esprit.controllers.evenement;
 
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
@@ -56,7 +56,7 @@ public class EventItem implements Initializable {
     @FXML
     void ModifierEvenementClick(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/ModifierEvent.fxml"));
             Parent root = loader.load();
 
             ModifierEvent controller = loader.getController();
@@ -118,7 +118,7 @@ public class EventItem implements Initializable {
     void DetailsEvenementClick(ActionEvent event) {
         try {
             // Charger la vue des détails de l'événement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsEvent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementGui/DetailsEvent.fxml"));
             Parent root = loader.load();
 
             // Passer l'événement dont les détails sont affichés au contrôleur des détails
@@ -141,7 +141,7 @@ public class EventItem implements Initializable {
     private void actualiserVueEvenements() {
         // Redirection vers la vue précédente (par exemple, la liste des événements)
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/EventDashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/EventDashboard.fxml"));
             nomEventT.getScene().setRoot(root);
         } catch (IOException e) {
             // Gérer l'exception si la redirection échoue

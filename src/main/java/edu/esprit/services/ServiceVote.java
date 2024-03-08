@@ -18,7 +18,7 @@ public class ServiceVote implements IService<Vote> {
     Connection cnx = DataSource.getInstance().getCnx();
 
         @Override
-        public void ajouter(Vote vote) throws SQLException {
+        public void ajouter(Vote vote) {
             // Vérification des champs requis
             if (!validateVote(vote)) {
                 System.out.println("Tous les champs doivent être remplis !");
