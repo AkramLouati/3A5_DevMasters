@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -181,4 +182,18 @@ public class AfficherActualiteAdminController implements Initializable {
     public void RechercherActualiteAdmin(ActionEvent actionEvent) {
 
     }
-}
+
+    public void buttonreturnA(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
+            scrollAdmin.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+    }

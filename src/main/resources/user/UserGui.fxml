@@ -172,6 +172,15 @@
                                  </HBox.margin>
                               </Label>
                               <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="buttonreturnuser" mnemonicParsing="false" onAction="#buttonreturnuser" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../reclamationGui/css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../reclamationGui/assets/left-arrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                               <Button fx:id="addMuniButton" mnemonicParsing="false" onAction="#addMuni" prefHeight="40.0" prefWidth="220.0" stylesheets="@../css/style.css" text="Nouvelle municipalité" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />

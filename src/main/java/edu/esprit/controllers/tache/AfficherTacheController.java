@@ -1,8 +1,11 @@
 package edu.esprit.controllers.tache;
 
 import edu.esprit.controllers.ChartContainerController;
+import edu.esprit.controllers.user.Login;
+import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.ServiceTache;
+import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -39,6 +42,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 public class AfficherTacheController implements Initializable {
@@ -56,6 +60,12 @@ public class AfficherTacheController implements Initializable {
     @FXML
     private GridPane grid;
     private Stage stage; // Define a stage variable
+    private static final String USER_PREF_KEY = "current_user";
+
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -396,4 +406,29 @@ public class AfficherTacheController implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
-}
+
+    public void buttonreturnTache(ActionEvent actionEvent) {
+        try {
+            if( user.getType().equals("Admin")){
+                System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
+                searchbar.getScene().setRoot(root);
+            } else {
+                System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+                searchbar.getScene().setRoot(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+    }
+

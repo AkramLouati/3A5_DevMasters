@@ -67,10 +67,5 @@
       </Button>
       <TextField fx:id="tfNumTel" layoutX="100.0" layoutY="245.0" promptText="Télèphone" styleClass="text-input" />
       <TextField fx:id="tfAddresse" layoutX="100.0" layoutY="285.0" promptText="Addresse" styleClass="text-input" />
-      <Button layoutX="481.0" layoutY="348.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="30.0" prefWidth="87.0" stylesheets="@css/style.css" text="Logout" textFill="#fffbfb">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

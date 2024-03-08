@@ -57,7 +57,12 @@ public class ChatbotController implements Initializable {
 
     private boolean isSidebarVisible = true;
     private chatbot chatbot;
+    private static final String USER_PREF_KEY = "current_user";
 
+    ServiceUser serviceUser = new ServiceUser();
+    int userId  = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
 
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -188,18 +193,30 @@ public class ChatbotController implements Initializable {
 
     public void tothemain(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
-            MainAnchorPaneBaladity.getScene().setRoot(root);
+            if( user.getType().equals("Admin")){
+                System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
+                chatVbox.getScene().setRoot(root);
+            } else {
+                System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+                chatVbox.getScene().setRoot(root);
+            }
         } catch (IOException e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
             alert.setTitle("Error");
             alert.show();
         }
     }
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
+    }
+    }
 
 
-}
 
 
 

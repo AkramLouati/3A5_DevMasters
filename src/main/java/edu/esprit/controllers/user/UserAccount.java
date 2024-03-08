@@ -117,21 +117,6 @@ public class UserAccount implements Initializable{
         }
     }
 
-    @FXML
-    void logoutButton(ActionEvent event) throws IOException {
-        // Logging out
-        Preferences preferences = Preferences.userNodeForPackage(UserAccount.class);
-        preferences.remove("current_user");
-
-        // After logging out, show the login screen
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/user/Login.fxml")));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Se connecter");
-        stage.show();
-
-    }
 
     private String hashPassword(String password) {
         try {

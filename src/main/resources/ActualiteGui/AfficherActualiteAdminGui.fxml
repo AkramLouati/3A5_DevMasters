@@ -201,6 +201,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button fx:id="buttonreturnA" layoutX="103.0" layoutY="627.0" mnemonicParsing="false" onAction="#buttonreturnA" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../reclamationGui/css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../reclamationGui/assets/left-arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
             </center>

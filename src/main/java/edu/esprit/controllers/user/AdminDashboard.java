@@ -260,4 +260,18 @@ public class AdminDashboard implements Initializable {
     }
 
 
+    public void buttonreturnuser(ActionEvent actionEvent) {
+        try {
+            System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
+            muniButtonLayout.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
 }

@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -114,6 +115,16 @@
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
+                  </Button>
+                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#logoutButton" styleClass="transparent" stylesheets="@user/css/style.css">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0">
+                           <image>
+                              <Image url="@user/assets/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
                <BorderPane.margin>

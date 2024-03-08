@@ -2,6 +2,7 @@ package edu.esprit.controllers;
 
 import com.google.zxing.WriterException;
 import edu.esprit.controllers.user.Login;
+import edu.esprit.controllers.user.UserAccount;
 import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
@@ -28,6 +29,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -320,6 +322,22 @@ public class MainGuiController implements Initializable {
                 imageProfil.setImage(image);
             }
         }
+
+    }
+
+    @FXML
+    void logoutButton(ActionEvent event) throws IOException {
+        // Logging out
+        Preferences preferences = Preferences.userNodeForPackage(UserAccount.class);
+        preferences.remove("current_user");
+
+        // After logging out, show the login screen
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/user/Login.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Se connecter");
+        stage.show();
 
     }
 }
