@@ -1,6 +1,5 @@
 package edu.esprit.tests;
 
-import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
@@ -24,33 +23,19 @@ public class MainT {
             ServiceUser serviceUser = new ServiceUser();
             ServiceTache serviceTache = new ServiceTache();
             ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
-            ServiceCategorieT scat = new ServiceCategorieT();
-
-            // Add a category
-            CategorieT cat = new CategorieT("Employee");
-            scat.ajouter(cat);
-            System.out.println(scat.getAll());
-
-            // Modify a category
-            CategorieT catModifier = new CategorieT(8, "RH");
-            scat.modifier(catModifier);
-            System.out.println(scat.getAll());
-
-            // Delete a category
-            scat.supprimer(10);
-            System.out.println(scat.getAll());
+            //ServiceCategorieT scat = new ServiceCategorieT();
 
             // Add a task
             EndUser user01 = serviceUser.getOneByID(14);
-            CategorieT categ01 = serviceTache.getOneByID(13).getCategorie();
-            Tache nouvelleTache = new Tache(categ01, "Titre de la tâche", "fichier.txt",
+            //CategorieT categ01 = serviceTache.getOneByID(13).getCategorie();
+            Tache nouvelleTache = new Tache("categ01", "Titre de la tâche", "fichier.txt",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-12 12:00"),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, user01);
             serviceTache.ajouter(nouvelleTache);
             System.out.println(serviceTache.getAll());
 
             // Modify a task
-            Tache tacheModifiee = new Tache(97, categ01, "Titre de la tâche 02", "fichier",
+            Tache tacheModifiee = new Tache(97, "categ01", "Titre de la tâche 02", "fichier",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 20:00"),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, user01);
             serviceTache.modifier(tacheModifiee);

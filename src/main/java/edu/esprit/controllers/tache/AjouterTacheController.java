@@ -1,11 +1,9 @@
 package edu.esprit.controllers.tache;
 
 import edu.esprit.controllers.user.Login;
-import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
-import edu.esprit.services.ServiceCategorieT;
 import edu.esprit.services.ServiceTache;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.KeyFrame;
@@ -36,8 +34,8 @@ import org.controlsfx.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +43,7 @@ import java.util.prefs.Preferences;
 
 public class AjouterTacheController {
 
-    private final ServiceCategorieT serviceCategorieT;
+    //private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
 
@@ -77,7 +75,7 @@ public class AjouterTacheController {
     private Stage stage;
 
     public AjouterTacheController() {
-        this.serviceCategorieT = new ServiceCategorieT();
+        //this.serviceCategorieT = new ServiceCategorieT();
         this.serviceTache = new ServiceTache();
     }
 
@@ -170,7 +168,7 @@ public class AjouterTacheController {
         }
         try {
             EtatTache etat;
-            String categoryName = categoryField.getValue();
+            String categorie = categoryField.getValue();
             String title = titleField.getText();
             String attachment = ""; // Initialize attachment as an empty string
             Image image = PieceJointeImage.getImage();
@@ -202,7 +200,7 @@ public class AjouterTacheController {
                 System.out.println("Stage is null, cannot close.");
             }
             // Retrieve the CategorieT object associated with the selected category name
-            CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
+            //CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
             Tache tache = new Tache(categorie, title, attachment, startDateSql, endDateSql, description, etat, user);
             serviceTache.ajouter(tache);
             clearFields();
@@ -309,10 +307,12 @@ public class AjouterTacheController {
 
     private void populateCategoryComboBox() {
         try {
-            List<String> categoryNames = serviceCategorieT.getAllCategoryNames();
+            List<String> categoryNames = new ArrayList<>();
+            categoryNames.add("Employé");
+            categoryNames.add("Responsable employé");
             ObservableList<String> observableCategoryNames = FXCollections.observableArrayList(categoryNames);
             categoryField.setItems(observableCategoryNames);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

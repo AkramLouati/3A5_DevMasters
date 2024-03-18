@@ -46,7 +46,7 @@ public class DetailTacheFrontController {
                 txt_text_C.setText("");
                 txt_date_C.setText("Pas de commentaire...");
             }
-            TFCategorieDetail.setText(tache.getCategorie().getNom_Cat());
+            TFCategorieDetail.setText(tache.getCategorie());
             TFTitreDetail.setText(tache.getTitre_T());
             TFdateDebutDetail.setText(String.valueOf(tache.getDate_DT()));
             TFdateFinDetail.setText(String.valueOf(tache.getDate_FT()));

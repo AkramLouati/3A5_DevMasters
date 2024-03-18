@@ -91,7 +91,7 @@ public class AfficherTacheFrontController implements Initializable {
         try {
             for (Tache tache : tacheList) {
                 // Check if the task belongs to the category type of the current user
-                if (tache.getCategorie().getNom_Cat().equals(user.getType())) {
+                if (tache.getCategorie().equals(user.getType())) {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tacheGui/TacheFront.fxml"));
                     AnchorPane anchorPane = fxmlLoader.load();
                     TacheFrontController itemController = fxmlLoader.getController();
@@ -193,6 +193,7 @@ public class AfficherTacheFrontController implements Initializable {
                                     if (response == ButtonType.OK) {
                                         // Proceed with the action
                                         task.setEtat_T(newState);
+                                        task.setUser(user);
                                         ST.modifier(task); // Update the task state in the database
                                         success[0] = true;
                                     }
@@ -200,6 +201,7 @@ public class AfficherTacheFrontController implements Initializable {
                             } else {
                                 // For states other than DONE, proceed directly
                                 task.setEtat_T(newState);
+                                task.setUser(user);
                                 ST.modifier(task); // Update the task state in the database
                                 success[0] = true;
                             }

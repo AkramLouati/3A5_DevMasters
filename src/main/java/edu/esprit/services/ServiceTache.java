@@ -1,6 +1,5 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.utils.DataSource;
@@ -12,23 +11,23 @@ import java.util.Set;
 public class ServiceTache implements IService<Tache> {
     Connection cnx = DataSource.getInstance().getCnx();
     ServiceUser serviceUser = new ServiceUser();
-    ServiceCategorieT servicecategorie = new ServiceCategorieT();
+    //ServiceCategorieT servicecategorie = new ServiceCategorieT();
 
 
     @Override
     public void ajouter(Tache t) {
-        String req = "INSERT INTO tache (id_Cat, nom_Cat, titre_T, pieceJointe_T, date_DT, date_FT, desc_T, etat_T, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO tache (nom_Cat, titre_T, pieceJointe_T, date_DT, date_FT, desc_T, etat_T, id_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, t.getCategorie().getId_Cat());
-            ps.setString(2, t.getCategorie().getNom_Cat());
-            ps.setString(3, t.getTitre_T());
-            ps.setString(4, t.getPieceJointe_T());
-            ps.setDate(5, new java.sql.Date(t.getDate_DT().getTime()));
-            ps.setDate(6, new java.sql.Date(t.getDate_FT().getTime()));
-            ps.setString(7, t.getDesc_T());
-            ps.setString(8, t.getEtat_T().toString());
-            ps.setInt(9, t.getUser().getId());
+            //ps.setInt(1, t.getCategorie().getId_Cat());
+            ps.setString(1, t.getCategorie());
+            ps.setString(2, t.getTitre_T());
+            ps.setString(3, t.getPieceJointe_T());
+            ps.setDate(4, new java.sql.Date(t.getDate_DT().getTime()));
+            ps.setDate(5, new java.sql.Date(t.getDate_FT().getTime()));
+            ps.setString(6, t.getDesc_T());
+            ps.setString(7, t.getEtat_T().toString());
+            ps.setInt(8, t.getUser().getId());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating task failed");
@@ -48,19 +47,19 @@ public class ServiceTache implements IService<Tache> {
 
     @Override
     public void modifier(Tache tache) {
-        String req = "UPDATE tache SET id_Cat=?, nom_Cat=?, titre_T=?, pieceJointe_T=?, date_DT=?, date_FT=?, desc_T=?, etat_T=?, id_user=? WHERE id_T=?";
+        String req = "UPDATE tache SET nom_Cat=?, titre_T=?, pieceJointe_T=?, date_DT=?, date_FT=?, desc_T=?, etat_T=?, id_user=? WHERE id_T=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, tache.getCategorie().getId_Cat());
-            ps.setString(2, tache.getCategorie().getNom_Cat());
-            ps.setString(3, tache.getTitre_T());
-            ps.setString(4, tache.getPieceJointe_T());
-            ps.setDate(5, new java.sql.Date(tache.getDate_DT().getTime()));
-            ps.setDate(6, new java.sql.Date(tache.getDate_FT().getTime()));
-            ps.setString(7, tache.getDesc_T());
-            ps.setString(8, tache.getEtat_T().toString());
-            ps.setInt(9, tache.getUser().getId());
-            ps.setInt(10, tache.getId_T());
+            //ps.setInt(1, tache.getCategorie().getId_Cat());
+            ps.setString(1, tache.getCategorie());
+            ps.setString(2, tache.getTitre_T());
+            ps.setString(3, tache.getPieceJointe_T());
+            ps.setDate(4, new java.sql.Date(tache.getDate_DT().getTime()));
+            ps.setDate(5, new java.sql.Date(tache.getDate_FT().getTime()));
+            ps.setString(6, tache.getDesc_T());
+            ps.setString(7, tache.getEtat_T().toString());
+            ps.setInt(8, tache.getUser().getId());
+            ps.setInt(9, tache.getId_T());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,9 +88,9 @@ public class ServiceTache implements IService<Tache> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 int id = rs.getInt("id_T");
-                int categorieId = rs.getInt("id_Cat");
-                CategorieT categorie = servicecategorie.getOneByID(categorieId);
-                String nomCateg = rs.getString("nom_Cat");
+                //int categorieId = rs.getInt("id_Cat");
+                //CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                String categorie = rs.getString("nom_Cat");
                 String titre = rs.getString("titre_T");
                 String pieceJointe = rs.getString("pieceJointe_T");
                 Date dateDT = rs.getDate("date_DT");
@@ -117,8 +116,9 @@ public class ServiceTache implements IService<Tache> {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int categorieId = rs.getInt("id_Cat");
-                CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                //int categorieId = rs.getInt("id_Cat");
+                //CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                String categorie = rs.getString("nom_Cat");
                 String titre = rs.getString("titre_T");
                 String pieceJointe = rs.getString("pieceJointe_T");
                 Date dateDT = rs.getDate("date_DT");
@@ -143,8 +143,9 @@ public class ServiceTache implements IService<Tache> {
             ps.setInt(1, user.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int categorieId = rs.getInt("id_Cat");
-                CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                //int categorieId = rs.getInt("id_Cat");
+                //CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                String categorie = rs.getString("nom_Cat");
                 String titre = rs.getString("titre_T");
                 String pieceJointe = rs.getString("pieceJointe_T");
                 Date dateDT = rs.getDate("date_DT");
@@ -210,8 +211,9 @@ public class ServiceTache implements IService<Tache> {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id_T");
-                int categorieId = rs.getInt("id_Cat");
-                CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                //int categorieId = rs.getInt("id_Cat");
+                //CategorieT categorie = servicecategorie.getOneByID(categorieId);
+                String categorie = rs.getString("nom_Cat");
                 String titre = rs.getString("titre_T");
                 String pieceJointe = rs.getString("pieceJointe_T");
                 Date dateDT = rs.getDate("date_DT");

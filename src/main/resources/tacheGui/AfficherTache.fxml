@@ -218,14 +218,6 @@
                         <DropShadow />
                      </effect>
                         </Button>
-                        <Button layoutX="646.0" layoutY="6.0" mnemonicParsing="false" onAction="#CategorieLabel" prefHeight="31.0" prefWidth="87.0" text="Categorie" textFill="#012545">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                        </Button>
                         <Button layoutX="760.0" layoutY="3.0" mnemonicParsing="false" onAction="#MeilleurEmpTLabel" prefHeight="74.0" prefWidth="89.0" textFill="#012545">
                             <font>
                                 <Font size="14.0" />

@@ -1,11 +1,9 @@
 package edu.esprit.controllers.tache;
 
 import edu.esprit.controllers.user.Login;
-import edu.esprit.entities.CategorieT;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
 import edu.esprit.services.EtatTache;
-import edu.esprit.services.ServiceCategorieT;
 import edu.esprit.services.ServiceTache;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.KeyFrame;
@@ -39,13 +37,14 @@ import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class ModifierTacheController {
-    private final ServiceCategorieT serviceCategorieT;
+    //private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
     ServiceUser serviceUser = new ServiceUser();
@@ -75,7 +74,7 @@ public class ModifierTacheController {
     private Stage stage;
 
     public ModifierTacheController() {
-        this.serviceCategorieT = new ServiceCategorieT();
+        //this.serviceCategorieT = new ServiceCategorieT();
         this.serviceTache = new ServiceTache();
     }
 
@@ -172,7 +171,7 @@ public class ModifierTacheController {
                     break;
             }
             // Get the category name associated with the Tache object
-            String categoryName = tache.getCategorie().getNom_Cat();
+            String categoryName = tache.getCategorie();
             // Set the value of the ComboBox to the category name
             categoryField.setValue(categoryName);
         } catch (Exception e) {
@@ -206,7 +205,7 @@ public class ModifierTacheController {
         }
         try {
             EtatTache etat;
-            String categoryName = categoryField.getValue();
+            String categorie = categoryField.getValue();
             String title = titleField.getText();
             String attachment = ""; // Initialize attachment as an empty string
             Image image = PieceJointeImage.getImage();
@@ -233,7 +232,7 @@ public class ModifierTacheController {
                 System.out.println("Stage null, impossible de fermer.");
             }
             // Retrieve the CategorieT object associated with the selected category name
-            CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
+            //CategorieT categorie = serviceCategorieT.getCategoryByName(categoryName);
             Tache existingTache = serviceTache.getOneByID(selectedTaskId);
             if (existingTache != null) {
                 existingTache.setId_T(existingTache.getId_T());
@@ -357,10 +356,12 @@ public class ModifierTacheController {
 
     private void populateCategoryComboBox() {
         try {
-            List<String> categoryNames = serviceCategorieT.getAllCategoryNames();
+            List<String> categoryNames = new ArrayList<>();
+            categoryNames.add("Employé");
+            categoryNames.add("Responsable employé");
             ObservableList<String> observableCategoryNames = FXCollections.observableArrayList(categoryNames);
             categoryField.setItems(observableCategoryNames);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

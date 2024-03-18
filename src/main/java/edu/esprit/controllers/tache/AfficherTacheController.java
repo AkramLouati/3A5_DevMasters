@@ -150,21 +150,6 @@ public class AfficherTacheController implements Initializable {
     }
 
     @FXML
-    void CategorieLabel(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/AfficherCategorie.fxml"));
-            Parent root = loader.load();
-            AfficherCategorieController controller = loader.getController();
-            // Create a new stage
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     public void MeilleurEmpTLabel(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/tacheGui/ChartContainer.fxml"));

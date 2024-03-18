@@ -12,12 +12,12 @@ public class Tache implements Serializable {
     private String titre_T, pieceJointe_T, desc_T;
     private Date date_DT, date_FT;
     private EtatTache etat_T;
-    private CategorieT categorie;
+    private String categorie;
 
     public Tache() {
     }
 
-    public Tache(int id_T, CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
+    public Tache(int id_T, String categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
         this.id_T = id_T;
         this.categorie = categorie;
         this.titre_T = titre_T;
@@ -29,7 +29,7 @@ public class Tache implements Serializable {
         this.user = user;
     }
 
-    public Tache(CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
+    public Tache(String categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T, EndUser user) {
         this.categorie = categorie;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
@@ -40,7 +40,7 @@ public class Tache implements Serializable {
         this.user = user;
     }
 
-    public Tache(EndUser user, CategorieT categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T) {
+    public Tache(EndUser user, String categorie, String titre_T, String pieceJointe_T, Date date_DT, Date date_FT, String desc_T, EtatTache etat_T) {
         this.categorie = categorie;
         this.titre_T = titre_T;
         this.pieceJointe_T = pieceJointe_T;
@@ -74,11 +74,11 @@ public class Tache implements Serializable {
         this.user = user;
     }
 
-    public CategorieT getCategorie() {
+    public String getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(CategorieT categorie) {
+    public void setCategorie(String categorie) {
         this.categorie = categorie;
     }
 
