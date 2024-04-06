@@ -180,7 +180,7 @@ public class ServiceTache implements IService<Tache> {
         if (tache.getDate_FT().before(tache.getDate_DT())) {
             throw new IllegalArgumentException("Date fin est avant Date Debut");
         }
-        if (etatT != EtatTache.TO_DO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
+        if (etatT != EtatTache.TODO && etatT != EtatTache.DOING && etatT != EtatTache.DONE) {
             throw new IllegalArgumentException("Etat de la tâche doit etre (TO_DO | DOING | DONE)");
         }
         if (tache.getUser().getId() <= 0) {

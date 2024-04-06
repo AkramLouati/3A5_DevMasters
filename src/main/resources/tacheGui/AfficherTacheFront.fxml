@@ -173,7 +173,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0">
                                  <children>
-                                    <GridPane fx:id="TO_DO" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="258.0">
+                                    <GridPane fx:id="TODO" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="258.0">
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>

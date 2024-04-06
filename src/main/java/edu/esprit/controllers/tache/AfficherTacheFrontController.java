@@ -45,7 +45,7 @@ public class AfficherTacheFrontController implements Initializable {
     @FXML
     private TextField searchTacheLabel;
     @FXML
-    private GridPane TO_DO;
+    private GridPane TODO;
     @FXML
     private GridPane DOING;
     @FXML
@@ -61,7 +61,7 @@ public class AfficherTacheFrontController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        enableGridDropping(TO_DO);
+        enableGridDropping(TODO);
         enableGridDropping(DOING);
         enableGridDropping(DONE);
         loadTasks();
@@ -76,7 +76,7 @@ public class AfficherTacheFrontController implements Initializable {
     }
 
     private void refreshAllGrids() {
-        TO_DO.getChildren().clear();
+        TODO.getChildren().clear();
         DOING.getChildren().clear();
         DONE.getChildren().clear();
         loadTasks();
@@ -98,8 +98,8 @@ public class AfficherTacheFrontController implements Initializable {
                     itemController.setData(tache);
 
                     switch (tache.getEtat_T()) {
-                        case TO_DO:
-                            TO_DO.addRow(TO_DO.getRowCount(), anchorPane);
+                        case TODO:
+                            TODO.addRow(TODO.getRowCount(), anchorPane);
                             todoCounter++;
                             break;
                         case DOING:
@@ -161,7 +161,7 @@ public class AfficherTacheFrontController implements Initializable {
                     if (task != null) {
                         // Assuming the grid's ID corresponds to the new state of the task
                         EtatTache newState = EtatTache.valueOf(finalGridPane.getId());
-                        if (newState == EtatTache.TO_DO && task.getEtat_T() == EtatTache.DONE ) {
+                        if (newState == EtatTache.TODO && task.getEtat_T() == EtatTache.DONE ) {
                             // Task is already in the "Done" state, prevent moving
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Warning");
@@ -234,7 +234,7 @@ public class AfficherTacheFrontController implements Initializable {
         Set<Tache> tacheList = ST.getAll();
         int[] counters = new int[EtatTache.values().length];
         try {
-            TO_DO.getChildren().clear(); // Clear existing rows
+            TODO.getChildren().clear(); // Clear existing rows
             DOING.getChildren().clear();
             DONE.getChildren().clear();
 
@@ -248,7 +248,7 @@ public class AfficherTacheFrontController implements Initializable {
                             itemController.setData(tache);
 
                             GridPane targetGrid = switch (tache.getEtat_T()) {
-                                case TO_DO -> TO_DO;
+                                case TODO -> TODO;
                                 case DOING -> DOING;
                                 case DONE -> DONE;
                                 default -> null;
@@ -267,7 +267,7 @@ public class AfficherTacheFrontController implements Initializable {
             for (EtatTache etatTache : EtatTache.values()) {
                 int index = etatTache.ordinal();
                 switch (etatTache) {
-                    case TO_DO:
+                    case TODO:
                         todoCount.setText("TO DO | " + counters[index]);
                         break;
                     case DOING:

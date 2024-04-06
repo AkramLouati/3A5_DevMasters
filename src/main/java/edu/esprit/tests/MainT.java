@@ -30,14 +30,14 @@ public class MainT {
             //CategorieT categ01 = serviceTache.getOneByID(13).getCategorie();
             Tache nouvelleTache = new Tache("categ01", "Titre de la tâche", "fichier.txt",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-12 12:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, user01);
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TODO, user01);
             serviceTache.ajouter(nouvelleTache);
             System.out.println(serviceTache.getAll());
 
             // Modify a task
             Tache tacheModifiee = new Tache(97, "categ01", "Titre de la tâche 02", "fichier",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-18 20:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TO_DO, user01);
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2024-02-20 18:00"), "description", EtatTache.TODO, user01);
             serviceTache.modifier(tacheModifiee);
             System.out.println(serviceTache.getAll());
 

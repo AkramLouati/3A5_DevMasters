@@ -34,7 +34,6 @@ import org.controlsfx.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -160,7 +159,7 @@ public class ModifierTacheController {
             startDatePicker.setValue(startDate);
             endDatePicker.setValue(endDate);
             switch (tache.getEtat_T()) {
-                case TO_DO:
+                case TODO:
                     toDoRadio.setSelected(true);
                     break;
                 case DOING:
@@ -218,7 +217,7 @@ public class ModifierTacheController {
             Date startDateSql = java.sql.Date.valueOf(startDate);
             Date endDateSql = java.sql.Date.valueOf(endDate);
             if (toDoRadio.isSelected()) {
-                etat = EtatTache.TO_DO;
+                etat = EtatTache.TODO;
             } else if (doingRadio.isSelected()) {
                 etat = EtatTache.DOING;
             } else if (doneRadio.isSelected()) {

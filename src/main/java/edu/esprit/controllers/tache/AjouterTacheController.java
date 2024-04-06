@@ -181,7 +181,7 @@ public class AjouterTacheController {
             Date startDateSql = java.sql.Date.valueOf(startDate);
             Date endDateSql = java.sql.Date.valueOf(endDate);
             if (toDoRadio.isSelected()) {
-                etat = EtatTache.TO_DO;
+                etat = EtatTache.TODO;
             } else if (doingRadio.isSelected()) {
                 etat = EtatTache.DOING;
             } else if (doneRadio.isSelected()) {
