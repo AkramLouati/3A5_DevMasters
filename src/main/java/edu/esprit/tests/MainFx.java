@@ -13,7 +13,7 @@ public class MainFx extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Gestion Reclamation");
+        stage.setTitle("Baladity");
         stage.show();
     }
     public static void main(String[] args) {

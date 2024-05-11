@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DataSource implements AutoCloseable {
     private static DataSource instance;
-    private final String URL = "jdbc:mysql://127.0.0.1:3306/baladia";
+    private final String URL = "jdbc:mysql://127.0.0.1:3306/baladiaone";
     private final String USER = "root";
     private final String PWD = "";
     private Connection cnx;
