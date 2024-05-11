@@ -155,6 +155,15 @@
                                 <DropShadow />
                             </effect>
                         </Button>
+                  <Button fx:id="buttonreturnTache" mnemonicParsing="false" onAction="#buttonreturnTache" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../reclamationGui/css/styles.css">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../reclamationGui/assets/left-arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

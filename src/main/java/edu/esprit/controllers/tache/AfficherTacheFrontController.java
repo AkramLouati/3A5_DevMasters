@@ -351,4 +351,21 @@ public class AfficherTacheFrontController implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+    public void buttonreturnTache(ActionEvent actionEvent) {
+        try {
+            if( user.getType().equals("Admin")){
+                System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
+            } else {
+                System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }
