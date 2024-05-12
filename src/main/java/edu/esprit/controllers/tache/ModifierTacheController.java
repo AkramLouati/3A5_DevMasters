@@ -34,6 +34,8 @@ import org.controlsfx.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ public class ModifierTacheController {
     //private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
+
+    private String fileNameWithExtension;
+
     ServiceUser serviceUser = new ServiceUser();
     private static final String USER_PREF_KEY = "current_user";
 
@@ -112,7 +117,7 @@ public class ModifierTacheController {
     @FXML
     void browseForImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir Fichier");
+        fileChooser.setTitle("Choose Attachment File");
         // Set initial directory
         String initialDirectory = "src/main/resources/assets";
         File initialDirFile = new File(initialDirectory);
@@ -128,12 +133,14 @@ public class ModifierTacheController {
         if (selectedFile != null) {
             try {
                 String fileUrl = selectedFile.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
+                // Store the filename with its extension in the class-level variable
+                fileNameWithExtension = selectedFile.getName();
+                // Create an instance of Image from the file URL
                 Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
+                // Set the image in the ImageView
                 PieceJointeImage.setImage(image);
             } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                // Handle the exception if the file URL is not valid
                 e.printStackTrace();
             }
         }
@@ -145,7 +152,8 @@ public class ModifierTacheController {
             titleField.setText(tache.getTitre_T());
             String pieceJointeUrl = tache.getPieceJointe_T();
             if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
-                Image image = new Image(pieceJointeUrl);
+                String fullPath = Objects.requireNonNull(getClass().getResource("/assets/" + pieceJointeUrl)).toExternalForm();
+                Image image = new Image(fullPath);
                 PieceJointeImage.setImage(image);
             } else {
             }
@@ -208,8 +216,8 @@ public class ModifierTacheController {
             String title = titleField.getText();
             String attachment = ""; // Initialize attachment as an empty string
             Image image = PieceJointeImage.getImage();
-            if (image != null) {
-                attachment = image.getUrl();
+            if (fileNameWithExtension != null && !fileNameWithExtension.isEmpty()) {
+                attachment = fileNameWithExtension;
             }
             String description = descriptionField.getText();
             LocalDate startDate = startDatePicker.getValue();
@@ -224,6 +232,15 @@ public class ModifierTacheController {
                 etat = EtatTache.DONE;
             } else {
                 etat = null;
+            }
+            // Copy the file to the uploads directory
+            File srcFile = new File("src/main/resources/assets/" + attachment);
+            File destFile = new File("C:/Users/ASUS/Desktop/3A5S2/PIDEV/DevMasters-Baladity/public/uploads/" + attachment);
+            if (srcFile.exists()) {
+                Files.copy(srcFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } else {
+                System.err.println("Source file does not exist: " + srcFile.getPath());
+                return;
             }
             if (stage != null) {
                 Exit(new ActionEvent());
@@ -259,6 +276,8 @@ public class ModifierTacheController {
 
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

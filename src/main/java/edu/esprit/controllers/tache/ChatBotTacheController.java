@@ -116,8 +116,6 @@ public class ChatBotTacheController {
         keywordResponses.put("yaakoubi", "om mtaa ommek ella ma *****");
         keywordResponses.put("ti cha3el", "thaw");
         keywordResponses.put("barra", "nayek");
-        keywordResponses.put("zebi mnayek miboun", "hassen");
-        keywordResponses.put("tn", "tunis zebi");
         keywordResponses.put("waa", "waywa");
         keywordResponses.put("ai", "artificial intelligence");
         keywordResponses.put("yesine zayane", "limhaf");
@@ -155,7 +153,6 @@ public class ChatBotTacheController {
         keywordResponses.put("what is baladity c quoi ce projet chnowa projet baladity baladia", "baladity est un projet qui simplifie la gestions des municipalitees en tunisie, ainsi que la partie service client, en fait notre application est destinee au employee et les citoyens, actuallement nous sommes encore en cours de developpement, ce consontront sur le secteur ariana.");
         keywordResponses.put("devs membres developpeurs de baladity", "louati akram, zayane yassine, yahyaoui amine, sediri hadil et kaboubi amine.");
         keywordResponses.put("fine nikel mrigel", "great, how can i help");
-        keywordResponses.put("ki zebi pas grave pas mal not bad just fine", "i hope i can change ur mood, how can i help");
         keywordResponses.put("bb", "hobi rak");
         keywordResponses.put("m3alem rak yre the bos t le patron", "thank you ya rayes");
         Set<Tache> allTasks = ST.getTachesByState(EtatTache.DONE);

@@ -34,6 +34,8 @@ import org.controlsfx.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +48,7 @@ public class AjouterTacheController {
     //private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
+    private String fileNameWithExtension;
 
     private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
@@ -131,12 +134,14 @@ public class AjouterTacheController {
         if (selectedFile != null) {
             try {
                 String fileUrl = selectedFile.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
+                // Store the filename with its extension in the class-level variable
+                fileNameWithExtension = selectedFile.getName();
+                // Create an instance of Image from the file URL
                 Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
+                // Set the image in the ImageView
                 PieceJointeImage.setImage(image);
             } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                // Handle the exception if the file URL is not valid
                 e.printStackTrace();
             }
         }
@@ -172,8 +177,8 @@ public class AjouterTacheController {
             String title = titleField.getText();
             String attachment = ""; // Initialize attachment as an empty string
             Image image = PieceJointeImage.getImage();
-            if (image != null) {
-                attachment = image.getUrl();
+            if (fileNameWithExtension != null && !fileNameWithExtension.isEmpty()) {
+                attachment = fileNameWithExtension;
             }
             String description = descriptionField.getText();
             LocalDate startDate = startDatePicker.getValue();
@@ -194,6 +199,15 @@ public class AjouterTacheController {
                 showAlert(Alert.AlertType.ERROR, "Error", "Titre deje existant, veuillez en choisir un autre.");
                 return;
             }
+            // Copy the file to the uploads directory
+            File srcFile = new File("src/main/resources/assets/" + attachment);
+            File destFile = new File("C:/Users/ASUS/Desktop/3A5S2/PIDEV/DevMasters-Baladity/public/uploads/" + attachment);
+            if (srcFile.exists()) {
+                Files.copy(srcFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } else {
+                System.err.println("Source file does not exist: " + srcFile.getPath());
+                return;
+            }
             if (stage != null) {
                 Exit(new ActionEvent());
             } else {
@@ -212,6 +226,8 @@ public class AjouterTacheController {
                     .showInformation();
         } catch (IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

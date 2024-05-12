@@ -70,7 +70,8 @@ public class DetailTacheController {
             TFEtatDetail.setText(tache.getEtat_T().toString());
             String pieceJointeUrl = tache.getPieceJointe_T();
             if (pieceJointeUrl != null && !pieceJointeUrl.isEmpty()) {
-                Image image = new Image(pieceJointeUrl);
+                String fullPath = Objects.requireNonNull(getClass().getResource("/assets/" + pieceJointeUrl)).toExternalForm();
+                Image image = new Image(fullPath);
                 PieceJointedetail.setImage(image);
             } else {
             }
