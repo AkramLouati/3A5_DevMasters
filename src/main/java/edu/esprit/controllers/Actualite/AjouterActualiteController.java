@@ -150,6 +150,31 @@ public class AjouterActualiteController implements Initializable {
             }
         });
     }
+    public void uploadimgA(ActionEvent actionEvent) {
+        uploadbuttonA.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG Image", "*.png"),
+                    new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png")
+            );
+            Stage stage = (Stage) uploadbuttonA.getScene().getWindow();
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+                // Store just the file name with its extension
+                imagePath = selectedFile.getName();
+
+                // Display the file name
+                labelA.setText(imagePath);
+
+                // Load and display the image
+                Image image = new Image(selectedFile.toURI().toString());
+                imgView_actualite.setImage(image);
+            }
+        });
+    }
+
     @FXML
     void ajouterActualiteAction() {
         String titre = TFtitre.getText();
@@ -157,7 +182,11 @@ public class AjouterActualiteController implements Initializable {
 
         if (titre.length() > 6 && description.length() >= 15) {
             // Validate selected file
-            if (imagePath != null && new File(imagePath).isFile()) {
+            if (imagePath != null && !imagePath.isEmpty()) {
+                // Assuming sqlDate is defined elsewhere
+                // Assuming user is defined elsewhere
+
+                // Add the actualite with the image file name
                 sp.ajouter(new Actualite(titre, description, sqlDate, imagePath, user));
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -166,7 +195,7 @@ public class AjouterActualiteController implements Initializable {
                 alert.show();
             } else {
                 // Handle invalid or missing image file
-                showAlert(Alert.AlertType.ERROR, "Error", "il faut ajouter une image svp");
+                showAlert(Alert.AlertType.ERROR, "Error", "Il faut ajouter une image, s'il vous plaît.");
             }
         } else {
             // Show validation message for titre and description with a red background
@@ -182,6 +211,7 @@ public class AjouterActualiteController implements Initializable {
             }
         }
     }
+
     private Stage stage ;
     public void setStage(Stage stage) {
 
@@ -213,33 +243,8 @@ public class AjouterActualiteController implements Initializable {
 
     }
 
-    public void uploadimgA(ActionEvent actionEvent) {
-        uploadbuttonA.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"), new FileChooser.ExtensionFilter("PNG Image", "*.png"), new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png"));
-            Stage stage = (Stage) uploadbuttonA.getScene().getWindow();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
-                // Affiche le nom du fichier sélectionné
-                labelA.setText(selectedFile.getName());
 
-                // Récupère le chemin absolu du fichier
-                String absolutePath = selectedFile.getAbsolutePath();
-                // Stocke le chemin absolu dans la variable de classe
-                imagePath = absolutePath;
 
-                // Crée une URL à partir du chemin absolu du fichier
-                String fileUrl = new File(absolutePath).toURI().toString();
-
-                // Crée une image à partir de l'URL du fichier
-                Image image = new Image(fileUrl);
-
-                // Affiche l'image dans l'ImageView
-                imgView_actualite.setImage(image);
-            }
-        });
-    }
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
     }
