@@ -50,7 +50,7 @@ public class GMailer {
 //            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
 //        }
 //        GsonFactory jsonFactory = getDefaultInstance();
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(GMailer.class.getResourceAsStream("/user/client_secret_911099648307-g0u738e6vo25qf27t3cf3al8j3i5j8jc.apps.googleusercontent.com.json")));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(GMailer.class.getResourceAsStream("/user/client_secret_911099648307-0pltr761vv6ervpkd0fug8qko49fqstu.apps.googleusercontent.com.json")));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
@@ -100,6 +100,14 @@ public class GMailer {
             }
         }
 
+    }
+
+    public static void main(String[] args) {
+        try {
+            new GMailer("wertatanifadi@gmail.com").sendMail("S","m");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

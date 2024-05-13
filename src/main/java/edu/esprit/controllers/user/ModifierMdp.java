@@ -11,10 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Objects;
 
 public class ModifierMdp {
@@ -52,8 +55,8 @@ public class ModifierMdp {
         } else if (!nouveauPwd.equals(confirmNouveauPwd)) {
             showAlert("Vérifier votre mot de passe!");
         } else {
-            String hashedPassword = hashPassword(nouveauPwd);
-            endUser.setPassword(hashedPassword);
+//            String hashedPassword = hashPassword(nouveauPwd);
+            endUser.setPassword(nouveauPwd);
             serviceUser.modifier(endUser);
             showAlert("Le mot de passe a étè modifié");
         }
@@ -73,23 +76,27 @@ public class ModifierMdp {
         }
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-
-            // Convert byte array to hexadecimal representation
-            StringBuilder stringBuilder = new StringBuilder();
-            for (byte b : hashedBytes) {
-                stringBuilder.append(String.format("%02x", b));
-            }
-
-            return stringBuilder.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-            return null;
-        }
+//    private String hashPassword(String password) {
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            byte[] hashedBytes = md.digest(password.getBytes());
+//
+//            // Convert byte array to hexadecimal representation
+//            StringBuilder stringBuilder = new StringBuilder();
+//            for (byte b : hashedBytes) {
+//                stringBuilder.append(String.format("%02x", b));
+//            }
+//
+//            return stringBuilder.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            // Handle the exception appropriately
+//            return null;
+//        }
+//    }
+    public static String hashPassword(String password) {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(13));
+        return hashedPassword;
     }
 
     private void showAlert(String message) {

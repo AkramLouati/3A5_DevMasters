@@ -87,8 +87,8 @@ public class UserAccount implements Initializable{
         }if(!password.isEmpty() || !confirmPassword.isEmpty()){
             if(!password.isEmpty() && !confirmPassword.isEmpty()){
                 if(password.equals(confirmPassword)){
-                    String hashedPassword = hashPassword(password);
-                    serviceUser.modifier(new EndUser(userId, email,nom,hashedPassword,type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false));
+//                    String hashedPassword = hashPassword(password);
+                    serviceUser.modifier(new EndUser(userId, email,nom,password,type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false));
                     showAlert("User Updated");
                 } else showAlert("Vérifier votre mot de passe!");
             } else showAlert("Veuillez remplir les deux champs");

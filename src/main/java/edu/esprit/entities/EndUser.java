@@ -13,6 +13,7 @@ public class EndUser {
     private String location;
     private String image;
     private boolean isBanned;
+    private boolean isVerified;
 
     public EndUser(){}
     public EndUser(int id){

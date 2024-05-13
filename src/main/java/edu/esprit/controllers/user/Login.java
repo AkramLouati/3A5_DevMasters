@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,7 +69,7 @@ public class Login {
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Veuillez remplir tous les champs!");
         } else if (isValidEmail(email)) {
-            password = hashPassword(password);
+//            password = hashPassword(password);
             if (isValidCredentials(email, password)) {
                 // Successful login, you can navigate to another screen or perform other actions
                 EndUser currentUser = serviceUser.authenticateUser(email, password);
@@ -145,15 +146,21 @@ public class Login {
                 if(serviceUser.getOneByEmail(tfEmail.getText()) == null){
                     showAlert("L'email n'existe pas!");
                 } else {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/ForgetPwd.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/modifierPassword.fxml"));
                     Parent root = loader.load();
 
                     // Access the controller
-                    ForgetPwd forgetPwdController = loader.getController();
+                    ModifierMdp modifierMdpController = loader.getController();
 
                     // Set the email
-                    String nom = serviceUser.getOneByEmail(tfEmail.getText()).getNom();
-                    forgetPwdController.setData(tfEmail.getText(),nom);
+                    modifierMdpController.setData(tfEmail.getText());
+
+//                    // Access the controller
+//                    ForgetPwd forgetPwdController = loader.getController();
+//
+//                    // Set the email
+//                    String nom = serviceUser.getOneByEmail(tfEmail.getText()).getNom();
+//                    forgetPwdController.setData(tfEmail.getText(),nom);
 
                     // Show the scene
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -195,22 +202,26 @@ public class Login {
         alert.showAndWait();
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-
-            // Convert the byte array to a hexadecimal string
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
+//    private String hashPassword(String password) {
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            byte[] hashedBytes = md.digest(password.getBytes());
+//
+//            // Convert the byte array to a hexadecimal string
+//            StringBuilder sb = new StringBuilder();
+//            for (byte b : hashedBytes) {
+//                sb.append(String.format("%02x", b));
+//            }
+//
+//            return sb.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+    public static String hashPassword(String password) {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(13));
+        return hashedPassword;
     }
 
     private void setCurrentUser(int userId) {

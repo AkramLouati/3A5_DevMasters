@@ -28,52 +28,71 @@ public class ForgetPwd implements Initializable {
     private TextField OTPField;
 
 
-    public void setData(String email, String nom) throws Exception {
-        this.email = email;
-        this.nom = nom;
-        otp = generateOTP();
-        String content = String.format("""
-                                
-                Cher(e) %s,
-                                
-                Vous avez récemment demandé la réinitialisation de votre mot de passe. Pour procéder à cette réinitialisation, veuillez utiliser le code de vérification ci-dessous :
-                                
-                Code de Vérification : %s
-                                
-                Si vous n'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer ce message.
-                                
-                Cordialement,
-                Baladity
-                """,nom, otp);
-        new GMailer(email).sendMail("Code de Vérification", content);
-    }
+//    public void setData(String email, String nom) throws Exception {
+//        this.email = email;
+//        this.nom = nom;
+//        otp = generateOTP();
+//        String content = String.format("""
+//
+//                Cher(e) %s,
+//
+//                Vous avez récemment demandé la réinitialisation de votre mot de passe. Pour procéder à cette réinitialisation, veuillez utiliser le code de vérification ci-dessous :
+//
+//                Code de Vérification : %s
+//
+//                Si vous n'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer ce message.
+//
+//                Cordialement,
+//                Baladity
+//                """,nom, otp);
+//        new GMailer(email).sendMail("Code de Vérification", content);
+//    }
 
     @FXML
     void VerifierOTPButton(ActionEvent event) {
 
-        if (OTPField.getText().equals(otp)) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/modifierPassword.fxml"));
-                Parent root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/modifierPassword.fxml"));
+            Parent root = loader.load();
 
-                // Access the controller
-                ModifierMdp modifierMdpController = loader.getController();
+            // Access the controller
+            ModifierMdp modifierMdpController = loader.getController();
 
-                // Set the email
-                modifierMdpController.setData(email);
+            // Set the email
+            modifierMdpController.setData(email);
 
-                // Show the scene
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Oubliez mot de passe");
-                stage.show();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            showAlert("Veuillez vérifier votre code");
+            // Show the scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Oubliez mot de passe");
+            stage.show();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+//        if (OTPField.getText().equals(otp)) {
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/modifierPassword.fxml"));
+//                Parent root = loader.load();
+//
+//                // Access the controller
+//                ModifierMdp modifierMdpController = loader.getController();
+//
+//                // Set the email
+//                modifierMdpController.setData(email);
+//
+//                // Show the scene
+//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                Scene scene = new Scene(root);
+//                stage.setScene(scene);
+//                stage.setTitle("Oubliez mot de passe");
+//                stage.show();
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        } else {
+//            showAlert("Veuillez vérifier votre code");
+//        }
     }
 
     @FXML

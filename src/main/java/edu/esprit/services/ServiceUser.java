@@ -15,7 +15,7 @@ public class ServiceUser implements IService<EndUser> {
 
     @Override
     public void ajouter(EndUser endUser) {
-        String req = "INSERT INTO `enduser`(`email_user`, `nom_user`, `type_user`, `phoneNumber_user`, `id_muni`, `location_user`, `image_user`,`password`,`isBanned`) VALUES (?,?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `enduser`(`email_user`, `nom_user`, `type_user`, `phoneNumber_user`, `id_muni`, `location_user`, `image_user`,`password`,`isBanned`, `is_verified`) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, endUser.getEmail());
@@ -30,6 +30,7 @@ public class ServiceUser implements IService<EndUser> {
             ps.setString(7, endUser.getImage());
             ps.setString(8, endUser.getPassword());
             ps.setBoolean(9, false);
+            ps.setBoolean(10, true);
             ps.executeUpdate();
             System.out.printf("User added!!");
         } catch (SQLException e) {

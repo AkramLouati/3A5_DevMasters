@@ -82,6 +82,7 @@ public class RegisterController implements Initializable {
 
     private static final int OTP_LENGTH = 6;
     String otp;
+    private static final String USER_PREF_KEY = "current_user";
 
     @FXML
     void registerAction(ActionEvent event) throws Exception {
@@ -128,9 +129,22 @@ public class RegisterController implements Initializable {
             if(selectedFile != null){
                 imagePath = selectedFile.getAbsolutePath();
             }
-            new GMailer(email).sendMail("Code de Validation", content);
-            EndUser user = new EndUser(nom, email, hashedPwd, "Citoyen", numTel, muni, location, imagePath);
-            openForm(event, user);
+//            new GMailer(email).sendMail("Code de Validation", content);
+            EndUser user = new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, imagePath);
+            serviceUser.ajouter(user);
+            int userId = serviceUser.getOneByEmail(email).getId();
+            setCurrentUser(userId);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainGui.fxml"));
+            Parent root = loader.load();
+
+            // Continue with your navigation code
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("User Account");
+            stage.show();
+
         }
     }
 
@@ -168,7 +182,7 @@ public class RegisterController implements Initializable {
     void takePictureAction(ActionEvent event) {
 
         // Load OpenCV DLL
-        System.load("C:/Users/amine/Desktop/PiDev/3A5_DevMasters/src/main/java/edu/esprit/services/opencv_java490.dll");
+        System.load("C:\\Users\\werta\\Documents\\GitHub\\baladity\\src\\main\\java\\edu\\esprit\\services\\opencv_java490.dll");
 
         // Run camera in the Event Dispatch Thread
         EventQueue.invokeLater(() -> {
@@ -223,7 +237,7 @@ public class RegisterController implements Initializable {
 
     public void openForm(ActionEvent event, EndUser user) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/VerifierEmail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainGui.fxml"));
             Parent root = loader.load();
 
             // Access the controller
@@ -271,6 +285,12 @@ public class RegisterController implements Initializable {
             // Handle the exception appropriately
             return null;
         }
+    }
+
+    private void setCurrentUser(int userId) {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        preferences.put(USER_PREF_KEY, String.valueOf(userId));
+        System.out.println("Current User saved: " + userId);
     }
 
     @Override
