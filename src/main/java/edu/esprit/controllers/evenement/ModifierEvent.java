@@ -4,6 +4,7 @@ import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -58,6 +59,30 @@ public class ModifierEvent {
     }
 
     @FXML
+    void browseMOnClick(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
+        );
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                Image image = new Image(selectedFile.toURI().toString());
+                imageM.setImage(image);
+                evenement.setImageEvent(selectedFile.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Error", "Failed to load image: " + e.getMessage());
+            }
+        }
+    }
+
+
+    @FXML
     void ModifierEventClick(ActionEvent event) {
         updateTextFieldStyles();
         try {
@@ -107,26 +132,7 @@ public class ModifierEvent {
         }
     }
 
-    @FXML
-    void browseMOnClick(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
-        );
 
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            try {
-                Image image = new Image(selectedFile.toURI().toString());
-                imageM.setImage(image);
-                evenement.setImageEvent(selectedFile.getAbsolutePath());
-            } catch (Exception e) {
-                e.printStackTrace();
-                showAlert("Error", "Failed to load image: " + e.getMessage());
-            }
-        }
-    }
 
     private void updateTextFieldStyles() {
         setFieldStyle(TFnomM, isFieldEmpty(TFnomM));

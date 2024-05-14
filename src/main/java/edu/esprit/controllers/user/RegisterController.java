@@ -111,26 +111,27 @@ public class RegisterController implements Initializable {
         } else {
             otp = generateOTP();
             String content = String.format("""
-                
-                Cher(e) %s,
-                         
-                Merci de vous être inscrit(e) sur Baladity. Pour finaliser votre inscription, veuillez utiliser le code de validation ci-dessous:
-                         
-                Code de Validation : %s
-                         
-                Veuillez ne pas partager ce code avec d'autres personnes.
-                         
-                Si vous n'avez pas créé de compte sur Baladity, veuillez ignorer ce message.
-                         
-                Cordialement,
-                Baladity
-                """,nom,otp);
+            
+            Cher(e) %s,
+                     
+            Merci de vous être inscrit(e) sur Baladity. Pour finaliser votre inscription, veuillez utiliser le code de validation ci-dessous:
+                     
+            Code de Validation : %s
+                     
+            Veuillez ne pas partager ce code avec d'autres personnes.
+                     
+            Si vous n'avez pas créé de compte sur Baladity, veuillez ignorer ce message.
+                     
+            Cordialement,
+            Baladity
+            """,nom,otp);
             String hashedPwd = hashPassword(motDePasse);
+            String imageName = selectedFile.getName(); // Get the name of the selected file
             if(selectedFile != null){
                 imagePath = selectedFile.getAbsolutePath();
             }
-//            new GMailer(email).sendMail("Code de Validation", content);
-            EndUser user = new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, imagePath);
+//        new GMailer(email).sendMail("Code de Validation", content);
+            EndUser user = new EndUser(nom, email, motDePasse, "Citoyen", numTel, muni, location, imageName); // Pass the image filename
             serviceUser.ajouter(user);
             int userId = serviceUser.getOneByEmail(email).getId();
             setCurrentUser(userId);
@@ -149,6 +150,24 @@ public class RegisterController implements Initializable {
     }
 
     @FXML
+    void pickImageAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            // Handle the selected image file (e.g., display it, process it, etc.)
+            System.out.println("Selected image: " + selectedFile.getName()); // Print the name of the selected file
+            Image image = new Image(selectedFile.toURI().toString());
+            ImageF.setImage(image);
+        }
+    }
+
+
+    @FXML
     void muniSelection(ActionEvent event) {
 
         // Access the selected item in muniSelectionComboBox
@@ -160,22 +179,6 @@ public class RegisterController implements Initializable {
     }
 
 
-    @FXML
-    void pickImageAction(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select an Image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
-
-        selectedFile = fileChooser.showOpenDialog(new Stage());
-        if (selectedFile != null) {
-            // Handle the selected image file (e.g., display it, process it, etc.)
-            System.out.println("Selected image: " + selectedFile.getAbsolutePath());
-            Image image = new Image(selectedFile.toURI().toString());
-            ImageF.setImage(image);
-        }
-    }
 
     Camera camera;
     @FXML

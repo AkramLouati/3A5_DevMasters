@@ -43,54 +43,43 @@ public class UserItem implements Initializable {
 
     int userId;
 
-    public void setData(EndUser user){
+    public void setData(EndUser user) {
         userId = user.getId();
-//        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(user.getImage())));
-//        img.setImage(image);
         String imageUrl = user.getImage();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
-                // Créer une instance de File à partir du chemin d'accès à l'image
-                File file = new File(imageUrl);
-                // Convertir le chemin de fichier en URL
-                String fileUrl = file.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
-                Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
-                img.setImage(image);
-            } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                // Create an instance of File using the file path
+                File file = new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imageUrl);
+                // Check if the file exists
+                if (file.exists()) {
+                    // Create an Image instance from the file path
+                    Image image = new Image(file.toURI().toString());
+                    // Set the image in the ImageView
+                    img.setImage(image);
+                } else {
+                    System.err.println("File not found: " + file.getPath());
+                }
+            } catch (Exception e) {
+                // Handle the exception if the file URL is not valid
                 e.printStackTrace();
             }
         } else {
-            // Si l'URL de l'image est vide ou null, afficher une image par défaut
-            // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
-            // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
+            // If the image URL is empty or null, display a default image
             URL defaultImageUrl = getClass().getResource("/assets/man.png");
             if (defaultImageUrl != null) {
                 Image defaultImage = new Image(defaultImageUrl.toString());
                 img.setImage(defaultImage);
             } else {
-                System.err.println("L'image par défaut n'a pas été trouvée !");
+                System.err.println("Default image not found!");
             }
         }
-
-//        if (imagePath != null && !imagePath.isEmpty()) {
-//            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(user.getImage())));
-//            img.setImage(image);
-//        } else {
-//            // Provide a default image or handle the case where the image path is empty
-//            // For example, you can set a placeholder image
-//            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/man.png")));
-//            img.setImage(image);
-//        }
 
         name.setText(user.getNom());
         phone.setText(user.getPhoneNumber());
         email.setText(user.getEmail());
         type.setText(user.getType());
-
     }
+
 
     @FXML
     void editUser(ActionEvent event) {
