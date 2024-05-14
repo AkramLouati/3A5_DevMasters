@@ -136,31 +136,35 @@ public class ReclamationDetailController implements Initializable {
         String imageUrl = reclamation.getImage_reclamation();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
-                // Créer une instance de File à partir du chemin d'accès à l'image
-                File file = new File(imageUrl);
-                // Convertir le chemin de fichier en URL
-                String fileUrl = file.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
-                Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
-                Imagedetail.setImage(image);
-            } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                // Create an instance of File using the file path
+                File file = new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imageUrl);
+                // Check if the file exists
+                if (file.exists()) {
+                    // Create an Image instance from the file path
+                    Image image = new Image(file.toURI().toString());
+                    // Set the image in the ImageView
+                    Imagedetail.setImage(image);
+                } else {
+                    System.err.println("File not found: " + file.getPath());
+                }
+            } catch (Exception e) {
+                // Handle any exception
                 e.printStackTrace();
             }
         } else {
-            // Si l'URL de l'image est vide ou null, afficher une image par défaut
-            // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
-            // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-            URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
+            // If the image URL is empty or null, display a default image
+            // For example, if you have an image "default_image.png" in your resources folder
+            // You can use getClass().getResource() to get its URL
+            URL defaultImageUrl = getClass().getResource("/assets/default_image.png");
             if (defaultImageUrl != null) {
                 Image defaultImage = new Image(defaultImageUrl.toString());
                 Imagedetail.setImage(defaultImage);
             } else {
-                System.err.println("L'image par défaut n'a pas été trouvée !");
+                System.err.println("Default image not found!");
             }
         }
     }
+
 
     @FXML
     void buttonReturnDetailReclamation(ActionEvent event) {

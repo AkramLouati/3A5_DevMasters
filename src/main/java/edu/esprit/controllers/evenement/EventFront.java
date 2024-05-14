@@ -17,8 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -53,13 +52,26 @@ public class EventFront implements Initializable {
         nomEventTT.setText(evenement.getNomEvent());
         String imagePath = evenement.getImageEvent();
         if (imagePath != null && !imagePath.isEmpty()) {
-            File file = new File(imagePath);
-            if (file.exists()) {
-                Image image = new Image(file.toURI().toString());
+            try {
+                // Construct the URL for the image
+                String fileUrl = "C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imagePath;
+
+                // Open an input stream to read the image data
+                InputStream inputStream = new FileInputStream(fileUrl);
+
+                // Load the image from the input stream
+                Image image = new Image(inputStream);
+
+                // Set the image in the ImageView
                 img.setImage(image);
+            } catch (FileNotFoundException e) {
+                // Handle case where image file is not found
+                System.err.println("Image file not found: " + imagePath);
+                e.printStackTrace();
             }
         }
     }
+
 
     // Méthode pour actualiser la vue des événements
     private void actualiserVueEvenements() {

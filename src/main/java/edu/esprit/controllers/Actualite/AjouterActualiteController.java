@@ -153,7 +153,7 @@ public class AjouterActualiteController implements Initializable {
     public void uploadimgA(ActionEvent actionEvent) {
         uploadbuttonA.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+            fileChooser.setInitialDirectory(new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads"));
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
                     new FileChooser.ExtensionFilter("PNG Image", "*.png"),

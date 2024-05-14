@@ -272,27 +272,15 @@ public class ReclamationEditController implements Initializable {
         Stage stage = (Stage) uploadimgmodifier.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            // Affiche le nom du fichier sélectionné
-            label.setText(selectedFile.getName());
+            // Store just the file name with its extension
+            imagePath = selectedFile.getName();
 
-            // Récupère le chemin absolu du fichier
-            String absolutePath = selectedFile.getAbsolutePath();
-            // Stocke le chemin absolu dans la variable de classe
-            imagePath = absolutePath;
+            // Display the file name
+            label.setText(imagePath);
 
-            // Crée une URL à partir du chemin absolu du fichier
-            String fileUrl = new File(absolutePath).toURI().toString();
-
-            // Crée une image à partir de l'URL du fichier
-            Image image = new Image(fileUrl);
-
-            // Affiche l'image dans l'ImageView
+            // Load and display the image
+            Image image = new Image(selectedFile.toURI().toString());
             modifierimgView_reclamation.setImage(image);
-
-            // Mettre à jour le chemin d'accès à l'image dans la réclamation
-            if (reclamation != null) {
-                reclamation.setImage_reclamation(imagePath);
-            }
         }
     }
 
@@ -307,37 +295,36 @@ public class ReclamationEditController implements Initializable {
             String imageUrl = reclamation.getImage_reclamation();
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 try {
-                    // Créer une instance de File à partir du chemin d'accès à l'image
-                    File file = new File(imageUrl);
-                    // Récupérer le nom du fichier
+                    // Create an instance of File using the file path
+                    File file = new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imageUrl);
+                    // Get the file name
                     String fileName = file.getName();
-                    // Mettre à jour le Label avec le nom du fichier
+                    // Update the Label with the file name
                     label.setText(fileName);
 
-                    // Convertir le chemin de fichier en URL
-                    String fileUrl = file.toURI().toURL().toString();
-                    // Créer une instance d'Image à partir de l'URL de fichier
-                    Image image = new Image(fileUrl);
-                    // Définir l'image dans l'ImageView
+                    // Create an Image instance from the file path
+                    Image image = new Image(file.toURI().toString());
+                    // Set the image in the ImageView
                     modifierimgView_reclamation.setImage(image);
-                } catch (MalformedURLException e) {
-                    // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                } catch (Exception e) {
+                    // Handle any exception
                     e.printStackTrace();
                 }
             } else {
-                // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
-                // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
-                // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/assets/imageblanche.png");
-                if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
+                // If the image URL is empty or null, display a default image
+                // For example, if you have an image "default_image.png" in your resources folder
+                // You can use getClass().getResource() to get its URL
+                URL defaultImageUrl = getClass().getResource("/assets/default_image.png");
+                if (defaultImageUrl != null) {
                     Image defaultImage = new Image(defaultImageUrl.toString());
                     modifierimgView_reclamation.setImage(defaultImage);
                 } else {
-                    System.err.println("L'image par défaut n'a pas pu être chargée.");
+                    System.err.println("Default image not found!");
                 }
             }
         }
     }
+
 
 
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {

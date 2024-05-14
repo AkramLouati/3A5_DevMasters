@@ -157,7 +157,7 @@ public class ModifierPubliciteController implements Initializable {
     @FXML
     void uploadimgP(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        fileChooser.setInitialDirectory(new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG Image", "*.png"),
@@ -166,24 +166,15 @@ public class ModifierPubliciteController implements Initializable {
         Stage stage = (Stage) uploadbuttonPModif.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            // Affiche le nom du fichier sélectionné
-            labelPubModif.setText(selectedFile.getName());
+            // Store just the file name with its extension
+            imagePath = selectedFile.getName();
 
-            // Récupère le chemin absolu du fichier
-            String absolutePath = selectedFile.getAbsolutePath();
-            // Stocke le chemin absolu dans la variable de classe
-            imagePath = absolutePath;
-
-            // Crée une URL à partir du chemin absolu du fichier
-            String fileUrl = new File(absolutePath).toURI().toString();
-
-            // Crée une image à partir de l'URL du fichier
+            labelPubModif.setText(imagePath);
+            String fileUrl = selectedFile.toURI().toString();
             Image image = new Image(fileUrl);
-
-            // Affiche l'image dans l'ImageView
             imgView_pubModif.setImage(image);
 
-            // Mettre à jour le chemin d'accès à l'image dans la réclamation
+            // Update the image name in the publicite object
             if (publicite != null) {
                 publicite.setImage_pub(imagePath);
             }
@@ -205,33 +196,20 @@ public class ModifierPubliciteController implements Initializable {
             System.out.println(a);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 try {
-                    // Créer une instance de File à partir du chemin d'accès à l'image
-                    File file = new File(imageUrl);
-                    // Récupérer le nom du fichier
-                    String fileName = file.getName();
-                    // Mettre à jour le Label avec le nom du fichier
-                    labelPubModif.setText(fileName);
-
-                    // Convertir le chemin de fichier en URL
-                    String fileUrl = file.toURI().toURL().toString();
-                    // Créer une instance d'Image à partir de l'URL de fichier
-                    Image image = new Image(fileUrl);
-                    // Définir l'image dans l'ImageView
-                    imgView_pubModif.setImage(image);
-                } catch (MalformedURLException e) {
-                    // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                    // Create an instance of File using just the image name
+                    File file = new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imageUrl);
+                    // Check if the file exists
+                    if (file.exists()) {
+                        // Create an Image instance from the file path
+                        Image image = new Image(file.toURI().toString());
+                        // Set the image in the ImageView
+                        imgView_pubModif.setImage(image);
+                    } else {
+                        System.err.println("File not found: " + file.getPath());
+                    }
+                } catch (Exception e) {
+                    // Handle any exception
                     e.printStackTrace();
-                }
-            } else {
-                // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
-                // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
-                // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/ActualiteGui/assets/imageblanche.png");
-                if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
-                    Image defaultImage = new Image(defaultImageUrl.toString());
-                    imgView_pub.setImage(defaultImage);
-                } else {
-                    System.err.println("L'image par défaut n'a pas pu être chargée.");
                 }
             }
         }

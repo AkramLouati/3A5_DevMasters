@@ -62,20 +62,24 @@ public class PubliciteController {
         String imageUrl = publicite.getImage_pub();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
-                // Créer une instance de File à partir du chemin d'accès à l'image
-                File file = new File(imageUrl);
-                // Convertir le chemin de fichier en URL
-                String fileUrl = file.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
-                Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
-                ImagePublicite.setImage(image);
-            } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                // Create an instance of File using the file path
+                File file = new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imageUrl);
+                // Check if the file exists
+                if (file.exists()) {
+                    // Create an Image instance from the file path
+                    Image image = new Image(file.toURI().toString());
+                    // Set the image in the ImageView
+                    ImagePublicite.setImage(image);
+                } else {
+                    System.err.println("File not found: " + file.getPath());
+                }
+            } catch (Exception e) {
+                // Handle any exception
                 e.printStackTrace();
             }
         }
     }
+
 
 
     public void deletePubliciteAction(ActionEvent actionEvent) {

@@ -218,72 +218,7 @@ public class ModifierEquipementGui {
     }
 
     //}
-    public void setData(Equipement equipement) {
-        this.equipement = equipement;
-        // Assurez-vous que l'équipement n'est pas null
-        if (equipement != null) {
-            // Initialisez les champs de l'interface utilisateur avec les valeurs de l'équipement
-            referencemodifTF.setText(equipement.getReference_eq());
-            nommodifTF.setText(equipement.getNom_eq());
-            descriptionmodifTF.setText(equipement.getDescription_eq());
-            quantitemodifCB.setValue(equipement.getQuantite_eq());
-            // Assurez-vous de sélectionner la bonne catégorie (Fixe ou Mobile)
-            if (equipement.getCategorie_eq().equals("Fixe")) {
-                categoriefixemodif.setSelected(true);
-            } else {
-                categoriemobilemodif.setSelected(true);
-            }
-            // Récupérer la date d'ajout de l'équipement
-            java.util.Date dateAjout = equipement.getDate_ajouteq();
 
-// Vérifier si la date d'ajout n'est pas null
-            if (dateAjout != null) {
-                // Convertir la date en java.sql.Date
-                java.sql.Date sqlDateAjout = new java.sql.Date(dateAjout.getTime());
-                // Convertir la date SQL en LocalDate pour le DatePicker
-                LocalDate localDateAjout = sqlDateAjout.toLocalDate();
-                dateajoutmodif.setValue(localDateAjout);
-            } else {
-                // Si la date est null, définissez la date actuelle comme valeur par défaut
-                dateajoutmodif.setValue(LocalDate.now());
-            }
-
-            String imageUrl = equipement.getImage_eq();
-            // Chargez l'image associée à l'équipement dans l'ImageView
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                try {
-                    // Créer une instance de File à partir du chemin d'accès à l'image
-                    File file = new File(imageUrl);
-                    // Récupérer le nom du fichier
-                    String fileName = file.getName();
-                    // Mettre à jour le Label avec le nom du fichier
-                    imageequipementmodfi.setText(fileName);
-
-                    // Convertir le chemin de fichier en URL
-                    String fileUrl = file.toURI().toURL().toString();
-                    // Créer une instance d'Image à partir de l'URL de fichier
-                    Image image = new Image(fileUrl);
-                    // Définir l'image dans l'ImageView
-                    imagevieweqmodif.setImage(image);
-                } catch (MalformedURLException e) {
-                    // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
-                    e.printStackTrace();
-                }
-            } else {
-                // Si l'URL de l'image est vide, vous pouvez définir une image par défaut
-                // Par exemple, si vous avez une image "imageblanche.png" dans votre dossier src/main/resources
-                // Vous pouvez utiliser getClass().getResource() pour obtenir son URL
-                URL defaultImageUrl = getClass().getResource("/equipementGui/img/Baladia.png");
-                if (defaultImageUrl != null) { // Vérifier que defaultImageUrl n'est pas nul
-                    Image defaultImage = new Image(defaultImageUrl.toString());
-                    imagevieweqmodif.setImage(defaultImage);
-                } else {
-                    System.err.println("L'image par défaut n'a pas pu être chargée.");
-                }
-            }
-        }
-
-    }
 
 
 
@@ -316,41 +251,69 @@ public class ModifierEquipementGui {
         System.out.println(equipement);
     }
 
-    @FXML
-    void telechargerImageEquipemnt(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG Image", "*.png"),
-                new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png")
-        );
-        Stage stage = (Stage) telechargerimagemodif.getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            // Affiche le nom du fichier sélectionné
-            imageequipementmodfi.setText(selectedFile.getName());
+    public void setData(Equipement equipement) {
+        this.equipement = equipement;
+        if (equipement != null) {
+            referencemodifTF.setText(equipement.getReference_eq());
+            nommodifTF.setText(equipement.getNom_eq());
+            descriptionmodifTF.setText(equipement.getDescription_eq());
+            quantitemodifCB.setValue(equipement.getQuantite_eq());
+            if (equipement.getCategorie_eq().equals("Fixe")) {
+                categoriefixemodif.setSelected(true);
+            } else {
+                categoriemobilemodif.setSelected(true);
+            }
 
-            // Récupère le chemin absolu du fichier
-            String absolutePath = selectedFile.getAbsolutePath();
-            // Stocke le chemin absolu dans la variable de classe
-            imagePath = absolutePath;
+            java.util.Date dateAjout = equipement.getDate_ajouteq();
+            if (dateAjout != null) {
+                java.sql.Date sqlDateAjout = new java.sql.Date(dateAjout.getTime());
+                LocalDate localDateAjout = sqlDateAjout.toLocalDate();
+                dateajoutmodif.setValue(localDateAjout);
+            } else {
+                dateajoutmodif.setValue(LocalDate.now());
+            }
 
-            // Crée une URL à partir du chemin absolu du fichier
-            String fileUrl = new File(absolutePath).toURI().toString();
-
-            // Crée une image à partir de l'URL du fichier
-            Image image = new Image(fileUrl);
-
-            // Affiche l'image dans l'ImageView
-            imagevieweqmodif.setImage(image);
-
-            // Mettre à jour le chemin d'accès à l'image dans la réclamation
-            if (equipement != null) {
-                equipement.setImage_eq(imagePath);
+            String imageName = equipement.getImage_eq();
+            if (imageName != null && !imageName.isEmpty()) {
+                try {
+                    String imagePath = "C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\" + imageName;
+                    File file = new File(imagePath);
+                    if (file.exists()) {
+                        Image image = new Image(file.toURI().toURL().toString());
+                        imagevieweqmodif.setImage(image);
+                    } else {
+                        System.err.println("File not found: " + file.getPath());
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
+
+    @FXML
+    void telechargerImageEquipemnt(ActionEvent event) {
+        telechargerimagemodif.setOnAction(actionEvent -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"), new FileChooser.ExtensionFilter("PNG Image", "*.png"), new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png"));
+            Stage stage = (Stage) telechargerimagemodif.getScene().getWindow();
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+                // Store just the file name with its extension
+                imagePath = selectedFile.getName();
+
+                telechargerimagemodif.setText(imagePath);
+
+                // Load and display the image
+                Image image = new Image(selectedFile.toURI().toString());
+                imagevieweqmodif.setImage(image);
+            }
+        });
+    }
+
+
+
 
 
     public void setServiceEquipement(ServiceEquipement se) {

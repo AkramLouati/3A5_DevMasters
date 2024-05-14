@@ -213,9 +213,8 @@ public class AjouterPubliciteController implements Initializable {
 
     @FXML
     public void uploadimgP(ActionEvent actionEvent) {
-
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        fileChooser.setInitialDirectory(new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG Image", "*.png"),
@@ -224,24 +223,18 @@ public class AjouterPubliciteController implements Initializable {
         Stage stage = (Stage) uploadbuttonP.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            // Affiche le nom du fichier sélectionné
-            labelPub.setText(selectedFile.getName());
+            // Store just the file name with its extension
+            imagePath = selectedFile.getName();
 
-            // Récupère le chemin absolu du fichier
-            String absolutePath = selectedFile.getAbsolutePath();
-            // Stocke le chemin absolu dans la variable de classe
-            imagePath = absolutePath;
+            // Display the file name
+            labelPub.setText(imagePath);
 
-            // Crée une URL à partir du chemin absolu du fichier
-            String fileUrl = new File(absolutePath).toURI().toString();
-
-            // Crée une image à partir de l'URL du fichier
-            Image image = new Image(fileUrl);
-
-            // Affiche l'image dans l'ImageView
+            // Load and display the image
+            Image image = new Image(selectedFile.toURI().toString());
             imgView_pub.setImage(image);
         }
     }
+
 
 
     @FXML
@@ -326,9 +319,7 @@ public class AjouterPubliciteController implements Initializable {
 
     @FXML
     public void ajouterPubliciteAction(ActionEvent actionEvent) {
-
-
-        Actualite actualite = new Actualite(120, user);
+        Actualite actualite = new Actualite(146, user);
         String selectedOffer = offrePubCombo.getValue();
 
         // No payment processing check here
@@ -338,7 +329,7 @@ public class AjouterPubliciteController implements Initializable {
                 TFdescriptionpub.getText(),
                 Integer.parseInt(TFcontactpub.getText()),
                 TFlocalisationpub.getText(),
-                imagePath,
+                imagePath, // Use the file name with its extension
                 selectedOffer,
                 user,
                 actualite
@@ -357,6 +348,7 @@ public class AjouterPubliciteController implements Initializable {
             alert.show();
         }
     }
+
 
 
     double getAmountFromOffer(String offer) {

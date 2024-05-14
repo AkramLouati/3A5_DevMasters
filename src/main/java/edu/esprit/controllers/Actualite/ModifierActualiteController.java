@@ -81,6 +81,11 @@ public class ModifierActualiteController implements Initializable {
                 actualite.setDate_a(java.sql.Date.valueOf(java.time.LocalDate.now()));
 
                 try {
+                    // Check if imagePath is not null and update actualite's image path
+                    if (imagePath != null) {
+                        actualite.setImage_a(imagePath);
+                    }
+
                     serviceActualite.modifier(actualite);
 
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -114,12 +119,10 @@ public class ModifierActualiteController implements Initializable {
         }
     }
 
-
-
     @FXML
     void uploadimgAModifer(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        fileChooser.setInitialDirectory(new File("C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG Image", "*.png"),
@@ -128,18 +131,19 @@ public class ModifierActualiteController implements Initializable {
         Stage stage = (Stage) uploadbuttonAModifier.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            labelAModifier.setText(selectedFile.getName());
-            String absolutePath = selectedFile.getAbsolutePath();
-            imagePath = absolutePath;
-            String fileUrl = new File(absolutePath).toURI().toString();
-            Image image = new Image(fileUrl);
-            imgView_actualiteModifier.setImage(image);
+            // Store just the file name with its extension
+            imagePath = selectedFile.getName();
 
-            if (actualite != null) {
-                actualite.setImage_a(imagePath);
-            }
+            // Display the file name
+            labelAModifier.setText(imagePath);
+
+            // Load and display the image
+            Image image = new Image(selectedFile.toURI().toString());
+            imgView_actualiteModifier.setImage(image);
         }
     }
+
+
 
     public void setData(Actualite actualite) {
         this.actualite = actualite;
@@ -155,6 +159,7 @@ public class ModifierActualiteController implements Initializable {
                     Image image = new Image(fileUrl);
                     imgView_actualiteModifier.setImage(image);
                 } catch (MalformedURLException e) {
+                    System.err.println("Malformed URL: " + e.getMessage());
                     e.printStackTrace();
                 }
             } else {
@@ -164,6 +169,7 @@ public class ModifierActualiteController implements Initializable {
             }
         }
     }
+
 
     public void setServiceActualite(ServiceActualite serviceActualite) {
         this.serviceActualite = serviceActualite;

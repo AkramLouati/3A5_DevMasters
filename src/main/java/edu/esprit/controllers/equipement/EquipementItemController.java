@@ -149,18 +149,25 @@ public class EquipementItemController {
         String imageUrl = equipement.getImage_eq();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
-                // Créer une instance de File à partir du chemin d'accès à l'image
-                File file = new File(imageUrl);
-                // Convertir le chemin de fichier en URL
-                String fileUrl = file.toURI().toURL().toString();
-                // Créer une instance d'Image à partir de l'URL de fichier
-                Image image = new Image(fileUrl);
-                // Définir l'image dans l'ImageView
+                // Construct the complete file path
+                String basePath = "C:\\Users\\amine\\Desktop\\PiDev\\DevMasters-Baladity\\public\\uploads\\";
+                String fileUrl = basePath + imageUrl;
+                // Create an instance of File using the complete file path
+                File file = new File(fileUrl);
+                // Convert the file path to URL
+                String fileUrlString = file.toURI().toURL().toString();
+                // Create an instance of Image from the file URL
+                Image image = new Image(fileUrlString);
+                // Set the image in the ImageView
                 imageViewaffiche.setImage(image);
             } catch (MalformedURLException e) {
-                // Gérer l'exception si le chemin d'accès à l'image n'est pas valide
+                // Handle the exception if the image path is not valid
                 e.printStackTrace();
             }
         }
     }
+
+
+
+
 }

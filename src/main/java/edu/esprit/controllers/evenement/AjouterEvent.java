@@ -121,19 +121,6 @@ public class AjouterEvent {
         }
     }
 
-
-    @FXML
-    void navigateOnClickk(ActionEvent event) {
-        try {
-            // Fermer la fenêtre actuelle
-            Stage stage = (Stage) TFnom.getScene().getWindow();
-            stage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Gérer les exceptions liées à la fermeture de la fenêtre
-        }
-    }
-
     @FXML
     void browseOnClick(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -147,7 +134,12 @@ public class AjouterEvent {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             try {
-                imagePath = selectedFile.getAbsolutePath();
+                // Extract the filename with extension
+                String filenameWithExtension = selectedFile.getName();
+                // Set the image path in the database
+                imagePath = filenameWithExtension;
+
+                // Load and display the image
                 Image image = new Image(selectedFile.toURI().toString());
                 imageID.setImage(image);
             } catch (Exception e) {
@@ -156,6 +148,21 @@ public class AjouterEvent {
             }
         }
     }
+
+
+    @FXML
+    void navigateOnClickk(ActionEvent event) {
+        try {
+            // Fermer la fenêtre actuelle
+            Stage stage = (Stage) TFnom.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gérer les exceptions liées à la fermeture de la fenêtre
+        }
+    }
+
+
 
     private void updateTextFieldStyles() {
         setFieldStyle(TFnom, isFieldEmpty(TFnom) || !isString(TFnom.getText()));

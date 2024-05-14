@@ -169,47 +169,7 @@ public class AjouterEquipementGui implements Initializable{
     private boolean isQuantiteSelected() {
         return quantiteCB.getValue() != null;
     }
-    @FXML
-    void ajouterEquipementAction(ActionEvent event) {
-     // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
-        Date dateAjout = Date.valueOf(dateajout.getValue()); // Convertissez la valeur du DatePicker en objet Date
-        int quantite = Integer.parseInt(quantiteCB.getValue().toString()); // Assurez-vous que la ComboBox est correctement initialisée avec des valeurs
-        String reference = referenceTF.getText();
-        String referenceUpper = reference.toUpperCase(); // Convertir la référence en majuscules
-        if (!reference.equals(referenceUpper) || reference.isEmpty()) {
-            referenceErrorLabel.setText("La référence doit être en majuscules.");
-            referenceErrorLabel.setVisible(true);
-            referenceTF.requestFocus();
-            return; // Arrêter la méthode si la référence n'est pas en majuscules
-        } else {
-            referenceErrorLabel.setVisible(false);
-        }
-        if (!se.isReferenceUnique(reference)) {
-            referenceErrorLabel.setText("La référence doit être unique.");
-            referenceErrorLabel.setVisible(true);
-            referenceTF.requestFocus();
-            return; // Arrêter la méthode si la référence n'est pas unique
-        } else {
-            referenceErrorLabel.setVisible(false);
-        }
-        String nom=nomTF.getText();
-        if (nom.isEmpty() || !nom.matches("[a-zA-Z]+")) {
-            nomErrorLabel.setText("Le nom ne doit pas être vide et doit contenir uniquement des lettres.");
-            nomErrorLabel.setVisible(true);
-            nomTF.requestFocus();
-            return; // Arrêter la méthode si le nom est vide ou ne contient pas que des lettres
-        } else {
-            nomErrorLabel.setVisible(false);
-        }
-        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, user.getMuni());
 
-        se.ajouter(equipement); // Ajoutez l'équipement en utilisant votre service
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Equipement ajouté");
-        alert.setContentText("L'équipement a été ajouté avec succès !");
-        alert.show();
-    }
 
     @FXML
     void navigatetoAfficherEquipementAction(ActionEvent event) {
@@ -238,6 +198,45 @@ public class AjouterEquipementGui implements Initializable{
         }
         quantiteCB.setItems(list);
     }
+    @FXML
+    void ajouterEquipementAction(ActionEvent event) {
+        Date dateAjout = Date.valueOf(dateajout.getValue());
+        int quantite = Integer.parseInt(quantiteCB.getValue().toString());
+        String reference = referenceTF.getText();
+        String referenceUpper = reference.toUpperCase();
+        if (!reference.equals(referenceUpper) || reference.isEmpty()) {
+            referenceErrorLabel.setText("La référence doit être en majuscules.");
+            referenceErrorLabel.setVisible(true);
+            referenceTF.requestFocus();
+            return;
+        } else {
+            referenceErrorLabel.setVisible(false);
+        }
+        if (!se.isReferenceUnique(reference)) {
+            referenceErrorLabel.setText("La référence doit être unique.");
+            referenceErrorLabel.setVisible(true);
+            referenceTF.requestFocus();
+            return;
+        } else {
+            referenceErrorLabel.setVisible(false);
+        }
+        String nom=nomTF.getText();
+        if (nom.isEmpty() || !nom.matches("[a-zA-Z]+")) {
+            nomErrorLabel.setText("Le nom ne doit pas être vide et doit contenir uniquement des lettres.");
+            nomErrorLabel.setVisible(true);
+            nomTF.requestFocus();
+            return;
+        } else {
+            nomErrorLabel.setVisible(false);
+        }
+        Equipement equipement = new Equipement(reference, nom, categoriefixe.isSelected() ? "Fixe" : "Mobile", dateAjout, quantite, imagePath, descriptionTF.getText(), user, user.getMuni());
+        se.ajouter(equipement);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Equipement ajouté");
+        alert.setContentText("L'équipement a été ajouté avec succès !");
+        alert.show();
+    }
 
     @FXML
     void telechargerImageEquipemnt(ActionEvent event) {
@@ -248,25 +247,18 @@ public class AjouterEquipementGui implements Initializable{
             Stage stage = (Stage) telechargerimage.getScene().getWindow();
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
-                // Affiche le nom du fichier sélectionné
-                imageequipement.setText(selectedFile.getName());
+                // Store just the file name with its extension
+                imagePath = selectedFile.getName();
 
-                // Récupère le chemin absolu du fichier
-                String absolutePath = selectedFile.getAbsolutePath();
-                // Stocke le chemin absolu dans la variable de classe
-                imagePath = absolutePath;
+                imageequipement.setText(imagePath);
 
-                // Crée une URL à partir du chemin absolu du fichier
-                String fileUrl = new File(absolutePath).toURI().toString();
-
-                // Crée une image à partir de l'URL du fichier
-                Image image = new Image(fileUrl);
-
-                // Affiche l'image dans l'ImageView
+                // Load and display the image
+                Image image = new Image(selectedFile.toURI().toString());
                 imagevieweq.setImage(image);
             }
         });
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

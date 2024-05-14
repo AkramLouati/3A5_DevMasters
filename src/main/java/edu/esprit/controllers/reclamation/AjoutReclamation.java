@@ -120,15 +120,36 @@ public class AjoutReclamation implements Initializable {
     }
 
     @FXML
+    void uploadimg(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG Image", "*.png"),
+                new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png")
+        );
+        Stage stage = (Stage) uploadbutton.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            // Store just the file name with its extension
+            imagePath = selectedFile.getName();
+
+            // Display the file name
+            label.setText(imagePath);
+
+            // Load and display the image
+            Image image = new Image(selectedFile.toURI().toString());
+            imgView_reclamation.setImage(image);
+        }
+    }
+
+    @FXML
     void ajouterReclamationAction(ActionEvent event) {
-        // Valider tous les champs et mettre à jour les messages dans les labels
         boolean sujetValid = validateTextField(TFsujet_reclamation, checksujetreclamation);
         boolean descriptionValid = validateTextArea(TAdescription_reclamation, checkdescriptionreclamation);
         boolean typeValid = validateComboBox(typeReclamationComboBox, checktypereclamation);
 
-        // Vérifier si tous les champs sont valides
         if (sujetValid && descriptionValid && typeValid) {
-            // Vérifier les mots inappropriés
             boolean hasBadWords = checkForBadWords(TFsujet_reclamation.getText(), TAdescription_reclamation.getText());
             if (hasBadWords) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -137,19 +158,16 @@ public class AjoutReclamation implements Initializable {
                 alert.setContentText("Votre réclamation contient des mots inappropriés. Veuillez modifier le contenu et réessayer.");
                 alert.showAndWait();
             } else {
-                // Vérifier si une réclamation avec le même sujet et la même description existe déjà
                 if (sr.reclamationExists(TFsujet_reclamation.getText(), TAdescription_reclamation.getText())) {
-                    // Afficher un message d'avertissement
                     sujetexist.setVisible(true);
                     descriptionexist.setVisible(true);
-                    return; // Sortir de la méthode pour empêcher tout traitement supplémentaire
+                    return;
                 } else {
-                    // Masquer le message d'avertissement s'il a été précédemment affiché
                     sujetexist.setVisible(false);
                     descriptionexist.setVisible(false);
 
-                    // Pas de réclamation avec le même sujet et la même description, ajouter la réclamation
-                    // Utilisez imagePath pour enregistrer le chemin absolu de l'image dans la base de données
+                    // Ajouter la réclamation avec le nom de l'image
+                    // Assurez-vous de définir l'imagePath pour enregistrer le chemin absolu de l'image dans la base de données
                     sr.ajouter(new Reclamation(user, user.getMuni(), TFsujet_reclamation.getText(), sqlDate, typeReclamationComboBox.getValue(), TAdescription_reclamation.getText(), imagePath, TFadresse_reclamation.getText()));
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Reclamation a été ajoutée");
@@ -159,7 +177,6 @@ public class AjoutReclamation implements Initializable {
                         Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
                         MainAnchorPaneBaladity.getScene().setRoot(root);
                     } catch (IOException e) {
-                        // Gérer l'exception si la redirection échoue
                         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                         errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
                         errorAlert.setTitle("Erreur de redirection");
@@ -170,34 +187,6 @@ public class AjoutReclamation implements Initializable {
         }
     }
 
-    @FXML
-    void uploadimg(ActionEvent event) {
-        uploadbutton.setOnAction(actionEvent -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPEG Image", "*.jpg"), new FileChooser.ExtensionFilter("PNG Image", "*.png"), new FileChooser.ExtensionFilter("All image files", "*.jpg", "*.png"));
-            Stage stage = (Stage) uploadbutton.getScene().getWindow();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
-                // Affiche le nom du fichier sélectionné
-                label.setText(selectedFile.getName());
-
-                // Récupère le chemin absolu du fichier
-                String absolutePath = selectedFile.getAbsolutePath();
-                // Stocke le chemin absolu dans la variable de classe
-                imagePath = absolutePath;
-
-                // Crée une URL à partir du chemin absolu du fichier
-                String fileUrl = new File(absolutePath).toURI().toString();
-
-                // Crée une image à partir de l'URL du fichier
-                Image image = new Image(fileUrl);
-
-                // Affiche l'image dans l'ImageView
-                imgView_reclamation.setImage(image);
-            }
-        });
-    }
     @FXML
     void cancelReclamationAction(ActionEvent event) {
         try {
