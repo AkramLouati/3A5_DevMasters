@@ -17,4 +17,7 @@ Here are some screenshots of our application:
  <img src="src/main/resources/assets//img3.jpg">
  <img src="src/main/resources/assets//img4.jpg">
  <img src="src/main/resources/assets//img5.jpg">
+ <img src="src/main/resources/assets//img6.jpg">
+ <img src="src/main/resources/assets//img7.jpg">
+ <img src="src/main/resources/assets//img8.jpg">
 </p>
