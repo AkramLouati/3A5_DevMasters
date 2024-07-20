@@ -26,5 +26,4 @@ means of interaction and task management.
 <p align="center">
  <img src="src/main/resources/assets//imgx.png">
  <img src="src/main/resources/assets//img6.jpg">
- <img src="src/main/resources/assets//img7.jpg">
 </p>
