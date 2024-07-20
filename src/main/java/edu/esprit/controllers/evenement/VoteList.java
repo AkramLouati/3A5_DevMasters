@@ -25,10 +25,18 @@ import java.util.Set;
 
 public class VoteList implements Initializable {
 
+    public BorderPane firstborderpane;
     @FXML
     private VBox VoteLayout;
     @FXML
     private Label countLabel;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -99,15 +107,6 @@ public class VoteList implements Initializable {
         }
     }
 
-    public BorderPane firstborderpane;
-    @FXML
-    private AnchorPane MainAnchorPaneBaladity;
-    @FXML
-    private BorderPane SecondBorderPane;
-    @FXML
-    private VBox MainLeftSidebar;
-    private boolean isSidebarVisible = true;
-
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -170,6 +169,7 @@ public class VoteList implements Initializable {
 
         }
     }
+
     private void countPropositions() {
         List<Vote> votes = getVotes();
         int propositionsCount = votes.size();

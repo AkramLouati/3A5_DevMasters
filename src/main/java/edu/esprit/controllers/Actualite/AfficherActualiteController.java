@@ -1,7 +1,5 @@
 package edu.esprit.controllers.Actualite;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Municipality;
 import edu.esprit.entities.Actualite;
 import edu.esprit.services.ServiceActualite;
 import javafx.animation.TranslateTransition;
@@ -24,9 +22,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AfficherActualiteController implements Initializable {
+    private final boolean ascendingOrder = true;
+    private final ServiceActualite sr = new ServiceActualite();
+    Set<Actualite> actualiteSet = sr.getAll();
+    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-    private boolean ascendingOrder = true;
     @FXML
     private BorderPane SecondBorderPane;
     @FXML
@@ -34,20 +35,12 @@ public class AfficherActualiteController implements Initializable {
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-
     @FXML
     private GridPane gridA;
-
     @FXML
     private ImageView imgView_actualite;
-
     @FXML
     private ScrollPane scrollA;
-
-
-    private ServiceActualite sr = new ServiceActualite();
-    Set<Actualite> actualiteSet = sr.getAll();
-    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,7 +51,8 @@ public class AfficherActualiteController implements Initializable {
         affichergrid(actualiteList);
 
     }
-    void affichergrid(List<Actualite> actualiteList){
+
+    void affichergrid(List<Actualite> actualiteList) {
         int column = 0;
         int row = 1;
         try {
@@ -172,14 +166,14 @@ public class AfficherActualiteController implements Initializable {
         }
     }
 
-    public void RechercherActualite(String searchText, List<Actualite> actualiteList ) {
-            List<Actualite> filteredList = actualiteList.stream()
-                    .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchText))
-                    .collect(Collectors.toList());
-            gridA.getChildren().clear();
+    public void RechercherActualite(String searchText, List<Actualite> actualiteList) {
+        List<Actualite> filteredList = actualiteList.stream()
+                .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
+        gridA.getChildren().clear();
 
-            affichergrid(filteredList);
-        }
+        affichergrid(filteredList);
+    }
 
     @FXML
     public void sortActualite(ActionEvent actionEvent) {

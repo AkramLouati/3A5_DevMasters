@@ -3,6 +3,7 @@ package edu.esprit.controllers.reclamation;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Reclamation;
+import edu.esprit.services.HateSpeechChecker;
 import edu.esprit.services.ServiceReclamation;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
@@ -29,81 +30,64 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
-
-import edu.esprit.services.HateSpeechChecker;
 
 public class AjoutReclamation implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceReclamation sr = new ServiceReclamation();
+    private final HateSpeechChecker hateSpeechChecker;
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     @FXML
     private TextArea TAdescription_reclamation;
-
     @FXML
     private ComboBox<String> typeReclamationComboBox;
-
     @FXML
     private String value1;
-
     @FXML
     private TextField TFsujet_reclamation;
-
     @FXML
     private TextField TFadresse_reclamation;
-
     @FXML
     private ImageView imgView_reclamation;
-
     @FXML
     private Button uploadbutton;
     @FXML
     private Label label;
     @FXML
     private Label checkadressereclamation;
-
     @FXML
     private Label checkdescriptionreclamation;
-
     @FXML
     private Label checksujetreclamation;
-
     @FXML
     private Label checktypereclamation;
     @FXML
     private Label sujetexist;
-
     @FXML
     private Label descriptionexist;
-
-    private final ServiceReclamation sr = new ServiceReclamation();
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     private String imagePath;
     private boolean type_reclamation;
-
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private BorderPane SecondBorderPane;
     private boolean isSidebarVisible = true;
 
-    public boolean getType_reclamation() {
-        return type_reclamation;
-    }
-    private HateSpeechChecker hateSpeechChecker;
-
     public AjoutReclamation() {
         hateSpeechChecker = new HateSpeechChecker(); // Assurez-vous que vous initialisez correctement l'objet ici
+    }
+
+    public boolean getType_reclamation() {
+        return type_reclamation;
     }
 
     public void setTypesReclamation(boolean isUrgent) {
@@ -161,7 +145,6 @@ public class AjoutReclamation implements Initializable {
                 if (sr.reclamationExists(TFsujet_reclamation.getText(), TAdescription_reclamation.getText())) {
                     sujetexist.setVisible(true);
                     descriptionexist.setVisible(true);
-                    return;
                 } else {
                     sujetexist.setVisible(false);
                     descriptionexist.setVisible(false);
@@ -297,6 +280,7 @@ public class AjoutReclamation implements Initializable {
 
         sideBarTransition.play();
     }
+
     private boolean validateComboBox(ComboBox<String> comboBox, Label label) {
         // Vérifie si aucune option n'est sélectionnée dans le ComboBox
         if (comboBox.getValue() == null || comboBox.getValue().isEmpty()) {
@@ -305,10 +289,10 @@ public class AjoutReclamation implements Initializable {
             return false;
         }
 
-            label.setText("Valide");
-            label.getStyleClass().removeAll("warning-text");
-            label.getStyleClass().add("success-text");
-            return true;
+        label.setText("Valide");
+        label.getStyleClass().removeAll("warning-text");
+        label.getStyleClass().add("success-text");
+        return true;
 
     }
 
@@ -361,12 +345,9 @@ public class AjoutReclamation implements Initializable {
         }
 
         // Vérifier la description de la réclamation
-        if (hateSpeechChecker.containsBadWord(description)) {
-            return true;
-        }
-
-        return false;
+        return hateSpeechChecker.containsBadWord(description);
     }
+
     public boolean bad_words(String text) {
         List<String> badListW = Arrays.asList("fuck", "din", "khra", "bhim", "hayawen", "kaleb", "putain");
         for (String str : badListW) {
@@ -376,6 +357,7 @@ public class AjoutReclamation implements Initializable {
         }
         return false;
     }
+
     private void openNewScene(String latitude, String longitude, AjoutReclamation controller) {
         try {
             if (latitude != null && longitude != null) {
@@ -401,6 +383,7 @@ public class AjoutReclamation implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     void onMapsClicked(ActionEvent event) {
         String latitude = "36.8065"; // Latitude de San Francisco
@@ -408,9 +391,11 @@ public class AjoutReclamation implements Initializable {
         // Ouvrir une nouvelle scène pour Google Maps avec les coordonnées fournies
         openNewScene(latitude, longitude, this);
     }
+
     public void setAddressFields(String latitude, String longitude) {
         TFadresse_reclamation.setText("Latitude: " + latitude + ", Longitude: " + longitude);
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

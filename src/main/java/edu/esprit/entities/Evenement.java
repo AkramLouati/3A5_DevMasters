@@ -2,7 +2,7 @@ package edu.esprit.entities;
 
 import java.util.Objects;
 
-public class Evenement{
+public class Evenement {
     private int id_E;
     private String nom_E;
     private EndUser user;
@@ -13,14 +13,14 @@ public class Evenement{
     private String imageEvent;
 
 
-    public Evenement(){
+    public Evenement() {
 
     }
 
     public Evenement(int id_E, String nom_E, EndUser user, String date_DHE, String date_DHF, int capacite_E, String categorie_E, String imageEvent) {
         this.id_E = id_E;
         this.nom_E = nom_E;
-        this.user =user;
+        this.user = user;
         this.date_DHE = date_DHE;
         this.date_DHF = date_DHF;
         this.capacite_E = capacite_E;
@@ -28,9 +28,9 @@ public class Evenement{
         this.imageEvent = imageEvent;
     }
 
-    public Evenement(EndUser user, String nom_E, String date_DHE, String date_DHF, int capacite_E, String categorie_E , String imageEvent) {
-        this.user=user;
-        this.nom_E=nom_E;
+    public Evenement(EndUser user, String nom_E, String date_DHE, String date_DHF, int capacite_E, String categorie_E, String imageEvent) {
+        this.user = user;
+        this.nom_E = nom_E;
         this.date_DHE = date_DHE;
         this.date_DHF = date_DHF;
         this.capacite_E = capacite_E;

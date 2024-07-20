@@ -1,6 +1,5 @@
 package edu.esprit.tests;
 
-import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServicePublicite;
 

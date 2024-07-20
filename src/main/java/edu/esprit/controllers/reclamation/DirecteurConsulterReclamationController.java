@@ -11,7 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,10 +23,7 @@ import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DirecteurConsulterReclamationController implements Initializable {
@@ -69,6 +65,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -172,6 +169,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
             }
         }
     }
+
     @FXML
     void modifytraitereclamation(ActionEvent event) {
         if (reclamation != null && serviceReclamation != null) {
@@ -209,6 +207,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
         this.serviceReclamation = serviceReclamation;
     }
+
     @FXML
     void buttonReturnConsulterReclamation(ActionEvent event) {
         try {
@@ -222,6 +221,7 @@ public class DirecteurConsulterReclamationController implements Initializable {
         }
 
     }
+
     @FXML
     void encoursReclamationModifier(ActionEvent event) {
         if (reclamation != null && serviceReclamation != null) {
@@ -254,7 +254,6 @@ public class DirecteurConsulterReclamationController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Erreur de modification", "Impossible de modifier la réclamation car aucune réclamation n'est sélectionnée ou le service de réclamation est null.");
         }
     }
-
 
 
 }

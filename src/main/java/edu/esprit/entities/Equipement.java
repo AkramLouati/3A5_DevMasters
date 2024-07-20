@@ -15,6 +15,48 @@ public class Equipement {
     private EndUser user;
     private Municipality muni;
 
+    public Equipement() {
+    }
+
+    public Equipement(int id_equipement) {
+        this.id_equipement = id_equipement;
+    }
+
+    public Equipement(int id_equipement, String reference_eq, String nom_eq, String categorie_eq, Date date_ajouteq, int quantite_eq, String image_eq, String description_eq, EndUser user, Municipality muni) {
+        this.id_equipement = id_equipement;
+        this.reference_eq = reference_eq;
+        this.nom_eq = nom_eq;
+        this.categorie_eq = categorie_eq;
+        this.date_ajouteq = date_ajouteq;
+        this.quantite_eq = quantite_eq;
+        this.image_eq = image_eq;
+        this.description_eq = description_eq;
+        this.user = user;
+        this.muni = muni;
+    }
+
+    public Equipement(String reference_eq, String nom_eq, String categorie_eq, Date date_ajouteq, int quantite_eq, String image_eq, String description_eq, EndUser user, Municipality muni) {
+        this.reference_eq = reference_eq;
+        this.nom_eq = nom_eq;
+        this.categorie_eq = categorie_eq;
+        this.date_ajouteq = date_ajouteq;
+        this.quantite_eq = quantite_eq;
+        this.image_eq = image_eq;
+        this.description_eq = description_eq;
+        this.user = user;
+        this.muni = muni;
+    }
+
+    public Equipement(String reference_eq, String nom_eq, String categorie_eq, Date date_ajouteq, int quantite_eq, String image_eq, String description_eq) {
+        this.reference_eq = reference_eq;
+        this.nom_eq = nom_eq;
+        this.categorie_eq = categorie_eq;
+        this.date_ajouteq = date_ajouteq;
+        this.quantite_eq = quantite_eq;
+        this.image_eq = image_eq;
+        this.description_eq = description_eq;
+    }
+
     public int getId_equipement() {
         return id_equipement;
     }
@@ -93,44 +135,6 @@ public class Equipement {
 
     public void setMuni(Municipality muni) {
         this.muni = muni;
-    }
-    public Equipement() {
-    }
-    public Equipement(int id_equipement) {
-        this.id_equipement = id_equipement;
-    }
-    public Equipement(int id_equipement,String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq,EndUser user,Municipality muni) {
-        this.id_equipement = id_equipement;
-        this.reference_eq = reference_eq;
-        this.nom_eq = nom_eq;
-        this.categorie_eq = categorie_eq;
-        this.date_ajouteq = date_ajouteq;
-        this.quantite_eq = quantite_eq;
-        this.image_eq = image_eq;
-        this.description_eq = description_eq;
-        this.user = user;
-        this.muni= muni;
-    }
-
-    public Equipement(String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq,EndUser user,Municipality muni) {
-        this.reference_eq = reference_eq;
-        this.nom_eq = nom_eq;
-        this.categorie_eq = categorie_eq;
-        this.date_ajouteq = date_ajouteq;
-        this.quantite_eq = quantite_eq;
-        this.image_eq = image_eq;
-        this.description_eq = description_eq;
-        this.user = user;
-        this.muni= muni;
-    }
-    public Equipement(String reference_eq,String nom_eq,String categorie_eq,Date date_ajouteq,int quantite_eq,String image_eq,String description_eq) {
-        this.reference_eq = reference_eq;
-        this.nom_eq = nom_eq;
-        this.categorie_eq = categorie_eq;
-        this.date_ajouteq = date_ajouteq;
-        this.quantite_eq = quantite_eq;
-        this.image_eq = image_eq;
-        this.description_eq = description_eq;
     }
 
     @Override

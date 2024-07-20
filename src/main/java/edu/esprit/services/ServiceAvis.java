@@ -1,14 +1,19 @@
 package edu.esprit.services;
-import edu.esprit.entities.Equipement;
+
 import edu.esprit.entities.Avis;
+import edu.esprit.entities.EndUser;
+import edu.esprit.entities.Equipement;
 import edu.esprit.entities.Municipality;
 import edu.esprit.utils.DataSource;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import edu.esprit.entities.EndUser;
+
 public class ServiceAvis implements IService<Avis> {
 
 
@@ -132,13 +137,14 @@ public class ServiceAvis implements IService<Avis> {
                 Equipement equipement = serviceEquipement.getOneByID(id_equipement);
 
                 // Création d'un nouvel objet Avis
-                avis = new Avis(id_avis, user, equipement, muni,note_avis, commentaire_avis, date_avis);
+                avis = new Avis(id_avis, user, equipement, muni, note_avis, commentaire_avis, date_avis);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'avis : " + e.getMessage());
         }
         return avis;
     }
+
     public Set<Avis> getAvisByEquipement(Equipement equipement) {
         if (equipement == null) {
             System.out.println("L'objet Equipement passé en argument est null.");
@@ -162,7 +168,7 @@ public class ServiceAvis implements IService<Avis> {
                 Municipality muni = serviceMuni.getOneByID(id_muni);
                 EndUser user = serviceEndUser.getOneByID(id_user);
 
-                Avis avis = new Avis(id_avis, user, equipement, muni,note_avis, commentaire_avis, date_avis);
+                Avis avis = new Avis(id_avis, user, equipement, muni, note_avis, commentaire_avis, date_avis);
                 equipementAvis.add(avis);
             }
         } catch (SQLException e) {

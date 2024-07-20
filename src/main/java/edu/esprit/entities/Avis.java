@@ -1,4 +1,5 @@
 package edu.esprit.entities;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class Avis {
         this.date_avis = date_avis;
     }
 
-    public Avis(Equipement equipement,EndUser user,Municipality muni, int note_avis, String commentaire_avis, Date date_avis) {
+    public Avis(Equipement equipement, EndUser user, Municipality muni, int note_avis, String commentaire_avis, Date date_avis) {
         this.user = user;
         this.muni = muni;
         this.equipement = equipement;

@@ -14,8 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -33,41 +35,32 @@ public class AjouterAfficherMessageController implements Initializable {
 
     ServiceUser serviceUser = new ServiceUser();
 
-    int userId  = Integer.parseInt(getCurrentUser());
+    int userId = Integer.parseInt(getCurrentUser());
 
     EndUser user = serviceUser.getOneByID(userId);
-
-
+    ServiceReclamation serviceReclamation = new ServiceReclamation();
+    ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private Label Nameuser;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private TextField TFmessage;
-
     @FXML
     private ScrollPane chatVbox;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private GridPane grid;
     @FXML
     private ImageView userphoto;
-    ServiceReclamation serviceReclamation = new ServiceReclamation();
-    ServiceMessagerie serviceMessagerie= new ServiceMessagerie();
-
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     private boolean isSidebarVisible = true;
+    private Reclamation reclamation;
 
     public void setData(Reclamation reclamation) {
         this.reclamation = reclamation;
@@ -100,7 +93,7 @@ public class AjouterAfficherMessageController implements Initializable {
             }
         }
         ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
-        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(reclamation.getUser().getId(),user.getId());
+        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(reclamation.getUser().getId(), user.getId());
         List<Messagerie> messagerieList = new ArrayList<>(messages);
         int column = 0;
         int row = 1;
@@ -136,8 +129,6 @@ public class AjouterAfficherMessageController implements Initializable {
         }
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
@@ -145,6 +136,7 @@ public class AjouterAfficherMessageController implements Initializable {
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
 
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -175,7 +167,6 @@ public class AjouterAfficherMessageController implements Initializable {
 
         sideBarTransition.play();
     }
-
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
@@ -210,11 +201,6 @@ public class AjouterAfficherMessageController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
-    private Reclamation reclamation;
-
-
-
-
     @FXML
     void sendMessage(ActionEvent event) {
         String messageContent = TFmessage.getText();
@@ -246,6 +232,7 @@ public class AjouterAfficherMessageController implements Initializable {
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
         this.serviceReclamation = serviceReclamation;
     }
+
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
@@ -258,6 +245,7 @@ public class AjouterAfficherMessageController implements Initializable {
             alert.show();
         }
     }
+
     private boolean isTextFieldEmpty(TextField textField) {
         return textField.getText().trim().isEmpty();
     }
@@ -271,6 +259,7 @@ public class AjouterAfficherMessageController implements Initializable {
         }
         return false;
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

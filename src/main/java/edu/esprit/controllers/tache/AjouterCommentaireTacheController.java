@@ -17,18 +17,18 @@ import java.util.prefs.Preferences;
 
 public class AjouterCommentaireTacheController {
 
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private TextArea commentField;
+    private ServiceCommentaireTache serviceCommentaireTache;
+    private Tache tache;
+
     public void setTache(Tache tache) {
         this.tache = tache;
     }
-    private ServiceCommentaireTache serviceCommentaireTache;
-    private Tache tache;
-    private static final String USER_PREF_KEY = "current_user";
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId = Integer.parseInt(getCurrentUser());
-    EndUser user = serviceUser.getOneByID(userId);
 
     public void setServiceCommentaireTache(ServiceCommentaireTache serviceCommentaireTache) {
         this.serviceCommentaireTache = serviceCommentaireTache;
@@ -66,6 +66,7 @@ public class AjouterCommentaireTacheController {
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

@@ -3,30 +3,19 @@ package edu.esprit.controllers.reclamation;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static edu.esprit.api.SendMail.sendEmail;
@@ -53,7 +42,7 @@ public class ReclamationMailController implements Initializable {
     private TextArea descriptionMail;
     @FXML
     private Label mailReceiver;
-    private String objet,description;
+    private String objet, description;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,6 +50,7 @@ public class ReclamationMailController implements Initializable {
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -142,7 +132,7 @@ public class ReclamationMailController implements Initializable {
     @FXML
     void EnvoiMailReclamationAction(ActionEvent event) {
         objet = ObjetMail.getText();
-        description= descriptionMail.getText();
+        description = descriptionMail.getText();
         String sourceEmail = "zayaneyassine6@gmail.com";
         String sourcePwd = "eqzgdarhrzaysutq";
         String desEmail = mailReceiver.getText();

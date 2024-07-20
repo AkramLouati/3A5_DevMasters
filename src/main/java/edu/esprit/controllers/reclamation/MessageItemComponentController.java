@@ -1,8 +1,7 @@
 package edu.esprit.controllers.reclamation;
+
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
-import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,20 +25,15 @@ import java.util.Optional;
 public class MessageItemComponentController {
 
 
+    ServiceMessagerie sm = new ServiceMessagerie();
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     @FXML
     private Label contenuReciver;
-
     @FXML
     private ImageView userphotomsg;
-
     private Messagerie messagerie;
 
-    ServiceMessagerie sm =  new ServiceMessagerie();
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-
-
-
-    public void setData(Messagerie messagerie){
+    public void setData(Messagerie messagerie) {
         this.messagerie = messagerie;
         contenuReciver.setText(messagerie.getContenu_message());
         contenuReciver.setWrapText(true);
@@ -72,6 +66,7 @@ public class MessageItemComponentController {
             }
         }
     }
+
     @FXML
     void deleteMessageAction(ActionEvent event) {
         if (messagerie != null) {
@@ -121,6 +116,7 @@ public class MessageItemComponentController {
     void editMessageAction(ActionEvent event) {
         openEditMessagePopup(messagerie);
     }
+
     private void openEditMessagePopup(Messagerie message) {
         // Create a new stage for the pop-up window
         Stage editStage = new Stage();
@@ -144,8 +140,7 @@ public class MessageItemComponentController {
             message.setContenu_message(editTextArea.getText());
             message.setDate_message(sqlDate);
             // message.setDate(new Timestamp(System.currentTimeMillis())); // Vous pouvez utiliser ceci pour définir la date actuelle
-           sm.modifier(message);
-
+            sm.modifier(message);
 
 
             // Close the pop-up window
@@ -177,9 +172,6 @@ public class MessageItemComponentController {
         // Show the pop-up window
         editStage.show();
     }
-
-
-
 
 
 }

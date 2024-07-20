@@ -25,22 +25,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.prefs.Preferences;
-import java.util.stream.Collectors;
 
 public class AdminReclamationController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceReclamation sr = new ServiceReclamation();
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
+    Set<Reclamation> reclamationSet = sr.getAll();
+    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
@@ -50,9 +47,7 @@ public class AdminReclamationController implements Initializable {
     private ScrollPane scroll;
     @FXML
     private TextField Recherche;
-    private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getAll();
-    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int column = 0;
@@ -153,6 +148,7 @@ public class AdminReclamationController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     @FXML
     public void buttonReturnAfficherReclamationBacK(ActionEvent actionEvent) {
         try {
@@ -165,6 +161,7 @@ public class AdminReclamationController implements Initializable {
             alert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

@@ -22,44 +22,34 @@ import java.util.ResourceBundle;
 
 public class ModifierUser implements Initializable {
 
+    private final ServiceUser serviceUser = new ServiceUser();
+    @FXML
+    Button banUserButton;
+    File selectedFile;
+    String role;
+    boolean isBanned;
     @FXML
     private ImageView ImageM;
 
-    @FXML
-    private ImageView banStatus;
-
-    @FXML Button banUserButton;
-
-    @FXML
-    private TextField tfAdresse;
-
-    @FXML
-    private TextField tfEmail;
-
-    @FXML
-    private TextField tfNom;
-
 //    @FXML
 //    private PasswordField pfMdp;
-
+    @FXML
+    private ImageView banStatus;
+    @FXML
+    private TextField tfAdresse;
+    @FXML
+    private TextField tfEmail;
+    @FXML
+    private TextField tfNom;
     @FXML
     private TextField tfTel;
-
     @FXML
     private ComboBox<String> roleSelectionComboBox;
-
-    File selectedFile;
-
-    String role;
-
-    boolean isBanned;
-
-    private ServiceUser serviceUser = new ServiceUser();
     private EndUser endUser;
 
     public void setData(EndUser endUser) {
         this.isBanned = endUser.isBanned();
-        if(isBanned) banStatus.setImage(new Image("/assets/check.png"));
+        if (isBanned) banStatus.setImage(new Image("/assets/check.png"));
         else banStatus.setImage(new Image("/assets/cross-sign.png"));
         this.endUser = endUser;
         // Afficher les données de l'événement dans les champs de texte
@@ -108,7 +98,7 @@ public class ModifierUser implements Initializable {
             if (nom.isEmpty() || email.isEmpty() || phone.isEmpty() || localisation.isEmpty() || roleSelectionComboBox.getValue() == null) {
                 showAlert("Veuillez remplir tous les champs!");
             } else {
-                if(selectedFile == null){
+                if (selectedFile == null) {
                     endUser.setImage(endUser.getImage());
                 } else {
                     endUser.setImage(selectedFile.getAbsolutePath());
@@ -136,11 +126,11 @@ public class ModifierUser implements Initializable {
 //        }
 
 
-        if(isBanned){
-            serviceUser.modifierUserToBanned(endUser.getId(),false);
+        if (isBanned) {
+            serviceUser.modifierUserToBanned(endUser.getId(), false);
             banStatus.setImage(new Image("/assets/cross-sign.png"));
         } else {
-            serviceUser.modifierUserToBanned(endUser.getId(),true);
+            serviceUser.modifierUserToBanned(endUser.getId(), true);
             banStatus.setImage(new Image("/assets/check.png"));
         }
     }

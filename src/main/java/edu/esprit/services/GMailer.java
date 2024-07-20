@@ -30,14 +30,14 @@ import static javax.mail.Message.RecipientType.TO;
 
 public class GMailer {
 
-    private String testEmail;
+    private final String testEmail;
     private final Gmail service;
 
     public GMailer(String testEmail) throws Exception {
         this.testEmail = testEmail;
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        service = new Gmail.Builder(httpTransport, jsonFactory, getCredentials(httpTransport ,jsonFactory))
+        service = new Gmail.Builder(httpTransport, jsonFactory, getCredentials(httpTransport, jsonFactory))
                 .setApplicationName("Baladity test")
                 .build();
     }
@@ -61,6 +61,14 @@ public class GMailer {
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         //returns an authorized Credential object.
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+    }
+
+    public static void main(String[] args) {
+        try {
+            new GMailer("wertatanifadi@gmail.com").sendMail("S", "m");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void sendMail(String subject, String msg) throws Exception {
@@ -100,14 +108,6 @@ public class GMailer {
             }
         }
 
-    }
-
-    public static void main(String[] args) {
-        try {
-            new GMailer("wertatanifadi@gmail.com").sendMail("S","m");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

@@ -46,8 +46,13 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 public class AfficherTacheController implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
     private final ServiceTache sr = new ServiceTache();
     public BorderPane firstborderpane;
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private TextField searchbar;
     @FXML
@@ -60,12 +65,6 @@ public class AfficherTacheController implements Initializable {
     @FXML
     private GridPane grid;
     private Stage stage; // Define a stage variable
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -269,7 +268,6 @@ public class AfficherTacheController implements Initializable {
     }
 
 
-
     @FXML
     void EXCELTacheLabel(ActionEvent event) {
         // Get all tasks from the service
@@ -282,7 +280,7 @@ public class AfficherTacheController implements Initializable {
 
             // Create a header row
             Row headerRow = sheet.createRow(0);
-            String[] columns = {"Titre", "Date Debut","Date Fin", "Etat"};
+            String[] columns = {"Titre", "Date Debut", "Date Fin", "Etat"};
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(columns[i]);
@@ -394,7 +392,7 @@ public class AfficherTacheController implements Initializable {
 
     public void buttonreturnTache(ActionEvent actionEvent) {
         try {
-            if( user.getType().equals("Admin")){
+            if (user.getType().equals("Admin")) {
                 System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
                 searchbar.getScene().setRoot(root);
@@ -411,9 +409,10 @@ public class AfficherTacheController implements Initializable {
             alert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
-    }
+}
 

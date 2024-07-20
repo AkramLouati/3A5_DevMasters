@@ -1,4 +1,4 @@
-.button{
+.button {
     -fx-background-color: #003668;
     -fx-text-fill: #fff;
     -fx-background-radius: 10;
@@ -21,21 +21,23 @@
     -fx-font-weight: bold; /* Make the text bold */
 }
 
-.button-style:hover{
+.button-style:hover {
     -fx-background-color: #003668;
     -fx-text-fill: #E5E4E2;
 }
+
 .button-menu {
     -fx-background-color: #E5E4E2;
     -fx-text-fill: #003668;
     -fx-background-radius: 10;
     -fx-min-height: 40px;
     -fx-min-width: 80px;
-    -fx-font-size: 20px; /* Set the font size to 14 pixels /
-    -fx-font-weight: bold; / Make the text bold */
+    -fx-font-size: 20px;
+    /* Set the font size to 14 pixels /
+       -fx-font-weight: bold; / Make the text bold */
 }
 
-.button-menu:hover{
+.button-menu:hover {
     -fx-background-color: #003668;
     -fx-text-fill: #E5E4E2;
 }
@@ -89,75 +91,70 @@
     -fx-border-radius: 10px;
     -fx-padding: 5px;
 }
-.text-input-simple{
+
+.text-input-simple {
     -fx-font-size: 14px;
     -fx-prompt-text-fill: gray;
     -fx-text-fill: black;
     -fx-background-color: #fff;
-    -fx-border-color: rgba(0,0,0,0);
+    -fx-border-color: rgba(0, 0, 0, 0);
     -fx-border-width: 1px;
     -fx-border-radius: 10px;
     -fx-padding: 5px;
 }
+
 .label {
     -fx-font-size: 14px;
     -fx-border-color: #003668;
     -fx-border-radius: 10px;
 
 }
+
 .label-styled {
     -fx-font-size: 14px;
-    -fx-border-color: rgba(0,0,0,0);
+    -fx-border-color: rgba(0, 0, 0, 0);
     -fx-border-radius: 10px;
 
 }
+
 .dark-gray-background {
     -fx-background-color: #46474A;
 }
+
 .gray-background {
     -fx-background-color: #848884;
 }
 
 .transparent-background {
- -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
+
 .radius {
     -fx-background-radius: 100px;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-.white-backgroung{
+.white-backgroung {
     -fx-background-color: #fff;
 }
 
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.municipalite{
+.municipalite {
     -fx-background-radius: 50;
 }
 
-.light-grey-background{
+.light-grey-background {
     -fx-background-color: #F3F3F3;
 }
 
-.profile-layout{
+.profile-layout {
     -fx-background-color: #EBC95E;
     -fx-background-radius: 0 0 50 50;
 }
+
 .message {
     -fx-font-family: Arial;
     -fx-font-size: 14px;

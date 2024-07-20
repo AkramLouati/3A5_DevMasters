@@ -15,33 +15,25 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UserItem implements Initializable {
 
+    ServiceUser serviceUser = new ServiceUser();
+    int userId;
     @FXML
     private Label email;
-
     @FXML
     private ImageView img;
-
     @FXML
     private Label name;
-
     @FXML
     private Label phone;
-
     @FXML
     private Label type;
-
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId;
 
     public void setData(EndUser user) {
         userId = user.getId();

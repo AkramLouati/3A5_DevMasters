@@ -3,7 +3,10 @@ package edu.esprit.tests;
 import edu.esprit.entities.CommentaireTache;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Tache;
-import edu.esprit.services.*;
+import edu.esprit.services.EtatTache;
+import edu.esprit.services.ServiceCommentaireTache;
+import edu.esprit.services.ServiceTache;
+import edu.esprit.services.ServiceUser;
 import edu.esprit.utils.DataSource;
 
 import java.text.SimpleDateFormat;

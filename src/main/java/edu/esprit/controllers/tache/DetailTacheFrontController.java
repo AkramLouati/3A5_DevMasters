@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class DetailTacheFrontController {
+    private final ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -34,14 +35,11 @@ public class DetailTacheFrontController {
     private boolean isSidebarVisible = true;
     @FXML
     private Text TFEtatDetail, TFdateDebutDetail, TFdateFinDetail, TFdescriptionDetail, TFTitreDetail, TFCategorieDetail;
-
     @FXML
     private ImageView PieceJointedetail;
-
     @FXML
     private TextField txt_date_C, txt_text_C;
     private Tache tache;
-    private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
 
     public void setData(Tache tache) {
         this.tache = tache;
@@ -198,6 +196,7 @@ public class DetailTacheFrontController {
 
         sideBarTransition.play();
     }
+
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
     }

@@ -45,6 +45,7 @@ public class DetailsEvent {
             imageTFF.setImage(new javafx.scene.image.Image(new File(imagePath).toURI().toString()));
         }
     }
+
     @FXML
     void retournerOnClick() {
         try {

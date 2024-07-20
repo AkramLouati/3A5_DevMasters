@@ -2,14 +2,11 @@ package edu.esprit.services;
 
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Municipality;
 import edu.esprit.entities.Publicite;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ServicePublicite implements IService<Publicite> {
@@ -22,14 +19,14 @@ public class ServicePublicite implements IService<Publicite> {
             String req = "INSERT INTO `publicite`(`titre_pub`, `description_pub`, `contact_pub`, `localisation_pub`, `image_pub`,`id_user`,`id_a`,`offre_pub`) VALUES (?,?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
-                ps.setString(1,publicite.getTitre_pub());
-                ps.setString(2,publicite.getDescription_pub());
-                ps.setInt(3,publicite.getContact_pub());
-                ps.setString(4,publicite.getLocalisation_pub());
-                ps.setString(5,publicite.getImage_pub());
-                ps.setInt(6,publicite.getEndUser().getId());
-                ps.setInt(7,publicite.getActualite().getId_a());
-                ps.setString(8,publicite.getOffre_pub());
+                ps.setString(1, publicite.getTitre_pub());
+                ps.setString(2, publicite.getDescription_pub());
+                ps.setInt(3, publicite.getContact_pub());
+                ps.setString(4, publicite.getLocalisation_pub());
+                ps.setString(5, publicite.getImage_pub());
+                ps.setInt(6, publicite.getEndUser().getId());
+                ps.setInt(7, publicite.getActualite().getId_a());
+                ps.setString(8, publicite.getOffre_pub());
                 ps.executeUpdate();
                 System.out.println("Publicite added!");
             } catch (SQLException e) {
@@ -54,6 +51,7 @@ public class ServicePublicite implements IService<Publicite> {
                 publicite.getOffre_pub() != null; // Check for offre_pub
 
     }
+
     private int getDisplayDuration(String selectedOffer) {
         // Use the ServicePublicite to get the duration from the database
         ServicePublicite servicePublicite = new ServicePublicite();
@@ -158,6 +156,7 @@ public class ServicePublicite implements IService<Publicite> {
             return false;
         }
     }
+
     public boolean numeroExists(int contact) {
         try {
 
@@ -173,7 +172,6 @@ public class ServicePublicite implements IService<Publicite> {
             return false;
         }
     }
-
 
 
     @Override
@@ -201,7 +199,7 @@ public class ServicePublicite implements IService<Publicite> {
                 ServiceActualite serviceActualite = new ServiceActualite();
                 Actualite actualite = serviceActualite.getOneByID(id_a);
 
-                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,offre_pub,endUser,actualite);
+                Publicite pub = new Publicite(id_pub, titre_pub, description_pub, contact_pub, localisation_pub, image_pub, offre_pub, endUser, actualite);
                 publicites.add(pub);
             }
         } catch (SQLException e) {
@@ -245,7 +243,7 @@ public class ServicePublicite implements IService<Publicite> {
                 String titre_pub = rs.getString("titre_pub");
                 String description_pub = rs.getString("description_pub");
                 int contact_pub = rs.getInt("contact_pub");
-                String localisation_pub = rs.getString( "localisation_pub");
+                String localisation_pub = rs.getString("localisation_pub");
                 String image_pub = rs.getString("image_pub");
                 String offre_pub = rs.getString("offre_pub");
                 int id_user = rs.getInt("id_user");
@@ -256,7 +254,7 @@ public class ServicePublicite implements IService<Publicite> {
                 ServiceActualite serviceActualite = new ServiceActualite();
                 Actualite actualite = serviceActualite.getOneByID(id_a);
 
-                Publicite pub = new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub,image_pub,offre_pub,endUser,actualite);
+                Publicite pub = new Publicite(id, titre_pub, description_pub, contact_pub, localisation_pub, image_pub, offre_pub, endUser, actualite);
 
             }
         } catch (SQLException e) {
@@ -269,6 +267,7 @@ public class ServicePublicite implements IService<Publicite> {
     private Set<Publicite> getPublicites() {
         return null;
     }
+
     public Set<Publicite> getByActualiteId(int actualiteId) {
         Set<Publicite> publicites = new HashSet<>();
 
@@ -320,6 +319,7 @@ public class ServicePublicite implements IService<Publicite> {
         }
         return false; // Default to false in case of an exception
     }
+
     @Override
     public void supprimer(int id) {
         // Check if the specified ID exists before attempting to delete

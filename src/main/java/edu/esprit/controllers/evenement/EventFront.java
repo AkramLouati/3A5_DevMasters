@@ -17,7 +17,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -27,7 +30,7 @@ public class EventFront implements Initializable {
 
     ServiceUser serviceUser = new ServiceUser();
 
-    int userId  = Integer.parseInt(getCurrentUser());
+    int userId = Integer.parseInt(getCurrentUser());
 
     EndUser user = serviceUser.getOneByID(userId);
 
@@ -141,7 +144,6 @@ public class EventFront implements Initializable {
     }
 
 
-
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -165,6 +167,7 @@ public class EventFront implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
     @FXML
     void closeClick(ActionEvent event) {
         try {
@@ -178,6 +181,7 @@ public class EventFront implements Initializable {
             e.printStackTrace();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

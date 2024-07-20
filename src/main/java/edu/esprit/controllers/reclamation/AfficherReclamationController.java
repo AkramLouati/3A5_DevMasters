@@ -29,18 +29,16 @@ import java.util.stream.Collectors;
 
 public class AfficherReclamationController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceReclamation sr = new ServiceReclamation();
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
+    Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
+    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
@@ -50,11 +48,7 @@ public class AfficherReclamationController implements Initializable {
     private ScrollPane scroll;
     @FXML
     private TextField Recherche;
-    private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getReclamationsByUser(user);
-    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
-
-
+    private boolean isSortedAscending = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +57,8 @@ public class AfficherReclamationController implements Initializable {
         });
         affichergrid(reclamationList);
     }
-    private void affichergrid(List<Reclamation> reclamationList){
+
+    private void affichergrid(List<Reclamation> reclamationList) {
         int column = 0;
         int row = 1;
         try {
@@ -129,7 +124,6 @@ public class AfficherReclamationController implements Initializable {
         sideBarTransition.play();
     }
 
-
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
     }
@@ -162,6 +156,7 @@ public class AfficherReclamationController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
@@ -174,7 +169,8 @@ public class AfficherReclamationController implements Initializable {
             alert.show();
         }
     }
-    private void filterProducts(String searchText, List<Reclamation> reclamationList ) {
+
+    private void filterProducts(String searchText, List<Reclamation> reclamationList) {
         // Filter the productList based on the searchText
         List<Reclamation> filteredList = reclamationList.stream()
                 .filter(reclamation ->
@@ -187,7 +183,6 @@ public class AfficherReclamationController implements Initializable {
         // Display the filtered results
         affichergrid(filteredList);
     }
-    private boolean isSortedAscending = true;
 
     @FXML
     void filtrerParDate(ActionEvent event) {
@@ -204,6 +199,7 @@ public class AfficherReclamationController implements Initializable {
         // Affichage des réclamations triées
         affichergrid(reclamationList);
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

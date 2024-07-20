@@ -3,7 +3,6 @@ package edu.esprit.controllers.Actualite;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
 import edu.esprit.services.ServiceUser;
@@ -18,11 +17,16 @@ import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.prefs.Preferences;
 
 public class PubliciteController {
 
+    private static final String USER_PREF_KEY = "current_user";
+    ServicePublicite servicePublicite = new ServicePublicite();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser endUser = serviceUser.getOneByID(userId);
+    Actualite actualite = new Actualite(102, endUser);
     @FXML
     private Text TitrePubliciteAff;
     @FXML
@@ -35,21 +39,7 @@ public class PubliciteController {
     private ImageView ImagePublicite;
     @FXML
     private Text offrePubliciteAff;
-
     private Publicite publicite;
-    ServicePublicite servicePublicite = new ServicePublicite();
-
-
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
-    EndUser endUser = serviceUser.getOneByID(userId);
-
-    Actualite actualite = new Actualite(102,endUser);
-
 
     public void setData(Publicite publicite) {
         this.publicite = publicite;
@@ -79,7 +69,6 @@ public class PubliciteController {
             }
         }
     }
-
 
 
     public void deletePubliciteAction(ActionEvent actionEvent) {
@@ -112,6 +101,7 @@ public class PubliciteController {
             errorAlert.show();
         }
     }
+
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
         try {
@@ -163,6 +153,7 @@ public class PubliciteController {
             errorAlert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

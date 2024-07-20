@@ -19,6 +19,7 @@ public class Acceuil {
 
     @FXML
     private Button userButton;
+
     @FXML
     void UserSelectTypeNavigate(ActionEvent event) {
         try {

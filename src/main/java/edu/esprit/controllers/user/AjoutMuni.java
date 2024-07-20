@@ -18,25 +18,20 @@ import java.io.File;
 import java.io.IOException;
 
 public class AjoutMuni {
+    private final ServiceMuni serviceMuni = new ServiceMuni();
+    File selectedFile;
     @FXML
     private TextField TFnom;
-
     @FXML
     private TextField TFemail;
-
     @FXML
     private PasswordField TFpassword;
-
     @FXML
     private ImageView ImageF;
 
-    File selectedFile;
-
-    private final ServiceMuni serviceMuni = new ServiceMuni();
-
     @FXML
     void ajouterMuniAction(ActionEvent event) {
-        serviceMuni.ajouter(new Municipality(TFnom.getText(),TFemail.getText(),TFpassword.getText(),selectedFile.getAbsolutePath()));
+        serviceMuni.ajouter(new Municipality(TFnom.getText(), TFemail.getText(), TFpassword.getText(), selectedFile.getAbsolutePath()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setContentText("GG");

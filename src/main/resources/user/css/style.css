@@ -1,4 +1,4 @@
-.button{
+.button {
     -fx-background-color: #003668;
     -fx-text-fill: #fff;
     -fx-background-radius: 10;
@@ -21,7 +21,7 @@
     -fx-font-weight: bold; /* Make the text bold */
 }
 
-.button-style:hover{
+.button-style:hover {
     -fx-background-color: #E5E4E2;
     -fx-text-fill: #003668;
 }
@@ -36,7 +36,7 @@
     -fx-font-weight: bold; /* Make the text bold */
 }
 
-.button-menu:hover{
+.button-menu:hover {
     -fx-background-color: #003668;
     -fx-text-fill: #E5E4E2;
 }
@@ -102,45 +102,30 @@
     -fx-padding: 5px;
 }
 
-.login-text-input{
-    -fx-background-color:  transparent;
-    -fx-border-color:  #003668;
-    -fx-border-width:  0px 0px 2px 0px;
+.login-text-input {
+    -fx-background-color: transparent;
+    -fx-border-color: #003668;
+    -fx-border-width: 0px 0px 2px 0px;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.white-backgroung{
+.white-backgroung {
     -fx-background-color: #fff;
 }
 
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.municipalite{
+.municipalite {
     -fx-background-radius: 50;
 }
 
-.light-grey-background{
+.light-grey-background {
     -fx-background-color: #F3F3F3;
 }
 
-.profile-layout{
+.profile-layout {
     -fx-background-color: #EBC95E;
     -fx-background-radius: 0 0 50 50;
 }

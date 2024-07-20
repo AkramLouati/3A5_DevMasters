@@ -45,17 +45,14 @@ import java.util.prefs.Preferences;
 
 public class AjouterTacheController {
 
+    private static final String USER_PREF_KEY = "current_user";
     //private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
-    private String fileNameWithExtension;
-
-    private static final String USER_PREF_KEY = "current_user";
     ServiceUser serviceUser = new ServiceUser();
-
     int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
-
+    private String fileNameWithExtension;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -372,6 +369,7 @@ public class AjouterTacheController {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

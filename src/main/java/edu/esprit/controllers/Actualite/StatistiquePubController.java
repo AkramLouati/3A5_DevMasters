@@ -140,13 +140,13 @@ public class StatistiquePubController implements Initializable {
 
     private JFreeChart createPieChart() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        ServicePublicite servicePublicite=new ServicePublicite();
+        ServicePublicite servicePublicite = new ServicePublicite();
 
 
-             int countOffer3Months = servicePublicite.getCountPubByOffer("3 mois :50dt");
-             int countOffer6Months = servicePublicite.getCountPubByOffer("6 mois :90dt");
-             int countOffer9Months = servicePublicite.getCountPubByOffer("9 mois :130dt");
-               int total= countOffer3Months + countOffer6Months + countOffer9Months;
+        int countOffer3Months = servicePublicite.getCountPubByOffer("3 mois :50dt");
+        int countOffer6Months = servicePublicite.getCountPubByOffer("6 mois :90dt");
+        int countOffer9Months = servicePublicite.getCountPubByOffer("9 mois :130dt");
+        int total = countOffer3Months + countOffer6Months + countOffer9Months;
 
 
         double pourcentageTraitees = (double) countOffer3Months / total * 100;

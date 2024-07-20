@@ -18,18 +18,25 @@ import java.util.prefs.Preferences;
 
 public class VerifierEmail {
 
-    @FXML
-    private TextField OTPField;
-
-    ServiceUser serviceUser = new ServiceUser();
-
     private static final int OTP_LENGTH = 6;
-
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
     String otp;
 
     EndUser user;
+    @FXML
+    private TextField OTPField;
 
-    private static final String USER_PREF_KEY = "current_user";
+    public static String generateOTP() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder otp = new StringBuilder(OTP_LENGTH);
+
+        for (int i = 0; i < OTP_LENGTH; i++) {
+            otp.append(random.nextInt(10));
+        }
+
+        return otp.toString();
+    }
 
     public void setData(String otp, EndUser user) {
         this.otp = otp;
@@ -86,17 +93,6 @@ public class VerifierEmail {
                 Baladity
                 """, user.getNom(), otp);
         new GMailer(user.getEmail()).sendMail("Code de Validation", content);
-    }
-
-    public static String generateOTP() {
-        SecureRandom random = new SecureRandom();
-        StringBuilder otp = new StringBuilder(OTP_LENGTH);
-
-        for (int i = 0; i < OTP_LENGTH; i++) {
-            otp.append(random.nextInt(10));
-        }
-
-        return otp.toString();
     }
 
     private void setCurrentUser(int userId) {

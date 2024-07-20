@@ -1,26 +1,29 @@
 package edu.esprit.entities;
 
-import java.util.Objects;
 import java.util.Date;
-public class Reclamation{
+import java.util.Objects;
+
+public class Reclamation {
 
     private int id_reclamation;
     private EndUser user;
     private Municipality Municipality;
-    private  String sujet_reclamation;
+    private String sujet_reclamation;
     private Date date_reclamation;
     private String type_reclamation;
     private String description_reclamation;
     private String status_reclamation;
     private String image_reclamation;
     private String adresse_reclamation;
-    public Reclamation(EndUser user, Municipality Municipality, int i, java.sql.Date sqlDate, String nonUrgent, String imageReclamation, String adresseReclamation){
+
+    public Reclamation(EndUser user, Municipality Municipality, int i, java.sql.Date sqlDate, String nonUrgent, String imageReclamation, String adresseReclamation) {
 
     }
-    public Reclamation(EndUser user, Municipality Municipality,String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
+
+    public Reclamation(EndUser user, Municipality Municipality, String sujet_reclamation, Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
         this.user = user;
         this.Municipality = Municipality;
-        this.sujet_reclamation=sujet_reclamation;
+        this.sujet_reclamation = sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
         this.description_reclamation = description_reclamation;
@@ -28,11 +31,11 @@ public class Reclamation{
         this.adresse_reclamation = adresse_reclamation;
     }
 
-    public Reclamation(int id_reclamation, EndUser user, Municipality Municipality, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation,String adresse_reclamation) {
+    public Reclamation(int id_reclamation, EndUser user, Municipality Municipality, String sujet_reclamation, Date date_reclamation, String type_reclamation, String description_reclamation, String status_reclamation, String image_reclamation, String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
         this.user = user;
         this.Municipality = Municipality;
-        this.sujet_reclamation=sujet_reclamation;
+        this.sujet_reclamation = sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
         this.description_reclamation = description_reclamation;
@@ -40,11 +43,12 @@ public class Reclamation{
         this.image_reclamation = image_reclamation;
         this.adresse_reclamation = adresse_reclamation;
     }
-    public Reclamation(int id_reclamation, EndUser user, Municipality Municipality, String sujet_reclamation,Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation,String adresse_reclamation) {
+
+    public Reclamation(int id_reclamation, EndUser user, Municipality Municipality, String sujet_reclamation, Date date_reclamation, String type_reclamation, String description_reclamation, String image_reclamation, String adresse_reclamation) {
         this.id_reclamation = id_reclamation;
         this.user = user;
         this.Municipality = Municipality;
-        this.sujet_reclamation=sujet_reclamation;
+        this.sujet_reclamation = sujet_reclamation;
         this.date_reclamation = date_reclamation;
         this.type_reclamation = type_reclamation;
         this.description_reclamation = description_reclamation;

@@ -60,6 +60,7 @@ public class ModifierVote {
 
         closeWindow();
     }
+
     // Input validation
     private boolean validateInput(String description, String dateSoumission) {
         boolean isValid = true;
@@ -91,6 +92,7 @@ public class ModifierVote {
 
         return isValid;
     }
+
     private boolean isValidDate(String date) {
         // Implement your date validation logic here
         // For simplicity, let's assume any non-empty string is a valid date

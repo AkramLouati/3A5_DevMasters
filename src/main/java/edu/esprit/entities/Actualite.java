@@ -1,7 +1,5 @@
 package edu.esprit.entities;
 
-    import javax.xml.stream.events.EndDocument;
-    import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,8 +8,8 @@ public class Actualite {
     String titre_a;
     String Description_a;
     Date date_a;
-    String image_a ;
-  EndUser user ;
+    String image_a;
+    EndUser user;
 
 
     public Actualite(String titre_a, String description_a, Date date_a, String image_a, EndUser user) {
@@ -19,7 +17,7 @@ public class Actualite {
         Description_a = description_a;
         this.date_a = date_a;
         this.image_a = image_a;
-        this.user= user;
+        this.user = user;
     }
 
     public Actualite(int id_a, EndUser user) {
@@ -71,16 +69,16 @@ public class Actualite {
         return (java.sql.Date) date_a;
     }
 
+    public void setDate_a(Date date_a) {
+        this.date_a = date_a;
+    }
+
     public String getImage_a() {
         return image_a;
     }
 
     public void setImage_a(String image_a) {
         this.image_a = image_a;
-    }
-
-    public void setDate_a(Date date_a) {
-        this.date_a = date_a;
     }
 
     public EndUser getUser() {

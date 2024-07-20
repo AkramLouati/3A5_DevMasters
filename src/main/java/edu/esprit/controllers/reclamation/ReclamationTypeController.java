@@ -37,6 +37,7 @@ public class ReclamationTypeController implements Initializable {
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -101,6 +102,7 @@ public class ReclamationTypeController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     @FXML
     void BTNtypenonurgent(ActionEvent event) {
         try {
@@ -154,6 +156,7 @@ public class ReclamationTypeController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void buttonReturnTypeReclamation(ActionEvent event) {
         try {

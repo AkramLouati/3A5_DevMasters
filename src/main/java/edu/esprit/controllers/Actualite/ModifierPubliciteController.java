@@ -22,7 +22,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -82,6 +81,7 @@ public class ModifierPubliciteController implements Initializable {
     private ServicePublicite servicePublicite;
     private Publicite publicite;
     private String imagePath;
+
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -92,66 +92,65 @@ public class ModifierPubliciteController implements Initializable {
     @FXML
     void modifierPubliciteAction(ActionEvent event) {
 
-            if (publicite != null && servicePublicite != null) {
-                // Créer une boîte de dialogue de confirmation
-                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette pub ?");
-                confirmationAlert.setTitle("Confirmation de modification");
+        if (publicite != null && servicePublicite != null) {
+            // Créer une boîte de dialogue de confirmation
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette pub ?");
+            confirmationAlert.setTitle("Confirmation de modification");
 
-                // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
-                Optional<ButtonType> result = confirmationAlert.showAndWait();
+            // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-                // Vérifier si l'utilisateur a cliqué sur le bouton OK
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
-                    publicite.setTitre_pub(TFtitrepubModif.getText());
-                    publicite.setDescription_pub(TFdescriptionpubModif.getText());
-                    publicite.setContact_pub(Integer.parseInt(TFcontactpubModif.getText()));
-                    publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
-                    publicite.setOffre_pub(offrePubComboModif.getValue());
-                    publicite.setImage_pub(imagePath);
-                    publicite.setEndUser(user);
-                    publicite.setActualite(a);
-                   // imagePath peut être nul si aucune image n'est sélectionnée
+            // Vérifier si l'utilisateur a cliqué sur le bouton OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
+                publicite.setTitre_pub(TFtitrepubModif.getText());
+                publicite.setDescription_pub(TFdescriptionpubModif.getText());
+                publicite.setContact_pub(Integer.parseInt(TFcontactpubModif.getText()));
+                publicite.setLocalisation_pub(TFlocalisationpubModif.getText());
+                publicite.setOffre_pub(offrePubComboModif.getValue());
+                publicite.setImage_pub(imagePath);
+                publicite.setEndUser(user);
+                publicite.setActualite(a);
+                // imagePath peut être nul si aucune image n'est sélectionnée
+                try {
+                    // Appeler la méthode de modification du service de réclamation
+                    servicePublicite.modifier(publicite);
+
+                    // Afficher un message de succès
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setContentText("pub modifiée avec succès !");
+                    successAlert.setTitle("Modification réussie");
+                    successAlert.show();
+
+                    // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                     try {
-                        // Appeler la méthode de modification du service de réclamation
-                        servicePublicite.modifier(publicite);
-
-                        // Afficher un message de succès
-                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                        successAlert.setContentText("pub modifiée avec succès !");
-                        successAlert.setTitle("Modification réussie");
-                        successAlert.show();
-
-                        // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
-                        try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherPubliciteCitoyenGui.fxml"));
-                            TFtitrepubModif.getScene().setRoot(root);
-                        } catch (IOException e) {
-                            // Gérer l'exception si la redirection échoue
-                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                            errorAlert.setTitle("Erreur de redirection");
-                            errorAlert.show();
-                        }
-                    } catch (Exception e) {
-                        // Afficher un message d'erreur en cas d'échec de la modification
+                        Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherPubliciteCitoyenGui.fxml"));
+                        TFtitrepubModif.getScene().setRoot(root);
+                    } catch (IOException e) {
+                        // Gérer l'exception si la redirection échoue
                         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setContentText("Erreur lors de la modification de la pub : " + e.getMessage());
-                        errorAlert.setTitle("Erreur de modification");
+                        errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                        errorAlert.setTitle("Erreur de redirection");
                         errorAlert.show();
                     }
+                } catch (Exception e) {
+                    // Afficher un message d'erreur en cas d'échec de la modification
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText("Erreur lors de la modification de la pub : " + e.getMessage());
+                    errorAlert.setTitle("Erreur de modification");
+                    errorAlert.show();
                 }
-            } else {
-                // Afficher un message d'erreur si la réclamation est null ou si le service de réclamation est null
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText("Impossible de modifier la pub car aucune pub n'est sélectionnée ou le service de pub est null.");
-                errorAlert.setTitle("Erreur de modification");
-                errorAlert.show();
             }
+        } else {
+            // Afficher un message d'erreur si la réclamation est null ou si le service de réclamation est null
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Impossible de modifier la pub car aucune pub n'est sélectionnée ou le service de pub est null.");
+            errorAlert.setTitle("Erreur de modification");
+            errorAlert.show();
+        }
 
     }
-
 
 
     @FXML
@@ -240,7 +239,6 @@ public class ModifierPubliciteController implements Initializable {
         errorAlert.setTitle("Erreur");
         errorAlert.show();
     }
-
 
 
     @FXML

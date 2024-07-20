@@ -21,17 +21,14 @@ import java.util.ResourceBundle;
 public class MuniItem implements Initializable {
 
     public HBox muniButtonLayout;
+    ServiceMuni serviceMuni = new ServiceMuni();
+    int muniId;
     @FXML
     private String textButton;
-
     @FXML
     private Button muniButton;
 
-    ServiceMuni serviceMuni = new ServiceMuni();
-
-    int muniId;
-
-    public void setData(Municipality muni){
+    public void setData(Municipality muni) {
 
         muniId = muni.getId_muni();
         muniButton.setText(muni.getNom_muni());

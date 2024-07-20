@@ -3,7 +3,6 @@ package edu.esprit.controllers.Actualite;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-
 import edu.esprit.services.ServiceActualite;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
@@ -34,55 +33,48 @@ import java.util.prefs.Preferences;
 
 public class AjouterActualiteController implements Initializable {
 
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServiceActualite sp = new ServiceActualite();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
+    Actualite actualite = new Actualite(68, user);
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private TextField TFdescription;
-
     @FXML
     private TextField TFtitre;
-
     @FXML
     private Button ajouterActualiteAction;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private ImageView imgView_actualite;
-
     @FXML
     private Label labelA;
-
     @FXML
     private Button uploadbuttonA;
-
     @FXML
     private Label verifierDescription;
-
     @FXML
     private Label verifierTitre;
     private boolean isSidebarVisible = true;
-    private static final String USER_PREF_KEY = "current_user";
+    private String imagePath;
+    private Stage stage;
 
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
-    EndUser user = serviceUser.getOneByID(userId);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -114,17 +106,6 @@ public class AjouterActualiteController implements Initializable {
         sideBarTransition.play();
     }
 
-
-
-
-    private final ServiceActualite sp = new ServiceActualite();
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-
-
-    Actualite actualite = new Actualite(68,user);
-    private String imagePath;
-
-
     public void initialize() {
         // Add a listener to the text property of TFtitre
         TFtitre.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -150,6 +131,7 @@ public class AjouterActualiteController implements Initializable {
             }
         });
     }
+
     public void uploadimgA(ActionEvent actionEvent) {
         uploadbuttonA.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -212,7 +194,6 @@ public class AjouterActualiteController implements Initializable {
         }
     }
 
-    private Stage stage ;
     public void setStage(Stage stage) {
 
         this.stage = stage;
@@ -244,7 +225,6 @@ public class AjouterActualiteController implements Initializable {
     }
 
 
-
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
     }
@@ -268,7 +248,6 @@ public class AjouterActualiteController implements Initializable {
     }
 
 
-
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
@@ -287,6 +266,7 @@ public class AjouterActualiteController implements Initializable {
             alert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

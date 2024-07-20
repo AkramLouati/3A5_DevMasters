@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class ServiceMuni implements IService<Municipality>{
+public class ServiceMuni implements IService<Municipality> {
 
     Connection cnx = DataSource.getInstance().getCnx();
+
     @Override
     public void ajouter(Municipality muni) {
         String req = "INSERT INTO `muni`(`nom_muni`, `email_muni`, `password_muni`, `imagee_user`) VALUES (?,?,?,?)";
@@ -24,7 +25,7 @@ public class ServiceMuni implements IService<Municipality>{
             ps.setString(3, muni.getPassword_muni());
             ps.setString(4, muni.getImage());
             ps.executeUpdate();
-            System.out.printf("Muni added !");
+            System.out.print("Muni added !");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -80,13 +81,13 @@ public class ServiceMuni implements IService<Municipality>{
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while(rs.next()){
+            while (rs.next()) {
                 int id_muni = rs.getInt("id_muni");
                 String nom_muni = rs.getString("nom_muni");
                 String email_muni = rs.getString("email_muni");
                 String password_muni = rs.getString("password_muni");
                 String image = rs.getString("imagee_user");
-                Municipality p = new Municipality(id_muni,nom_muni,email_muni,password_muni,image);
+                Municipality p = new Municipality(id_muni, nom_muni, email_muni, password_muni, image);
                 munis.add(p);
             }
         } catch (SQLException e) {
@@ -119,6 +120,7 @@ public class ServiceMuni implements IService<Municipality>{
             throw new RuntimeException(e);
         }
     }
+
     private boolean isValidEmail(String email) {
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.compile(regexPattern).matcher(email).matches();

@@ -16,20 +16,18 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class AvisItemGuiFront {
+    ServiceAvis serviceAvis = new ServiceAvis();
     @FXML
     private Text commentaireequipement;
-
     @FXML
     private Text dateequipement;
-
     @FXML
     private Button modifierAvis;
-
     @FXML
     private Rating noteequipement;
-
     @FXML
     private Button supprimerAvis;
+    private Avis avis;
 
     @FXML
     void modifierAvisAction(ActionEvent event) {
@@ -93,9 +91,6 @@ public class AvisItemGuiFront {
         }
 
     }
-
-    private Avis avis;
-    ServiceAvis serviceAvis = new ServiceAvis();
 
     public void setData(Avis avis) {
         this.avis = avis;

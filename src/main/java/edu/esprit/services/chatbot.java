@@ -9,9 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class chatbot {
-    private String ta= "";
-
-    private Map<String, String> questionResponseMap = new HashMap<>();
+    private final Map<String, String> questionResponseMap = new HashMap<>();
+    private String ta = "";
 
     public chatbot() {
         loadResponsesFromExcel();
@@ -77,9 +76,11 @@ public class chatbot {
 
         return mostSimilarQuestion;
     }
+
     public void addText(String str) {
         ta = ta + str;
     }
+
     public String firstText() {
         addText("-->baladity: Good day! Welcome to Baladity, How can we assist you today? \n");
         return this.ta;

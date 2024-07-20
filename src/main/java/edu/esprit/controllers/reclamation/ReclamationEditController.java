@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +22,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -116,6 +114,7 @@ public class ReclamationEditController implements Initializable {
             }
         });
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -180,6 +179,7 @@ public class ReclamationEditController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     @FXML
     void modifierReclamationAction(ActionEvent event) {
         boolean sujetValid = validateTextField(TFmodifiersujet_reclamation, sujetmodifier);
@@ -189,62 +189,61 @@ public class ReclamationEditController implements Initializable {
 
         // Vérifier si tous les champs sont valides
         if (sujetValid && descriptionValid && adresseValid && typeValid) {
-        if (reclamation != null && serviceReclamation != null) {
-            // Créer une boîte de dialogue de confirmation
-            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette réclamation ?");
-            confirmationAlert.setTitle("Confirmation de modification");
+            if (reclamation != null && serviceReclamation != null) {
+                // Créer une boîte de dialogue de confirmation
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette réclamation ?");
+                confirmationAlert.setTitle("Confirmation de modification");
 
-            // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
-            Optional<ButtonType> result = confirmationAlert.showAndWait();
+                // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+                Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-            // Vérifier si l'utilisateur a cliqué sur le bouton OK
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
-                reclamation.setSujet_reclamation(TFmodifiersujet_reclamation.getText());
-                reclamation.setType_reclamation(modifiertypeReclamationComboBox.getValue());
-                reclamation.setDescription_reclamation(TmodifierAdescription_reclamation.getText());
-                reclamation.setAdresse_reclamation(TFmodifieradresse_reclamation.getText());
-                reclamation.setImage_reclamation(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
-                try {
-                    // Appeler la méthode de modification du service de réclamation
-                    serviceReclamation.modifier(reclamation);
-
-                    // Afficher un message de succès
-                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setContentText("Réclamation modifiée avec succès !");
-                    successAlert.setTitle("Modification réussie");
-                    successAlert.show();
-
-                    // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
+                // Vérifier si l'utilisateur a cliqué sur le bouton OK
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
+                    reclamation.setSujet_reclamation(TFmodifiersujet_reclamation.getText());
+                    reclamation.setType_reclamation(modifiertypeReclamationComboBox.getValue());
+                    reclamation.setDescription_reclamation(TmodifierAdescription_reclamation.getText());
+                    reclamation.setAdresse_reclamation(TFmodifieradresse_reclamation.getText());
+                    reclamation.setImage_reclamation(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
                     try {
-                        Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
-                        TFmodifiersujet_reclamation.getScene().setRoot(root);
-                    } catch (IOException e) {
-                        // Gérer l'exception si la redirection échoue
+                        // Appeler la méthode de modification du service de réclamation
+                        serviceReclamation.modifier(reclamation);
+
+                        // Afficher un message de succès
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setContentText("Réclamation modifiée avec succès !");
+                        successAlert.setTitle("Modification réussie");
+                        successAlert.show();
+
+                        // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
+                        try {
+                            Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/AfficherReclamationGui.fxml"));
+                            TFmodifiersujet_reclamation.getScene().setRoot(root);
+                        } catch (IOException e) {
+                            // Gérer l'exception si la redirection échoue
+                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                            errorAlert.setTitle("Erreur de redirection");
+                            errorAlert.show();
+                        }
+                    } catch (Exception e) {
+                        // Afficher un message d'erreur en cas d'échec de la modification
                         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                        errorAlert.setTitle("Erreur de redirection");
+                        errorAlert.setContentText("Erreur lors de la modification de la réclamation : " + e.getMessage());
+                        errorAlert.setTitle("Erreur de modification");
                         errorAlert.show();
                     }
-                } catch (Exception e) {
-                    // Afficher un message d'erreur en cas d'échec de la modification
-                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setContentText("Erreur lors de la modification de la réclamation : " + e.getMessage());
-                    errorAlert.setTitle("Erreur de modification");
-                    errorAlert.show();
                 }
+            } else {
+                // Afficher un message d'erreur si la réclamation est null ou si le service de réclamation est null
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setContentText("Impossible de modifier la réclamation car aucune réclamation n'est sélectionnée ou le service de réclamation est null.");
+                errorAlert.setTitle("Erreur de modification");
+                errorAlert.show();
             }
-        } else {
-            // Afficher un message d'erreur si la réclamation est null ou si le service de réclamation est null
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setContentText("Impossible de modifier la réclamation car aucune réclamation n'est sélectionnée ou le service de réclamation est null.");
-            errorAlert.setTitle("Erreur de modification");
-            errorAlert.show();
-        }
         }
     }
-
 
 
     @FXML
@@ -326,10 +325,10 @@ public class ReclamationEditController implements Initializable {
     }
 
 
-
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
         this.serviceReclamation = serviceReclamation;
     }
+
     private boolean validateComboBox(ComboBox<String> comboBox, Label label) {
         // Vérifie si aucune option n'est sélectionnée dans le ComboBox
         if (comboBox.getValue() == null || comboBox.getValue().isEmpty()) {
@@ -401,11 +400,7 @@ public class ReclamationEditController implements Initializable {
         }
 
         // Vérifier l'adresse de la réclamation
-        if (bad_words(adressemodifier.getText())) {
-            return true;
-        }
-
-        return false;
+        return bad_words(adressemodifier.getText());
     }
 
     public boolean bad_words(String text) {

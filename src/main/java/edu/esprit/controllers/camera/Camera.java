@@ -1,7 +1,5 @@
 package edu.esprit.controllers.camera;
 
-import edu.esprit.entities.EndUser;
-import edu.esprit.services.ServiceUser;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -16,46 +14,19 @@ import java.util.Date;
 
 public class Camera extends JFrame {
 
-    private JLabel cameraScreen;
+    private final JLabel cameraScreen;
+    private final JButton btnCapture;
     public VideoCapture capture;
-
-    private JButton btnCapture;
+    public volatile boolean isCameraOpen = true;
     private Mat image;
     private boolean clicked = false;
-
-    public volatile boolean isCameraOpen = true;
 
 
 //    ServiceUser serviceUser = new ServiceUser();
 //
 //    EndUser endUser = new EndUser();
-
     private String url;
-
-    public Camera() {
-        // design ui
-        setLayout(null);
-
-        cameraScreen = new JLabel();
-        cameraScreen.setBounds(0, 0, 640, 480);
-        add(cameraScreen);
-
-        btnCapture = new JButton("Capture");
-        btnCapture.setBounds(300, 480, 80, 40);
-        add(btnCapture);
-
-        btnCapture.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clicked = true;
-            }
-        });
-
-        setSize(new Dimension(640, 560));
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
+    private CameraCallback callback;
 
 //    public void startCamera() {
 //        capture = new VideoCapture(0); // Adjust the index if needed
@@ -99,12 +70,44 @@ public class Camera extends JFrame {
 //        }
 //    }
 
-    // Define a callback interface
-    public interface CameraCallback {
-        void onImageSaved(String imageUrl);
+    public Camera() {
+        // design ui
+        setLayout(null);
+
+        cameraScreen = new JLabel();
+        cameraScreen.setBounds(0, 0, 640, 480);
+        add(cameraScreen);
+
+        btnCapture = new JButton("Capture");
+        btnCapture.setBounds(300, 480, 80, 40);
+        add(btnCapture);
+
+        btnCapture.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clicked = true;
+            }
+        });
+
+        setSize(new Dimension(640, 560));
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
-    private CameraCallback callback;
+    public static void main() {
+        // Load OpenCV DLL
+        System.load("C:/Users/werta/Documents/GitHub/baladity/src/main/java/edu/esprit/services/opencv_java490.dll");
+
+        // Run camera in the Event Dispatch Thread
+        EventQueue.invokeLater(() -> {
+            Camera camera = new Camera();
+
+            // Start camera in a new thread
+            new Thread(() -> camera.startCamera()).start();
+            camera.isCameraOpen = true;
+        });
+    }
 
     // Set the callback
     public void setCallback(CameraCallback callback) {
@@ -203,22 +206,12 @@ public class Camera extends JFrame {
 //        }
 //    }
 
-
-    public static void main() {
-        // Load OpenCV DLL
-        System.load("C:/Users/werta/Documents/GitHub/baladity/src/main/java/edu/esprit/services/opencv_java490.dll");
-
-        // Run camera in the Event Dispatch Thread
-        EventQueue.invokeLater(() -> {
-            Camera camera = new Camera();
-
-            // Start camera in a new thread
-            new Thread(() -> camera.startCamera()).start();
-            camera.isCameraOpen = true;
-        });
-    }
-
     public String getUrl() {
         return this.url;
+    }
+
+    // Define a callback interface
+    public interface CameraCallback {
+        void onImageSaved(String imageUrl);
     }
 }

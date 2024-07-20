@@ -1,7 +1,5 @@
 package edu.esprit.controllers.Actualite;
 
-import edu.esprit.entities.EndUser;
-
 import edu.esprit.entities.Actualite;
 import edu.esprit.services.ServiceActualite;
 import javafx.animation.TranslateTransition;
@@ -26,31 +24,24 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class AfficherActualiteCitoyenController implements Initializable {
+    private final ServiceActualite sr = new ServiceActualite();
+    Set<Actualite> actualiteSet = sr.getAll();
+    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private Button toAJouterPub;
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-
     @FXML
     private GridPane gridCitoyen;
-
     @FXML
     private ImageView imgView_actualite;
-
     @FXML
     private ScrollPane scrollCitoyen;
-
-
-    private ServiceActualite sr = new ServiceActualite();
-    Set<Actualite> actualiteSet = sr.getAll();
-    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

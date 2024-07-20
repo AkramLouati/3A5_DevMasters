@@ -22,7 +22,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -30,39 +29,30 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
-import javafx.scene.input.KeyCode;
 
 public class ChatbotController implements Initializable {
 
-    @FXML
-    private AnchorPane MainAnchorPaneBaladity;
-
-    @FXML
-    private VBox MainLeftSidebar;
-
-    @FXML
-    private BorderPane SecondBorderPane;
-
-    @FXML
-    private TextField TFmessage;
-
-    @FXML
-    private ScrollPane chatVbox;
-
-    @FXML
-    private BorderPane firstborderpane;
-
-    @FXML
-    private Label message;
-
-    private boolean isSidebarVisible = true;
-    private chatbot chatbot;
     private static final String USER_PREF_KEY = "current_user";
-
     ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
+    int userId = Integer.parseInt(getCurrentUser());
     //  int userId = 48;
     EndUser user = serviceUser.getOneByID(userId);
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private VBox MainLeftSidebar;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private TextField TFmessage;
+    @FXML
+    private ScrollPane chatVbox;
+    @FXML
+    private BorderPane firstborderpane;
+    @FXML
+    private Label message;
+    private boolean isSidebarVisible = true;
+    private chatbot chatbot;
 
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -193,7 +183,7 @@ public class ChatbotController implements Initializable {
 
     public void tothemain(ActionEvent actionEvent) {
         try {
-            if( user.getType().equals("Admin")){
+            if (user.getType().equals("Admin")) {
                 System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
                 chatVbox.getScene().setRoot(root);
@@ -210,11 +200,12 @@ public class ChatbotController implements Initializable {
             alert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
-    }
+}
 
 
 

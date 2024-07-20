@@ -5,7 +5,6 @@ import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,31 +13,43 @@ import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 public class Login {
 
     private static final String USER_PREF_KEY = "current_user";
     public Hyperlink forgetPwd;
-
-
+    public Hyperlink clickableLabel;
+    ServiceUser serviceUser = new ServiceUser();
     @FXML
     private Button loginButtonAction;
-
-    public Hyperlink clickableLabel;
-
     @FXML
     private TextField tfEmail;
-
     @FXML
     private PasswordField pfMotDePasse;
 
-    ServiceUser serviceUser = new ServiceUser();
+    //    private String hashPassword(String password) {
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            byte[] hashedBytes = md.digest(password.getBytes());
+//
+//            // Convert the byte array to a hexadecimal string
+//            StringBuilder sb = new StringBuilder();
+//            for (byte b : hashedBytes) {
+//                sb.append(String.format("%02x", b));
+//            }
+//
+//            return sb.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+    public static String hashPassword(String password) {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(13));
+        return hashedPassword;
+    }
 
     @FXML
     void handleLabelClick(ActionEvent event) {
@@ -74,9 +85,9 @@ public class Login {
                 // Successful login, you can navigate to another screen or perform other actions
                 EndUser currentUser = serviceUser.authenticateUser(email, password);
 
-                if(currentUser.isBanned()){
+                if (currentUser.isBanned()) {
                     showAlert("Vous n'a pas le droit de se connecter!");
-                }else {
+                } else {
                     if (currentUser.getType().equals("Admin")) {
                         try {
                             setCurrentUser(currentUser.getId());
@@ -100,8 +111,7 @@ public class Login {
                             alert.setTitle("Error");
                             alert.show();
                         }
-                    }
-                    else {
+                    } else {
                         try {
                             System.out.println(currentUser.getId());
                             setCurrentUser(currentUser.getId());
@@ -132,7 +142,7 @@ public class Login {
                 System.out.println(hashPassword(password));
                 showAlert("Password invalid ");
             }
-        }else{
+        } else {
             showAlert("Email est invalid!");
         }
     }
@@ -140,10 +150,10 @@ public class Login {
     @FXML
     void ForgetPwd(ActionEvent event) {
         try {
-            if(tfEmail.getText().isEmpty()){
+            if (tfEmail.getText().isEmpty()) {
                 showAlert("Veuillez saisir votre email!");
-            }else {
-                if(serviceUser.getOneByEmail(tfEmail.getText()) == null){
+            } else {
+                if (serviceUser.getOneByEmail(tfEmail.getText()) == null) {
                     showAlert("L'email n'existe pas!");
                 } else {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/modifierPassword.fxml"));
@@ -177,15 +187,14 @@ public class Login {
         }
     }
 
-
     private boolean isValidCredentials(String email, String password) {
         // Replace this with your authentication logic (e.g., checking against a database)
-        EndUser user = serviceUser.authenticateUser(email,password);
-        if (user != null){
+        EndUser user = serviceUser.authenticateUser(email, password);
+        if (user != null) {
             String email1 = user.getEmail();
             String storedHashedPassword = user.getPassword();
             return email1.equals(email) && storedHashedPassword.equals(password);
-        }else {
+        } else {
             return false;
         }
     }
@@ -202,36 +211,14 @@ public class Login {
         alert.showAndWait();
     }
 
-//    private String hashPassword(String password) {
-//        try {
-//            MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            byte[] hashedBytes = md.digest(password.getBytes());
-//
-//            // Convert the byte array to a hexadecimal string
-//            StringBuilder sb = new StringBuilder();
-//            for (byte b : hashedBytes) {
-//                sb.append(String.format("%02x", b));
-//            }
-//
-//            return sb.toString();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-    public static String hashPassword(String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(13));
-        return hashedPassword;
+    private String getCurrentUser() {
+        Preferences preferences = Preferences.userNodeForPackage(Login.class);
+        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 
     private void setCurrentUser(int userId) {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         preferences.put(USER_PREF_KEY, String.valueOf(userId));
         System.out.println("Current User saved: " + userId);
-    }
-
-    private String getCurrentUser() {
-        Preferences preferences = Preferences.userNodeForPackage(Login.class);
-        return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
 }

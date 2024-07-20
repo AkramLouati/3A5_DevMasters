@@ -20,29 +20,21 @@ import java.util.ResourceBundle;
 
 public class ModifierMunicipality implements Initializable {
 
+    File selectedFile = null;
+    ServiceMuni serviceMuni = new ServiceMuni();
     @FXML
     private ImageView ImageM;
-
     @FXML
     private PasswordField pfConfirmMdp;
-
     @FXML
     private PasswordField pfMdp;
-
     @FXML
     private Button pickImageButton;
-
     @FXML
     private TextField tfEmail;
-
     @FXML
     private TextField tfNom;
-
-    File selectedFile = null;
-
     private Municipality muni;
-
-    ServiceMuni serviceMuni = new ServiceMuni();
 
     public void setData(Municipality muni) {
         this.muni = muni;
@@ -74,10 +66,10 @@ public class ModifierMunicipality implements Initializable {
         if (isAnyFieldEmpty()) {
             showAlert("Veuillez remplir tous les champs!");
         } else if (!pwd.isEmpty() || !confirmPwd.isEmpty()) {
-            if(pwd.isEmpty() || confirmPwd.isEmpty()){
+            if (pwd.isEmpty() || confirmPwd.isEmpty()) {
                 showAlert("Veuillez remplir tous les champs!");
-            }else {
-                if(!pwd.equals(confirmPwd)){
+            } else {
+                if (!pwd.equals(confirmPwd)) {
                     showAlert("Vérifier votre mot de passe!");
                 } else {
                     // Mettre à jour les données de la muni avec le mot de passe
@@ -86,9 +78,9 @@ public class ModifierMunicipality implements Initializable {
                     muni.setPassword_muni(pwd);
 
 
-                    if(selectedFile == null){
+                    if (selectedFile == null) {
                         muni.setImage(muni.getImage());
-                    }else {
+                    } else {
                         muni.setImage(selectedFile.getAbsolutePath());
                     }
                     serviceMuni.modifier(muni);
@@ -106,9 +98,9 @@ public class ModifierMunicipality implements Initializable {
             muni.setEmail_muni(email);
 
 
-            if(selectedFile == null){
+            if (selectedFile == null) {
                 muni.setImage(muni.getImage());
-            }else {
+            } else {
                 muni.setImage(selectedFile.getAbsolutePath());
             }
             serviceMuni.modifier(muni);

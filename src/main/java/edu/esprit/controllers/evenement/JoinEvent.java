@@ -25,6 +25,20 @@ public class JoinEvent {
     private VBox MainLeftSidebar;
 
     private boolean isSidebarVisible = true;
+    @FXML
+    private Text CapMaxF;
+    @FXML
+    private Text CategorieF;
+    @FXML
+    private Text DateDebF;
+    @FXML
+    private Text DateFinF;
+    @FXML
+    private Text NomF;
+    @FXML
+    private ImageView FFFF;
+    @FXML
+    private Button backButtonn;
 
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -76,25 +90,6 @@ public class JoinEvent {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
-    @FXML
-    private Text CapMaxF;
-
-    @FXML
-    private Text CategorieF;
-
-    @FXML
-    private Text DateDebF;
-
-    @FXML
-    private Text DateFinF;
-
-    @FXML
-    private Text NomF;
-
-    @FXML
-    private ImageView FFFF;
-    @FXML
-    private Button backButtonn;
 
     // Method to set event details
     public void setData(Evenement evenement) {
@@ -110,6 +105,7 @@ public class JoinEvent {
             FFFF.setImage(new javafx.scene.image.Image(new File(imagePath).toURI().toString()));
         }
     }
+
     @FXML
     void retournerOnClickk(ActionEvent event) {
         try {
@@ -124,7 +120,6 @@ public class JoinEvent {
         }
 
     }
-
 
 
 }

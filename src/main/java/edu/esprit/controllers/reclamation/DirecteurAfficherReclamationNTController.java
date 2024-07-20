@@ -27,18 +27,16 @@ import java.util.prefs.Preferences;
 
 public class DirecteurAfficherReclamationNTController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceReclamation sr = new ServiceReclamation();
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
+    Set<Reclamation> reclamationSet = sr.getReclamationsNonTraitees();
+    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
@@ -46,11 +44,6 @@ public class DirecteurAfficherReclamationNTController implements Initializable {
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
-    private ServiceReclamation sr=new ServiceReclamation();
-    Set<Reclamation> reclamationSet = sr.getReclamationsNonTraitees();
-    List<Reclamation> reclamationList = new ArrayList<>(reclamationSet);
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,6 +80,7 @@ public class DirecteurAfficherReclamationNTController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -151,6 +145,7 @@ public class DirecteurAfficherReclamationNTController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
@@ -163,6 +158,7 @@ public class DirecteurAfficherReclamationNTController implements Initializable {
             alert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

@@ -35,6 +35,7 @@ public class DirecteurReclamationController implements Initializable {
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -112,6 +113,7 @@ public class DirecteurReclamationController implements Initializable {
             alert.show();
         }
     }
+
     @FXML
     void AfficherStatsAction(ActionEvent event) {
         try {
@@ -124,8 +126,6 @@ public class DirecteurReclamationController implements Initializable {
             alert.show();
         }
     }
-
-
 
 
 }

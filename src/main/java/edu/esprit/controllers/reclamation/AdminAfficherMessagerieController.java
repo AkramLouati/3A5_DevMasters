@@ -3,9 +3,7 @@ package edu.esprit.controllers.reclamation;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Messagerie;
-import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceMessagerie;
-import edu.esprit.services.ServiceReclamation;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -30,18 +28,16 @@ import java.util.prefs.Preferences;
 
 public class AdminAfficherMessagerieController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceMessagerie sm = new ServiceMessagerie();
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
+    Set<Messagerie> messagerieSet = sm.getAll();
+    List<Messagerie> messagerieList = new ArrayList<>(messagerieSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
@@ -51,9 +47,7 @@ public class AdminAfficherMessagerieController implements Initializable {
     private ScrollPane scroll;
     @FXML
     private TextField Recherche;
-    private ServiceMessagerie sm=new ServiceMessagerie();
-    Set<Messagerie> messagerieSet = sm.getAll();
-    List<Messagerie> messagerieList = new ArrayList<>(messagerieSet);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int column = 0;
@@ -154,6 +148,7 @@ public class AdminAfficherMessagerieController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     @FXML
     public void buttonReturnAfficherReclamationBacK(ActionEvent actionEvent) {
         try {
@@ -166,6 +161,7 @@ public class AdminAfficherMessagerieController implements Initializable {
             alert.show();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

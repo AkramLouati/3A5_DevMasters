@@ -5,7 +5,6 @@ import edu.esprit.entities.Actualite;
 import edu.esprit.services.ServiceActualite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -13,28 +12,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class ActualiteController {
 
+    ServiceActualite serviceActualite = new ServiceActualite();
     @FXML
     private Text DateActualiteAff;
     @FXML
     private ImageView ImageActualite;
-
     @FXML
     private Text DescriptionActualiteAff;
-
     @FXML
     private Text TitreActualiteAff;
-
     private Actualite actualite;
-    ServiceActualite serviceActualite = new ServiceActualite();
-
-
 
     public void setData(Actualite actualite) {
         this.actualite = actualite;
@@ -61,7 +53,6 @@ public class ActualiteController {
             }
         }
     }
-
 
 
     public void deleteActualiteAction(ActionEvent actionEvent) {

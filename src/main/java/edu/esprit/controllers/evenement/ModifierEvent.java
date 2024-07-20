@@ -133,7 +133,6 @@ public class ModifierEvent {
     }
 
 
-
     private void updateTextFieldStyles() {
         setFieldStyle(TFnomM, isFieldEmpty(TFnomM));
         setFieldStyle(TFdateDebM, isFieldEmpty(TFdateDebM));

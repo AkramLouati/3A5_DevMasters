@@ -33,7 +33,7 @@ public class ChartContainerController {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         DefaultPieDataset dataset = new DefaultPieDataset();
         sortedUserTaskCounts.forEach((user, count) -> {
-            dataset.setValue(user.getNom() + " (" + count + ")", (Number) count); // Including task count in label
+            dataset.setValue(user.getNom() + " (" + count + ")", count); // Including task count in label
         });
         JFreeChart chart = ChartFactory.createPieChart(
                 "Top 10 Utilisateurs avec plus taches Done",

@@ -24,25 +24,18 @@ import java.util.prefs.Preferences;
 
 public class MainGuiControllerBack {
 
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser endUser = serviceUser.getOneByID(userId);
     @FXML
     private Button BTNGestionAct;
     @FXML
     private BorderPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
-
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId = Integer.parseInt(getCurrentUser());
-
-    EndUser endUser = serviceUser.getOneByID(userId);
-
     private boolean isSidebarVisible = true;
 
     @FXML

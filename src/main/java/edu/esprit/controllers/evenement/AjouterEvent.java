@@ -15,42 +15,30 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.prefs.Preferences;
 
 public class AjouterEvent {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceEvenement serviceEvenement = new ServiceEvenement();
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
     private EventDashboard eventDashboardController;
-
     @FXML
     private TextField TFnom;
-
     @FXML
     private TextField TFdateDeb;
-
     @FXML
     private TextField TFdateFin;
-
     @FXML
     private TextField TFcapacite;
-
     @FXML
     private TextField TFcategorie;
-
     @FXML
     private ImageView imageID;
-
     private String imagePath; // Variable to store the path of the selected image
-
-    private final ServiceEvenement serviceEvenement = new ServiceEvenement();
 
     @FXML
     void AjoutEventClick(ActionEvent event) {
@@ -163,7 +151,6 @@ public class AjouterEvent {
     }
 
 
-
     private void updateTextFieldStyles() {
         setFieldStyle(TFnom, isFieldEmpty(TFnom) || !isString(TFnom.getText()));
         setFieldStyle(TFdateDeb, isFieldEmpty(TFdateDeb));
@@ -219,9 +206,11 @@ public class AjouterEvent {
             e.printStackTrace();
         }
     }
+
     public void setEventDashboardController(EventDashboard eventDashboardController) {
         this.eventDashboardController = eventDashboardController;
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

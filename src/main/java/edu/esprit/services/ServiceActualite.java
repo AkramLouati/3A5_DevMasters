@@ -1,20 +1,17 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Actualite;
-
 import edu.esprit.entities.EndUser;
-import edu.esprit.entities.Municipality;
-import edu.esprit.entities.Publicite;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ServiceActualite implements IService<Actualite>{
+public class ServiceActualite implements IService<Actualite> {
     Connection cnx = DataSource.getInstance().getCnx();
+
     @Override
     public void ajouter(Actualite actualite) {
         // Basic input validation to ensure all required fields are filled
@@ -132,7 +129,7 @@ public class ServiceActualite implements IService<Actualite>{
 
     @Override
     public Actualite getOneByID(int id) {
-        Actualite act =null;
+        Actualite act = null;
         String req = "SELECT * FROM `actualite` WHERE `id_a`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -158,6 +155,7 @@ public class ServiceActualite implements IService<Actualite>{
         }
         return act;
     }
+
     private boolean actualiteExists(int id_a) {
         String req = "SELECT COUNT(*) FROM `actualite` WHERE `id_a`=?";
         try {

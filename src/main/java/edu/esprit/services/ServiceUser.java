@@ -32,7 +32,7 @@ public class ServiceUser implements IService<EndUser> {
             ps.setBoolean(9, false);
             ps.setBoolean(10, true);
             ps.executeUpdate();
-            System.out.printf("User added!!");
+            System.out.print("User added!!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -134,7 +134,7 @@ public class ServiceUser implements IService<EndUser> {
         try {
             st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -146,7 +146,7 @@ public class ServiceUser implements IService<EndUser> {
                 String image = rs.getString("image_user");
                 boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                EndUser p = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image, isBanned);
+                EndUser p = new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image, isBanned);
                 users.add(p);
             }
         } catch (SQLException e) {
@@ -164,7 +164,7 @@ public class ServiceUser implements IService<EndUser> {
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -176,7 +176,7 @@ public class ServiceUser implements IService<EndUser> {
                 String image = rs.getString("image_user");
                 boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image, isBanned);
+                endUser = new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image, isBanned);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -192,7 +192,7 @@ public class ServiceUser implements IService<EndUser> {
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setString(1, mail);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id_user");
                 String nom = rs.getString("nom_user");
                 String email = rs.getString("email_user");
@@ -204,7 +204,7 @@ public class ServiceUser implements IService<EndUser> {
                 String image = rs.getString("image_user");
                 boolean isBanned = rs.getBoolean("isBanned");
                 Municipality muni = new ServiceMuni().getOneByID(id_muni);
-                endUser = new EndUser(id,email,nom,password,type,phoneNumber,muni,location,image,isBanned);
+                endUser = new EndUser(id, email, nom, password, type, phoneNumber, muni, location, image, isBanned);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

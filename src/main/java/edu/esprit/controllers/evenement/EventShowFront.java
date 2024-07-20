@@ -28,6 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class EventShowFront implements Initializable {
+    public BorderPane firstborderpane;
     @FXML
     private VBox eventsLayout;
     private Scene currentScene;
@@ -36,6 +37,13 @@ public class EventShowFront implements Initializable {
     private TextField searchEvenement;
     @FXML
     private Label countLabelFront;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,7 +89,8 @@ public class EventShowFront implements Initializable {
         evenement.setCategorie(evenement.getCategorie());
         evenementList.add(evenement);
     }
-    public void RechercherEvent(String searchEvenement, List<Evenement> evenementList ) {
+
+    public void RechercherEvent(String searchEvenement, List<Evenement> evenementList) {
         List<Evenement> filteredList = evenementList.stream()
                 .filter(evenement -> evenement.getNomEvent().toLowerCase().startsWith(searchEvenement.toLowerCase()))
                 .collect(Collectors.toList());
@@ -110,8 +119,6 @@ public class EventShowFront implements Initializable {
         RechercherEvent(searchText, getEvenements());
     }
 
-
-
     public void loadEvents() {
         // Effacer les événements existants de l'interface
         eventsLayout.getChildren().clear();
@@ -133,19 +140,11 @@ public class EventShowFront implements Initializable {
             }
         }
     }
+
     private void closeCurrentWindow() {
         Stage stage = (Stage) eventsLayout.getScene().getWindow();
         stage.close();
     }
-
-    public BorderPane firstborderpane;
-    @FXML
-    private AnchorPane MainAnchorPaneBaladity;
-    @FXML
-    private BorderPane SecondBorderPane;
-    @FXML
-    private VBox MainLeftSidebar;
-    private boolean isSidebarVisible = true;
 
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
@@ -197,6 +196,7 @@ public class EventShowFront implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     @FXML
     private void openWebPageCit() {
         try {
@@ -209,10 +209,11 @@ public class EventShowFront implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void countEvents() {
         List<Evenement> evenements = getEvenements();
         int EventCount = evenements.size();
-        countLabelFront.setText("Il existe"   + EventCount + " événements programmés.");
+        countLabelFront.setText("Il existe" + EventCount + " événements programmés.");
     }
 
 }

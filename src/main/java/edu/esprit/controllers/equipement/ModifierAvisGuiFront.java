@@ -72,9 +72,10 @@ public class ModifierAvisGuiFront {
     void BTNGestionTache(ActionEvent event) {
 
     }
+
     @FXML
     void modifierAvisAction(ActionEvent event) {
-        if (avis != null && sa!= null) {
+        if (avis != null && sa != null) {
             // Créer une boîte de dialogue de confirmation
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cet avis ?");
@@ -117,10 +118,12 @@ public class ModifierAvisGuiFront {
         }
 
     }
+
     public void setServiceAvis(ServiceAvis sa) {
         this.sa = sa;
 
     }
+
     public void setData(Avis avis) {
         this.avis = avis;
         // Assurez-vous que l'équipement n'est pas null
@@ -130,7 +133,7 @@ public class ModifierAvisGuiFront {
             noteeqmodif.setRating(avis.getNote_avis());
             java.util.Date dateModif = avis.getDate_avis();
 
-        // Vérifier si la date d'ajout n'est pas null
+            // Vérifier si la date d'ajout n'est pas null
             if (dateModif != null) {
                 // Convertir la date en java.sql.Date
                 java.sql.Date sqlDateModifier = new java.sql.Date(dateModif.getTime());
@@ -143,7 +146,7 @@ public class ModifierAvisGuiFront {
             }
 
 
-            }
+        }
     }
 
 

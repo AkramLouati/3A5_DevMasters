@@ -14,28 +14,42 @@ import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.Objects;
 
 public class ModifierMdp {
 
+    ServiceUser serviceUser = new ServiceUser();
+    EndUser endUser = new EndUser();
+    String confirmNouveauPwd;
+    String nouveauPwd;
+    String email;
     @FXML
     private PasswordField pfConfirmerNouveauMdp;
-
     @FXML
     private PasswordField pfNouveauMdp;
 
-    ServiceUser serviceUser = new ServiceUser();
-
-    EndUser endUser = new EndUser();
-    String confirmNouveauPwd ;
-
-    String nouveauPwd ;
-
-    String email;
+    //    private String hashPassword(String password) {
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            byte[] hashedBytes = md.digest(password.getBytes());
+//
+//            // Convert byte array to hexadecimal representation
+//            StringBuilder stringBuilder = new StringBuilder();
+//            for (byte b : hashedBytes) {
+//                stringBuilder.append(String.format("%02x", b));
+//            }
+//
+//            return stringBuilder.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            // Handle the exception appropriately
+//            return null;
+//        }
+//    }
+    public static String hashPassword(String password) {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(13));
+        return hashedPassword;
+    }
 
     public void setData(String email) throws Exception {
         this.email = email;
@@ -50,7 +64,7 @@ public class ModifierMdp {
 
         endUser = serviceUser.getOneByEmail(email);
 
-        if(nouveauPwd.isEmpty() || confirmNouveauPwd.isEmpty()){
+        if (nouveauPwd.isEmpty() || confirmNouveauPwd.isEmpty()) {
             showAlert("Veuillez remplir tous les champs!");
         } else if (!nouveauPwd.equals(confirmNouveauPwd)) {
             showAlert("Vérifier votre mot de passe!");
@@ -74,29 +88,6 @@ public class ModifierMdp {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-//    private String hashPassword(String password) {
-//        try {
-//            MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            byte[] hashedBytes = md.digest(password.getBytes());
-//
-//            // Convert byte array to hexadecimal representation
-//            StringBuilder stringBuilder = new StringBuilder();
-//            for (byte b : hashedBytes) {
-//                stringBuilder.append(String.format("%02x", b));
-//            }
-//
-//            return stringBuilder.toString();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//            // Handle the exception appropriately
-//            return null;
-//        }
-//    }
-    public static String hashPassword(String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(13));
-        return hashedPassword;
     }
 
     private void showAlert(String message) {

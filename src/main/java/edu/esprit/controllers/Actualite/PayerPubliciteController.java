@@ -1,6 +1,7 @@
 package edu.esprit.controllers.Actualite;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -8,15 +9,11 @@ import com.stripe.param.PaymentIntentCreateParams;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
 import edu.esprit.services.ServiceUser;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-
-import com.itextpdf.text.pdf.PdfWriter;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,7 +27,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,56 +35,37 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 
-import javafx.scene.control.Alert;
-
-
-
 public class PayerPubliciteController implements Initializable {
 
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServicePublicite sp = new ServicePublicite();
+    ServiceUser serviceUser = new ServiceUser();
+    EndUser endUser = new EndUser();
     private AjouterPubliciteController ajouterPubliciteController;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private Button PayerButtonAction;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private Button exportPDFAction;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private TextField nompaiement;
-
     @FXML
     private TextField numCarte;
-
     @FXML
     private ComboBox<String> offrePubCombo1;
-
     @FXML
     private TextField prenompaiement;
-
     @FXML
     private Button toAdd;
-
     private boolean isSidebarVisible = true;
-    private final ServicePublicite sp = new ServicePublicite();
     private String imagePath;
-
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-
-    EndUser endUser = new EndUser();
-
     @FXML
     private Button buttonMain1;
     private String selectedOffer;
@@ -340,7 +317,7 @@ public class PayerPubliciteController implements Initializable {
         try {
             numCarteInt = Integer.parseInt(numCarteText);
         } catch (NumberFormatException e) {
-        //    showAlert(Alert.AlertType.WARNING, "Avertissement", "Le numéro de carte n'est pas un entier valide.");
+            //    showAlert(Alert.AlertType.WARNING, "Avertissement", "Le numéro de carte n'est pas un entier valide.");
         }
 
         String selectedOffer = offrePubCombo1.getValue();

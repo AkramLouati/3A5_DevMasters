@@ -3,7 +3,6 @@ package edu.esprit.controllers.user;
 import edu.esprit.controllers.camera.Camera;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
-import edu.esprit.services.GMailer;
 import edu.esprit.services.ServiceMuni;
 import edu.esprit.services.ServiceUser;
 import javafx.collections.FXCollections;
@@ -15,9 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -37,52 +36,48 @@ import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
 
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("[0-9]");
+    private static final int OTP_LENGTH = 6;
+    private static final String USER_PREF_KEY = "current_user";
+    String imagePath;
+    File selectedFile = null;
+    Municipality muni;
+    ServiceUser serviceUser = new ServiceUser();
+    ServiceMuni serviceMuni = new ServiceMuni();
+    String otp;
+    Camera camera;
     @FXML
     private ImageView ImageF = null;
-
     @FXML
     private ComboBox<String> muniSelectionComboBox;
-
     @FXML
     private PasswordField pfConfirmMotDePasse;
-
     @FXML
     private PasswordField pfMotDePasse;
-
     @FXML
     private Button pickImageButton;
-
     @FXML
     private Button takePictureButton;
-
     @FXML
     private TextField tfAddresse;
-
     @FXML
     private TextField tfEmail;
-
     @FXML
     private TextField tfNom;
-
     @FXML
     private TextField tfTel;
 
-    String imagePath;
+    public static String generateOTP() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder otp = new StringBuilder(OTP_LENGTH);
 
-    File selectedFile = null;
+        for (int i = 0; i < OTP_LENGTH; i++) {
+            otp.append(random.nextInt(10));
+        }
 
-    Municipality muni;
-    ServiceUser serviceUser = new ServiceUser();
-
-    ServiceMuni serviceMuni = new ServiceMuni();
-
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
-
-    private static final Pattern PHONE_PATTERN = Pattern.compile("[0-9]");
-
-    private static final int OTP_LENGTH = 6;
-    String otp;
-    private static final String USER_PREF_KEY = "current_user";
+        return otp.toString();
+    }
 
     @FXML
     void registerAction(ActionEvent event) throws Exception {
@@ -111,23 +106,23 @@ public class RegisterController implements Initializable {
         } else {
             otp = generateOTP();
             String content = String.format("""
-            
-            Cher(e) %s,
-                     
-            Merci de vous être inscrit(e) sur Baladity. Pour finaliser votre inscription, veuillez utiliser le code de validation ci-dessous:
-                     
-            Code de Validation : %s
-                     
-            Veuillez ne pas partager ce code avec d'autres personnes.
-                     
-            Si vous n'avez pas créé de compte sur Baladity, veuillez ignorer ce message.
-                     
-            Cordialement,
-            Baladity
-            """,nom,otp);
+                                
+                    Cher(e) %s,
+                             
+                    Merci de vous être inscrit(e) sur Baladity. Pour finaliser votre inscription, veuillez utiliser le code de validation ci-dessous:
+                             
+                    Code de Validation : %s
+                             
+                    Veuillez ne pas partager ce code avec d'autres personnes.
+                             
+                    Si vous n'avez pas créé de compte sur Baladity, veuillez ignorer ce message.
+                             
+                    Cordialement,
+                    Baladity
+                    """, nom, otp);
             String hashedPwd = hashPassword(motDePasse);
             String imageName = selectedFile.getName(); // Get the name of the selected file
-            if(selectedFile != null){
+            if (selectedFile != null) {
                 imagePath = selectedFile.getAbsolutePath();
             }
 //        new GMailer(email).sendMail("Code de Validation", content);
@@ -166,7 +161,6 @@ public class RegisterController implements Initializable {
         }
     }
 
-
     @FXML
     void muniSelection(ActionEvent event) {
 
@@ -178,9 +172,6 @@ public class RegisterController implements Initializable {
 
     }
 
-
-
-    Camera camera;
     @FXML
     void takePictureAction(ActionEvent event) {
 
@@ -258,17 +249,6 @@ public class RegisterController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static String generateOTP() {
-        SecureRandom random = new SecureRandom();
-        StringBuilder otp = new StringBuilder(OTP_LENGTH);
-
-        for (int i = 0; i < OTP_LENGTH; i++) {
-            otp.append(random.nextInt(10));
-        }
-
-        return otp.toString();
     }
 
     private String hashPassword(String password) {

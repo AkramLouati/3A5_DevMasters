@@ -13,7 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -46,7 +49,7 @@ public class AdminDashboard implements Initializable {
     @FXML
     private TextField tfRecherche;
 
-    void userItem(List<EndUser> userList){
+    void userItem(List<EndUser> userList) {
         //Users list
         List<EndUser> users = new ArrayList<>(userList);
         for (EndUser user : users) {
@@ -54,7 +57,6 @@ public class AdminDashboard implements Initializable {
             URL location = getClass().getResource("/user/UserItem.fxml");
             fxmlLoader.setLocation(location);
 //            fxmlLoader.setLocation(getClass().getResource("UserItem.fxml"));
-
 
 
             try {
@@ -89,7 +91,6 @@ public class AdminDashboard implements Initializable {
 //            fxmlLoader.setLocation(getClass().getResource("UserItem.fxml"));
 
 
-
             try {
                 HBox hBox = fxmlLoader.load();
                 MuniItem cic = fxmlLoader.getController();
@@ -101,7 +102,7 @@ public class AdminDashboard implements Initializable {
         }
     }
 
-    private List<EndUser> users(){
+    private List<EndUser> users() {
         List<EndUser> userList = new ArrayList<>();
 //        EndUser user = new EndUser();
 
@@ -112,13 +113,13 @@ public class AdminDashboard implements Initializable {
         // Utilisation de la boucle for-each
         for (EndUser user : list) {
             // Faire quelque chose avec chaque utilisateur (EndUser)
-            itemUser(user,userList);
+            itemUser(user, userList);
         }
 
         return userList;
     }
 
-    private List<Municipality> munis(){
+    private List<Municipality> munis() {
         List<Municipality> muniList = new ArrayList<>();
 
         ServiceMuni serviceMuni = new ServiceMuni();
@@ -128,13 +129,13 @@ public class AdminDashboard implements Initializable {
         // Utilisation de la boucle for-each
         for (Municipality muni1 : list) {
             // Faire quelque chose avec chaque utilisateur (EndUser)
-            itemMuni(muni1,muniList);
+            itemMuni(muni1, muniList);
         }
 
         return muniList;
     }
 
-    void itemUser(EndUser user,List<EndUser> userList){
+    void itemUser(EndUser user, List<EndUser> userList) {
         user.setNom(user.getNom());
         user.setImage(user.getImage());
         user.setPhoneNumber(user.getPhoneNumber());
@@ -143,7 +144,7 @@ public class AdminDashboard implements Initializable {
         userList.add(user);
     }
 
-    void itemMuni(Municipality muni, List<Municipality> muniList){
+    void itemMuni(Municipality muni, List<Municipality> muniList) {
         muni.setNom_muni(muni.getNom_muni());
         muniList.add(muni);
     }
@@ -236,7 +237,7 @@ public class AdminDashboard implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
-    private void filterProducts(String searchText, List<EndUser> userList ) {
+    private void filterProducts(String searchText, List<EndUser> userList) {
         // Filter the productList based on the searchText
         List<EndUser> filteredList = userList.stream()
                 .filter(user ->
@@ -249,6 +250,7 @@ public class AdminDashboard implements Initializable {
         // Display the filtered results
         userItem(filteredList);
     }
+
     @FXML
     void filterByName(ActionEvent event) {
 

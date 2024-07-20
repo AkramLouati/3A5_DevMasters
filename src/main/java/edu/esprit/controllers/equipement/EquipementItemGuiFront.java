@@ -1,4 +1,5 @@
 package edu.esprit.controllers.equipement;
+
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
@@ -17,38 +18,37 @@ import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class EquipementItemGuiFront {
+    // Votre identifiant Twilio
+    private static final String ACCOUNT_SID = "ACc889cd2b52f6a09ca714c967c8c33cd1";
+    // Votre token d'authentification Twilio
+    private static final String AUTH_TOKEN = "03899d558cdf5574b4566b0f644c7781";
+    // Votre numéro Twilio (numéro de téléphone Twilio)
+    private static final String TWILIO_NUMBER = "+19284400733";
+    ServiceEquipement serviceEquipement = new ServiceEquipement();
     @FXML
     private Button avisFButton;
-
     @FXML
     private Text categorieitemTFF;
-
     @FXML
     private Text dateajoutitemTFF;
-
     @FXML
     private Text descriptionitemTAF;
-
     @FXML
     private ImageView imageViewaffiche;
-
     @FXML
     private Text nomitemTFF;
-
     @FXML
     private Text quantiteitemTFF;
-
     @FXML
     private Text referenceitemTFF;
-
     @FXML
     private Button useButton;
     @FXML
     private Button rendreButton;
     private int quantiteInitiale;
+    private Equipement equipement;
 
     @FXML
     void utiliserEquipementAction(ActionEvent event) {
@@ -77,13 +77,6 @@ public class EquipementItemGuiFront {
         }
     }
 
-    // Votre identifiant Twilio
-    private static final String ACCOUNT_SID = "ACc889cd2b52f6a09ca714c967c8c33cd1";
-    // Votre token d'authentification Twilio
-    private static final String AUTH_TOKEN = "03899d558cdf5574b4566b0f644c7781";
-    // Votre numéro Twilio (numéro de téléphone Twilio)
-    private static final String TWILIO_NUMBER = "+19284400733";
-
     // Méthode pour envoyer un SMS à l'administrateur
     public void envoyerSmsAdmin() {
         try {
@@ -111,6 +104,7 @@ public class EquipementItemGuiFront {
             // Afficher un message d'erreur ou effectuer une action appropriée
         }
     }
+
     @FXML
     void rendreEquipementAction(ActionEvent event) {
         // Incrémenter la quantité d'équipement disponible
@@ -140,8 +134,7 @@ public class EquipementItemGuiFront {
             alert.show();
         }
     }
-    private Equipement equipement;
-    ServiceEquipement serviceEquipement = new ServiceEquipement();
+
     public void setData(Equipement equipement) {
         this.equipement = equipement;
         nomitemTFF.setText(equipement.getNom_eq());

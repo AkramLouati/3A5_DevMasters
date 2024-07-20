@@ -3,6 +3,7 @@ package edu.esprit.controllers.reclamation;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
 import javafx.animation.TranslateTransition;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,20 +14,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import javax.swing.*;
-import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import javafx.embed.swing.SwingNode;
+
+import javax.swing.*;
+import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class ShowStatsController implements Initializable {
@@ -58,7 +57,7 @@ public class ShowStatsController implements Initializable {
         Showstats.getChildren().add(swingNode);
         SwingNode lineChartSwingNode = new SwingNode();
         lineChartSwingNode.setContent(createLineChartSwingContent());
-        showstatsnbr.getChildren().add(lineChartSwingNode);;
+        showstatsnbr.getChildren().add(lineChartSwingNode);
 
     }
 
@@ -126,6 +125,7 @@ public class ShowStatsController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     private JComponent createSwingContent() {
         // Create your JFreeChart here (e.g., using a method)
         JFreeChart jFreeChart = createPieChart();
@@ -173,6 +173,7 @@ public class ShowStatsController implements Initializable {
                 false
         );
     }
+
     private JFreeChart createLineChart() {
         // Créez un dataset pour stocker les données de la courbe
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -215,6 +216,7 @@ public class ShowStatsController implements Initializable {
 
         return chart;
     }
+
     private JComponent createLineChartSwingContent() {
         // Créez votre graphique de ligne ici
         JFreeChart lineChart = createLineChart();
@@ -240,7 +242,6 @@ public class ShowStatsController implements Initializable {
             alert.show();
         }
     }
-
 
 
 }

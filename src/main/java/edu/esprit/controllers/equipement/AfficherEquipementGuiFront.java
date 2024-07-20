@@ -29,34 +29,29 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 public class AfficherEquipementGuiFront implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServiceEquipement se = new ServiceEquipement();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
+    Set<Equipement> equipementSet = se.getAll();
+    List<Equipement> equipementList = new ArrayList<>(equipementSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private GridPane grid;
-
     @FXML
     private ScrollPane scroll;
-
     @FXML
     private ComboBox<String> categoryComboBox;
     @FXML
     private TextField searchField;
-    private static final String USER_PREF_KEY = "current_user";
 
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
-    private ServiceEquipement se = new ServiceEquipement();
-    Set<Equipement> equipementSet = se.getAll();
-    List<Equipement> equipementList = new ArrayList<>(equipementSet);
     @FXML
     void BTNGestionAct(ActionEvent event) {
 
@@ -81,6 +76,7 @@ public class AfficherEquipementGuiFront implements Initializable {
     void BTNGestionTache(ActionEvent event) {
 
     }
+
     @FXML
     void searchEquipments(ActionEvent event) {
         String searchTerm = searchField.getText().trim();
@@ -113,6 +109,7 @@ public class AfficherEquipementGuiFront implements Initializable {
             refreshGrid(sortedList);
         }
     }
+
     private void refreshGrid(List<Equipement> equipments) {
         grid.getChildren().clear(); // Effacer la grille actuelle
         int column = 0;
@@ -141,13 +138,15 @@ public class AfficherEquipementGuiFront implements Initializable {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialisez la liste d'équipements
-        ObservableList<String> categories = FXCollections.observableArrayList("Fixe", "Mobile","Sélectionner une catégorie");
+        ObservableList<String> categories = FXCollections.observableArrayList("Fixe", "Mobile", "Sélectionner une catégorie");
         categoryComboBox.setItems(categories);
         refreshEquipments();
     }
+
     private void refreshEquipments() {
         // Obtenez tous les équipements initialement
         Set<Equipement> equipementSet = se.getAll();
@@ -155,6 +154,7 @@ public class AfficherEquipementGuiFront implements Initializable {
         // Rafraîchissez la grille avec les équipements initiaux
         refreshGrid(equipementList);
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

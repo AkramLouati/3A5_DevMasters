@@ -5,7 +5,10 @@ import edu.esprit.entities.Municipality;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.utils.DataSource;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +28,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 !reclamation.getDescription_reclamation().isEmpty() &&
                 !reclamation.getAdresse_reclamation().isEmpty();
     }
+
     @Override
     public void ajouter(Reclamation reclamation) {
         String req = "INSERT INTO `reclamation`(`id_user`, `id_muni`, `sujet_reclamation`,`date_reclamation`, `type_reclamation`, `description_reclamation`, `status_reclamation`, `image_reclamation`, `adresse_reclamation`) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -33,7 +37,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             ps.setInt(1, reclamation.getUser().getId());
             ps.setInt(2, reclamation.getMunicipality().getId_muni());
             ps.setString(3, reclamation.getSujet_reclamation());
-            ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
+            ps.setDate(4, reclamation.getDate_reclamation());
             ps.setString(5, reclamation.getType_reclamation());
             ps.setString(6, reclamation.getDescription_reclamation());
             ps.setString(7, "non traité");
@@ -45,6 +49,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             System.out.println("Erreur lors de l'ajout de la réclamation : " + e.getMessage());
         }
     }
+
     private boolean reclamationExists(int id_reclamation) {
         String req = "SELECT COUNT(*) FROM `reclamation` WHERE `id_reclamation`=?";
         try {
@@ -70,7 +75,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 ps.setInt(1, reclamation.getUser().getId());
                 ps.setInt(2, reclamation.getMunicipality().getId_muni());
                 ps.setString(3, reclamation.getSujet_reclamation());
-                ps.setDate(4, (java.sql.Date) reclamation.getDate_reclamation());
+                ps.setDate(4, reclamation.getDate_reclamation());
                 ps.setString(5, reclamation.getType_reclamation());
                 ps.setString(6, reclamation.getDescription_reclamation());
                 ps.setString(7, reclamation.getStatus_reclamation());
@@ -136,7 +141,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 EndUser user = serviceUser.getOneByID(id_user);
                 Municipality muni = serviceMuni.getOneByID(id_muni);
 
-                Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation,date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
+                Reclamation r = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
                 reclamations.add(r);
             }
         } catch (SQLException e) {
@@ -168,13 +173,14 @@ public class ServiceReclamation implements IService<Reclamation> {
                 EndUser user = serviceUser.getOneByID(id_user);
                 Municipality muni = serviceMuni.getOneByID(id_muni);
 
-                reclamation = new Reclamation(id_reclamation, user, muni, sujet_reclamation,date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
+                reclamation = new Reclamation(id_reclamation, user, muni, sujet_reclamation, date_reclamation, type_reclamation, description_reclamation, status_reclamation, image_reclamation, adresse_reclamation);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return reclamation;
     }
+
     public Set<Reclamation> getReclamationsByUser(EndUser user) {
         Set<Reclamation> userReclamations = new HashSet<>();
         String req = "SELECT * FROM `reclamation` WHERE `id_user`=? ORDER BY date_reclamation ASC";
@@ -203,6 +209,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return userReclamations;
     }
+
     public boolean reclamationExists(String sujet, String description) {
         try {
             String req = "SELECT COUNT(*) FROM `reclamation` WHERE `sujet_reclamation`=? AND `description_reclamation`=?";
@@ -219,6 +226,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return false; // Par défaut, retourne false en cas d'exception
     }
+
     public Set<Reclamation> getReclamationsNonTraitees() {
         Set<Reclamation> reclamationsNonTraitees = new HashSet<>();
         String req = "SELECT * FROM `reclamation` WHERE `status_reclamation`=? ORDER BY date_reclamation ASC";
@@ -249,6 +257,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return reclamationsNonTraitees;
     }
+
     public Set<Reclamation> getReclamationsTraitees() {
         Set<Reclamation> reclamationsTraitees = new HashSet<>();
         String req = "SELECT * FROM `reclamation` WHERE `status_reclamation`=? ORDER BY date_reclamation ASC";
@@ -279,6 +288,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return reclamationsTraitees;
     }
+
     public Set<Reclamation> getReclamationsEnCoursTraitees() {
         Set<Reclamation> reclamationsEnCoursTraitees = new HashSet<>();
         String req = "SELECT * FROM `reclamation` WHERE `status_reclamation`=? ORDER BY date_reclamation ASC";
@@ -309,7 +319,6 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return reclamationsEnCoursTraitees;
     }
-
 
 
 }

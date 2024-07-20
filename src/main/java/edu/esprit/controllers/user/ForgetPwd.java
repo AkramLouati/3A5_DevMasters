@@ -18,10 +18,9 @@ import java.util.ResourceBundle;
 
 public class ForgetPwd implements Initializable {
 
+    private static final int OTP_LENGTH = 6;
     String email;
     String nom;
-    private static final int OTP_LENGTH = 6;
-
     String otp;
 
     @FXML
@@ -47,6 +46,17 @@ public class ForgetPwd implements Initializable {
 //                """,nom, otp);
 //        new GMailer(email).sendMail("Code de Vérification", content);
 //    }
+
+    public static String generateOTP() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder otp = new StringBuilder(OTP_LENGTH);
+
+        for (int i = 0; i < OTP_LENGTH; i++) {
+            otp.append(random.nextInt(10));
+        }
+
+        return otp.toString();
+    }
 
     @FXML
     void VerifierOTPButton(ActionEvent event) {
@@ -110,19 +120,8 @@ public class ForgetPwd implements Initializable {
                                 
                 Cordialement,
                 Baladity
-                """,nom, otp);
+                """, nom, otp);
         new GMailer(email).sendMail("Code de Vérification", content);
-    }
-
-    public static String generateOTP() {
-        SecureRandom random = new SecureRandom();
-        StringBuilder otp = new StringBuilder(OTP_LENGTH);
-
-        for (int i = 0; i < OTP_LENGTH; i++) {
-            otp.append(random.nextInt(10));
-        }
-
-        return otp.toString();
     }
 
     private void showAlert(String message) {

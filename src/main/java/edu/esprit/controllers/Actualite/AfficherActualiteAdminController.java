@@ -1,6 +1,5 @@
 package edu.esprit.controllers.Actualite;
 
-import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Actualite;
 import edu.esprit.services.ServiceActualite;
 import javafx.animation.TranslateTransition;
@@ -23,30 +22,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AfficherActualiteAdminController implements Initializable {
+    private final ServiceActualite sr = new ServiceActualite();
+    Set<Actualite> actualiteSet = sr.getAll();
+    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
     private TextField RechercherActualiteAdmin;
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-
     @FXML
     private GridPane gridAdmin;
-
     @FXML
     private ImageView imgView_actualite;
-
     @FXML
     private ScrollPane scrollAdmin;
-
-
-    private ServiceActualite sr = new ServiceActualite();
-    Set<Actualite> actualiteSet = sr.getAll();
-    List<Actualite> actualiteList = new ArrayList<>(actualiteSet);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,40 +49,42 @@ public class AfficherActualiteAdminController implements Initializable {
 
         affichergrid(actualiteList);
     }
-        void affichergrid(List<Actualite> actualiteList){
-            int column = 0;
-            int row = 1;
-            try {
-                for (int i = 0; i < actualiteList.size(); i++) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/ActualiteGui/ActualiteItem.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
 
-                    ActualiteController itemController = fxmlLoader.getController();
-                    itemController.setData(actualiteList.get(i));
+    void affichergrid(List<Actualite> actualiteList) {
+        int column = 0;
+        int row = 1;
+        try {
+            for (int i = 0; i < actualiteList.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/ActualiteGui/ActualiteItem.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
 
-                    if (column == 1) {
-                        column = 0;
-                        row++;
-                    }
+                ActualiteController itemController = fxmlLoader.getController();
+                itemController.setData(actualiteList.get(i));
 
-                    gridAdmin.add(anchorPane, column++, row); //(child,column,row)
-                    //set grid width
-                    gridAdmin.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    gridAdmin.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    gridAdmin.setMaxWidth(Region.USE_PREF_SIZE);
-
-                    //set grid height
-                    gridAdmin.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    gridAdmin.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    gridAdmin.setMaxHeight(Region.USE_PREF_SIZE);
-
-                    GridPane.setMargin(anchorPane, new Insets(10));
+                if (column == 1) {
+                    column = 0;
+                    row++;
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                gridAdmin.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                gridAdmin.setMinWidth(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                gridAdmin.setMinHeight(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                gridAdmin.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -154,13 +149,14 @@ public class AfficherActualiteAdminController implements Initializable {
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     private void displayFilteredActualites(List<Actualite> filteredList) {
 
 
     }
 
 
-    public void RechercherActualiteAdmin(String searchText, List<Actualite> actualiteList ) {
+    public void RechercherActualiteAdmin(String searchText, List<Actualite> actualiteList) {
         List<Actualite> filteredList = actualiteList.stream()
                 .filter(actualite -> actualite.getTitre_a().toLowerCase().contains(searchText))
                 .collect(Collectors.toList());
@@ -196,4 +192,4 @@ public class AfficherActualiteAdminController implements Initializable {
             alert.show();
         }
     }
-    }
+}

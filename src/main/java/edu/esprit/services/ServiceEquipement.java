@@ -37,6 +37,7 @@ public class ServiceEquipement implements IService<Equipement> {
             System.out.println("Erreur lors de l'ajout de l'équipement : " + e.getMessage());
         }
     }
+
     private boolean equipementExists(int id_equipement) {
         String req = "SELECT COUNT(*) FROM `equipement` WHERE `id_equipement`=?";
         try {
@@ -52,6 +53,7 @@ public class ServiceEquipement implements IService<Equipement> {
         }
         return false; // Par défaut, retourne false en cas d'exception
     }
+
     @Override
     public void modifier(Equipement equipement) {
         if (equipementExists(equipement.getId_equipement())) {
@@ -78,7 +80,7 @@ public class ServiceEquipement implements IService<Equipement> {
                 System.out.println("Échec de la modification de l'equipement avec ID " + equipement.getId_equipement() + ". Erreur : " + e.getMessage());
             }
         } else {
-            System.out.println("Equipement avec ID " + equipement.getId_equipement()+ " n'existe pas.");
+            System.out.println("Equipement avec ID " + equipement.getId_equipement() + " n'existe pas.");
         }
     }
 
@@ -123,7 +125,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
 
                 // Création de l'équipement et ajout à la liste
-                Equipement equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user,muni);
+                Equipement equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user, muni);
                 equipements.add(equipement);
             }
         } catch (SQLException e) {
@@ -159,13 +161,14 @@ public class ServiceEquipement implements IService<Equipement> {
                 Municipality muni = serviceMuni.getOneByID(id_muni);
 
                 // Création de l'équipement
-                equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user,muni);
+                equipement = new Equipement(id_equipement, reference_eq, nom_eq, categorie_eq, date_ajouteq, quantite_eq, image_eq, description_eq, user, muni);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'équipement : " + e.getMessage());
         }
         return equipement;
     }
+
     public boolean isReferenceUnique(String reference) {
         boolean isUnique = true;
         String query = "SELECT COUNT(*) FROM equipement WHERE reference_eq = ?";
@@ -182,6 +185,7 @@ public class ServiceEquipement implements IService<Equipement> {
 
         return isUnique;
     }
+
     public Set<Equipement> searchEquipments(String searchTerm) {
         Set<Equipement> matchingEquipments = new HashSet<>();
 

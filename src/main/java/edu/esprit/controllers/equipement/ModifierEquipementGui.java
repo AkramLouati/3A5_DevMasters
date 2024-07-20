@@ -22,7 +22,6 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -77,7 +76,7 @@ public class ModifierEquipementGui {
     @FXML
     private Button telechargerimagemodif;
     private ServiceEquipement se;
-    private Equipement equipement ;
+    private Equipement equipement;
     private String imagePath;
     private Label label;
 
@@ -110,6 +109,7 @@ public class ModifierEquipementGui {
     void BTNGestionUser(ActionEvent event) {
 
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -157,69 +157,67 @@ public class ModifierEquipementGui {
     void modifierEquipementAction(ActionEvent event) {
 
         // Vérifier si tous les champs sont valides
-            if (equipement != null && se != null) {
+        if (equipement != null && se != null) {
 
-                // Créer une boîte de dialogue de confirmation
-                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette equipement ?");
-                confirmationAlert.setTitle("Confirmation de modification");
+            // Créer une boîte de dialogue de confirmation
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier cette equipement ?");
+            confirmationAlert.setTitle("Confirmation de modification");
 
-                // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
-                Optional<ButtonType> result = confirmationAlert.showAndWait();
+            // Afficher la boîte de dialogue et attendre la réponse de l'utilisateur
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-                // Vérifier si l'utilisateur a cliqué sur le bouton OK
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
-                    equipement.setReference_eq(referencemodifTF.getText());
-                    equipement.setNom_eq(nommodifTF.getText());
-                    equipement.setQuantite_eq(quantitemodifCB.getValue());
-                    equipement.setDescription_eq(descriptionmodifTF.getText());
-                    LocalDate dateSelectionnee = dateajoutmodif.getValue();
-                    if (dateSelectionnee != null) {
-                        // Convertir LocalDate en java.sql.Date
-                        Date dateSQL = Date.valueOf(dateSelectionnee);
-                        equipement.setDate_ajouteq(dateSQL);
-                    } else {
-                        // Gérer le cas où aucune date n'a été sélectionnée
-                        showAlert(Alert.AlertType.WARNING, "Date non sélectionnée", "Veuillez sélectionner une date.");
-                        return; // Sortir de la méthode car la date est requise
-                    }
-                    equipement.setImage_eq(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
+            // Vérifier si l'utilisateur a cliqué sur le bouton OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Mettre à jour les données de la réclamation avec les valeurs des champs de texte
+                equipement.setReference_eq(referencemodifTF.getText());
+                equipement.setNom_eq(nommodifTF.getText());
+                equipement.setQuantite_eq(quantitemodifCB.getValue());
+                equipement.setDescription_eq(descriptionmodifTF.getText());
+                LocalDate dateSelectionnee = dateajoutmodif.getValue();
+                if (dateSelectionnee != null) {
+                    // Convertir LocalDate en java.sql.Date
+                    Date dateSQL = Date.valueOf(dateSelectionnee);
+                    equipement.setDate_ajouteq(dateSQL);
+                } else {
+                    // Gérer le cas où aucune date n'a été sélectionnée
+                    showAlert(Alert.AlertType.WARNING, "Date non sélectionnée", "Veuillez sélectionner une date.");
+                    return; // Sortir de la méthode car la date est requise
+                }
+                equipement.setImage_eq(imagePath); // imagePath peut être nul si aucune image n'est sélectionnée
+                try {
+                    // Appeler la méthode de modification du service de réclamation
+                    se.modifier(equipement);
+
+                    // Afficher un message de succès
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setContentText("equipement modifiée avec succès !");
+                    successAlert.setTitle("Modification réussie");
+                    successAlert.show();
+
+                    // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
                     try {
-                        // Appeler la méthode de modification du service de réclamation
-                        se.modifier(equipement);
-
-                        // Afficher un message de succès
-                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                        successAlert.setContentText("equipement modifiée avec succès !");
-                        successAlert.setTitle("Modification réussie");
-                        successAlert.show();
-
-                        // Rediriger l'utilisateur vers la vue précédente (par exemple, la liste des réclamations)
-                        try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
-                            modifiquipementbtn.getScene().setRoot(root);
-                        } catch (IOException e) {
-                            // Gérer l'exception si la redirection échoue
-                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                            errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
-                            errorAlert.setTitle("Erreur de redirection");
-                            errorAlert.show();
-                        }
-                    } catch (Exception e) {
-                        // Afficher un message d'erreur en cas d'échec de la modification
+                        Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
+                        modifiquipementbtn.getScene().setRoot(root);
+                    } catch (IOException e) {
+                        // Gérer l'exception si la redirection échoue
                         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setContentText("Erreur lors de la modification de la réclamation : " + e.getMessage());
-                        errorAlert.setTitle("Erreur de modification");
+                        errorAlert.setContentText("Une erreur s'est produite lors de la redirection.");
+                        errorAlert.setTitle("Erreur de redirection");
                         errorAlert.show();
                     }
+                } catch (Exception e) {
+                    // Afficher un message d'erreur en cas d'échec de la modification
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText("Erreur lors de la modification de la réclamation : " + e.getMessage());
+                    errorAlert.setTitle("Erreur de modification");
+                    errorAlert.show();
                 }
             }
+        }
     }
 
     //}
-
-
 
 
     @FXML
@@ -238,7 +236,7 @@ public class ModifierEquipementGui {
 
     @FXML
     void selectQuantite(ActionEvent event) {
-        Integer selectedQuantity = (Integer) quantitemodifCB.getSelectionModel().getSelectedItem();
+        Integer selectedQuantity = quantitemodifCB.getSelectionModel().getSelectedItem();
 
     }
 
@@ -311,9 +309,6 @@ public class ModifierEquipementGui {
             }
         });
     }
-
-
-
 
 
     public void setServiceEquipement(ServiceEquipement se) {

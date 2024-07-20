@@ -16,16 +16,15 @@ import java.util.prefs.Preferences;
 
 public class ModifierCommentaireTacheController {
 
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private TextArea commentField;
     private CommentaireTache commentaireTache;
     private ServiceCommentaireTache serviceCommentaireTache;
     private Tache tache;
-    private static final String USER_PREF_KEY = "current_user";
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId = Integer.parseInt(getCurrentUser());
-    EndUser user = serviceUser.getOneByID(userId);
 
     public void setData(CommentaireTache commentaireTache) {
         this.commentaireTache = commentaireTache;
@@ -57,6 +56,7 @@ public class ModifierCommentaireTacheController {
         Stage stage = (Stage) commentField.getScene().getWindow();
         stage.close();
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

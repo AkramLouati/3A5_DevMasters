@@ -26,27 +26,22 @@ import java.util.Set;
 
 public class DetailTacheController {
 
+    private final ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
     public BorderPane firstborderpane;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
     @FXML
     private Text TFEtatDetail, TFdateDebutDetail, TFdateFinDetail, TFdescriptionDetail, TFTitreDetail, TFCategorieDetail;
-
     @FXML
     private ImageView PieceJointedetail;
-
     @FXML
     private TextField txt_date_C, txt_text_C;
-
     private Tache tache;
-
-    private ServiceCommentaireTache serviceCommentaireTache = new ServiceCommentaireTache();
 
     public void setData(Tache tache) {
         this.tache = tache;

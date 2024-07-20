@@ -1,17 +1,11 @@
 package edu.esprit.controllers.user;
 
-import com.twilio.rest.chat.v1.service.User;
-import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Municipality;
 import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,54 +13,39 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
 
-public class UserAccount implements Initializable{
-
-    @FXML
-    private Label label;
-
-    @FXML
-    private ImageView imageF;
-
-    @FXML
-    private PasswordField pfMotDePasse;
-
-    @FXML
-    private PasswordField pfConfirmMotDePasse;
-
-    @FXML
-    private TextField tfAddresse;
-
-    @FXML
-    private TextField tfEmail;
-
-    @FXML
-    private TextField tfNom;
-
-    @FXML
-    private TextField tfNumTel;
-
-    @FXML
-    private Button uploadbutton_modifier;
+public class UserAccount implements Initializable {
 
     private static final String USER_PREF_KEY = "current_user";
-
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$");
-
-    File selectedFile;
-
-    ServiceUser serviceUser = new ServiceUser();
     private final int userId = Integer.parseInt(getCurrentUser());
-
+    File selectedFile;
+    ServiceUser serviceUser = new ServiceUser();
     EndUser user = serviceUser.getOneByID(userId);
+    @FXML
+    private Label label;
+    @FXML
+    private ImageView imageF;
+    @FXML
+    private PasswordField pfMotDePasse;
+    @FXML
+    private PasswordField pfConfirmMotDePasse;
+    @FXML
+    private TextField tfAddresse;
+    @FXML
+    private TextField tfEmail;
+    @FXML
+    private TextField tfNom;
+    @FXML
+    private TextField tfNumTel;
+    @FXML
+    private Button uploadbutton_modifier;
 
     @FXML
     void modifierUser(ActionEvent event) {
@@ -79,21 +58,22 @@ public class UserAccount implements Initializable{
         String type = user.getType();
         Municipality muni = user.getMuni();
 
-        if(nom.isEmpty() || email.isEmpty() || numTel.isEmpty() || addresse.isEmpty() || imageF == null){
+        if (nom.isEmpty() || email.isEmpty() || numTel.isEmpty() || addresse.isEmpty() || imageF == null) {
             System.out.println(selectedFile.getAbsolutePath());
             showAlert("Veuillez remplir tous les champs!");
         } else if (!EMAIL_PATTERN.matcher(email).matches()) {
             showAlert("Veuillez entrer un email valid!");
-        }if(!password.isEmpty() || !confirmPassword.isEmpty()){
-            if(!password.isEmpty() && !confirmPassword.isEmpty()){
-                if(password.equals(confirmPassword)){
+        }
+        if (!password.isEmpty() || !confirmPassword.isEmpty()) {
+            if (!password.isEmpty() && !confirmPassword.isEmpty()) {
+                if (password.equals(confirmPassword)) {
 //                    String hashedPassword = hashPassword(password);
-                    serviceUser.modifier(new EndUser(userId, email,nom,password,type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false));
+                    serviceUser.modifier(new EndUser(userId, email, nom, password, type, numTel, muni, addresse, selectedFile.getAbsolutePath(), false));
                     showAlert("User Updated");
                 } else showAlert("Vérifier votre mot de passe!");
             } else showAlert("Veuillez remplir les deux champs");
-        }  else {
-            EndUser endUser = new EndUser(userId, email,nom,user.getPassword(),type,numTel,muni,addresse,selectedFile.getAbsolutePath(),false);
+        } else {
+            EndUser endUser = new EndUser(userId, email, nom, user.getPassword(), type, numTel, muni, addresse, selectedFile.getAbsolutePath(), false);
             serviceUser.modifier(endUser);
             showAlert("User Updated");
         }

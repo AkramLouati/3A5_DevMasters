@@ -3,6 +3,8 @@ package edu.esprit.entities;
 import java.util.Objects;
 
 public class Publicite {
+    EndUser endUser;
+    Actualite actualite;
     private int id_pub;
     private String titre_pub;
     private String Description_pub;
@@ -10,9 +12,6 @@ public class Publicite {
     private String localisation_pub;
     private String image_pub;
     private String offre_pub;
-
-    EndUser endUser;
-    Actualite actualite;
 
 
     public Publicite(String text, String tFdescriptionpubText, String tFcontactpubText, String tFlocalisationpubText, String dvd, Object offre_pub, EndUser user, Actualite actualite) {
@@ -148,6 +147,7 @@ public class Publicite {
     public int hashCode() {
         return Objects.hash(id_pub);
     }
+
     public int getDisplayDuration() {
         switch (this.offre_pub) {
             case "3 mois :50dt":

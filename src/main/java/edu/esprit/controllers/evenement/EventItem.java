@@ -16,7 +16,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -94,7 +97,6 @@ public class EventItem implements Initializable {
     }
 
 
-
     @FXML
     void SupprimerEvenementClick(ActionEvent event) {
         if (evenement != null) {
@@ -149,6 +151,7 @@ public class EventItem implements Initializable {
             alert.show();
         }
     }
+
     // Méthode pour actualiser la vue des événements
     private void actualiserVueEvenements() {
         // Redirection vers la vue précédente (par exemple, la liste des événements)
@@ -163,6 +166,7 @@ public class EventItem implements Initializable {
             errorAlert.show();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

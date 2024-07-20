@@ -30,38 +30,31 @@ import java.util.prefs.Preferences;
 
 public class AfficherAvisGui implements Initializable {
 
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServiceAvis sa = new ServiceAvis();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
+    Set<Avis> avisSet;
+    List<Avis> avisList;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private GridPane grid;
-
     @FXML
     private Button retourEquipement;
-
     @FXML
     private ScrollPane scroll;
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
-    private ServiceAvis sa = new ServiceAvis();
     private ServiceEquipement serviceEquipement;
     private Equipement equipement;
-    Set<Avis> avisSet;
-    List<Avis> avisList;
 
     public void setData(Equipement equipement) {
         this.equipement = equipement;
@@ -69,9 +62,11 @@ public class AfficherAvisGui implements Initializable {
         avisList = new ArrayList<>(avisSet);
         initializeAvisGrid(); // Call the method to initialize the grid with data
     }
+
     public void setServiceEquipement(ServiceEquipement serviceEquipement) {
         this.serviceEquipement = serviceEquipement;
     }
+
     private void initializeAvisGrid() {
         int column = 0;
         int row = 1;
@@ -193,10 +188,12 @@ public class AfficherAvisGui implements Initializable {
             alert.show();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

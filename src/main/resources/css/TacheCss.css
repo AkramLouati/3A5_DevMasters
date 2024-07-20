@@ -40,9 +40,11 @@
     -fx-border-radius: 10;
     -fx-border-width: 2;
 }
-.scroll-pane{
+
+.scroll-pane {
     -fx-border-width: 4;
 }
+
 Label {
     -fx-text-fill: #012545;
     /*-fx-border-color: #012545;
@@ -51,7 +53,7 @@ Label {
 }
 
 Text {
-    -fx-fill:  #012545;
+    -fx-fill: #012545;
 }
 
 /* Validation icon styling */

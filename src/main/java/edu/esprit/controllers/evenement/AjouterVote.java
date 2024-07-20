@@ -11,27 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
 import java.util.prefs.Preferences;
 
 public class AjouterVote {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceVote serviceVote = new ServiceVote();
     ServiceUser serviceUser = new ServiceUser();
-
-    int userId  = Integer.parseInt(getCurrentUser());
-
+    int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
-
     private VoteList voteListController;
-
     @FXML
     private TextField TDdesc;
-
     @FXML
     private TextField TFdateS;
-
-    private final ServiceVote serviceVote = new ServiceVote();
 
     public void setVoteListController(VoteList voteListController) {
         this.voteListController = voteListController;
@@ -42,7 +34,7 @@ public class AjouterVote {
         if (validateFields()) {
 
             // Récupération de l'utilisateur actuel (à remplacer par votre mécanisme d'authentification)
-             // Exemple : suppose que l'utilisateur actuel a l'ID 1
+            // Exemple : suppose que l'utilisateur actuel a l'ID 1
 
             // Création du vote
             Vote vote = new Vote(
@@ -111,6 +103,7 @@ public class AjouterVote {
             voteListController.loadVotes();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

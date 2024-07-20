@@ -4,16 +4,13 @@ import edu.esprit.entities.EndUser;
 import edu.esprit.entities.Evenement;
 import edu.esprit.utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceEvenement implements IService<Evenement> {
     Connection cnx = DataSource.getInstance().getCnx();
+
     @Override
     public void ajouter(Evenement evenement) {
         if (!validateEvenement(evenement)) {

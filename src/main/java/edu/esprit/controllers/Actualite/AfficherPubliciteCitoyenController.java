@@ -25,41 +25,29 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+public class AfficherPubliciteCitoyenController implements Initializable {
 
-
-public class AfficherPubliciteCitoyenController implements Initializable{
-
+    private final ServicePublicite servicePublicite = new ServicePublicite();
+    private final Duration scrollInterval = Duration.seconds(10);
+    Set<Publicite> publiciteSet = servicePublicite.getAll();
+    List<Publicite> publiciteList = new ArrayList<>(publiciteSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
     private Button retoutActCitoyen;
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private GridPane gridPubC;
-
     @FXML
     private ScrollPane scrollPubC;
-
     private boolean isSidebarVisible = true;
-    private ServicePublicite servicePublicite = new ServicePublicite();
-    Set<Publicite> publiciteSet = servicePublicite.getAll();
-    List<Publicite> publiciteList = new ArrayList<>(publiciteSet);
     private int actualiteId; // New variable to store the id_a
-
     private int currentIndex = 0;
-    private final Duration scrollInterval = Duration.seconds(10);
     private Timeline timeline;
 
     public void setActualiteId(int actualiteId) {
@@ -151,18 +139,18 @@ public class AfficherPubliciteCitoyenController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            // Add the first advertisement during initialization
-            updateDisplayedAdvertisement();
+        // Add the first advertisement during initialization
+        updateDisplayedAdvertisement();
 
-            // Start the timeline to switch advertisements every 30 seconds
-            timeline = new Timeline(
-                    new KeyFrame(scrollInterval, event -> {
-                        // Update the displayed advertisement
-                        updateDisplayedAdvertisement();
-                    })
-            );
-            timeline.setCycleCount(Timeline.INDEFINITE);
-            timeline.play();
+        // Start the timeline to switch advertisements every 30 seconds
+        timeline = new Timeline(
+                new KeyFrame(scrollInterval, event -> {
+                    // Update the displayed advertisement
+                    updateDisplayedAdvertisement();
+                })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         int column = 0;
         int row = 1;
@@ -197,8 +185,6 @@ public class AfficherPubliciteCitoyenController implements Initializable{
             e.printStackTrace();
         }
     }
-
-
 
 
     @FXML

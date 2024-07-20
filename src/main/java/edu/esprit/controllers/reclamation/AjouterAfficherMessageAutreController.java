@@ -32,42 +32,33 @@ public class AjouterAfficherMessageAutreController implements Initializable {
 
     ServiceUser serviceUser = new ServiceUser();
 
-    int userId  = Integer.parseInt(getCurrentUser());
+    int userId = Integer.parseInt(getCurrentUser());
 
     EndUser user = serviceUser.getOneByID(userId);
-
-
+    ServiceReclamation serviceReclamation = new ServiceReclamation();
+    ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+    EndUser userDirecteur = new EndUser(51);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private Label Nameuser;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private TextField TFmessage;
-
     @FXML
     private ScrollPane chatVbox;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private GridPane grid;
     @FXML
     private ImageView userphoto;
-    ServiceReclamation serviceReclamation = new ServiceReclamation();
-    ServiceMessagerie serviceMessagerie= new ServiceMessagerie();
-
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
     private boolean isSidebarVisible = true;
-    EndUser userDirecteur = new EndUser(51);
+    private Reclamation reclamation;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,9 +69,10 @@ public class AjouterAfficherMessageAutreController implements Initializable {
 
 
     }
-    private void affichergrid(){
+
+    private void affichergrid() {
         ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
-        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(51,user.getId());
+        Set<Messagerie> messages = serviceMessagerie.getAllMessagesByReciverAndSender(51, user.getId());
         List<Messagerie> messagerieList = new ArrayList<>(messages);
         int column = 0;
         int row = 1;
@@ -115,6 +107,7 @@ public class AjouterAfficherMessageAutreController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -145,7 +138,6 @@ public class AjouterAfficherMessageAutreController implements Initializable {
 
         sideBarTransition.play();
     }
-
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
 
@@ -180,11 +172,6 @@ public class AjouterAfficherMessageAutreController implements Initializable {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
 
-    private Reclamation reclamation;
-
-
-
-
     @FXML
     void sendMessage(ActionEvent event) {
         String messageContent = TFmessage.getText();
@@ -217,6 +204,7 @@ public class AjouterAfficherMessageAutreController implements Initializable {
     public void setServiceReclamation(ServiceReclamation serviceReclamation) {
         this.serviceReclamation = serviceReclamation;
     }
+
     @FXML
     void buttonReturnAfficherReclamation(ActionEvent event) {
         try {
@@ -229,6 +217,7 @@ public class AjouterAfficherMessageAutreController implements Initializable {
             alert.show();
         }
     }
+
     private boolean isTextFieldEmpty(TextField textField) {
         return textField.getText().trim().isEmpty();
     }
@@ -242,6 +231,7 @@ public class AjouterAfficherMessageAutreController implements Initializable {
         }
         return false;
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

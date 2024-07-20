@@ -1,4 +1,5 @@
 package edu.esprit.controllers.reclamation;
+
 import edu.esprit.entities.Messagerie;
 import edu.esprit.services.ServiceMessagerie;
 import javafx.event.ActionEvent;
@@ -17,22 +18,18 @@ import java.util.Optional;
 
 public class AdminMessagerieItemComponentController {
 
+    ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
     @FXML
     private AnchorPane AnchoPaneMessage1111;
-
     @FXML
     private Label ReceiverName;
-
     @FXML
     private ImageView arrowrightimg;
-
     @FXML
     private Label datemessagerie;
-
     @FXML
     private Label senderName;
     private Messagerie messagerie;
-    ServiceMessagerie serviceMessagerie = new ServiceMessagerie();
 
     @FXML
     void MessageEditAction(ActionEvent event) {
@@ -88,7 +85,7 @@ public class AdminMessagerieItemComponentController {
 
     }
 
-    public void setData(Messagerie messagerie){
+    public void setData(Messagerie messagerie) {
         this.messagerie = messagerie;
         senderName.setText(messagerie.getSender_message().getNom());
         ReceiverName.setText(messagerie.getReceiver_message().getNom());

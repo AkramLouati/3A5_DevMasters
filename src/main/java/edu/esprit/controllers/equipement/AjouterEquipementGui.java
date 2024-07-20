@@ -30,63 +30,47 @@ import java.sql.Date;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class AjouterEquipementGui implements Initializable{
+public class AjouterEquipementGui implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServiceEquipement se = new ServiceEquipement();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private Button ajoutequipementbtn;
-
     @FXML
     private RadioButton categoriefixe;
-
     @FXML
     private RadioButton categoriemobile;
-
     @FXML
     private DatePicker dateajout;
-
     @FXML
     private TextArea descriptionTF;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private Label imageequipement;
-
     @FXML
     private ImageView imagevieweq;
-
     @FXML
     private Button navigateequipementbtn;
-
     @FXML
     private TextField nomTF;
-
     @FXML
     private ComboBox<Integer> quantiteCB;
-
     @FXML
     private TextField referenceTF;
-
     @FXML
     private Button telechargerimage;
     private boolean isSidebarVisible = true;
     private String imagePath;
-    private final ServiceEquipement se = new ServiceEquipement();
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private Label referenceErrorLabel;
     @FXML
@@ -166,6 +150,7 @@ public class AjouterEquipementGui implements Initializable{
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {
         MainAnchorPaneBaladity.getChildren().setAll(ajouterAP);
     }
+
     private boolean isQuantiteSelected() {
         return quantiteCB.getValue() != null;
     }
@@ -187,9 +172,10 @@ public class AjouterEquipementGui implements Initializable{
 
     @FXML
     void selectQuantite(ActionEvent event) {
-        Integer selectedQuantity = (Integer) quantiteCB.getSelectionModel().getSelectedItem();
+        Integer selectedQuantity = quantiteCB.getSelectionModel().getSelectedItem();
 
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Integer> list = FXCollections.observableArrayList();
@@ -198,6 +184,7 @@ public class AjouterEquipementGui implements Initializable{
         }
         quantiteCB.setItems(list);
     }
+
     @FXML
     void ajouterEquipementAction(ActionEvent event) {
         Date dateAjout = Date.valueOf(dateajout.getValue());
@@ -220,7 +207,7 @@ public class AjouterEquipementGui implements Initializable{
         } else {
             referenceErrorLabel.setVisible(false);
         }
-        String nom=nomTF.getText();
+        String nom = nomTF.getText();
         if (nom.isEmpty() || !nom.matches("[a-zA-Z]+")) {
             nomErrorLabel.setText("Le nom ne doit pas être vide et doit contenir uniquement des lettres.");
             nomErrorLabel.setVisible(true);

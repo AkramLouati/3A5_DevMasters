@@ -1,7 +1,6 @@
 package edu.esprit.controllers.reclamation;
-import edu.esprit.entities.Messagerie;
+
 import edu.esprit.entities.Reclamation;
-import edu.esprit.services.ServiceMessagerie;
 import edu.esprit.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -20,28 +18,25 @@ import java.util.Optional;
 
 public class ReclamationItemComponentMessagerieController {
 
+    ServiceReclamation serviceReclamation = new ServiceReclamation();
     @FXML
     private Label TFdate_reclamationaff;
-
     @FXML
     private Label TFstatus_reclamationaff;
-
     @FXML
     private Label TFsujet_reclamationaff;
-
     @FXML
     private ImageView arrowrightimg;
-
     private Reclamation reclamation;
     private BorderPane SecondBorderPane;
-    ServiceReclamation serviceReclamation = new ServiceReclamation();
 
-    public void setData(Reclamation reclamation){
+    public void setData(Reclamation reclamation) {
         this.reclamation = reclamation;
         TFsujet_reclamationaff.setText(reclamation.getSujet_reclamation());
         TFdate_reclamationaff.setText(String.valueOf(reclamation.getDate_reclamation()));
         TFstatus_reclamationaff.setText(reclamation.getStatus_reclamation());
     }
+
     @FXML
     void viewDetailReclamationAction(ActionEvent event) {
         try {
@@ -58,6 +53,7 @@ public class ReclamationItemComponentMessagerieController {
             alert.show();
         }
     }
+
     @FXML
     void deleteReclamationAction(ActionEvent event) {
         if (reclamation != null) {
@@ -118,6 +114,7 @@ public class ReclamationItemComponentMessagerieController {
             alert.show();
         }
     }
+
     @FXML
     void mailReclamationAction(ActionEvent event) {
         try {

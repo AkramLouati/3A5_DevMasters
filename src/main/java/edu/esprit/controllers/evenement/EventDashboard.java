@@ -30,6 +30,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class EventDashboard implements Initializable {
+    public BorderPane firstborderpane;
     @FXML
     private VBox eventsLayout;
     private Scene currentScene;
@@ -38,6 +39,13 @@ public class EventDashboard implements Initializable {
     private List<Evenement> evenementList;
     @FXML
     private Label CountLabel;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private VBox MainLeftSidebar;
+    private boolean isSidebarVisible = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -141,6 +149,7 @@ public class EventDashboard implements Initializable {
             alert.show();
         }
     }
+
     public void loadEvents() {
         // Effacer les événements existants de l'interface
         eventsLayout.getChildren().clear();
@@ -162,6 +171,7 @@ public class EventDashboard implements Initializable {
             }
         }
     }
+
     @FXML
     private void openWebPage() {
         try {
@@ -201,16 +211,6 @@ public class EventDashboard implements Initializable {
         stage.close();
     }
 
-
-    public BorderPane firstborderpane;
-    @FXML
-    private AnchorPane MainAnchorPaneBaladity;
-    @FXML
-    private BorderPane SecondBorderPane;
-    @FXML
-    private VBox MainLeftSidebar;
-    private boolean isSidebarVisible = true;
-
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -233,7 +233,8 @@ public class EventDashboard implements Initializable {
 
         sideBarTransition.play();
     }
-    public void RechercherEvent(String searchText, List<Evenement> evenementList ) {
+
+    public void RechercherEvent(String searchText, List<Evenement> evenementList) {
         List<Evenement> filteredList = evenementList.stream()
                 .filter(evenement -> evenement.getNomEvent().toLowerCase().startsWith(searchText.toLowerCase()))
                 .collect(Collectors.toList());
@@ -284,6 +285,7 @@ public class EventDashboard implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     private void countEvents() {
         List<Evenement> evenements = getEvenements();
         int EventCount = evenements.size();
@@ -304,5 +306,5 @@ public class EventDashboard implements Initializable {
             alert.show();
         }
     }
-    }
+}
 

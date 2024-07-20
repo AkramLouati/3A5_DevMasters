@@ -21,42 +21,31 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+public class AfficherPubliciteController implements Initializable {
 
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-
-public class AfficherPubliciteController implements Initializable{
-
-    @FXML
-    private AnchorPane MainAnchorPaneBaladity;
-
-    @FXML
-    private VBox MainLeftSidebar;
-
-    @FXML
-    private BorderPane SecondBorderPane;
-
-    @FXML
-    private BorderPane firstborderpane;
-
-    @FXML
-    private GridPane gridPub;
-
-    @FXML
-    private ScrollPane scrollPub;
-
-    private boolean isSidebarVisible = true;
-    private ServicePublicite servicePublicite = new ServicePublicite();
+    private final ServicePublicite servicePublicite = new ServicePublicite();
     Set<Publicite> publiciteSet = servicePublicite.getAll();
     List<Publicite> publiciteList = new ArrayList<>(publiciteSet);
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private VBox MainLeftSidebar;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private BorderPane firstborderpane;
+    @FXML
+    private GridPane gridPub;
+    @FXML
+    private ScrollPane scrollPub;
+    private boolean isSidebarVisible = true;
     private int actualiteId; // New variable to store the id_a
 
 
     public void setActualiteId(int actualiteId) {
         this.actualiteId = actualiteId;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int column = 0;
@@ -92,8 +81,6 @@ public class AfficherPubliciteController implements Initializable{
             e.printStackTrace();
         }
     }
-
-
 
 
     @FXML

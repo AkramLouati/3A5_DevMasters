@@ -24,48 +24,39 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.prefs.Preferences;
 
 public class AfficherAvisGuiFront implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-
+    private final ServiceAvis sa = new ServiceAvis();
     ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
+    int userId = Integer.parseInt(getCurrentUser());
     //  int userId = 48;
     EndUser user = serviceUser.getOneByID(userId);
-    @FXML
-    private AnchorPane MainAnchorPaneBaladity;
-
-    @FXML
-    private BorderPane SecondBorderPane;
-
-    @FXML
-    private Button ajouterAvisbutton;
-
-    @FXML
-    private BorderPane firstborderpane;
-
-    @FXML
-    private GridPane grid;
-
-    @FXML
-    private Text lesavis;
-
-    @FXML
-    private Button retourEquipement;
-
-    @FXML
-    private ScrollPane scroll;
-
-
-
-
-    private ServiceAvis sa = new ServiceAvis();
-    private ServiceEquipement serviceEquipement;
-    private Equipement equipement;
     Set<Avis> avisSet;
     List<Avis> avisList;
+    @FXML
+    private AnchorPane MainAnchorPaneBaladity;
+    @FXML
+    private BorderPane SecondBorderPane;
+    @FXML
+    private Button ajouterAvisbutton;
+    @FXML
+    private BorderPane firstborderpane;
+    @FXML
+    private GridPane grid;
+    @FXML
+    private Text lesavis;
+    @FXML
+    private Button retourEquipement;
+    @FXML
+    private ScrollPane scroll;
+    private ServiceEquipement serviceEquipement;
+    private Equipement equipement;
 
     public void setData(Equipement equipement) {
         this.equipement = equipement;
@@ -117,6 +108,7 @@ public class AfficherAvisGuiFront implements Initializable {
         }
 
     }
+
     @FXML
     void navigateAvisEquipement(ActionEvent event) {
         try {
@@ -132,9 +124,11 @@ public class AfficherAvisGuiFront implements Initializable {
         }
 
     }
+
     public void setServiceEquipement(ServiceEquipement serviceEquipement) {
         this.serviceEquipement = serviceEquipement;
     }
+
     private void initializeAvisGrid() {
         int column = 0;
         int row = 1;
@@ -169,10 +163,12 @@ public class AfficherAvisGuiFront implements Initializable {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

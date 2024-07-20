@@ -22,27 +22,29 @@ import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class AjouterAvisGuiFront {
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServiceAvis serviceAvis = new ServiceAvis();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
+    java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+    ServiceEquipement serviceEquipement = new ServiceEquipement();
+    Equipement equipement;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private Button ajouterButton;
-
     @FXML
     private TextArea commentaireeq;
-
     @FXML
     private DatePicker dateaviseq;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private Rating noteeq;
-
     @FXML
     private Button retourButton;
     @FXML
@@ -73,14 +75,6 @@ public class AjouterAvisGuiFront {
 
     }
 
-    private final ServiceAvis serviceAvis = new ServiceAvis();
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
-    java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
     @FXML
     void ajouterAvisAction(ActionEvent event) {
         String commentaire_avis = commentaireeq.getText().trim();
@@ -99,7 +93,7 @@ public class AjouterAvisGuiFront {
 
             Date date_avis = Date.valueOf(dateaviseq.getValue()); // Convertissez la valeur du DatePicker en objet Date
             // Créer un nouvel objet Avis avec ces valeurs
-            Avis nouvelAvis = new Avis(equipement,user, user.getMuni(), note_avis, commentaireeq.getText(), date_avis);
+            Avis nouvelAvis = new Avis(equipement, user, user.getMuni(), note_avis, commentaireeq.getText(), date_avis);
 
             // Appeler la méthode de service appropriée pour ajouter cet avis
             serviceAvis.ajouter(nouvelAvis);
@@ -134,12 +128,12 @@ public class AjouterAvisGuiFront {
         }
 
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
-     ServiceEquipement serviceEquipement= new ServiceEquipement();
-    Equipement equipement;
+
     public void setServiceEquipement(ServiceEquipement serviceEquipement) {
         this.serviceEquipement = serviceEquipement;
 

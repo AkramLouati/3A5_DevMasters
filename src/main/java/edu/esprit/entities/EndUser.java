@@ -15,12 +15,14 @@ public class EndUser {
     private boolean isBanned;
     private boolean isVerified;
 
-    public EndUser(){}
-    public EndUser(int id){
-        this.id=id;
+    public EndUser() {
     }
 
-    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image){
+    public EndUser(int id) {
+        this.id = id;
+    }
+
+    public EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image) {
         this.nom = nom;
         this.email = email;
         this.password = password;
@@ -31,7 +33,7 @@ public class EndUser {
         this.image = image;
     }
 
-    public  EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image, boolean isBanned){
+    public EndUser(String nom, String email, String password, String type, String phoneNumber, Municipality muni, String location, String image, boolean isBanned) {
         this.nom = nom;
         this.email = email;
         this.password = password;
@@ -128,11 +130,12 @@ public class EndUser {
         this.image = image;
     }
 
-    public void setBanned(boolean banned) {
-        isBanned = banned;
-    }
     public boolean isBanned() {
         return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.stripe.param.PaymentIntentCreateParams;
 import edu.esprit.controllers.user.Login;
 import edu.esprit.entities.Actualite;
 import edu.esprit.entities.EndUser;
-
 import edu.esprit.entities.Publicite;
 import edu.esprit.services.ServicePublicite;
 import edu.esprit.services.ServiceUser;
@@ -35,12 +34,25 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 public class AjouterPubliciteController implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+    final ServicePublicite sp = new ServicePublicite();
+    @FXML
+    TextField TFcontactpub;
+    @FXML
+    TextField TFdescriptionpub;
+    @FXML
+    TextField TFlocalisationpub;
+    @FXML
+    TextField TFtitrepub;
+    @FXML
+    ComboBox<String> offrePubCombo;
+    String imagePath;
+    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
     private PayerPubliciteController payerPubliciteController;
-
-    public void setPayerPubliciteController(PayerPubliciteController controller) {
-        this.payerPubliciteController = controller;
-    }
-
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -55,6 +67,27 @@ public class AjouterPubliciteController implements Initializable {
     private Label titreAlerte;
     @FXML
     private BorderPane SecondBorderPane;
+    @FXML
+    private Button ajouterPubliciteAction;
+    @FXML
+    private BorderPane firstborderpane;
+    @FXML
+    private ImageView imgView_actualite;
+    @FXML
+    private ImageView imgView_pub;
+    @FXML
+    private Label labelPub;
+    @FXML
+    private Label contactAlerte;
+    @FXML
+    private Button tolistActualite;
+    @FXML
+    private Button uploadbuttonP;
+    private boolean isSidebarVisible = true;
+
+    public void setPayerPubliciteController(PayerPubliciteController controller) {
+        this.payerPubliciteController = controller;
+    }
 
     public String getImagePath() {
         return imagePath;
@@ -63,57 +96,6 @@ public class AjouterPubliciteController implements Initializable {
     public Image getImage() {
         return imgView_pub.getImage();
     }
-
-    @FXML
-    TextField TFcontactpub;
-
-    @FXML
-    TextField TFdescriptionpub;
-
-    @FXML
-    TextField TFlocalisationpub;
-
-    @FXML
-    TextField TFtitrepub;
-
-    @FXML
-    private Button ajouterPubliciteAction;
-
-    @FXML
-    private BorderPane firstborderpane;
-
-    @FXML
-    private ImageView imgView_actualite;
-
-    @FXML
-    private ImageView imgView_pub;
-
-    @FXML
-    private Label labelPub;
-    @FXML
-    private Label contactAlerte;
-
-    @FXML
-    ComboBox<String> offrePubCombo;
-
-    @FXML
-    private Button tolistActualite;
-
-    @FXML
-    private Button uploadbuttonP;
-
-    private boolean isSidebarVisible = true;
-    final ServicePublicite sp = new ServicePublicite();
-    String imagePath;
-
-    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-  //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -236,7 +218,6 @@ public class AjouterPubliciteController implements Initializable {
     }
 
 
-
     @FXML
     public void tolistActualite(ActionEvent actionEvent) {
         try {
@@ -348,7 +329,6 @@ public class AjouterPubliciteController implements Initializable {
             alert.show();
         }
     }
-
 
 
     double getAmountFromOffer(String offer) {

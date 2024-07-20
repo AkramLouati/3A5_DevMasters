@@ -1,29 +1,29 @@
-.profile-layout{
+.profile-layout {
     -fx-background-color: #012545;
     -fx-background-radius: 0 0 50 50;
 }
 
-.button{
+.button {
     -fx-background-color: #002D62;
     -fx-background-radius: 50;
 }
 
-.white-backgroung{
+.white-backgroung {
     -fx-background-color: #fff;
 }
 
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.municipalite{
+.municipalite {
     -fx-background-radius: 0 50 50 50;
 }
 
-.light-grey-background{
+.light-grey-background {
     -fx-background-color: #F3F3F3;
 }
 
-.hyperlink{
+.hyperlink {
     -fx-background-color: #f63232;
 }

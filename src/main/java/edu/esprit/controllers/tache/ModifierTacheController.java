@@ -45,17 +45,14 @@ import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class ModifierTacheController {
+    private static final String USER_PREF_KEY = "current_user";
     //private final ServiceCategorieT serviceCategorieT;
     private final ServiceTache serviceTache;
     public BorderPane firstborderpane;
-
-    private String fileNameWithExtension;
-
     ServiceUser serviceUser = new ServiceUser();
-    private static final String USER_PREF_KEY = "current_user";
-
     int userId = Integer.parseInt(getCurrentUser());
     EndUser user = serviceUser.getOneByID(userId);
+    private String fileNameWithExtension;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -268,8 +265,7 @@ public class ModifierTacheController {
                         .text("Tache Modifier avec succes.")
                         .hideAfter(Duration.seconds(5))
                         .showInformation();
-            }
-            else {
+            } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "La Tache à modifier n'a pas ete trouvee.");
             }
 
@@ -419,6 +415,7 @@ public class ModifierTacheController {
 
     public void BTNGestionTache(ActionEvent actionEvent) {
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");

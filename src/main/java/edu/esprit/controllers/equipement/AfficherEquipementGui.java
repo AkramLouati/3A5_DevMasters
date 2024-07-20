@@ -27,37 +27,29 @@ import java.util.Set;
 import java.util.prefs.Preferences;
 
 public class AfficherEquipementGui implements Initializable {
+    private static final String USER_PREF_KEY = "current_user";
+    private final ServiceEquipement se = new ServiceEquipement();
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    //  int userId = 48;
+    EndUser user = serviceUser.getOneByID(userId);
+    Set<Equipement> equipementSet = se.getAll();
+    List<Equipement> equipementList = new ArrayList<>(equipementSet);
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
-
     @FXML
     private VBox MainLeftSidebar;
     private boolean isSidebarVisible = true;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private BorderPane firstborderpane;
-
     @FXML
     private GridPane grid;
-
     @FXML
     private ScrollPane scroll;
     @FXML
     private Button addequipement;
-
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-    int userId  = Integer.parseInt(getCurrentUser());
-    //  int userId = 48;
-    EndUser user = serviceUser.getOneByID(userId);
-    private ServiceEquipement se = new ServiceEquipement();
-    Set<Equipement> equipementSet = se.getAll();
-    List<Equipement> equipementList = new ArrayList<>(equipementSet);
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -182,7 +174,8 @@ public class AfficherEquipementGui implements Initializable {
             alert.show();
         }
 
-}
+    }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
@@ -190,7 +183,7 @@ public class AfficherEquipementGui implements Initializable {
 
     public void retourbutton(ActionEvent actionEvent) {
         try {
-            if( user.getType().equals("Responsable employé")|| user.getType().equals("Directeur")){
+            if (user.getType().equals("Responsable employé") || user.getType().equals("Directeur")) {
                 System.out.println("Resource URL: " + getClass().getResource("/MainGui.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/MainGui.fxml"));
                 scroll.getScene().setRoot(root);

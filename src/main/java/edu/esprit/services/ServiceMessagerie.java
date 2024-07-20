@@ -12,6 +12,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
     Connection cnx = DataSource.getInstance().getCnx();
     ServiceUser serviceUser = new ServiceUser();
     ServiceMuni serviceMuni = new ServiceMuni();
+
     public boolean validateMessagerie(Messagerie messagerie) {
         return messagerie.getDate_message() != null &&
                 !messagerie.getContenu_message().isEmpty() &&
@@ -19,6 +20,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
                 messagerie.getSender_message() != null &&
                 !messagerie.getType_message().isEmpty();
     }
+
     @Override
     public void ajouter(Messagerie messagerie) {
         if (!validateMessagerie(messagerie)) {
@@ -39,6 +41,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
             System.out.println("Erreur lors de l'ajout du message : " + e.getMessage());
         }
     }
+
     private boolean messageExists(int id_message) {
         String req = "SELECT COUNT(*) FROM `messagerie` WHERE `id_message`=?";
         try {
@@ -54,6 +57,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
         }
         return false;
     }
+
     @Override
     public void modifier(Messagerie messagerie) {
         if (!validateMessagerie(messagerie)) {
@@ -161,6 +165,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
         }
         return messagerie;
     }
+
     public Set<Messagerie> getAllMessagesByReciverAndSender(int senderId, int receiverId) {
         Set<Messagerie> messages = new HashSet<>();
         String req = "SELECT * FROM messagerie WHERE (senderId_message = ? AND receiverId_message = ?) OR (senderId_message = ? AND receiverId_message = ?) ORDER BY id_message";
@@ -191,6 +196,7 @@ public class ServiceMessagerie implements IService<Messagerie> {
         }
         return messages;
     }
+
     public Set<Messagerie> getAllMessagesByUserId(int userId) {
         Set<Messagerie> messages = new HashSet<>();
         String req = "SELECT * FROM messagerie WHERE senderId_message = ? ORDER BY date_message";
@@ -218,7 +224,6 @@ public class ServiceMessagerie implements IService<Messagerie> {
         }
         return messages;
     }
-
 
 
 }

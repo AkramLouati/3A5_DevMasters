@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -17,37 +19,28 @@ import java.net.MalformedURLException;
 import java.util.Optional;
 
 public class EquipementItemController {
+    ServiceEquipement serviceEquipement = new ServiceEquipement();
     @FXML
     private Button avisButton;
-
     @FXML
     private Text categorieitemTF;
-
     @FXML
     private Text dateajoutitemTF;
-
     @FXML
     private Button deleteButton;
-
     @FXML
     private Text descriptionitemTA;
-
     @FXML
     private Button editButton;
-
     @FXML
     private ImageView imageViewaffiche;
-
     @FXML
     private Text nomitemTF;
-
     @FXML
     private Text quantiteitemTF;
-
     @FXML
     private Text referenceitemTF;
-    ServiceEquipement serviceEquipement = new ServiceEquipement();
-
+    private Equipement equipement;
 
     @FXML
     void modifierEquipementAction(ActionEvent event) {
@@ -112,6 +105,7 @@ public class EquipementItemController {
         }
 
     }
+
     @FXML
     void avisEquipementAction(ActionEvent event) {
         if (equipement != null) {
@@ -136,7 +130,6 @@ public class EquipementItemController {
             alert.show();
         }
     }
-    private Equipement equipement;
 
     public void setData(Equipement equipement) {
         this.equipement = equipement;
@@ -166,8 +159,6 @@ public class EquipementItemController {
             }
         }
     }
-
-
 
 
 }

@@ -1,7 +1,6 @@
 package edu.esprit.controllers.Actualite;
 
 import edu.esprit.entities.Actualite;
-import edu.esprit.entities.EndUser;
 import edu.esprit.services.ServiceActualite;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -9,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ModifierActualiteController implements Initializable {
@@ -144,7 +141,6 @@ public class ModifierActualiteController implements Initializable {
     }
 
 
-
     public void setData(Actualite actualite) {
         this.actualite = actualite;
         if (actualite != null) {
@@ -174,12 +170,14 @@ public class ModifierActualiteController implements Initializable {
     public void setServiceActualite(ServiceActualite serviceActualite) {
         this.serviceActualite = serviceActualite;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialiser la taille du SecondBorderPane avec la même largeur que la barre latérale
         double sidebarWidth = MainLeftSidebar.getWidth();
         SecondBorderPane.setPrefWidth(SecondBorderPane.getWidth() + sidebarWidth);
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -212,19 +210,12 @@ public class ModifierActualiteController implements Initializable {
     }
 
 
-
-
-
-
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.show();
     }
-
-
-
 
 
     public void BTNGestionEvennement(ActionEvent actionEvent) {
@@ -248,7 +239,6 @@ public class ModifierActualiteController implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
-
 
 
     public void setMainAnchorPaneContent(AnchorPane ajouterAP) {

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HateSpeechChecker {
 
-    private List<String> badWordsList = new ArrayList<>();
+    private final List<String> badWordsList = new ArrayList<>();
 
     public HateSpeechChecker() {
         loadBadWordsFromExcel();

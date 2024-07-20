@@ -32,16 +32,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.prefs.Preferences;
+
 public class AfficherTacheFrontController implements Initializable {
     private static final String USER_PREF_KEY = "current_user";
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId = Integer.parseInt(getCurrentUser());
-    EndUser user = serviceUser.getOneByID(userId);
     private final ServiceTache ST = new ServiceTache();
     public TextField todoCount;
     public TextField doingCount;
     public TextField doneCount;
+    public BorderPane firstborderpane;
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser user = serviceUser.getOneByID(userId);
     @FXML
     private TextField searchTacheLabel;
     @FXML
@@ -50,7 +51,6 @@ public class AfficherTacheFrontController implements Initializable {
     private GridPane DOING;
     @FXML
     private GridPane DONE;
-    public BorderPane firstborderpane;
     @FXML
     private AnchorPane MainAnchorPaneBaladity;
     @FXML
@@ -161,7 +161,7 @@ public class AfficherTacheFrontController implements Initializable {
                     if (task != null) {
                         // Assuming the grid's ID corresponds to the new state of the task
                         EtatTache newState = EtatTache.valueOf(finalGridPane.getId());
-                        if (newState == EtatTache.TODO && task.getEtat_T() == EtatTache.DONE ) {
+                        if (newState == EtatTache.TODO && task.getEtat_T() == EtatTache.DONE) {
                             // Task is already in the "Done" state, prevent moving
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Warning");
@@ -297,10 +297,12 @@ public class AfficherTacheFrontController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private String getCurrentUser() {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
+
     @FXML
     void BTNToggleSidebar(ActionEvent event) {
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(400), MainLeftSidebar);
@@ -351,9 +353,10 @@ public class AfficherTacheFrontController implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     public void buttonreturnTache(ActionEvent actionEvent) {
         try {
-            if( user.getType().equals("Admin")){
+            if (user.getType().equals("Admin")) {
                 System.out.println("Resource URL: " + getClass().getResource("/MainGuiBack.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/MainGuiBack.fxml"));
             } else {

@@ -21,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -38,31 +37,22 @@ import static edu.esprit.api.Qrcode.generateQRCode;
 
 public class MainGuiController implements Initializable {
 
+    private static final String USER_PREF_KEY = "current_user";
+    ServiceUser serviceUser = new ServiceUser();
+    int userId = Integer.parseInt(getCurrentUser());
+    EndUser endUser = serviceUser.getOneByID(userId);
     @FXML
     private Button BTNGestionAct;
     @FXML
     private BorderPane MainAnchorPaneBaladity;
-
     @FXML
     private BorderPane SecondBorderPane;
-
     @FXML
     private VBox MainLeftSidebar;
-
     @FXML
     private Label userName;
-
     @FXML
     private ImageView imageProfil;
-
-    private static final String USER_PREF_KEY = "current_user";
-
-    ServiceUser serviceUser = new ServiceUser();
-
-    int userId = Integer.parseInt(getCurrentUser());
-
-    EndUser endUser = serviceUser.getOneByID(userId);
-
     private boolean isSidebarVisible = true;
 
     @FXML
@@ -106,8 +96,8 @@ public class MainGuiController implements Initializable {
 
     public void BTNGestionAct(ActionEvent actionEvent) {
         try {
-            if(endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé")|| endUser.getType().equals("Directeur")){
-                    System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
+            if (endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé") || endUser.getType().equals("Directeur")) {
+                System.out.println("Resource URL: " + getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/ActualiteGui/AfficherActualiteCitoyenGui.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
             } else if (endUser.getType().equals("Responsable employé")) {
@@ -130,6 +120,7 @@ public class MainGuiController implements Initializable {
     public void BTNGestionTache(ActionEvent actionEvent) {
 
     }
+
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -139,7 +130,7 @@ public class MainGuiController implements Initializable {
 
     public void BTNGestionReclamation(ActionEvent actionEvent) {
         try {
-            if(endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé")|| endUser.getType().equals("Responsable employé")){
+            if (endUser.getType().equals("Citoyen") || endUser.getType().equals("Employé") || endUser.getType().equals("Responsable employé")) {
                 System.out.println("Resource URL: " + getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/reclamationGui/ReclamationGui.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
@@ -161,6 +152,7 @@ public class MainGuiController implements Initializable {
         Preferences preferences = Preferences.userNodeForPackage(Login.class);
         return preferences.get(USER_PREF_KEY, "DefaultUser");
     }
+
     @FXML
     void chatbotAction(ActionEvent event) {
         try {
@@ -176,7 +168,7 @@ public class MainGuiController implements Initializable {
 
     public void BTNGestionEquipements(ActionEvent actionEvent) {
         try {
-            if( endUser.getType().equals("Responsable employé")|| endUser.getType().equals("Directeur")){
+            if (endUser.getType().equals("Responsable employé") || endUser.getType().equals("Directeur")) {
                 System.out.println("Resource URL: " + getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/equipementGui/AfficherEquipementGui.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
@@ -192,15 +184,15 @@ public class MainGuiController implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
-}
+    }
 
     public void BTNGestionEvent(ActionEvent actionEvent) {
         try {
-            if( endUser.getType().equals("Responsable employé")){
+            if (endUser.getType().equals("Responsable employé")) {
                 System.out.println("Resource URL: " + getClass().getResource("/evenementGui/EventDashboard.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/EventDashboard.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
-            } else if (endUser.getType().equals("Citoyen")||endUser.getType().equals("Directeur")||endUser.getType().equals("Employé")) {
+            } else if (endUser.getType().equals("Citoyen") || endUser.getType().equals("Directeur") || endUser.getType().equals("Employé")) {
                 System.out.println("Resource URL: " + getClass().getResource("/evenementGui/EventShowFront.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/evenementGui/EventShowFront.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
@@ -215,7 +207,7 @@ public class MainGuiController implements Initializable {
     }
 
     public void scan(ActionEvent actionEvent) {
-         // Remplacez par le chemin de votre image
+        // Remplacez par le chemin de votre image
         String data = "https://me-qr.com/link-list/dppVOGFb/show";  // Your data to be encoded in the QR code
 
         try {
@@ -259,7 +251,7 @@ public class MainGuiController implements Initializable {
 
     public void BtnGestionTache(ActionEvent actionEvent) {
         try {
-            if( endUser.getType().equals("Responsable employé") || endUser.getType().equals("Employé") ){
+            if (endUser.getType().equals("Responsable employé") || endUser.getType().equals("Employé")) {
                 System.out.println("Resource URL: " + getClass().getResource("/tacheGui/AfficherTacheFront.fxml"));
                 Parent root = FXMLLoader.load(getClass().getResource("/tacheGui/AfficherTacheFront.fxml"));
                 BTNGestionAct.getScene().setRoot(root);
@@ -279,7 +271,7 @@ public class MainGuiController implements Initializable {
 
     @FXML
     public void modifyUser(ActionEvent event) throws IOException {
-        openForm(event,endUser);
+        openForm(event, endUser);
     }
 
     public void openForm(ActionEvent event, EndUser user) throws IOException {
